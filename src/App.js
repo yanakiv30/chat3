@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom';
 import './App.css';
 
 const API_URL = 'http://localhost:3001';
@@ -19,11 +19,12 @@ function UserList({ users }) {
   );
 }
 
-function UserProfile({ userId, userName, messages }) {
- // messages.map(message=>console.log(message.userId));
-  const userMessages = messages.filter(message => message.userId === +userId);
-  //+user.id is a number now
-  console.log(userMessages);
+function UserProfile({messages, users}) {
+  const params = useParams();
+  const userId= +params.userId;
+  const userName = users.find(x=> x.id ===userId)
+  const userMessages = messages.filter(message => message.userId === userId);  
+ 
 
   return (
     <div className="user-profile-container">
@@ -70,7 +71,7 @@ function App() {
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
 
-    fetch(`${API_URL}/messages`)
+    fetch(`${API_URL}/messages?userId=1`)
       .then(response => response.json())
       .then(data => setMessages(data))
       .catch(error => console.error('Error fetching messages:', error));
@@ -93,7 +94,8 @@ function App() {
     if (newMessage.trim() !== '') {
       const newMessageObject = {
         id: messages.length + 1,
-        userId: +loggedInUser.id, // now  is a number 
+        senderId: +loggedInUser.id, // now  is a number 
+        receiverId:8,
         username: loggedInUser.username,
         content: newMessage
       };
@@ -145,7 +147,7 @@ function App() {
               </div>
             </div>
             <Routes>
-              <Route path="/messages/:userId" element={<UserProfile userId={loggedInUser.id} userName={loggedInUser.username} messages={messages} />} />
+              <Route path="/messages/:userId" element={<UserProfile users={users}  messages={messages} />} />
             </Routes>
           </div>
         ) : (
