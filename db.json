@@ -1,93 +1,162 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "elena",
       "password": "e5"
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "niki",
       "password": "n4"
     },
     {
-      "id": 3,
+      "id": "3",
       "username": "vasil",
       "password": "v5"
+    },
+    {
+      "id": "4",
+      "username": "iliya",
+      "password": "i5"
+    },
+    {
+      "id": "5",
+      "username": "mariya",
+      "password": "m5"
+    },
+    {
+      "id": 6,
+      "username": "gosho",
+      "password": "g5"
     }
   ],
   "messages": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 1,
       "username": "elena",
       "content": "elena-mes1"
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 1,
       "username": "elena",
       "content": "elena-mes2"
     },
     {
-      "id": 3,
+      "id": "3",
       "userId": 2,
       "username": "niki",
       "content": "niki-mes1"
     },
     {
-      "id": 4,
+      "id": "4",
       "userId": 2,
       "username": "niki",
       "content": "niki-mes2"
     },
     {
-      "id": 5,
+      "id": "5",
       "userId": 2,
       "username": "niki",
       "content": "niki-mes3"
     },
     {
-      "id": 6,
+      "id": "6",
       "userId": 2,
       "username": "niki",
       "content": "niki-mes4"
     },
     {
-      "id": 7,
+      "id": "7",
       "userId": 2,
       "username": "niki",
       "content": "hhhh"
     },
     {
-      "id": 8,
+      "id": "8",
       "userId": 1,
       "username": "elena",
       "content": "zdre"
     },
     {
-      "id": 9,
+      "id": "9",
       "userId": 1,
       "username": "elena",
       "content": "jjjjj"
     },
     {
-      "id": 10,
+      "id": "10",
       "userId": 3,
       "username": "vasil",
       "content": "ffff"
     },
     {
-      "id": 11,
+      "id": "11",
       "userId": 3,
       "username": "vasil",
       "content": "kokokopk"
     },
     {
-      "id": 12,
+      "id": "12",
       "userId": 3,
       "username": "vasil",
       "content": "kjbliunij;lkl"
+    },
+    {
+      "id": "13",
+      "userId": 1,
+      "username": "elena",
+      "content": "mes3"
+    },
+    {
+      "id": "14",
+      "userId": 2,
+      "username": "niki",
+      "content": "lllllllllll"
+    },
+    {
+      "id": "17",
+      "userId": 1,
+      "username": "elena",
+      "content": "number1"
+    },
+    {
+      "id": "18",
+      "userId": 1,
+      "username": "elena",
+      "content": "number2"
+    },
+    {
+      "id": "19",
+      "userId": 1,
+      "username": "elena",
+      "content": "number3"
+    },
+    {
+      "id": "20",
+      "userId": 1,
+      "username": "elena",
+      "content": "number4"
+    },
+    {
+      "id": "21",
+      "userId": 1,
+      "username": "elena",
+      "content": "llllllllll"
+    },
+    {
+      "id": "22",
+      "userId": 1,
+      "username": "elena",
+      "content": "llllllllllpppppppppp"
+    },
+    {
+      "id": 21,
+      "userId": 6,
+      "username": "gosho",
+      "content": "hay"
     }
   ]
 }

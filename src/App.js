@@ -1,8 +1,5 @@
-// App.js
-
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import axios from 'axios';
 import './App.css';
 
 const API_URL = 'http://localhost:3001';
@@ -22,8 +19,11 @@ function UserList({ users }) {
   );
 }
 
-function UserProfile({ userId,userName, messages }) {
-  const userMessages = messages.filter(message => message.userId === userId);
+function UserProfile({ userId, userName, messages }) {
+ // messages.map(message=>console.log(message.userId));
+  const userMessages = messages.filter(message => message.userId === +userId);
+  //+user.id is a number now
+  console.log(userMessages);
 
   return (
     <div className="user-profile-container">
@@ -52,25 +52,34 @@ function App() {
       password: newPassword,
     };
 
-    axios.post(`${API_URL}/users`, newUser)
-      .then(response => setUsers([...users, response.data]))
+    fetch(`${API_URL}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then(response => response.json())
+      .then(data => setUsers([...users, data]))
       .catch(error => console.error('Error creating user:', error));
   }
 
   useEffect(() => {
-    axios.get(`${API_URL}/users`)
-      .then(response => setUsers(response.data))
+    fetch(`${API_URL}/users`)
+      .then(response => response.json())
+      .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
 
-    axios.get(`${API_URL}/messages`)
-      .then(response => setMessages(response.data))
+    fetch(`${API_URL}/messages`)
+      .then(response => response.json())
+      .then(data => setMessages(data))
       .catch(error => console.error('Error fetching messages:', error));
   }, []);
 
   const handleLogin = (username, password) => {
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
-      setLoggedInUser(user);
+      setLoggedInUser(user); //user is a object
     } else {
       alert('Invalid credentials');
     }
@@ -84,20 +93,25 @@ function App() {
     if (newMessage.trim() !== '') {
       const newMessageObject = {
         id: messages.length + 1,
-        userId: loggedInUser.id,
+        userId: +loggedInUser.id, // now  is a number 
         username: loggedInUser.username,
         content: newMessage
       };
 
-      axios.post(`${API_URL}/messages`, newMessageObject)
-        .then(response => setMessages([...messages, response.data]))
+      fetch(`${API_URL}/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newMessageObject),
+      })
+        .then(response => response.json())
+        .then(data => setMessages([...messages, data]))
         .catch(error => console.error('Error posting message:', error));
 
       setNewMessage('');
     }
   };
-  console.log('users = ',users);
-  console.log('loggedInUser = ',loggedInUser);
 
   return (
     <Router>
@@ -131,7 +145,7 @@ function App() {
               </div>
             </div>
             <Routes>
-              <Route path="/messages/:userId" element={<UserProfile userId={loggedInUser.id} userName = {loggedInUser.username} messages={messages} />} />
+              <Route path="/messages/:userId" element={<UserProfile userId={loggedInUser.id} userName={loggedInUser.username} messages={messages} />} />
             </Routes>
           </div>
         ) : (
