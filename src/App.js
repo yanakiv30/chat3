@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { v4 as uuid } from 'uuid';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
+import "./App.css";
 
-const API_URL = 'http://localhost:3001';
+const API_URL = "http://localhost:3001";
 
 function UserList({ users }) {
   return (
     <div className="user-list-container">
       <h3>User List</h3>
       <ul>
-        {users.map(user => (
+        {users.map((user) => (
           <li key={user.id}>
             <Link to={`/messages/${user.id}`}>{user.username}</Link>
           </li>
@@ -19,23 +26,61 @@ function UserList({ users }) {
   );
 }
 
-function UserProfile({messages, users}) {
+function UserProfile({ setMessages, loggedInUser, messages, users }) {
+  const [newMessage, setNewMessage] = useState("");
+
   const params = useParams();
-  const userId= +params.userId;
-  const userName = users.find(x=> x.id ===userId)
-  const userMessages = messages.filter(message => message.userId === userId);  
- 
+  const userInListId = params.userId;
+  const userName = users.find((x) => x.id === userInListId).username;
+  const userMessages = messages.filter((message) => (message.receiverId===loggedInUser.id&&message.senderId === userInListId) 
+  ||(message.receiverId === userInListId&&message.senderId===loggedInUser.id));
+
+  const handleSendMessage = () => {
+    if (newMessage.trim() !== "") {
+      const newMessageObject = {
+        id: uuid(),
+        senderId: loggedInUser.id, // now  is not a number
+        receiverId: userInListId,
+        senderUsername: loggedInUser.username,
+        content: newMessage,
+      };
+
+      fetch(`${API_URL}/messages`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMessageObject),
+      })
+        .then((response) => response.json())
+        .then((data) => setMessages([...messages, data]))
+        .catch((error) => console.error("Error posting message:", error));
+
+      setNewMessage("");
+    }
+  };
 
   return (
     <div className="user-profile-container">
-      <h3> Messages from {userName}</h3>
+      <h3> Chat with {userName}</h3>
+     
       <ul>
-        {userMessages.map(message => (
+        {userMessages.map((message) => (
           <li key={message.id}>
-            <strong>{message.username}:</strong> {message.content}
+            <strong>{message.senderUsername}:</strong> {message.content}
           </li>
         ))}
       </ul>
+
+      <div>
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          placeholder="Type your message..."
+        />
+        <button onClick={handleSendMessage}>Send</button>
+      </div>
     </div>
   );
 }
@@ -44,75 +89,51 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
 
   function handleSignUp(newUsername, newPassword) {
     const newUser = {
-      id: users.length + 1,
+      id: uuid(),
       username: newUsername,
       password: newPassword,
     };
 
     fetch(`${API_URL}/users`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(newUser),
     })
-      .then(response => response.json())
-      .then(data => setUsers([...users, data]))
-      .catch(error => console.error('Error creating user:', error));
+      .then((response) => response.json())
+      .then((data) => setUsers([...users, data]))
+      .catch((error) => console.error("Error creating user:", error));
   }
 
   useEffect(() => {
     fetch(`${API_URL}/users`)
-      .then(response => response.json())
-      .then(data => setUsers(data))
-      .catch(error => console.error('Error fetching users:', error));
+      .then((response) => response.json())
+      .then((data) => setUsers(data))
+      .catch((error) => console.error("Error fetching users:", error));
 
-    fetch(`${API_URL}/messages?userId=1`)
-      .then(response => response.json())
-      .then(data => setMessages(data))
-      .catch(error => console.error('Error fetching messages:', error));
+    fetch(`${API_URL}/messages`)
+      .then((response) => response.json())
+      .then((data) => setMessages(data))
+      .catch((error) => console.error("Error fetching messages:", error));
   }, []);
 
   const handleLogin = (username, password) => {
-    const user = users.find(u => u.username === username && u.password === password);
+    const user = users.find(
+      (u) => u.username === username && u.password === password
+    );
     if (user) {
       setLoggedInUser(user); //user is a object
     } else {
-      alert('Invalid credentials');
+      alert("Invalid credentials");
     }
   };
 
   const handleLogout = () => {
     setLoggedInUser(null);
-  };
-
-  const handleSendMessage = () => {
-    if (newMessage.trim() !== '') {
-      const newMessageObject = {
-        id: messages.length + 1,
-        senderId: +loggedInUser.id, // now  is a number 
-        receiverId:8,
-        username: loggedInUser.username,
-        content: newMessage
-      };
-
-      fetch(`${API_URL}/messages`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newMessageObject),
-      })
-        .then(response => response.json())
-        .then(data => setMessages([...messages, data]))
-        .catch(error => console.error('Error posting message:', error));
-
-      setNewMessage('');
-    }
   };
 
   return (
@@ -126,17 +147,17 @@ function App() {
             <div className="right-container">
               <h2>Welcome, {loggedInUser.username}!</h2>
               <button onClick={handleLogout}>Logout</button>
-              <div>
+              {/* <div>
                 <h3>Messages</h3>
                 <ul>
-                  {messages.map(message => (
+                  {messages.map((message) => (
                     <li key={message.id}>
                       <strong>{message.username}:</strong> {message.content}
                     </li>
                   ))}
                 </ul>
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <input
                   type="text"
                   value={newMessage}
@@ -144,20 +165,32 @@ function App() {
                   placeholder="Type your message..."
                 />
                 <button onClick={handleSendMessage}>Send</button>
-              </div>
+              </div> */}
             </div>
             <Routes>
-              <Route path="/messages/:userId" element={<UserProfile users={users}  messages={messages} />} />
+              <Route
+                path="/messages/:userId"
+                element={
+                  <UserProfile
+                    setMessages={setMessages}
+                    loggedInUser={loggedInUser}
+                    users={users}
+                    messages={messages}
+                  />
+                }
+              />
             </Routes>
           </div>
         ) : (
           <div>
             <h2>Login</h2>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.target);
-              handleLogin(formData.get('username'), formData.get('password'));
-            }}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                handleLogin(formData.get("username"), formData.get("password"));
+              }}
+            >
               <label>
                 Username:
                 <input type="text" name="username" required />
@@ -170,11 +203,16 @@ function App() {
             </form>
 
             <h2>Sign Up</h2>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.target);
-              handleSignUp(formData.get('newUsername'), formData.get('newPassword'));
-            }}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                handleSignUp(
+                  formData.get("newUsername"),
+                  formData.get("newPassword")
+                );
+              }}
+            >
               <label>
                 New Username:
                 <input type="text" name="newUsername" required />

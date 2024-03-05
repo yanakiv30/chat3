@@ -1,180 +1,70 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
       "username": "elena",
       "password": "e5"
     },
     {
-      "id": "2",
+      "id": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
       "username": "niki",
       "password": "n4"
     },
     {
-      "id": "3",
+      "id": "13a1c0ca-595d-4257-a727-ed2a6261b117",
       "username": "vasil",
       "password": "v5"
-    },
-    {
-      "id": "4",
-      "username": "iliya",
-      "password": "i5"
-    },
-    {
-      "id": "5",
-      "username": "mariya",
-      "password": "m5"
-    },
-    {
-      "id": "6",
-      "username": "gosho",
-      "password": "g5"
     }
   ],
   "messages": [
     {
-      "id": "1",
-      "userId": 1,
-      "username": "elena",
-      "content": "elena-mes1"
+      "id": "5e07a1f8-e591-41b1-b25a-3f70a0f16dd8",
+      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "senderUsername": "elena",
+      "content": "elena-niki1"
     },
     {
-      "id": "2",
-      "userId": 1,
-      "username": "elena",
-      "content": "elena-mes2"
+      "id": "11ccc1d9-15e6-4ca3-8c51-c10807c8b46a",
+      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "senderUsername": "elena",
+      "content": "elena-niki2"
     },
     {
-      "id": "3",
-      "userId": 2,
-      "username": "niki",
-      "content": "niki-mes1"
+      "id": "84970db8-190c-4826-ab1b-bdafae9a0bea",
+      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "senderUsername": "elena",
+      "content": "elena-niki3"
     },
     {
-      "id": "4",
-      "userId": 2,
-      "username": "niki",
-      "content": "niki-mes2"
+      "id": "98542970-b6d2-41da-bbb8-443e5d539b9a",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "senderUsername": "niki",
+      "content": "niki-elena1"
     },
     {
-      "id": "5",
-      "userId": 2,
-      "username": "niki",
-      "content": "niki-mes3"
+      "id": "bbd10724-2565-4e13-923a-a97adc55f7ea",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
+      "senderUsername": "niki",
+      "content": "niki-vasil1"
     },
     {
-      "id": "6",
-      "userId": 2,
-      "username": "niki",
-      "content": "niki-mes4"
+      "id": "62c9cc50-96de-4a99-8627-261ff42ae739",
+      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
+      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "senderUsername": "vasil",
+      "content": "vasil-elena1"
     },
     {
-      "id": "7",
-      "userId": 2,
-      "username": "niki",
-      "content": "hhhh"
-    },
-    {
-      "id": "8",
-      "userId": 1,
-      "username": "elena",
-      "content": "zdre"
-    },
-    {
-      "id": "9",
-      "userId": 1,
-      "username": "elena",
-      "content": "jjjjj"
-    },
-    {
-      "id": "10",
-      "userId": 3,
-      "username": "vasil",
-      "content": "ffff"
-    },
-    {
-      "id": "11",
-      "userId": 3,
-      "username": "vasil",
-      "content": "kokokopk"
-    },
-    {
-      "id": "12",
-      "userId": 3,
-      "username": "vasil",
-      "content": "kjbliunij;lkl"
-    },
-    {
-      "id": "13",
-      "userId": 1,
-      "username": "elena",
-      "content": "mes3"
-    },
-    {
-      "id": "14",
-      "userId": 2,
-      "username": "niki",
-      "content": "lllllllllll"
-    },
-    {
-      "id": "17",
-      "userId": 1,
-      "username": "elena",
-      "content": "number1"
-    },
-    {
-      "id": "18",
-      "userId": 1,
-      "username": "elena",
-      "content": "number2"
-    },
-    {
-      "id": "19",
-      "userId": 1,
-      "username": "elena",
-      "content": "number3"
-    },
-    {
-      "id": "20",
-      "userId": 1,
-      "username": "elena",
-      "content": "number4"
-    },
-    {
-      "id": "21",
-      "userId": 1,
-      "username": "elena",
-      "content": "llllllllll"
-    },
-    {
-      "id": "22",
-      "userId": 1,
-      "username": "elena",
-      "content": "llllllllllpppppppppp"
-    },
-    {
-      "id": "21",
-      "userId": 6,
-      "username": "gosho",
-      "content": "hay"
-    },
-    {
-      "id": 22,
-      "userId": "1",
-      "username": "elena",
-      "content": "ttttttttttttttttt"
-    },
-    {
-      "id": 23,
-      "userId": "2",
-      "username": "niki",
-      "content": "qqqqqqqqqqqqqqqqqq"
-    },
-    {
-      "id": 24,
-      "userId": 1,
-      "username": "elena",
-      "content": "trtrtr"
+      "id": "aeab803f-ff98-4d29-aeb9-12c2c805eee5",
+      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
+      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "senderUsername": "vasil",
+      "content": "vasil-elena2"
     }
   ]
 }
