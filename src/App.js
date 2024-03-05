@@ -9,6 +9,18 @@ const App = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
+  function handleSignUp (newUsername, newPassword) {
+    const newUser = {
+      id: users.length + 1,
+      username: newUsername,
+      password: newPassword,
+    };
+
+    axios.post(`${API_URL}/users`, newUser)
+      .then(response => setUsers([...users, response.data]))
+      .catch(error => console.error('Error creating user:', error));
+  };
+
   useEffect(() => {
     axios.get(`${API_URL}/users`)
       .then(response => setUsers(response.data))
@@ -93,6 +105,24 @@ const App = () => {
             </label>
             <button type="submit">Login</button>
           </form>
+
+          <h2>Sign Up</h2>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            handleSignUp(formData.get('newUsername'), formData.get('newPassword'));
+          }}>
+            <label>
+              New Username:
+              <input type="text" name="newUsername" required />
+            </label>
+            <label>
+              New Password:
+              <input type="password" name="newPassword" required />
+            </label>
+            <button type="submit">Sign Up</button>
+          </form>
+
         </div>
       )}
     </div>
