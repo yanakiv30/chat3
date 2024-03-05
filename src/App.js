@@ -27,7 +27,7 @@ function UserProfile({ userId,userName, messages }) {
 
   return (
     <div className="user-profile-container">
-      <h3> Chat with {userName}</h3>
+      <h3> Messages from {userName}</h3>
       <ul>
         {userMessages.map(message => (
           <li key={message.id}>

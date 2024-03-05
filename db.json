@@ -9,6 +9,11 @@
       "id": 2,
       "username": "niki",
       "password": "n4"
+    },
+    {
+      "id": 3,
+      "username": "vasil",
+      "password": "v5"
     }
   ],
   "messages": [
@@ -47,6 +52,42 @@
       "userId": 2,
       "username": "niki",
       "content": "niki-mes4"
+    },
+    {
+      "id": 7,
+      "userId": 2,
+      "username": "niki",
+      "content": "hhhh"
+    },
+    {
+      "id": 8,
+      "userId": 1,
+      "username": "elena",
+      "content": "zdre"
+    },
+    {
+      "id": 9,
+      "userId": 1,
+      "username": "elena",
+      "content": "jjjjj"
+    },
+    {
+      "id": 10,
+      "userId": 3,
+      "username": "vasil",
+      "content": "ffff"
+    },
+    {
+      "id": 11,
+      "userId": 3,
+      "username": "vasil",
+      "content": "kokokopk"
+    },
+    {
+      "id": 12,
+      "userId": 3,
+      "username": "vasil",
+      "content": "kjbliunij;lkl"
     }
   ]
 }
