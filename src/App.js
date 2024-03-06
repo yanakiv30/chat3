@@ -36,15 +36,12 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId).username;
 
-  const userMessagesLeft = messages.filter(
+  const userMessages = messages.filter(
     (message) =>
-      message.receiverId === loggedInUser.id &&
-      message.senderId === userInListId
-  );
-  const userMessagesRight = messages.filter(
-    (message) =>
-      message.receiverId === userInListId &&
-      message.senderId === loggedInUser.id
+      (message.receiverId === loggedInUser.id &&
+        message.senderId === userInListId) ||
+      (message.receiverId === userInListId &&
+        message.senderId === loggedInUser.id)
   );
 
   const handleSendMessage = () => {
@@ -74,36 +71,19 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
 
   return (
     <div className="profile-wrapper">
-      <div className="search-bar">
-       🔍  Search
-      </div>
+      <div className="search-bar">🔍 Search</div>
       <div className="chat-with">
-      <h3> Chat with {userName}</h3>
+        <h3> Chat with {userName}</h3>
       </div>
       <div className="user-profile-container">
-        
-
-        <div className="flex-ul">
-          <ul>
-            {userMessagesLeft.map((message) => (
-              <div className="send-to">
-                <li key={message.id}>
-                  <strong>{message.senderUsername}:</strong> {message.content}
-                </li>
-              </div>
-            ))}
-          </ul>
-
-          <ul>
-            {userMessagesRight.map((message) => (
-              <div className="send-to">
-                <li key={message.id}>
-                  <strong>{message.senderUsername}:</strong> {message.content}
-                </li>
-              </div>
-            ))}
-          </ul>
-        </div>
+        <ul className="messages-container">
+          {userMessages.map((message) => (
+            <li className={`message ${(message.receiverId === loggedInUser.id &&
+              message.senderId === userInListId)? "message-left":"message-right"}`} key={message.id}>
+              <strong>{message.senderUsername}:</strong> {message.content}
+            </li>
+          ))}
+        </ul>
 
         <div className="send">
           <input
