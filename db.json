@@ -65,6 +65,13 @@
       "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
       "senderUsername": "vasil",
       "content": "vasil-elena2"
+    },
+    {
+      "id": "f5a15605-db5d-45b1-b290-94a8ccbee223",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "senderUsername": "niki",
+      "content": "niki-elena2"
     }
   ]
 }

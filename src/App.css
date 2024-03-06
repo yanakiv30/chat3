@@ -35,7 +35,7 @@
 }
 .user-profile-container .flex-ul{
   display: flex ;
-  gap: 300px;
+  justify-content: space-between;
 }
 
 .user-profile-container .send{

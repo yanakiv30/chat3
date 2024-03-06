@@ -14,10 +14,12 @@ const API_URL = "http://localhost:3001";
 function UserList({ users }) {
   return (
     <div className="user-list-container">
-      <h3>User List</h3>
+     
       <ul>
         {users.map((user) => (
           <li key={user.id}>
+            <input type = "checkbox"/> 
+             {/* checkbox without any action */}
             <Link to={`/messages/${user.id}`}>{user.username}</Link>
           </li>
         ))}
@@ -158,32 +160,11 @@ function App() {
           <div className="main-container">
             <div className="left-container">
               <UserList users={users} />
-            </div>
-            <div className="right-container">
               <h2>Welcome, {loggedInUser.username}!</h2>
               <button onClick={handleLogout}>Logout</button>
-              {/* <div>
-                <h3>Messages</h3>
-                <ul>
-                  {messages.map((message) => (
-                    <li key={message.id}>
-                      <strong>{message.username}:</strong> {message.content}
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
-              {/* <div>
-                <input
-                  type="text"
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  placeholder="Type your message..."
-                />
-                <button onClick={handleSendMessage}>Send</button>
-              </div> */}
             </div>
+            
             <Routes>
-
 
               <Route
                 path="/messages/:userId"
@@ -196,8 +177,6 @@ function App() {
                   />
                 }
               />
-
-
 
             </Routes>
           </div>
