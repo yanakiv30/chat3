@@ -166,6 +166,13 @@
       "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
       "senderUsername": "iliya",
       "content": "iliya-niki2"
+    },
+    {
+      "id": "f327f58f-defc-478c-a1ed-95c1a1ec70af",
+      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "senderUsername": "elena",
+      "content": "elena-niki large message 1"
     }
   ]
 }

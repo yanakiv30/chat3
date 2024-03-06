@@ -11,11 +11,11 @@ import "./App.css";
 
 const API_URL = "http://localhost:3001";
 
-function UserList({ users }) {
+function UserList({ users ,loggedInUser}) {
   return (
     <div className="user-list-container">
       <ul>
-        {users.map((user) => (
+        {users.filter(user=> user.id!==loggedInUser.id).map((user) => (
           <li key={user.id}>
             <input type="checkbox" />
             {/* checkbox without any action */}
@@ -166,7 +166,7 @@ function App() {
         {loggedInUser ? (
           <div className="main-container">
             <div className="left-container">
-              <UserList users={users} />
+              <UserList users={users} loggedInUser={loggedInUser}/>
               <h2>Welcome, {loggedInUser.username}!</h2>
               <button onClick={handleLogout}>Logout</button>
             </div>
