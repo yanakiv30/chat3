@@ -11,17 +11,19 @@ import "./App.css";
 
 const API_URL = "http://localhost:3001";
 
-function UserList({ users ,loggedInUser}) {
+function UserList({ users, loggedInUser }) {
   return (
     <div className="user-list-container">
       <ul>
-        {users.filter(user=> user.id!==loggedInUser.id).map((user) => (
-          <li key={user.id}>
-            <input type="checkbox" />
-            {/* checkbox without any action */}
-            <Link to={`/messages/${user.id}`}>{user.username}</Link>
-          </li>
-        ))}
+        {users
+          .filter((user) => user.id !== loggedInUser.id)
+          .map((user) => (
+            <li key={user.id}>
+              <input type="checkbox" />
+              {/* checkbox without any action */}
+              <Link to={`/messages/${user.id}`}>{user.username}</Link>
+            </li>
+          ))}
       </ul>
     </div>
   );
@@ -71,39 +73,47 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
   };
 
   return (
-    <div className="user-profile-container">
-      <h3> Chat with {userName}</h3>
-
-      <div className="flex-ul">
-        <ul>
-          {userMessagesLeft.map((message) => (
-            <div className="send-to">
-              <li key={message.id}>
-                <strong>{message.senderUsername}:</strong> {message.content}
-              </li>
-            </div>
-          ))}
-        </ul>
-
-        <ul>
-          {userMessagesRight.map((message) => (
-            <div className="send-to">
-              <li key={message.id}>
-                <strong>{message.senderUsername}:</strong> {message.content}
-              </li>
-            </div>
-          ))}
-        </ul>
+    <div className="profile-wrapper">
+      <div className="search-bar">
+       🔍  Search
       </div>
+      <div className="chat-with">
+      <h3> Chat with {userName}</h3>
+      </div>
+      <div className="user-profile-container">
+        
 
-      <div className="send">
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type your message..."
-        />
-        <button onClick={handleSendMessage}>Send</button>
+        <div className="flex-ul">
+          <ul>
+            {userMessagesLeft.map((message) => (
+              <div className="send-to">
+                <li key={message.id}>
+                  <strong>{message.senderUsername}:</strong> {message.content}
+                </li>
+              </div>
+            ))}
+          </ul>
+
+          <ul>
+            {userMessagesRight.map((message) => (
+              <div className="send-to">
+                <li key={message.id}>
+                  <strong>{message.senderUsername}:</strong> {message.content}
+                </li>
+              </div>
+            ))}
+          </ul>
+        </div>
+
+        <div className="send">
+          <input
+            type="text"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            placeholder="Type your message..."
+          />
+          <button onClick={handleSendMessage}>Send</button>
+        </div>
       </div>
     </div>
   );
@@ -166,7 +176,7 @@ function App() {
         {loggedInUser ? (
           <div className="main-container">
             <div className="left-container">
-              <UserList users={users} loggedInUser={loggedInUser}/>
+              <UserList users={users} loggedInUser={loggedInUser} />
               <h2>Welcome, {loggedInUser.username}!</h2>
               <button onClick={handleLogout}>Logout</button>
             </div>
