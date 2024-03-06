@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,12 +14,11 @@ const API_URL = "http://localhost:3001";
 function UserList({ users }) {
   return (
     <div className="user-list-container">
-     
       <ul>
         {users.map((user) => (
           <li key={user.id}>
-            <input type = "checkbox"/> 
-             {/* checkbox without any action */}
+            <input type="checkbox" />
+            {/* checkbox without any action */}
             <Link to={`/messages/${user.id}`}>{user.username}</Link>
           </li>
         ))}
@@ -34,19 +33,23 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
   const params = useParams();
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId).username;
-  // const userMessages = messages.filter((message) => (message.receiverId===loggedInUser.id&&message.senderId === userInListId) 
-  // ||(message.receiverId === userInListId&&message.senderId===loggedInUser.id));
 
-  const userMessagesLeft = messages.filter((message) => (message.receiverId===loggedInUser.id&&message.senderId === userInListId) 
+  const userMessagesLeft = messages.filter(
+    (message) =>
+      message.receiverId === loggedInUser.id &&
+      message.senderId === userInListId
   );
-
-   const userMessagesRight = messages.filter((message) => (message.receiverId === userInListId&&message.senderId===loggedInUser.id));
+  const userMessagesRight = messages.filter(
+    (message) =>
+      message.receiverId === userInListId &&
+      message.senderId === loggedInUser.id
+  );
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== "") {
       const newMessageObject = {
         id: uuid(),
-        senderId: loggedInUser.id, // now  is not a number
+        senderId: loggedInUser.id,
         receiverId: userInListId,
         senderUsername: loggedInUser.username,
         content: newMessage,
@@ -70,23 +73,27 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
   return (
     <div className="user-profile-container">
       <h3> Chat with {userName}</h3>
-     
-      <div className="flex-ul">
-      <ul>
-        {userMessagesLeft.map((message) => (
-          <li key={message.id}>
-            <strong>{message.senderUsername}:</strong> {message.content}
-          </li>
-        ))}
-      </ul>
 
-      <ul>
-        {userMessagesRight.map((message) => (
-          <li key={message.id}>
-            <strong>{message.senderUsername}:</strong> {message.content}
-          </li>
-        ))}
-      </ul>
+      <div className="flex-ul">
+        <ul>
+          {userMessagesLeft.map((message) => (
+            <div className="send-to">
+              <li key={message.id}>
+                <strong>{message.senderUsername}:</strong> {message.content}
+              </li>
+            </div>
+          ))}
+        </ul>
+
+        <ul>
+          {userMessagesRight.map((message) => (
+            <div className="send-to">
+              <li key={message.id}>
+                <strong>{message.senderUsername}:</strong> {message.content}
+              </li>
+            </div>
+          ))}
+        </ul>
       </div>
 
       <div className="send">
@@ -163,10 +170,8 @@ function App() {
               <h2>Welcome, {loggedInUser.username}!</h2>
               <button onClick={handleLogout}>Logout</button>
             </div>
-            
+
             <Routes>
-
-
               <Route
                 path="/messages/:userId"
                 element={
@@ -178,9 +183,6 @@ function App() {
                   />
                 }
               />
-
-
-
             </Routes>
           </div>
         ) : (
