@@ -4,34 +4,36 @@
 .app-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  /* align-items: center; */
+  height: 80vh;
+   margin-top: 60px;
+  
 }
 
 .main-container {
   display: flex;
   width: 80%;
+  gap: 22px;
 }
 
 .left-container {
-  flex: 1;
+  
   padding: 20px;
   background-color: #f0f0f0;
-}
-
-.right-container {
-  flex: 3;
-  padding: 20px;
+  width:20%;
+  
 }
 
 .user-list-container {
-  border: 1px solid #ccc;
+  border: 3px solid #ccc;
   padding: 10px;
+ 
 }
 
 .user-profile-container {
   border: 3px solid #ccc;
   padding: 10px;
+  width: 60%;
 }
 .user-profile-container .flex-ul{
   display: flex ;
