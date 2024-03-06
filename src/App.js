@@ -32,8 +32,13 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
   const params = useParams();
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId).username;
-  const userMessages = messages.filter((message) => (message.receiverId===loggedInUser.id&&message.senderId === userInListId) 
-  ||(message.receiverId === userInListId&&message.senderId===loggedInUser.id));
+  // const userMessages = messages.filter((message) => (message.receiverId===loggedInUser.id&&message.senderId === userInListId) 
+  // ||(message.receiverId === userInListId&&message.senderId===loggedInUser.id));
+
+  const userMessagesLeft = messages.filter((message) => (message.receiverId===loggedInUser.id&&message.senderId === userInListId) 
+  );
+
+   const userMessagesRight = messages.filter((message) => (message.receiverId === userInListId&&message.senderId===loggedInUser.id));
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== "") {
@@ -64,15 +69,25 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
     <div className="user-profile-container">
       <h3> Chat with {userName}</h3>
      
+      <div className="flex-ul">
       <ul>
-        {userMessages.map((message) => (
+        {userMessagesLeft.map((message) => (
           <li key={message.id}>
             <strong>{message.senderUsername}:</strong> {message.content}
           </li>
         ))}
       </ul>
 
-      <div>
+      <ul>
+        {userMessagesRight.map((message) => (
+          <li key={message.id}>
+            <strong>{message.senderUsername}:</strong> {message.content}
+          </li>
+        ))}
+      </ul>
+      </div>
+
+      <div className="send">
         <input
           type="text"
           value={newMessage}
@@ -168,6 +183,8 @@ function App() {
               </div> */}
             </div>
             <Routes>
+
+
               <Route
                 path="/messages/:userId"
                 element={
@@ -179,6 +196,9 @@ function App() {
                   />
                 }
               />
+
+
+
             </Routes>
           </div>
         ) : (
