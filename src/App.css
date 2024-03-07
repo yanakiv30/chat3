@@ -30,10 +30,17 @@
   background-color: #f0f0f0;
   width: 20%;
 }
-.left-container .button-link {
+.left-container .button-link {  
  display: flex;
- gap: 20px;
+ flex-direction: column;
+ gap: 10px;
+ 
 }
+
+.left-container .button-link button{  
+  width:fit-content;
+ }
+
 .user-list-container {
   border: 3px solid #ccc;
   padding: 10px;

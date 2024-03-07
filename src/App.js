@@ -5,6 +5,8 @@ import "./App.css";
 import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
 import GroupChat from "./Pages/GroupChat";
+import Homepage from "./Pages/Homepage";
+import OtherPage from "./Pages/OtherPage";
 
 const API_URL = "http://localhost:3001";
 
@@ -70,6 +72,8 @@ function App() {
                 <h2>Welcome, {loggedInUser.username}!</h2>
                 <button onClick={handleLogout}>Logout</button>
                 <Link to={`/messages/group`}>GroupChat</Link>
+                <Link to={`/messages/homepage`}>HomePage</Link>
+                <Link to={`/messages/otherpage`}>OtherPage</Link>
               </div>
             </div>
 
@@ -86,6 +90,8 @@ function App() {
                 }
               />
               <Route path="/messages/group" element={<GroupChat />} />
+              <Route path="/messages/homepage" element={<Homepage />}/>
+              <Route path="/messages/otherpage" element={<OtherPage />}/>
             </Routes>
           </div>
         ) : (
