@@ -30,6 +30,10 @@
   background-color: #f0f0f0;
   width: 20%;
 }
+.left-container .active{
+  color: red;
+}
+
 .left-container .button-link {  
  display: flex;
  flex-direction: column;

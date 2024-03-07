@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function UserList({ users, loggedInUser }) {
   
@@ -13,7 +13,7 @@ function UserList({ users, loggedInUser }) {
               <li key={user.id}>
                 {/* <input type="checkbox" /> */}
               
-                <Link to={`/messages/${user.id}`}><button onClick={()=>{}}>{user.username}</button></Link>
+                <NavLink to={`/messages/${user.id}`}>{user.username}</NavLink>
               </li>
             ))}
         </ul>
