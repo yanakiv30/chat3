@@ -33,10 +33,15 @@
 .left-container .button-link {  
  display: flex;
  flex-direction: column;
- gap: 10px;
- 
+ gap: 10px; 
 }
-
+.left-container .button-link h2 {  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 25px;
+  
+ }
 .left-container .button-link button{  
   width:fit-content;
  }
@@ -60,9 +65,12 @@
 
 .profile-wrapper .chat-with {
   border: 3px solid #ccc;
-  margin-top: 20px;
-  margin-bottom: 2px;
+  margin-top: 17px;
+  margin-bottom: 10px;
   width: 99%;
+}
+.profile-wrapper .chat-with h3 {
+  font-size: 25px;
 }
 
 .user-profile-container {

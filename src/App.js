@@ -5,11 +5,9 @@ import "./App.css";
 import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
 import GroupChat from "./Pages/GroupChat";
-import Homepage from "./Pages/Homepage";
-import OtherPage from "./Pages/OtherPage";
-import PageNotFound from "./Pages/PageNotFound";
 
 const API_URL = "http://localhost:3001";
+let isUserActive=false;
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -68,13 +66,14 @@ function App() {
         {loggedInUser ? (
           <div className="main-container">
             <div className="left-container">
-              <UserList users={users} loggedInUser={loggedInUser} />
+              <UserList users={users} loggedInUser={loggedInUser} isUserActive={isUserActive}/>
+              
               <div className="button-link">
                 <h2>Welcome, {loggedInUser.username}!</h2>
                 <button onClick={handleLogout}>Logout</button>
                 <Link to={`/messages/group`}>GroupChat</Link>
-                <Link to={`/messages/homepage`}>HomePage</Link>
-                <Link to={`/messages/otherpage`}>OtherPage</Link>
+               
+               
               </div>
             </div>
 
@@ -91,9 +90,8 @@ function App() {
                 }
               />
               <Route path="/messages/group" element={<GroupChat />} />
-              <Route path="/messages/homepage" element={<Homepage />}/>
-              <Route path="/messages/otherpage" element={<OtherPage />}/>
-              <Route path="*"  element={<PageNotFound/>}  />
+             
+              
             
             </Routes>
           </div>

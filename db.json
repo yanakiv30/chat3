@@ -24,6 +24,11 @@
       "id": "b631cb57-f08a-456f-94ff-7a5b0d392237",
       "username": "iliya",
       "password": "i5"
+    },
+    {
+      "id": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
+      "username": "vasil vasilev vasilev",
+      "password": "v5"
     }
   ],
   "messages": [
@@ -187,6 +192,34 @@
       "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
       "senderUsername": "niki",
       "content": "niki-elena -hello"
+    },
+    {
+      "id": "25aaf18b-8b98-4bd3-8ef4-7f865d4c47d7",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
+      "senderUsername": "niki",
+      "content": "niki to mariya1"
+    },
+    {
+      "id": "ad7ee07a-dd3c-45c0-8ee2-cbdaa9bd91cd",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
+      "senderUsername": "niki",
+      "content": "niki to mariya2"
+    },
+    {
+      "id": "ce2354b1-3dd1-4792-aa87-4158d78e3ccf",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
+      "senderUsername": "niki",
+      "content": "niki to iliya1"
+    },
+    {
+      "id": "4fefcbde-c5a1-47eb-a90d-bfcd124957eb",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
+      "senderUsername": "niki",
+      "content": "niki-vasil vasilev vasilev mes1"
     }
   ]
 }
