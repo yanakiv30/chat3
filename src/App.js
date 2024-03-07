@@ -36,12 +36,21 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId).username;
 
+  function leftMessage(message) {
+    return (
+      message.receiverId === loggedInUser.id &&
+      message.senderId === userInListId
+    );
+  }
+  function rightMessage(message) {
+    return (
+      message.receiverId === userInListId &&
+      message.senderId === loggedInUser.id
+    );
+  }
+  
   const userMessages = messages.filter(
-    (message) =>
-      (message.receiverId === loggedInUser.id &&
-        message.senderId === userInListId) ||
-      (message.receiverId === userInListId &&
-        message.senderId === loggedInUser.id)
+    (message) => leftMessage(message) || rightMessage(message)
   );
 
   const handleSendMessage = () => {
@@ -78,8 +87,14 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
       <div className="user-profile-container">
         <ul className="messages-container">
           {userMessages.map((message) => (
-            <li className={`message ${(message.receiverId === loggedInUser.id &&
-              message.senderId === userInListId)? "message-left":"message-right"}`} key={message.id}>
+            <li
+              className={`message ${
+                leftMessage(message)
+                  ? "message-left"
+                  : "message-right"
+              }`}
+              key={message.id}
+            >
               <strong>{message.senderUsername}:</strong> {message.content}
             </li>
           ))}
@@ -158,9 +173,9 @@ function App() {
             <div className="left-container">
               <UserList users={users} loggedInUser={loggedInUser} />
               <div>
-              <h2>Welcome, {loggedInUser.username}!</h2>
-              <button onClick={handleLogout}>Logout</button>
-              </div>             
+                <h2>Welcome, {loggedInUser.username}!</h2>
+                <button onClick={handleLogout}>Logout</button>
+              </div>
             </div>
 
             <Routes>
@@ -179,7 +194,7 @@ function App() {
           </div>
         ) : (
           <div className="login">
-          {/* <h2>Login</h2> */}
+            {/* <h2>Login</h2> */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
