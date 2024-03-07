@@ -23,9 +23,12 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
     );
   }
 
-  const userMessages = messages.filter(
-    (message) => leftMessage(message) || rightMessage(message)
-  );
+  const largeMessages = messages.filter(
+    (message) => leftMessage(message) || rightMessage(message));
+   const  userMessages= largeMessages
+   .slice(Math.max(largeMessages.length - 10, 0)); //messages<10
+  //
+  
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== "") {
