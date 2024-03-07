@@ -30,7 +30,10 @@
   background-color: #f0f0f0;
   width: 20%;
 }
-
+.left-container .button-link {
+ display: flex;
+ gap: 20px;
+}
 .user-list-container {
   border: 3px solid #ccc;
   padding: 10px;

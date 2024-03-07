@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
+import GroupChat from "./Pages/GroupChat";
 
 const API_URL = "http://localhost:3001";
 
@@ -65,9 +66,10 @@ function App() {
           <div className="main-container">
             <div className="left-container">
               <UserList users={users} loggedInUser={loggedInUser} />
-              <div>
+              <div className="button-link">
                 <h2>Welcome, {loggedInUser.username}!</h2>
                 <button onClick={handleLogout}>Logout</button>
+                <Link to={`/messages/group`}>GroupChat</Link>
               </div>
             </div>
 
@@ -83,6 +85,7 @@ function App() {
                   />
                 }
               />
+              <Route path="/messages/group" element={<GroupChat />} />
             </Routes>
           </div>
         ) : (

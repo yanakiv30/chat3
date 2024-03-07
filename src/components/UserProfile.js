@@ -80,8 +80,10 @@ function UserProfile({ setMessages, loggedInUser, messages, users }) {
             placeholder="Type your message..."
           />
           <button onClick={handleSendMessage}>Send</button>
+          
+            
+          
         </div>
-        
       </div>
     </div>
   );
