@@ -157,8 +157,10 @@ function App() {
           <div className="main-container">
             <div className="left-container">
               <UserList users={users} loggedInUser={loggedInUser} />
+              <div>
               <h2>Welcome, {loggedInUser.username}!</h2>
               <button onClick={handleLogout}>Logout</button>
+              </div>             
             </div>
 
             <Routes>
@@ -176,8 +178,8 @@ function App() {
             </Routes>
           </div>
         ) : (
-          <div>
-            <h2>Login</h2>
+          <div className="login">
+          {/* <h2>Login</h2> */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -196,7 +198,7 @@ function App() {
               <button type="submit">Login</button>
             </form>
 
-            <h2>Sign Up</h2>
+            {/* <h2>Sign Up</h2> */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
