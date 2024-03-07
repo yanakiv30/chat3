@@ -7,6 +7,7 @@ import UserProfile from "./components/UserProfile";
 import GroupChat from "./Pages/GroupChat";
 import Homepage from "./Pages/Homepage";
 import OtherPage from "./Pages/OtherPage";
+import PageNotFound from "./Pages/PageNotFound";
 
 const API_URL = "http://localhost:3001";
 
@@ -92,6 +93,8 @@ function App() {
               <Route path="/messages/group" element={<GroupChat />} />
               <Route path="/messages/homepage" element={<Homepage />}/>
               <Route path="/messages/otherpage" element={<OtherPage />}/>
+              <Route path="*"  element={<PageNotFound/>}  />
+            
             </Routes>
           </div>
         ) : (
