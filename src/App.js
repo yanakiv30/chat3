@@ -5,11 +5,11 @@ import {
   Routes,
   Route,
   NavLink,
-  useParams,
+  
 } from "react-router-dom";
 import "./App.css";
-// import UserList from "./components/UserList";
-// import UserProfile from "./components/UserProfile";
+ import UserList from "./components/UserList";
+import UserProfile from "./components/UserProfile";
 import GroupChat from "./Pages/GroupChat";
 
 const API_URL = "http://localhost:3001";
@@ -17,117 +17,8 @@ let isUserActive = false;
 
 const ChatContext = createContext();
 
-function UserList() {
-  const { users, loggedInUser } = useContext(ChatContext);
 
-  return (
-    <div className="user-list-container">
-      <h3>Chat with:</h3>
-      <br></br>
-      <ul>
-        {users
-          .filter((user) => user.id !== loggedInUser.id)
-          .map((user) => (
-            <li key={user.id}>
-              {/* <input type="checkbox" /> */}
 
-              <NavLink to={`/messages/${user.id}`}>{user.username}</NavLink>
-            </li>
-          ))}
-      </ul>
-    </div>
-  );
-}
-// export default UserList;
-
-function UserProfile() {
-  const { setMessages, loggedInUser, messages, users } =
-    useContext(ChatContext);
-
-  const [newMessage, setNewMessage] = useState("");
-  const params = useParams();
-  const userInListId = params.userId;
-  const userName = users.find((x) => x.id === userInListId).username;
-
-  function leftMessage(message) {
-    return (
-      message.receiverId === loggedInUser.id &&
-      message.senderId === userInListId
-    );
-  }
-  function rightMessage(message) {
-    return (
-      message.receiverId === userInListId &&
-      message.senderId === loggedInUser.id
-    );
-  }
-
-  const largeMessages = messages.filter(
-    (message) => leftMessage(message) || rightMessage(message)
-  );
-  const userMessages = largeMessages.slice(
-    Math.max(largeMessages.length - 10, 0)
-  ); //messages<10
-  //
-
-  const handleSendMessage = () => {
-    if (newMessage.trim() !== "") {
-      const newMessageObject = {
-        id: uuid(),
-        senderId: loggedInUser.id,
-        receiverId: userInListId,
-        senderUsername: loggedInUser.username,
-        content: newMessage,
-      };
-
-      fetch(`${API_URL}/messages`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newMessageObject),
-      })
-        .then((response) => response.json())
-        .then((data) => setMessages([...messages, data]))
-        .catch((error) => console.error("Error posting message:", error));
-
-      setNewMessage("");
-    }
-  };
-
-  return (
-    <div className="profile-wrapper">
-      <div className="search-bar">🔍 Search</div>
-      <div className="chat-with">
-        <h3> Chat with {userName}</h3>
-      </div>
-      <div className="user-profile-container">
-        <ul className="messages-container">
-          {userMessages.map((message) => (
-            <li
-              className={`message ${
-                leftMessage(message) ? "message-left" : "message-right"
-              }`}
-              key={message.id}
-            >
-              <strong>{message.senderUsername}:</strong> {message.content}
-            </li>
-          ))}
-        </ul>
-
-        <div className="message-send">
-          <input
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Type your message..."
-          />
-          <button onClick={handleSendMessage}>Send</button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -196,7 +87,7 @@ function App() {
           {loggedInUser ? (
             <div className="main-container">
               <div className="left-container">
-                <UserList />
+                <UserList ChatContext={ChatContext}/>
                 <div className="button-link">
                   <h2>Welcome, {loggedInUser.username}!</h2>
                   <button onClick={handleLogout}>Logout</button>
@@ -205,7 +96,7 @@ function App() {
               </div>
 
               <Routes>
-                <Route path="/messages/:userId" element={<UserProfile />} />
+                <Route path="/messages/:userId" element={<UserProfile ChatContext={ChatContext}/>} />
 
                 <Route path="/messages/group" element={<GroupChat />} />
               </Routes>
