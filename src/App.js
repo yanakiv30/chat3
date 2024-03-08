@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { v4 as uuid } from "uuid";
-import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from "react-router-dom";
 import "./App.css";
 import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
@@ -8,6 +13,8 @@ import GroupChat from "./Pages/GroupChat";
 
 const API_URL = "http://localhost:3001";
 let isUserActive = false;
+
+const ChatContext = createContext();
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -60,62 +67,59 @@ function App() {
   const handleLogout = () => {
     setLoggedInUser(null);
   };
-
+  //setMessages, loggedInUser, messages, users,
   return (
-    <Router>
-      <div className="app-container">
-        {loggedInUser ? (
-          <div className="main-container">
-            <div className="left-container">
-              <UserList
-                users={users}
-                loggedInUser={loggedInUser}
-                isUserActive={isUserActive}
-              />
-
-              <div className="button-link">
-                <h2>Welcome, {loggedInUser.username}!</h2>
-                <button onClick={handleLogout}>Logout</button>
-                <NavLink to={`/messages/group`}>GroupChat</NavLink>
+    <ChatContext.Provider
+      value={{
+        users: users,
+        loggedInUser: loggedInUser,
+        isUserActive: isUserActive,
+        setMessages: setMessages,
+        messages: messages,
+      }}
+    >
+      <Router>
+        <div className="app-container">
+          {loggedInUser ? (
+            <div className="main-container">
+              <div className="left-container">
+                <UserList />
+                <div className="button-link">
+                  <h2>Welcome, {loggedInUser.username}!</h2>
+                  <button onClick={handleLogout}>Logout</button>
+                  <NavLink to={`/messages/group`}>GroupChat</NavLink>
+                </div>
               </div>
+
+              <Routes>
+                <Route path="/messages/:userId" element={<UserProfile />} />
+
+                <Route path="/messages/group" element={<GroupChat />} />
+              </Routes>
             </div>
+          ) : (
+            <div className="login">
+              {/* <h2>Login</h2> */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.target);
+                  handleLogin(
+                    formData.get("username"),
+                    formData.get("password")
+                  );
+                }}
+              >
+                <label>
+                  Username:
+                  <input type="text" name="username" required />
+                </label>
+                <label>
+                  Password:
+                  <input type="password" name="password" required />
+                </label>
 
-            <Routes>
-              <Route
-                path="/messages/:userId"
-                element={
-                  <UserProfile
-                    setMessages={setMessages}
-                    loggedInUser={loggedInUser}
-                    users={users}
-                    messages={messages}
-                  />
-                }
-              />
-              
-              <Route path="/messages/group" element={<GroupChat />} />
-            </Routes>
-          </div>
-        ) : (
-          <div className="login">
-            {/* <h2>Login</h2> */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                handleLogin(formData.get("username"), formData.get("password"));
-              }}
-            >
-              <label>
-                Username:
-                <input type="text" name="username" required />
-              </label>
-              <label>
-                Password:
-                <input type="password" name="password" required />
-              </label>
-
-              {/* <label>
+                {/* <label>
                 Role:
                 <select value={role} onChange={(e) => setRole(e.target.value)}>
                   <option value="user">user</option>
@@ -123,34 +127,35 @@ function App() {
                 </select>
               </label> */}
 
-              <button type="submit">Login</button>
-            </form>
+                <button type="submit">Login</button>
+              </form>
 
-            {/* <h2>Sign Up</h2> */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                handleSignUp(
-                  formData.get("newUsername"),
-                  formData.get("newPassword")
-                );
-              }}
-            >
-              <label>
-                New Username:
-                <input type="text" name="newUsername" required />
-              </label>
-              <label>
-                New Password:
-                <input type="password" name="newPassword" required />
-              </label>
-              <button type="submit">Sign Up</button>
-            </form>
-          </div>
-        )}
-      </div>
-    </Router>
+              {/* <h2>Sign Up</h2> */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.target);
+                  handleSignUp(
+                    formData.get("newUsername"),
+                    formData.get("newPassword")
+                  );
+                }}
+              >
+                <label>
+                  New Username:
+                  <input type="text" name="newUsername" required />
+                </label>
+                <label>
+                  New Password:
+                  <input type="password" name="newPassword" required />
+                </label>
+                <button type="submit">Sign Up</button>
+              </form>
+            </div>
+          )}
+        </div>
+      </Router>
+    </ChatContext.Provider>
   );
 }
 

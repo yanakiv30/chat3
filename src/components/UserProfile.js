@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 const API_URL = "http://localhost:3001";
 
-function UserProfile({ setMessages, loggedInUser, messages, users }) {
+function UserProfile() {
+  const { setMessages, loggedInUser, messages, users } = useContext(PostContext);
   const [newMessage, setNewMessage] = useState("");
-
-  const params = useParams();
+    const params = useParams();
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId).username;
 
