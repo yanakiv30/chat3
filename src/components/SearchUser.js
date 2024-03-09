@@ -1,7 +1,8 @@
 import { useContext } from "react";
 
-function SearchUser(ChatContext) {
+function SearchUser({ChatContext}) {
   const { searchQuery, setSearchQuery } = useContext(ChatContext);
+  console.log(searchQuery)
   return (
     <input
       value={searchQuery}

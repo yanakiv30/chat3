@@ -26,6 +26,8 @@ function App() {
   const [messages, setMessages] = useState([]);
   const[searchQuery, setSearchQuery ]=useState("");
   // const [role, setRole] = useState("user");
+  const searchedPosts =
+  
 
   function handleSignUp(newUsername, newPassword) {
     const newUser = {

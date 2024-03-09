@@ -58,7 +58,7 @@ function UserProfile({ChatContext}) {
 
   return (
     <div className="profile-wrapper">
-      <SearchUser />
+      <SearchUser ChatContext={ChatContext}/>
       <div className="chat-with">
         <h3> Chat with {userName}</h3>
       </div>
