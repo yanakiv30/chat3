@@ -28,7 +28,6 @@ function App() {
   //           .includes(searchQuery)
   //       )
   //     : users;
-
   const searchedUser =
     searchQuery.length > 0
       ? users.filter(
