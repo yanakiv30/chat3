@@ -90,6 +90,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-height: 400px; 
+  overflow-y: auto; 
 }
 .user-profile-container .message {
   border: 3px solid #ccc;
