@@ -1,6 +1,7 @@
 import { useContext, useState} from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import SearchUser from "./SearchUser";
 const API_URL = "http://localhost:3001";
 
 function UserProfile({ChatContext}) {
@@ -57,7 +58,7 @@ function UserProfile({ChatContext}) {
 
   return (
     <div className="profile-wrapper">
-      <div className="search-bar">🔍 Search</div>
+      <SearchUser />
       <div className="chat-with">
         <h3> Chat with {userName}</h3>
       </div>

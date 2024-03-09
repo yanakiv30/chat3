@@ -24,6 +24,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
+  const[searchQuery, setSearchQuery ]=useState("");
   // const [role, setRole] = useState("user");
 
   function handleSignUp(newUsername, newPassword) {
@@ -80,6 +81,8 @@ function App() {
         isUserActive: isUserActive,
         setMessages: setMessages,
         messages: messages,
+        searchQuery:  searchQuery,
+        setSearchQuery :setSearchQuery
       }}
     >
       <Router>
