@@ -1,14 +1,13 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { v4 as uuid } from "uuid";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   NavLink,
-  
 } from "react-router-dom";
 import "./App.css";
- import UserList from "./components/UserList";
+import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
 import GroupChat from "./Pages/GroupChat";
 
@@ -17,17 +16,25 @@ let isUserActive = false;
 
 const ChatContext = createContext();
 
-
-
-
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
-  const[searchQuery, setSearchQuery ]=useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   // const [role, setRole] = useState("user");
-  const searchedPosts =
-  
+  // const searchedUser =
+  //   searchQuery.length > 0
+  //     ? users.filter((user) =>user.username
+  //           .includes(searchQuery)
+  //       )
+  //     : users;
+
+  const searchedUser =
+    searchQuery.length > 0
+      ? users.filter(
+          (user) => user && user.username && user.username.includes(searchQuery)
+        )
+      : users;
 
   function handleSignUp(newUsername, newPassword) {
     const newUser = {
@@ -83,8 +90,9 @@ function App() {
         isUserActive: isUserActive,
         setMessages: setMessages,
         messages: messages,
-        searchQuery:  searchQuery,
-        setSearchQuery :setSearchQuery
+        searchQuery: searchQuery,
+        setSearchQuery: setSearchQuery,
+        searchedUser,
       }}
     >
       <Router>
@@ -92,7 +100,7 @@ function App() {
           {loggedInUser ? (
             <div className="main-container">
               <div className="left-container">
-                <UserList ChatContext={ChatContext}/>
+                <UserList ChatContext={ChatContext} />
                 <div className="button-link">
                   <h2>Welcome, {loggedInUser.username}!</h2>
                   <button onClick={handleLogout}>Logout</button>
@@ -101,7 +109,10 @@ function App() {
               </div>
 
               <Routes>
-                <Route path="/messages/:userId" element={<UserProfile ChatContext={ChatContext}/>} />
+                <Route
+                  path="/messages/:userId"
+                  element={<UserProfile ChatContext={ChatContext} />}
+                />
 
                 <Route path="/messages/group" element={<GroupChat />} />
               </Routes>

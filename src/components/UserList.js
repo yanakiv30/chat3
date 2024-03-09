@@ -1,21 +1,15 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
-function UserList({ChatContext}) {  
-   const { users, loggedInUser} = useContext(ChatContext);
-
-// searchQuery.length > 0
-  //   ? users.filter((user) => user.username
-  //         .includes(searchQuery)
-  //     )
-  //   : posts;
+function UserList({ ChatContext }) {
+  const { searchedUser, loggedInUser } = useContext(ChatContext);
 
   return (
     <div className="user-list-container">
       <h3>Chat with:</h3>
       <br></br>
       <ul>
-        {users
+        {searchedUser
           .filter((user) => user.id !== loggedInUser.id)
           .map((user) => (
             <li key={user.id}>
