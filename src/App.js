@@ -21,6 +21,7 @@ function App() {
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchMessage, setSearchMessage] = useState("");
   // const [role, setRole] = useState("user");
   // const searchedUser =
   //   searchQuery.length > 0
@@ -34,6 +35,8 @@ function App() {
           (user) => user && user.username && user.username.includes(searchQuery)
         )
       : users;
+
+  
 
   function handleSignUp(newUsername, newPassword) {
     const newUser = {
@@ -92,6 +95,8 @@ function App() {
         searchQuery: searchQuery,
         setSearchQuery: setSearchQuery,
         searchedUser,
+        searchMessage,
+        setSearchMessage,
       }}
     >
       <Router>

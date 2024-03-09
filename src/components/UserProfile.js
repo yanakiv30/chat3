@@ -1,14 +1,15 @@
-import { useContext, useState} from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import SearchUser from "./SearchUser";
+import SearchInMessage from "./SearchInMessage";
 const API_URL = "http://localhost:3001";
 
-function UserProfile({ChatContext}) {
-  const {setMessages, loggedInUser, messages, users} = useContext(ChatContext);
+function UserProfile({ ChatContext }) {
+  const { setMessages, loggedInUser, messages, users, searchMessage } =
+    useContext(ChatContext);
 
   const [newMessage, setNewMessage] = useState("");
-    const params = useParams();
+  const params = useParams();
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId).username;
 
@@ -26,9 +27,19 @@ function UserProfile({ChatContext}) {
   }
 
   const userMessages = messages.filter(
-    (message) => leftMessage(message) || rightMessage(message));
-  
+    (message) => leftMessage(message) || rightMessage(message)
+  );
 
+  const searchedMessage = userMessages
+  .filter(userMessage=> userMessage.content.includes(searchMessage));
+
+  console.log(searchedMessage);
+  // .filter(y=> y.includes(searchMessage)));
+  // const searchedMessage = userMessages
+  //   .split(" ")
+  //   .filter((mes) => mes && mes.includes(searchMessage));
+  //   console.log(searchedMessage);
+  // searchedMessageArr.map(x=> console.log(x));
   const handleSendMessage = () => {
     if (newMessage.trim() !== "") {
       const newMessageObject = {
@@ -56,13 +67,13 @@ function UserProfile({ChatContext}) {
 
   return (
     <div className="profile-wrapper">
-      <SearchUser ChatContext={ChatContext}/>
+      <SearchInMessage ChatContext={ChatContext} />
       <div className="chat-with">
         <h3> Chat with {userName}</h3>
       </div>
       <div className="user-profile-container">
         <ul className="messages-container">
-          {userMessages.map((message) => (
+          {searchedMessage.map((message) => (
             <li
               className={`message ${
                 leftMessage(message) ? "message-left" : "message-right"
@@ -82,7 +93,6 @@ function UserProfile({ChatContext}) {
             placeholder="Type your message..."
           />
           <button onClick={handleSendMessage}>Send</button>
-
         </div>
       </div>
     </div>
