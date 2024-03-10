@@ -14,10 +14,17 @@
   /* align-items: center; */
   height: 80vh;
   margin-top: 60px;
+  
 }
 .app-container .active{
   color: rgb(255, 81, 0);
 }
+
+.app-container button{
+  color: rgb(160, 105, 79);
+  border-radius: 10%;
+}
+
 .main-container {
   display: flex;
   width: 80%;
@@ -48,6 +55,7 @@
  }
 .left-container .button-link button{  
   width:fit-content;
+
  }
 
 .user-list-container {
@@ -97,10 +105,15 @@
   gap: 10px;
   max-height: 400px; 
   overflow-y: auto; 
+  
 }
 .user-profile-container .message {
   border: 3px solid #ccc;
   width: fit-content;
+  border-radius: 10%;
+  padding: 5px;
+  background-color: rgb(249, 243, 236);
+  
 }
 .user-profile-container .message-left {
   align-self: flex-start;
@@ -113,6 +126,9 @@
 .user-profile-container .message-send {
  display:flex;
  justify-content: space-between;
+ margin-top: 10px;
+
+ 
 }
 .user-profile-container .message-send input{
   width: 70%;
