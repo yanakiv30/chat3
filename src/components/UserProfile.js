@@ -54,9 +54,10 @@ function UserProfile({ ChatContext }) {
     if (newMessage.trim() !== "") {
       const currentDate = new Date();
       
-      const formattedDate = `${currentDate.getHours()}:${currentDate.getMinutes()} ${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`;
+      // const formattedDate = `${currentDate.getHours()}:${currentDate.getMinutes()}
+      //  ${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`;
 
-  
+       const formattedDate = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
       const newMessageObject = {
         id: uuid(),
         senderId: loggedInUser.id,
@@ -99,7 +100,8 @@ function UserProfile({ ChatContext }) {
               key={message.id}
             >
               <p><strong>{message.senderUsername}:</strong> {message.content} </p>
-              <p>{message.timestamp}</p>
+              <br></br>
+              <p className="date">{message.timestamp}</p>
             </li>
           ))}
         </ul>
