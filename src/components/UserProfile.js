@@ -40,15 +40,33 @@ function UserProfile({ ChatContext }) {
   //   .filter((mes) => mes && mes.includes(searchMessage));
   //   console.log(searchedMessage);
   // searchedMessageArr.map(x=> console.log(x));
+  // const handleSendMessage = () => {
+  //   if (newMessage.trim() !== "") {
+  //     const newMessageObject = {
+  //       id: uuid(),
+  //       senderId: loggedInUser.id,
+  //       receiverId: userInListId,
+  //       senderUsername: loggedInUser.username,
+  //       content: newMessage,
+  //     };
+
   const handleSendMessage = () => {
     if (newMessage.trim() !== "") {
+      const currentDate = new Date();
+      
+      const formattedDate = `${currentDate.getHours()}:${currentDate.getMinutes()} ${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`;
+
+  
       const newMessageObject = {
         id: uuid(),
         senderId: loggedInUser.id,
         receiverId: userInListId,
         senderUsername: loggedInUser.username,
         content: newMessage,
+        timestamp: formattedDate, // Add the formatted date to the message object
       };
+  
+  
 
       fetch(`${API_URL}/messages`, {
         method: "POST",
@@ -80,7 +98,8 @@ function UserProfile({ ChatContext }) {
               }`}
               key={message.id}
             >
-              <strong>{message.senderUsername}:</strong> {message.content}
+              <p><strong>{message.senderUsername}:</strong> {message.content} </p>
+              <p>{message.timestamp}</p>
             </li>
           ))}
         </ul>
