@@ -30,10 +30,11 @@ function UserProfile({ ChatContext }) {
     (message) => leftMessage(message) || rightMessage(message)
   );
 
-  const searchedMessage = userMessages
-  .filter(userMessage=> userMessage.content.includes(searchMessage));
+  const searchedMessage = userMessages.filter((userMessage) =>
+    userMessage.content.includes(searchMessage)
+  );
 
-  console.log(searchedMessage);
+  // console.log(searchedMessage);
   // .filter(y=> y.includes(searchMessage)));
   // const searchedMessage = userMessages
   //   .split(" ")
@@ -53,21 +54,20 @@ function UserProfile({ ChatContext }) {
   const handleSendMessage = () => {
     if (newMessage.trim() !== "") {
       const currentDate = new Date();
-      
-      // const formattedDate = `${currentDate.getHours()}:${currentDate.getMinutes()}
-      //  ${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`;
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
+      const dayDate = `${currentDate.getDate()}.${currentDate.getMonth()}.${currentDate.getFullYear()}`;
 
-       const formattedDate = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
       const newMessageObject = {
         id: uuid(),
         senderId: loggedInUser.id,
         receiverId: userInListId,
         senderUsername: loggedInUser.username,
         content: newMessage,
-        timestamp: formattedDate, // Add the formatted date to the message object
+        hourMinDate,
+        dayDate, // Add the formatted date to the message object
       };
-  
-  
 
       fetch(`${API_URL}/messages`, {
         method: "POST",
@@ -92,17 +92,29 @@ function UserProfile({ ChatContext }) {
       </div>
       <div className="user-profile-container">
         <ul className="messages-container">
-          {searchedMessage.map((message) => (
-            <li
-              className={`message ${
-                leftMessage(message) ? "message-left" : "message-right"
-              }`}
-              key={message.id}
-            >
-              <p><strong>{message.senderUsername}:</strong> {message.content} </p>
-              <br></br>
-              <p className="date">{message.timestamp}</p>
-            </li>
+          {searchedMessage.map((message, index) => (
+            <>
+              {console.log(searchedMessage[index].dayDate)}
+              <p className="day-date">
+                {searchedMessage[index - 1]?.dayDate ===
+                searchedMessage[index].dayDate
+                  ? ""
+                  : message.dayDate}
+              </p>
+              <li
+                className={`message ${
+                  leftMessage(message) ? "message-left" : "message-right"
+                }`}
+                key={message.id}
+              >
+                {" "}
+                <p>
+                  <strong>{message.senderUsername}:</strong> {message.content}{" "}
+                </p>
+                <br></br>
+                <p className="date">{message.hourMinDate}</p>
+              </li>
+            </>
           ))}
         </ul>
 

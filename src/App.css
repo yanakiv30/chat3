@@ -104,7 +104,9 @@
   max-height: 400px;
   overflow-y: auto;
 }
-
+.messages-container .day-date{
+  text-align: center;
+}
 .user-profile-container .message {
   border: 3px solid #ccc;
   width: fit-content;

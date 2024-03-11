@@ -33,278 +33,40 @@
   ],
   "messages": [
     {
-      "id": "5e07a1f8-e591-41b1-b25a-3f70a0f16dd8",
+      "id": "dd8b5845-bf7d-45cb-9b14-0f1ac4d32151",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "senderUsername": "niki",
+      "content": "niki-elena elena large message elena 14",
+      "hourMinDate": "18:36",
+      "dayDate": "11.2.2024"
+    },
+    {
+      "id": "7a2d58ac-7cd8-4363-b565-13e91d9c1256",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "senderUsername": "niki",
+      "content": "niki-elena elena large message elena 15",
+      "hourMinDate": "18:48",
+      "dayDate": "11.2.2024"
+    },
+    {
+      "id": "8495bfcb-3231-4e8a-b86c-b241f85ec3a5",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "senderUsername": "niki",
+      "content": "niki-elena elena large message elena 16",
+      "hourMinDate": "21:31",
+      "dayDate": "11.2.2024"
+    },
+    {
+      "id": "0c55b182-00fd-4bf6-9132-dfd28ea25a76",
       "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
       "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
       "senderUsername": "elena",
-      "content": "elena-niki1"
-    },
-    {
-      "id": "11ccc1d9-15e6-4ca3-8c51-c10807c8b46a",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "senderUsername": "elena",
-      "content": "elena-niki2"
-    },
-    {
-      "id": "84970db8-190c-4826-ab1b-bdafae9a0bea",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "senderUsername": "elena",
-      "content": "elena-niki3"
-    },
-    {
-      "id": "98542970-b6d2-41da-bbb8-443e5d539b9a",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena1"
-    },
-    {
-      "id": "bbd10724-2565-4e13-923a-a97adc55f7ea",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "senderUsername": "niki",
-      "content": "niki-vasil1"
-    },
-    {
-      "id": "62c9cc50-96de-4a99-8627-261ff42ae739",
-      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "vasil",
-      "content": "vasil-elena1"
-    },
-    {
-      "id": "aeab803f-ff98-4d29-aeb9-12c2c805eee5",
-      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "vasil",
-      "content": "vasil-elena2"
-    },
-    {
-      "id": "f5a15605-db5d-45b1-b290-94a8ccbee223",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena2"
-    },
-    {
-      "id": "8d9a754e-d94d-47cc-848e-f30034822973",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena3"
-    },
-    {
-      "id": "9cfc0923-209e-4eb2-945d-6a3b62634b26",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena-mes4"
-    },
-    {
-      "id": "ca3379f2-e709-4d6b-b776-8830e40e1f29",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "elena-niki4"
-    },
-    {
-      "id": "b386a588-31c2-4203-9f4a-2c6f921571a0",
-      "senderId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "mariya",
-      "content": "mariya-elena1"
-    },
-    {
-      "id": "78b1ba85-bf98-4fbb-a476-91b6bb727e49",
-      "senderId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "receiverId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "senderUsername": "mariya",
-      "content": "mariya-vasil1"
-    },
-    {
-      "id": "2f82b3ab-8bd7-49bc-b174-70c52b667fb2",
-      "senderId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "senderUsername": "mariya",
-      "content": "mariya-niki1"
-    },
-    {
-      "id": "0b087eca-5f67-40c8-b346-5be904a414b7",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena-large-message1"
-    },
-    {
-      "id": "011e21f2-5c72-4139-8ad6-72db2f1a4323",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "⭐"
-    },
-    {
-      "id": "6fc946c4-2033-4602-8330-716585c71027",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "iliya",
-      "content": "iliya send message1 to elena"
-    },
-    {
-      "id": "c356ce87-e360-4aeb-b767-56fb4f47c09a",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "iliya",
-      "content": " iliya send mes2 to elena"
-    },
-    {
-      "id": "1d9c8d1f-a8b5-439b-beeb-afbb6b28ac31",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "senderUsername": "iliya",
-      "content": "iliya to niki1"
-    },
-    {
-      "id": "2a75e505-b837-456c-b677-b1d291ca6db2",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "senderUsername": "iliya",
-      "content": "iliya-niki2"
-    },
-    {
-      "id": "f327f58f-defc-478c-a1ed-95c1a1ec70af",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "senderUsername": "elena",
-      "content": "elena-niki large message 1"
-    },
-    {
-      "id": "110e8d2c-563c-416e-892a-caf6aae4fe6b",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena large message 2"
-    },
-    {
-      "id": "4bf76271-450a-4d9d-88db-dc639fd29589",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena -hello"
-    },
-    {
-      "id": "25aaf18b-8b98-4bd3-8ef4-7f865d4c47d7",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "niki",
-      "content": "niki to mariya1"
-    },
-    {
-      "id": "ad7ee07a-dd3c-45c0-8ee2-cbdaa9bd91cd",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "niki",
-      "content": "niki to mariya2"
-    },
-    {
-      "id": "ce2354b1-3dd1-4792-aa87-4158d78e3ccf",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "senderUsername": "niki",
-      "content": "niki to iliya1"
-    },
-    {
-      "id": "4fefcbde-c5a1-47eb-a90d-bfcd124957eb",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "niki",
-      "content": "niki-vasil vasilev vasilev mes1"
-    },
-    {
-      "id": "c12db8ee-9672-4dc7-927b-5a9fc33ec757",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "senderUsername": "niki",
-      "content": "test "
-    },
-    {
-      "id": "79177610-7fe6-499a-afb6-69564c3fb650",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena5"
-    },
-    {
-      "id": "897e7356-0530-412b-afdf-00433b76e752",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena6"
-    },
-    {
-      "id": "a7a9aec8-1820-4bac-8c93-90164289d478",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena7",
-      "timestamp": "11:55 \n      11 3\n       2024"
-    },
-    {
-      "id": "3dd894b2-1d27-42dc-a12f-7a2a70a8884e",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena8",
-      "timestamp": "12:9 11.3.2024"
-    },
-    {
-      "id": "63a7e62f-13be-4985-bf15-a5c16ae8ea48",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena9",
-      "timestamp": "15:30}"
-    },
-    {
-      "id": "062652df-1a47-4fd6-bab9-1c5bdcca73d9",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena elena large message elena 10",
-      "timestamp": "15:35"
-    },
-    {
-      "id": "ceed619f-5571-4190-83b1-a49bf34f4c88",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki: niki-elena elena large message elena 11",
-      "timestamp": "15:39"
-    },
-    {
-      "id": "36dbd282-6166-4c79-b23b-4331676a1168",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki: niki: niki-elena elena large message elena 12",
-      "timestamp": "16:21}"
-    },
-    {
-      "id": "652af84b-529b-43dd-b829-3275d800e4fe",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki: niki: niki: niki-elena elena large message elena 13",
-      "timestamp": "16:24"
-    },
-    {
-      "id": "68cfee69-e009-47c2-8099-6674b0caef12",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki: niki: niki: niki: niki-elena elena large message elena 14",
-      "timestamp": "16:34"
+      "content": "elena-niki mes1",
+      "hourMinDate": "22:07",
+      "dayDate": "11.2.2024"
     }
   ]
 }
