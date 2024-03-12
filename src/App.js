@@ -22,21 +22,13 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchMessage, setSearchMessage] = useState("");
-  // const [role, setRole] = useState("user");
-  // const searchedUser =
-  //   searchQuery.length > 0
-  //     ? users.filter((user) =>user.username
-  //           .includes(searchQuery)
-  //       )
-  //     : users;
+
   const searchedUser =
     searchQuery.length > 0
       ? users.filter(
           (user) => user && user.username && user.username.includes(searchQuery)
         )
       : users;
-
-  
 
   function handleSignUp(newUsername, newPassword) {
     const newUser = {
@@ -83,7 +75,7 @@ function App() {
   const handleLogout = () => {
     setLoggedInUser(null);
   };
-  //setMessages, loggedInUser, messages, users,
+
   return (
     <ChatContext.Provider
       value={{
@@ -111,19 +103,16 @@ function App() {
                   <NavLink to={`/messages/group`}>GroupChat</NavLink>
                 </div>
               </div>
-
               <Routes>
                 <Route
                   path="/messages/:userId"
                   element={<UserProfile ChatContext={ChatContext} />}
                 />
-
                 <Route path="/messages/group" element={<GroupChat />} />
               </Routes>
             </div>
           ) : (
             <div className="login">
-              {/* <h2>Login</h2> */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -143,18 +132,9 @@ function App() {
                   <input type="password" name="password" required />
                 </label>
 
-                {/* <label>
-                Role:
-                <select value={role} onChange={(e) => setRole(e.target.value)}>
-                  <option value="user">user</option>
-                  <option value="admin">admin</option>
-                </select>
-              </label> */}
-
                 <button type="submit">Login</button>
               </form>
 
-              {/* <h2>Sign Up</h2> */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();

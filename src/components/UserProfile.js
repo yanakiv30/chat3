@@ -34,23 +34,6 @@ function UserProfile({ ChatContext }) {
     userMessage.content.includes(searchMessage)
   );
 
-  // console.log(searchedMessage);
-  // .filter(y=> y.includes(searchMessage)));
-  // const searchedMessage = userMessages
-  //   .split(" ")
-  //   .filter((mes) => mes && mes.includes(searchMessage));
-  //   console.log(searchedMessage);
-  // searchedMessageArr.map(x=> console.log(x));
-  // const handleSendMessage = () => {
-  //   if (newMessage.trim() !== "") {
-  //     const newMessageObject = {
-  //       id: uuid(),
-  //       senderId: loggedInUser.id,
-  //       receiverId: userInListId,
-  //       senderUsername: loggedInUser.username,
-  //       content: newMessage,
-  //     };
-
   const handleSendMessage = () => {
     if (newMessage.trim() !== "") {
       const currentDate = new Date();
@@ -88,7 +71,8 @@ function UserProfile({ ChatContext }) {
     <div className="profile-wrapper">
       <SearchInMessage ChatContext={ChatContext} />
       <div className="chat-with">
-        <h3> Chat with {userName}</h3>
+        <h3> {userName===loggedInUser.username ?"Chat with":` Chat with ${userName}`}</h3>
+       
       </div>
       <div className="user-profile-container">
         <ul className="messages-container">
@@ -99,7 +83,7 @@ function UserProfile({ ChatContext }) {
               }`}
               key={message.id}
             >
-              {console.log(searchedMessage[index].dayDate)}
+            
               <p className="day-date">
                 {searchedMessage[index - 1]?.dayDate ===
                 searchedMessage[index].dayDate
@@ -123,6 +107,12 @@ function UserProfile({ ChatContext }) {
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSendMessage();
+              }
+            }}
             placeholder="Type your message..."
           />
           <button onClick={handleSendMessage}>Send</button>
