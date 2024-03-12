@@ -93,7 +93,12 @@ function UserProfile({ ChatContext }) {
       <div className="user-profile-container">
         <ul className="messages-container">
           {searchedMessage.map((message, index) => (
-            <>
+            <div
+              className={` ${
+                leftMessage(message) ? "message-left" : "message-right"
+              }`}
+              key={message.id}
+            >
               {console.log(searchedMessage[index].dayDate)}
               <p className="day-date">
                 {searchedMessage[index - 1]?.dayDate ===
@@ -101,20 +106,15 @@ function UserProfile({ ChatContext }) {
                   ? ""
                   : message.dayDate}
               </p>
-              <li
-                className={`message ${
-                  leftMessage(message) ? "message-left" : "message-right"
-                }`}
-                key={message.id}
-              >
-                {" "}
+              <br></br>
+              <li className="message">
                 <p>
-                  <strong>{message.senderUsername}:</strong> {message.content}{" "}
+                  <strong>{message.senderUsername}:</strong> {message.content}
                 </p>
                 <br></br>
                 <p className="date">{message.hourMinDate}</p>
               </li>
-            </>
+            </div>
           ))}
         </ul>
 
