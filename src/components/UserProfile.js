@@ -69,6 +69,17 @@ function UserProfile({ ChatContext }) {
   function handleDeleteMessages(idForDelete) {
     const updatedMessages= messages.filter(x=> x.id!==idForDelete);
     setMessages(updatedMessages);
+
+ fetch(`${API_URL}/messages/${idForDelete}`, {
+    method: "DELETE",
+  })
+    .then((response) => response.json())
+    .then(() => {
+      // При успешно изтриване обновете съобщенията в контекста
+      setMessages(updatedMessages);
+    })
+    .catch((error) => console.error("Error deleting message:", error));
+
   }
 
   return (
