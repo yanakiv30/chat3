@@ -66,24 +66,31 @@ function UserProfile({ ChatContext }) {
       setNewMessage("");
     }
   };
+  function handleDeleteMessages(idForDelete) {
+    const updatedMessages= messages.filter(x=> x.id!==idForDelete);
+    setMessages(updatedMessages);
+  }
 
   return (
     <div className="profile-wrapper">
       <SearchInMessage ChatContext={ChatContext} />
       <div className="chat-with">
-        <h3> {userName===loggedInUser.username ?"Chat with":` Chat with ${userName}`}</h3>
-       
+        <h3>
+          {" "}
+          {userName === loggedInUser.username
+            ? "Chat with"
+            : ` Chat with ${userName}`}
+        </h3>
       </div>
       <div className="user-profile-container">
         <ul className="messages-container">
           {searchedMessage.map((message, index) => (
             <div
               className={` ${
-                leftMessage(message) ? "message-left" : "message-right"
+                rightMessage(message) ? "message-right" : "message-left"
               }`}
               key={message.id}
             >
-            
               <p className="day-date">
                 {searchedMessage[index - 1]?.dayDate ===
                 searchedMessage[index].dayDate
@@ -97,6 +104,11 @@ function UserProfile({ ChatContext }) {
                 </p>
                 <br></br>
                 <p className="date">{message.hourMinDate}</p>
+                {rightMessage(message) ? (
+                  <button className="date" onClick={()=>handleDeleteMessages(message.id)}>
+                    Delete
+                  </button>
+                ) : null}
               </li>
             </div>
           ))}
