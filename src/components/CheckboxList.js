@@ -4,7 +4,7 @@ function CheckboxList ({ChatContext}){
   // State to keep track of checked checkboxes
   const{users,loggedInUser} = useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});  
-
+let trueItems=[];
   let names =[];
   users.map(user=> names.push(user.username));
   names=names.filter(name=> name!==loggedInUser.username);
@@ -15,6 +15,7 @@ function CheckboxList ({ChatContext}){
       ...prevCheckedItems,
       [name]: !prevCheckedItems[name],
     }));
+    console.log("CheckedItems= ", checkedItems);
   };
 console.log(checkedItems);
   return (
@@ -32,7 +33,9 @@ console.log(checkedItems);
           </li>
         ))}
       </ul>
-      {/* You can add more components or logic here based on checkbox state */}
+       {  trueItems= Object.keys(checkedItems).filter(key=> checkedItems[key]===true)} 
+      {console.log('trueItems= ',trueItems)}
+      <p></p>
     </div>
   );
 };
