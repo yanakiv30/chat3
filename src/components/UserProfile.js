@@ -5,7 +5,7 @@ import SearchInMessage from "./SearchInMessage";
 const API_URL = "http://localhost:3001";
 
 function UserProfile({ ChatContext }) {
-  const { setMessages, loggedInUser, messages, users, searchMessage } =
+  const { isGroup, setMessages, loggedInUser, messages, users, searchMessage,trueItems } =
     useContext(ChatContext);
 
   const [newMessage, setNewMessage] = useState("");
@@ -14,11 +14,19 @@ function UserProfile({ ChatContext }) {
   const userName = users.find((x) => x.id === userInListId).username;
 
   function leftMessage(message) {
+    if(isGroup) {
+      return (
+       trueItems.includes(message.username)
+      )
+
+    }else {
     return (
       message.receiverId === loggedInUser.id &&
       message.senderId === userInListId
     );
+    }
   }
+ 
   function rightMessage(message) {
     return (
       message.receiverId === userInListId &&
@@ -67,19 +75,17 @@ function UserProfile({ ChatContext }) {
     }
   };
   function handleDeleteMessages(idForDelete) {
-    const updatedMessages= messages.filter(x=> x.id!==idForDelete);
+    const updatedMessages = messages.filter((x) => x.id !== idForDelete);
     setMessages(updatedMessages);
 
- fetch(`${API_URL}/messages/${idForDelete}`, {
-    method: "DELETE",
-  })
-    .then((response) => response.json())
-    .then(() => {
-      // При успешно изтриване обновете съобщенията в контекста
-      setMessages(updatedMessages);
+    fetch(`${API_URL}/messages/${idForDelete}`, {
+      method: "DELETE",
     })
-    .catch((error) => console.error("Error deleting message:", error));
-
+      .then((response) => response.json())
+      .then(() => {      
+        setMessages(updatedMessages);
+      })
+      .catch((error) => console.error("Error deleting message:", error));
   }
 
   return (
@@ -87,9 +93,10 @@ function UserProfile({ ChatContext }) {
       <SearchInMessage ChatContext={ChatContext} />
       <div className="chat-with">
         <h3>
-          {" "}
-          {userName === loggedInUser.username
-            ? "Chat with"
+          {isGroup
+            ? "Group Chat"
+            : userName === loggedInUser.username
+            ? ""
             : ` Chat with ${userName}`}
         </h3>
       </div>
@@ -116,7 +123,10 @@ function UserProfile({ ChatContext }) {
                 <br></br>
                 <p className="date">{message.hourMinDate}</p>
                 {rightMessage(message) ? (
-                  <button className="date" onClick={()=>handleDeleteMessages(message.id)}>
+                  <button
+                    className="date"
+                    onClick={() => handleDeleteMessages(message.id)}
+                  >
                     Delete
                   </button>
                 ) : null}
