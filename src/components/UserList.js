@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import SearchUser from "./SearchUser";
+import CheckboxList from "./CheckboxList";
 
 function UserList({ ChatContext }) {
   const { searchedUser, loggedInUser } = useContext(ChatContext);
@@ -8,7 +9,7 @@ function UserList({ ChatContext }) {
   return (
     <div className="user-list-container">
       <SearchUser ChatContext={ChatContext} />
-      
+      <p>Chat with:</p>
       <ul>
         {searchedUser
           .filter((user) => user.id !== loggedInUser.id)
@@ -20,6 +21,8 @@ function UserList({ ChatContext }) {
             </li>
           ))}
       </ul>
+      <p>Chat in group with:</p>
+       <CheckboxList ChatContext={ChatContext}/>
     </div>
   );
 }
