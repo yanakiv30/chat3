@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 
 function CheckboxList ({ChatContext}){
   // State to keep track of checked checkboxes
-  const{users,loggedInUser} = useContext(ChatContext);
+  const{users,loggedInUser,setIsGroup} = useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});  
 let trueItems=[];
   let names =[];
@@ -15,9 +15,9 @@ let trueItems=[];
       ...prevCheckedItems,
       [name]: !prevCheckedItems[name],
     }));
-    console.log("CheckedItems= ", checkedItems);
+    
   };
-console.log(checkedItems);
+
   return (
     <div>
       <ul>
@@ -33,9 +33,11 @@ console.log(checkedItems);
           </li>
         ))}
       </ul>
-       {  trueItems= Object.keys(checkedItems).filter(key=> checkedItems[key]===true)} 
-      {console.log('trueItems= ',trueItems)}
-      <p></p>
+       <br></br>
+      <p>Starting chat with :</p>
+      <p style={{color:"red"}}>{ trueItems=Object.keys(checkedItems).filter(key=> checkedItems[key]===true).join(", ")}  </p>
+      {trueItems.length>0? setIsGroup(true):setIsGroup(false)}
+      {/* {console.log('trueItems= ',trueItems)} */}
     </div>
   );
 };
