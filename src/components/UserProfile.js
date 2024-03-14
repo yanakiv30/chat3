@@ -5,7 +5,8 @@ import SearchInMessage from "./SearchInMessage";
 const API_URL = "http://localhost:3001";
 
 function UserProfile({ ChatContext }) {
-  const { isGroup, setMessages, loggedInUser, messages, users, searchMessage,trueItems } =
+  const { single, setMessages, loggedInUser, messages, 
+    users, searchMessage,trueItems,groupName } =
     useContext(ChatContext);
 
   const [newMessage, setNewMessage] = useState("");
@@ -14,7 +15,7 @@ function UserProfile({ ChatContext }) {
   const userName = users.find((x) => x.id === userInListId).username;
 
   function leftMessage(message) {
-    if(isGroup) {
+    if(!single) {
       return (
        trueItems.includes(message.username)
       )
@@ -42,7 +43,7 @@ function UserProfile({ ChatContext }) {
     userMessage.content.includes(searchMessage)
   );
 
-  const handleSendMessage = () => {
+  function handleSendMessage() {
     if (newMessage.trim() !== "") {
       const currentDate = new Date();
       const hours = currentDate.getHours();
@@ -74,6 +75,7 @@ function UserProfile({ ChatContext }) {
       setNewMessage("");
     }
   };
+
   function handleDeleteMessages(idForDelete) {
     const updatedMessages = messages.filter((x) => x.id !== idForDelete);
     setMessages(updatedMessages);
@@ -93,8 +95,8 @@ function UserProfile({ ChatContext }) {
       <SearchInMessage ChatContext={ChatContext} />
       <div className="chat-with">
         <h3>
-          {isGroup
-            ? "Group Chat"
+          {!single
+            ? `Chat with group ${groupName}`
             : userName === loggedInUser.username
             ? ""
             : ` Chat with ${userName}`}
@@ -114,7 +116,7 @@ function UserProfile({ ChatContext }) {
                 searchedMessage[index].dayDate
                   ? ""
                   : message.dayDate}
-              </p>
+              </p >
               <br></br>
               <li className="message">
                 <p>
