@@ -18,7 +18,7 @@ function CheckboxList ({ChatContext}){
     }));
     
   };
-
+  trueItems=Object.keys(checkedItems).filter(key=> checkedItems[key]===true)
   return (
     <div>
       <ul>
@@ -35,8 +35,9 @@ function CheckboxList ({ChatContext}){
         ))}
       </ul>
        <br></br>
-      <p>Starting chat with :</p>
-      <p style={{color:"red"}}>{ trueItems=Object.keys(checkedItems).filter(key=> checkedItems[key]===true)}  </p>
+      <p>You created group with members :</p>
+      
+      <p style={{color:"red"}}>{ trueItems.join(', ')}  </p>
       {trueItems.length>0? setIsGroup(true):setIsGroup(false)}
       {/* {console.log('trueItems= ',trueItems)} */}
     </div>
