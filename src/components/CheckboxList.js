@@ -21,6 +21,7 @@ function CheckboxList ({ChatContext}){
   trueItems=Object.keys(checkedItems).filter(key=> checkedItems[key]===true)
   return (
     <div>
+      <p></p>
       <ul>
         {names.map((name) => (
           <li key={name}>

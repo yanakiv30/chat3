@@ -23,7 +23,9 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchMessage, setSearchMessage] = useState("");
   const [isGroup, setIsGroup] = useState(false);
-  let [ trueItems, setTrueItems]= useState([]);
+  let [trueItems, setTrueItems] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [single, setSingle] = useState(true);
 
   const searchedUser =
     searchQuery.length > 0
@@ -93,7 +95,11 @@ function App() {
         setSearchMessage,
         isGroup,
         setIsGroup,
-        trueItems
+        trueItems,
+        groups,
+        setGroups,
+        single,
+        setSingle,
       }}
     >
       <Router>
@@ -102,11 +108,6 @@ function App() {
             <div className="main-container">
               <div className="left-container">
                 <UserList ChatContext={ChatContext} />
-                <div className="button-link">
-                  <h2>Welcome, {loggedInUser.username}!</h2>
-                  <button onClick={handleLogout}>Logout</button>
-                  <NavLink to={`/messages/group`}>GroupChat</NavLink>
-                </div>
               </div>
               <Routes>
                 <Route
