@@ -1,16 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 const API_URL = "http://localhost:3001";
 
-function CheckboxList({ ChatContext}) {  
-  const { users, loggedInUser } = useContext(ChatContext); 
-  let { trueItems,groupName,setGroupName,groups,setGroups} = useContext(ChatContext);
+function CheckboxList({ ChatContext }) {
+  const { users, loggedInUser } = useContext(ChatContext);
+  let { trueItems, groupName, setGroupName, groups, setGroups } =
+    useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});
-  
-  
+
   let names = [];
   users.map((user) => names.push(user.username));
-  names = names.filter((name) => name !== loggedInUser.username); 
+  names = names.filter((name) => name !== loggedInUser.username);
   function handleCheckboxChange(name) {
     setCheckedItems((prevCheckedItems) => ({
       ...prevCheckedItems,
@@ -21,19 +21,13 @@ function CheckboxList({ ChatContext}) {
     (key) => checkedItems[key] === true
   );
 
-  const newGroup = {
-    id: uuid(),
-    name: groupName,
-    members: []
-  };
-
   function handleSetGroups() {
-    setGroups([...groups,groupName]);
+    // setGroups([...groups,groupName]);
 
     const newGroup = {
       id: uuid(),
       name: groupName,
-      members: []
+      members: [],
     };
 
     fetch(`${API_URL}/groups`, {
@@ -44,23 +38,26 @@ function CheckboxList({ ChatContext}) {
       body: JSON.stringify(newGroup),
     })
       .then((response) => response.json())
-      .then((data) => setGroups([...groups,groupName]))
-      .catch((error) => console.error("Error posting message:", error));
-
-    // setNewMessage("");
+      .then((data) => setGroups([...groups, data]))
+      .catch((error) => console.error("Error posting message:", error));    
   }
+
+  useEffect(() => {
+    fetch(`${API_URL}/groups`)
+      .then((response) => response.json())
+      .then((data) => setGroups(data))
+      .catch((error) => console.error("Error fetching users:", error));
+  }, [setGroups]);
 
   return (
     <div>
       <p>Start group chatting with existing groups :</p>
       <ul>
-        {
-          groups.map((group)=>(
-            <li key={group}>
-              <button>{group?group:""}</button>
-            </li>
-          ))
-        }
+        {groups.map((group) => (
+          <li key={group.name}>
+            <button>{group ? group.name : ""}</button>
+          </li>
+        ))}
       </ul>
       <br></br>
       <ul>
@@ -80,7 +77,6 @@ function CheckboxList({ ChatContext}) {
       <p>GroupChat members :</p>
 
       <p style={{ color: "red" }}>{trueItems.join(", ")} </p>
-      
 
       <br></br>
       <p>Create Group</p>
@@ -90,8 +86,8 @@ function CheckboxList({ ChatContext}) {
         onChange={(e) => setGroupName(e.target.value)}
         placeholder="Enter Name of the group"
       />
-       <button onClick={handleSetGroups}>Create</button>
-      {console.log("groupname= ",groupName,"groups = ",groups)}
+      <button onClick={handleSetGroups}>Create</button>
+      {console.log("groupname= ", groupName, "groups = ", groups)}
     </div>
   );
 }
