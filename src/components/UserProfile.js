@@ -5,9 +5,16 @@ import SearchInMessage from "./SearchInMessage";
 const API_URL = "http://localhost:3001";
 
 function UserProfile({ ChatContext }) {
-  const { single, setMessages, loggedInUser, messages, 
-    users, searchMessage,trueItems,groupName } =
-    useContext(ChatContext);
+  const {
+    single,
+    setMessages,
+    loggedInUser,
+    messages,
+    users,
+    searchMessage,
+    trueItems,
+    groupName,
+  } = useContext(ChatContext);
 
   const [newMessage, setNewMessage] = useState("");
   const params = useParams();
@@ -15,19 +22,16 @@ function UserProfile({ ChatContext }) {
   const userName = users.find((x) => x.id === userInListId).username;
 
   function leftMessage(message) {
-    if(!single) {
+    if (!single) {
+      return trueItems.includes(message.username);
+    } else {
       return (
-       trueItems.includes(message.username)
-      )
-
-    }else {
-    return (
-      message.receiverId === loggedInUser.id &&
-      message.senderId === userInListId
-    );
+        message.receiverId === loggedInUser.id &&
+        message.senderId === userInListId
+      );
     }
   }
- 
+
   function rightMessage(message) {
     return (
       message.receiverId === userInListId &&
@@ -74,7 +78,7 @@ function UserProfile({ ChatContext }) {
 
       setNewMessage("");
     }
-  };
+  }
 
   function handleDeleteMessages(idForDelete) {
     const updatedMessages = messages.filter((x) => x.id !== idForDelete);
@@ -84,7 +88,7 @@ function UserProfile({ ChatContext }) {
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then(() => {      
+      .then(() => {
         setMessages(updatedMessages);
       })
       .catch((error) => console.error("Error deleting message:", error));
@@ -116,7 +120,7 @@ function UserProfile({ ChatContext }) {
                 searchedMessage[index].dayDate
                   ? ""
                   : message.dayDate}
-              </p >
+              </p>
               <br></br>
               <li className="message">
                 <p>

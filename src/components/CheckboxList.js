@@ -1,10 +1,13 @@
 import React, { useContext, useState } from "react";
+import { v4 as uuid } from "uuid";
+const API_URL = "http://localhost:3001";
 
 function CheckboxList({ ChatContext}) {  
   const { users, loggedInUser } = useContext(ChatContext); 
-  let { trueItems,groupName,setGroupName } = useContext(ChatContext);
+  let { trueItems,groupName,setGroupName,groups,setGroups} = useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});
-  // const [groupName, setGroupName] = useState("");
+  
+  
   let names = [];
   users.map((user) => names.push(user.username));
   names = names.filter((name) => name !== loggedInUser.username); 
@@ -18,11 +21,47 @@ function CheckboxList({ ChatContext}) {
     (key) => checkedItems[key] === true
   );
 
+  const newGroup = {
+    id: uuid(),
+    name: groupName,
+    members: []
+  };
 
+  function handleSetGroups() {
+    setGroups([...groups,groupName]);
+
+    const newGroup = {
+      id: uuid(),
+      name: groupName,
+      members: []
+    };
+
+    fetch(`${API_URL}/groups`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newGroup),
+    })
+      .then((response) => response.json())
+      .then((data) => setGroups([...groups,groupName]))
+      .catch((error) => console.error("Error posting message:", error));
+
+    // setNewMessage("");
+  }
 
   return (
     <div>
-      <p>This is a group chat with :</p>
+      <p>Start group chatting with existing groups :</p>
+      <ul>
+        {
+          groups.map((group)=>(
+            <li key={group}>
+              <button>{group?group:""}</button>
+            </li>
+          ))
+        }
+      </ul>
       <br></br>
       <ul>
         {names.map((name) => (
@@ -44,14 +83,15 @@ function CheckboxList({ ChatContext}) {
       
 
       <br></br>
+      <p>Create Group</p>
       <input
         type="text"
         value={groupName}
         onChange={(e) => setGroupName(e.target.value)}
         placeholder="Enter Name of the group"
       />
-       
-      {console.log(groupName)}
+       <button onClick={handleSetGroups}>Create</button>
+      {console.log("groupname= ",groupName,"groups = ",groups)}
     </div>
   );
 }

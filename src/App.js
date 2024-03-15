@@ -24,9 +24,9 @@ function App() {
   const [searchMessage, setSearchMessage] = useState("");
   const [isGroup, setIsGroup] = useState(false);
   let [trueItems, setTrueItems] = useState([]);
- const [groupName, setGroupName] = useState("");
+  const [groupName, setGroupName] = useState("");
   const [single, setSingle] = useState(true);
-  
+  const [groups, setGroups] = useState([]);
 
   const searchedUser =
     searchQuery.length > 0
@@ -96,11 +96,13 @@ function App() {
         setSearchMessage,
         isGroup,
         setIsGroup,
-        trueItems,      
+        trueItems,
         single,
         setSingle,
         groupName,
-        setGroupName
+        setGroupName,
+        groups,
+        setGroups,
       }}
     >
       <Router>

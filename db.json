@@ -31,6 +31,28 @@
       "password": "v5"
     }
   ],
+  "groups": [
+    {
+      "id": "37318bfd-c5c0-47f8-9a3d-a3b4802c4c86",
+      "name": "group1",
+      "members": []
+    },
+    {
+      "id": "8855d590-01cb-4d43-ac35-68e63531adb8",
+      "name": "group2",
+      "members": []
+    },
+    {
+      "id": "2a2c0aa5-f99a-497c-b056-208760e88e03",
+      "name": "group3",
+      "members": []
+    },
+    {
+      "id": "e9050511-6665-4e35-b0a4-6b66a44e2bf5",
+      "name": "group4",
+      "members": []
+    }
+  ],
   "messages": [
     {
       "id": "dd8b5845-bf7d-45cb-9b14-0f1ac4d32151",
@@ -563,6 +585,5 @@
       "hourMinDate": "20:21",
       "dayDate": "13.2.2024"
     }
-   
   ]
 }
