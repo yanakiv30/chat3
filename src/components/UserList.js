@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import SearchUser from "./SearchUser";
 import CheckboxList from "./CheckboxList";

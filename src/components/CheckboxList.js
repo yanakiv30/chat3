@@ -22,24 +22,25 @@ function CheckboxList({ ChatContext }) {
   );
 
   function handleSetGroups() {
-    // setGroups([...groups,groupName]);
+    const isDuplicate = groups?.some((obj) => obj.name.includes(groupName));
+    if (!isDuplicate) {
+      const newGroup = {
+        id: uuid(),
+        name: groupName,
+        members: [...trueItems, loggedInUser.username],
+      };
 
-    const newGroup = {
-      id: uuid(),
-      name: groupName,
-      members: [],
-    };
-
-    fetch(`${API_URL}/groups`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newGroup),
-    })
-      .then((response) => response.json())
-      .then((data) => setGroups([...groups, data]))
-      .catch((error) => console.error("Error posting message:", error));    
+      fetch(`${API_URL}/groups`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newGroup),
+      })
+        .then((response) => response.json())
+        .then((data) => setGroups([...groups, data]))
+        .catch((error) => console.error("Error posting message:", error));
+    }else{alert("Duplicate name")};
   }
 
   useEffect(() => {
@@ -51,7 +52,7 @@ function CheckboxList({ ChatContext }) {
 
   return (
     <div>
-      <p>Start group chatting with existing groups :</p>
+      {groups.length>0 ?"Existing Groups" :""}
       <ul>
         {groups.map((group) => (
           <li key={group.name}>
@@ -60,6 +61,21 @@ function CheckboxList({ ChatContext }) {
         ))}
       </ul>
       <br></br>
+
+      {/* <p style={{ color: "red" }}>{trueItems.join(", ")} </p> */}
+
+      <br></br>
+      <p>Set new Group</p>
+      <input
+        type="text"
+        value={groupName}
+        onChange={(e) => setGroupName(e.target.value)}
+        placeholder="Enter unique name "
+      />
+      <br></br>
+
+      <br></br>
+      <p>Choose members :</p>
       <ul>
         {names.map((name) => (
           <li key={name}>
@@ -74,20 +90,7 @@ function CheckboxList({ ChatContext }) {
         ))}
       </ul>
       <br></br>
-      <p>GroupChat members :</p>
-
-      <p style={{ color: "red" }}>{trueItems.join(", ")} </p>
-
-      <br></br>
-      <p>Create Group</p>
-      <input
-        type="text"
-        value={groupName}
-        onChange={(e) => setGroupName(e.target.value)}
-        placeholder="Enter Name of the group"
-      />
       <button onClick={handleSetGroups}>Create</button>
-      {console.log("groupname= ", groupName, "groups = ", groups)}
     </div>
   );
 }

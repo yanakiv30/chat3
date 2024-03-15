@@ -103,6 +103,7 @@ function App() {
         setGroupName,
         groups,
         setGroups,
+        handleLogout
       }}
     >
       <Router>
