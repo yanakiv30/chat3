@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import { v4 as uuid } from "uuid";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,6 +10,7 @@ import "./App.css";
 import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
 import GroupChat from "./Pages/GroupChat";
+import Login from "./components/Login";
 
 const API_URL = "http://localhost:3001";
 let isUserActive = false;
@@ -34,24 +35,8 @@ function App() {
           (user) => user && user.username && user.username.includes(searchQuery)
         )
       : users;
-
-  function handleSignUp(newUsername, newPassword) {
-    const newUser = {
-      id: uuid(),
-      username: newUsername,
-      password: newPassword,
-    };
-
-    fetch(`${API_URL}/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => setUsers([...users, data]))
-      .catch((error) => console.error("Error creating user:", error));
+  function handleLogout() {
+    setLoggedInUser(null);
   }
 
   useEffect(() => {
@@ -59,33 +44,18 @@ function App() {
       .then((response) => response.json())
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
-
     fetch(`${API_URL}/messages`)
       .then((response) => response.json())
       .then((data) => setMessages(data))
       .catch((error) => console.error("Error fetching messages:", error));
   }, []);
 
-  function handleLogin (username, password) {
-    const user = users.find(
-      (u) => u.username === username && u.password === password
-    );
-    if (user) {
-      setLoggedInUser(user); //user is a object
-    } else {
-      alert("Invalid credentials");
-    }
-  };
-
-  const handleLogout = () => {
-    setLoggedInUser(null);
-  };
-
   return (
     <ChatContext.Provider
       value={{
         users: users,
         loggedInUser: loggedInUser,
+        setLoggedInUser,
         isUserActive: isUserActive,
         setMessages: setMessages,
         messages: messages,
@@ -103,10 +73,10 @@ function App() {
         setGroupName,
         groups,
         setGroups,
-        handleLogout
+        handleLogout,
       }}
     >
-      <Router>
+      <Router >
         <div className="app-container">
           {loggedInUser ? (
             <div className="main-container">
@@ -122,50 +92,7 @@ function App() {
               </Routes>
             </div>
           ) : (
-            <div className="login">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const formData = new FormData(e.target);
-                  handleLogin(
-                    formData.get("username"),
-                    formData.get("password")
-                  );
-                }}
-              >
-                <label>
-                  Username:
-                  <input type="text" name="username" required />
-                </label>
-                <label>
-                  Password:
-                  <input type="password" name="password" required />
-                </label>
-
-                <button type="submit">Login</button>
-              </form>
-
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const formData = new FormData(e.target);
-                  handleSignUp(
-                    formData.get("newUsername"),
-                    formData.get("newPassword")
-                  );
-                }}
-              >
-                <label>
-                  New Username:
-                  <input type="text" name="newUsername" required />
-                </label>
-                <label>
-                  New Password:
-                  <input type="password" name="newPassword" required />
-                </label>
-                <button type="submit">Sign Up</button>
-              </form>
-            </div>
+            <Login ChatContext={ChatContext} />
           )}
         </div>
       </Router>
