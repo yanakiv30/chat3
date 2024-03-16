@@ -22,11 +22,10 @@ function UserList({ ChatContext }) {
       <br></br>
 
       <h2 style={{ fontSize: "35px" }}>Welcome, {loggedInUser.username}!</h2>
+      <p>Chat with:</p>
       {single ? (
-        <>
-          <SearchUser ChatContext={ChatContext} />
-          <br></br>
-          <p>Start Single chat with:</p>
+        <>   
+        
           <ul>
             {searchedUser
               .filter((user) => user.id !== loggedInUser.id)
@@ -38,6 +37,9 @@ function UserList({ ChatContext }) {
                 </li>
               ))}
           </ul>
+          <br></br>
+          <SearchUser ChatContext={ChatContext} />
+          <br></br>
           <br></br>
           <br></br>
           <br></br>

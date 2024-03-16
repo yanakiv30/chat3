@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 const API_URL = "http://localhost:3001";
 
@@ -50,21 +51,23 @@ function CheckboxList({ ChatContext }) {
       .catch((error) => console.error("Error fetching users:", error));
   }, [setGroups]);
 
+
+
   return (
     <div>
       {groups.length>0 ?"Existing Groups" :""}
       <ul>
         {groups.map((group) => (
           <li key={group.name}>
-            <button>{group ? group.name : ""}</button>
+            <NavLink to={`/groups/${group.id}`}>{group.name}</NavLink>
+            {/* <button onClick={handleGroupSwitch}>{group ? group.name : ""}</button> */}
           </li>
         ))}
       </ul>
       <br></br>
 
       {/* <p style={{ color: "red" }}>{trueItems.join(", ")} </p> */}
-
-      <br></br>
+      <p>Or</p>      
       <p>Set new Group</p>
       <input
         type="text"

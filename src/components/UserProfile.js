@@ -62,7 +62,7 @@ function UserProfile({ ChatContext }) {
         senderUsername: loggedInUser.username,
         content: newMessage,
         hourMinDate,
-        dayDate, // Add the formatted date to the message object
+        dayDate, 
       };
 
       fetch(`${API_URL}/messages`, {
@@ -99,11 +99,7 @@ function UserProfile({ ChatContext }) {
       <SearchInMessage ChatContext={ChatContext} />
       <div className="chat-with">
         <h3>
-          {!single
-            ? `Chat with group ${groupName}`
-            : userName === loggedInUser.username
-            ? ""
-            : ` Chat with ${userName}`}
+          {`Chat with ${userName}`}
         </h3>
       </div>
       <div className="user-profile-container">

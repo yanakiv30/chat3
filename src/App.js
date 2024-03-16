@@ -9,8 +9,9 @@ import {
 import "./App.css";
 import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
-import GroupChat from "./Pages/GroupChat";
+
 import Login from "./components/Login";
+import GroupProfile from "./components/GroupProfile";
 
 const API_URL = "http://localhost:3001";
 let isUserActive = false;
@@ -76,7 +77,7 @@ function App() {
         handleLogout,
       }}
     >
-      <Router >
+      <Router>
         <div className="app-container">
           {loggedInUser ? (
             <div className="main-container">
@@ -88,7 +89,10 @@ function App() {
                   path="/messages/:userId"
                   element={<UserProfile ChatContext={ChatContext} />}
                 />
-                <Route path="/messages/group" element={<GroupChat />} />
+                <Route
+                  path="/groups/:groupId"
+                  element={<GroupProfile ChatContext={ChatContext} />}
+                />
               </Routes>
             </div>
           ) : (
