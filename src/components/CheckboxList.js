@@ -31,8 +31,6 @@ function CheckboxList({ ChatContext }) {
         members: [...trueItems, loggedInUser.username],
       };
 
-      
-
       fetch(`${API_URL}/groups`, {
         method: "POST",
         headers: {
@@ -57,7 +55,7 @@ function CheckboxList({ ChatContext }) {
 
   return (
     <div>
-      {groups.length>0 ?"Groups" :""}
+      {groups.length>0 ?"Existing Groups" :""}
       <ul>
         {groups.map((group) => (
           <li key={group.name}>
@@ -69,7 +67,7 @@ function CheckboxList({ ChatContext }) {
       <br></br>
 
       {/* <p style={{ color: "red" }}>{trueItems.join(", ")} </p> */}
-      <br></br>     
+      <p>Or</p>      
       <p>Set new Group</p>
       <input
         type="text"
@@ -77,7 +75,9 @@ function CheckboxList({ ChatContext }) {
         onChange={(e) => setGroupName(e.target.value)}
         placeholder="Enter unique name "
       />
-      
+      <br></br>
+
+      <br></br>
       <p>Choose members :</p>
       <ul>
         {names.map((name) => (
@@ -92,7 +92,7 @@ function CheckboxList({ ChatContext }) {
           </li>
         ))}
       </ul>
-      
+      <br></br>
       <button onClick={handleSetGroups}>Create</button>
     </div>
   );

@@ -3,65 +3,53 @@
     {
       "id": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
       "username": "elena",
-      "members": ["elena"],
       "password": "e5"
     },
     {
       "id": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
       "username": "niki",
-      "members": ["niki"],
       "password": "n4"
     },
     {
       "id": "13a1c0ca-595d-4257-a727-ed2a6261b117",
       "username": "vasil",
-      "members": ["vasil"],
       "password": "v5"
     },
     {
       "id": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
       "username": "mariya",
-      "members": ["mariya"],
       "password": "m6"
     },
     {
       "id": "b631cb57-f08a-456f-94ff-7a5b0d392237",
       "username": "iliya",
-      "members": ["iliya"],
-            "password": "i5"
+      "password": "i5"
     },
     {
       "id": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
       "username": "vasil vasilev vasilev",
-      "members": ["vasil vasilev vasilev"],
       "password": "v5"
-    },
-    {
-      "id": "d5c8c6fc-d36e-41bd-9a1b-e69c964018eb",
-      "username": "group-ev",
-      "members": ["elena", "vasil", "niki"]
-    },
-    {
-      "id": "ba76b473-bfb5-4af1-9ef1-c2d9f62957cd",
-      "username": "group-eg",
-      "members": ["elena", "group-ev", "niki"]
-    },
-    {
-      "id": "63b1963d-13dc-4c00-8765-7a59cbd604a3",
-      "username": "group-em",
-      "members": ["elena", "mariya", "niki"]
     }
   ],
   "groups": [
     {
       "id": "83defec4-c836-41fa-9a11-713dca4111c7",
       "name": "evm",
-      "members": ["elena", "vasil", "mariya", "niki"]
+      "members": [
+        "elena",
+        "vasil",
+        "mariya",
+        "niki"
+      ]
     },
     {
       "id": "fd4c34c0-f672-43df-a013-2c8e6502873d",
       "name": "cool",
-      "members": ["vasil", "mariya", "niki"]
+      "members": [
+        "vasil",
+        "mariya",
+        "niki"
+      ]
     }
   ],
   "messages": [

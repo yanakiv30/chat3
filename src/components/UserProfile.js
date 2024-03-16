@@ -19,7 +19,7 @@ function UserProfile({ ChatContext }) {
   const [newMessage, setNewMessage] = useState("");
   const params = useParams();
   const userInListId = params.userId;
-  const userName = users.find((x) => x.id === userInListId)?.username;
+  const userName = users.find((x) => x.id === userInListId).username;
 
   function leftMessage(message) {
     if (!single) {
