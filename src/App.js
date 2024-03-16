@@ -66,7 +66,7 @@ function App() {
       .catch((error) => console.error("Error fetching messages:", error));
   }, []);
 
-  const handleLogin = (username, password) => {
+  function handleLogin (username, password) {
     const user = users.find(
       (u) => u.username === username && u.password === password
     );
