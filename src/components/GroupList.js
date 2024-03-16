@@ -3,14 +3,14 @@ import { NavLink } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 const API_URL = "http://localhost:3001";
 
-function CheckboxList({ ChatContext }) {
-  const { users, loggedInUser } = useContext(ChatContext);
+function GroupList({ ChatContext }) {
+  const { users,setUsers, loggedInUser } = useContext(ChatContext);
   let { trueItems, groupName, setGroupName, groups, setGroups } =
     useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});
 
   let names = [];
-  users.map((user) => names.push(user.username));
+  users.filter(user=> user.members?.length===1).map((user) => names.push(user.username));
   names = names.filter((name) => name !== loggedInUser.username);
   function handleCheckboxChange(name) {
     setCheckedItems((prevCheckedItems) => ({
@@ -27,13 +27,13 @@ function CheckboxList({ ChatContext }) {
     if (!isDuplicate) {
       const newGroup = {
         id: uuid(),
-        name: groupName,
+        username: groupName,
         members: [...trueItems, loggedInUser.username],
       };
 
       
 
-      fetch(`${API_URL}/groups`, {
+      fetch(`${API_URL}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,17 +41,17 @@ function CheckboxList({ ChatContext }) {
         body: JSON.stringify(newGroup),
       })
         .then((response) => response.json())
-        .then((data) => setGroups([...groups, data]))
+        .then((data) => setUsers([...users, data]))
         .catch((error) => console.error("Error posting message:", error));
     }else{alert("Duplicate name")};
   }
 
-  useEffect(() => {
-    fetch(`${API_URL}/groups`)
-      .then((response) => response.json())
-      .then((data) => setGroups(data))
-      .catch((error) => console.error("Error fetching users:", error));
-  }, [setGroups]);
+//   useEffect(() => {
+//     fetch(`${API_URL}/groups`)
+//       .then((response) => response.json())
+//       .then((data) => setGroups(data))
+//       .catch((error) => console.error("Error fetching users:", error));
+//   }, [setGroups]);
 
 
 
@@ -60,9 +60,9 @@ function CheckboxList({ ChatContext }) {
       {groups.length>0 ?"Groups" :""}
       <ul>
         {groups.map((group) => (
-          <li key={group.name}>
-            <NavLink to={`/groups/${group.id}`}>{group.name}</NavLink>
-            {/* <button onClick={handleGroupSwitch}>{group ? group.name : ""}</button> */}
+          <li key={group.username}>
+            <NavLink to={`/groups/${group.id}`}>{group.username}</NavLink>
+           
           </li>
         ))}
       </ul>
@@ -80,6 +80,7 @@ function CheckboxList({ ChatContext }) {
       
       <p>Choose members :</p>
       <ul>
+        {/* {users.filter(user=> user.members.length=1).map(user=> )} */}
         {names.map((name) => (
           <li key={name}>
             <input
@@ -98,4 +99,4 @@ function CheckboxList({ ChatContext }) {
   );
 }
 
-export default CheckboxList;
+export default GroupList;

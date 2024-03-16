@@ -10,6 +10,7 @@ export default function Login({ ChatContext }) {
       id: uuid(),
       username: newUsername,
       password: newPassword,
+      members:[newUsername]
     };
 
     fetch(`${API_URL}/users`, {
