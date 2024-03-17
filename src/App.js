@@ -1,21 +1,14 @@
 import React, { useState, useEffect, createContext } from "react";
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  NavLink,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
-
 import Login from "./components/Login";
 import GroupProfile from "./components/GroupProfile";
 
 const API_URL = "http://localhost:3001";
 let isUserActive = false;
-
 const ChatContext = createContext();
 
 function App() {
@@ -27,36 +20,25 @@ function App() {
   const [searchMessage, setSearchMessage] = useState("");
   const [isGroup, setIsGroup] = useState(false);
   let [trueItems, setTrueItems] = useState([]);
-
   const [single, setSingle] = useState(true);
   const [groups, setGroups] = useState([]);
 
-  const searchedUser =
-    searchQuery.length > 0
-      ? users.filter(
-          (user) => user && user.username && user.username.includes(searchQuery)
-        )
-      : users;
-  function handleLogout() {
-    setLoggedInUser(null);
-  }
+  
 
+  
   useEffect(() => {
     fetch(`${API_URL}/users`)
       .then((response) => response.json())
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
-
     fetch(`${API_URL}/groups`)
       .then((response) => response.json())
       .then((data) => setGroups(data))
       .catch((error) => console.error("Error fetching users:", error));
-
     fetch(`${API_URL}/groupMessages`)
       .then((response) => response.json())
       .then((data) => setGroupMessages(data))
       .catch((error) => console.error("Error fetching users:", error));
-
     fetch(`${API_URL}/messages`)
       .then((response) => response.json())
       .then((data) => setMessages(data))
@@ -73,8 +55,7 @@ function App() {
         setMessages: setMessages,
         messages: messages,
         searchQuery: searchQuery,
-        setSearchQuery: setSearchQuery,
-        searchedUser,
+        setSearchQuery: setSearchQuery,      
         searchMessage,
         setSearchMessage,
         isGroup,
@@ -85,8 +66,7 @@ function App() {
         groupMessages,
         setGroupMessages,
         groups,
-        setGroups,
-        handleLogout,
+        setGroups,        
       }}
     >
       <Router>
@@ -115,5 +95,4 @@ function App() {
     </ChatContext.Provider>
   );
 }
-
 export default App;
