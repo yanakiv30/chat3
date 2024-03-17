@@ -6,7 +6,7 @@ import CheckboxList from "./CheckboxList";
 function UserList({ ChatContext }) {
   const { searchedUser, loggedInUser, handleLogout, single, setSingle } =
     useContext(ChatContext);
-  
+
   function handleSingle() {
     setSingle(true);
   }
@@ -22,44 +22,28 @@ function UserList({ ChatContext }) {
       <br></br>
 
       <h2 style={{ fontSize: "35px" }}>Welcome, {loggedInUser.username}!</h2>
-      <p>Chat with:</p>
-      {single ? (
-        <>   
-        
-          <ul>
-            {searchedUser
-              .filter((user) => user.id !== loggedInUser.id)
-              .map((user) => (
-                <li key={user.id}>
-                  {/* <input type="checkbox" /> */}
+      <SearchUser ChatContext={ChatContext} />
 
-                  <NavLink to={`/messages/${user.id}`}>{user.username}</NavLink>
-                </li>
-              ))}
-          </ul>
-          <br></br>
-          <SearchUser ChatContext={ChatContext} />
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <p>Or</p>
+      <ul>
+        {searchedUser
+          .filter((user) => user.id !== loggedInUser.id)
+          .map((user) => (
+            <li key={user.id}>
+              {/* <input type="checkbox" /> */}
 
-          <button style={{ width: "fit-content" }} onClick={handleGroup}>
-            Switch to GroupChat
-          </button>
-        </>
-      ) : (
-        <>
-          <CheckboxList ChatContext={ChatContext} />
-          <br></br>
-          <br></br>
-          <p>Or</p>
-          <button style={{ width: "fit-content" }} onClick={handleSingle}>
-            Switch to SingleChat:
-          </button>
-        </>
-      )}
+              <NavLink to={`/messages/${user.id}`}>{user.username}</NavLink>
+            </li>
+          ))}
+      </ul>
+
+      {/* <button style={{ width: "fit-content" }} onClick={handleGroup}>
+          Switch to GroupChat
+        </button> */}
+
+      <CheckboxList ChatContext={ChatContext} />
+      {/* <button style={{ width: "fit-content" }} onClick={handleSingle}>
+          Switch to SingleChat:
+        </button> */}
     </div>
   );
 }

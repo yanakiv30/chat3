@@ -41,7 +41,9 @@ function CheckboxList({ ChatContext }) {
         .then((response) => response.json())
         .then((data) => setGroups([...groups, data]))
         .catch((error) => console.error("Error posting message:", error));
-    }else{alert("Duplicate name")};
+    } else {
+      alert("Duplicate name");
+    }
   }
 
   useEffect(() => {
@@ -51,11 +53,9 @@ function CheckboxList({ ChatContext }) {
       .catch((error) => console.error("Error fetching users:", error));
   }, [setGroups]);
 
-
-
   return (
     <div>
-      {groups.length>0 ?"Existing Groups" :""}
+      {groups.length > 0 ? "Groups" : ""}
       <ul>
         {groups.map((group) => (
           <li key={group.name}>
@@ -67,17 +67,16 @@ function CheckboxList({ ChatContext }) {
       <br></br>
 
       {/* <p style={{ color: "red" }}>{trueItems.join(", ")} </p> */}
-      <p>Or</p>      
+      
       <p>Set new Group</p>
       <input
+        style={{ width: "fit-content" }}
         type="text"
         value={groupName}
         onChange={(e) => setGroupName(e.target.value)}
         placeholder="Enter unique name "
       />
-      <br></br>
-
-      <br></br>
+      
       <p>Choose members :</p>
       <ul>
         {names.map((name) => (
@@ -92,7 +91,7 @@ function CheckboxList({ ChatContext }) {
           </li>
         ))}
       </ul>
-      <br></br>
+      
       <button onClick={handleSetGroups}>Create</button>
     </div>
   );
