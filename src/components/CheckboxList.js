@@ -5,10 +5,9 @@ const API_URL = "http://localhost:3001";
 
 function CheckboxList({ ChatContext }) {
   const { users, loggedInUser } = useContext(ChatContext);
-  let { trueItems, groupName, setGroupName, groups, setGroups } =
-    useContext(ChatContext);
+  let { trueItems, groups, setGroups } = useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});
-
+  const [groupName, setGroupName] = useState("");
   let names = [];
   users.map((user) => names.push(user.username));
   names = names.filter((name) => name !== loggedInUser.username);
@@ -67,7 +66,7 @@ function CheckboxList({ ChatContext }) {
       <br></br>
 
       {/* <p style={{ color: "red" }}>{trueItems.join(", ")} </p> */}
-      
+
       <p>Set new Group</p>
       <input
         style={{ width: "fit-content" }}
@@ -76,7 +75,7 @@ function CheckboxList({ ChatContext }) {
         onChange={(e) => setGroupName(e.target.value)}
         placeholder="Enter unique name "
       />
-      
+
       <p>Choose members :</p>
       <ul>
         {names.map((name) => (
@@ -91,7 +90,7 @@ function CheckboxList({ ChatContext }) {
           </li>
         ))}
       </ul>
-      
+
       <button onClick={handleSetGroups}>Create</button>
     </div>
   );

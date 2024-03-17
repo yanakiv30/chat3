@@ -5,16 +5,8 @@ import SearchInMessage from "./SearchInMessage";
 const API_URL = "http://localhost:3001";
 
 function UserProfile({ ChatContext }) {
-  const {
-    single,
-    setMessages,
-    loggedInUser,
-    messages,
-    users,
-    searchMessage,
-    trueItems,
-    groupName,
-  } = useContext(ChatContext);
+  const { setMessages, loggedInUser, messages, users, searchMessage } =
+    useContext(ChatContext);
 
   const [newMessage, setNewMessage] = useState("");
   const params = useParams();
@@ -22,14 +14,10 @@ function UserProfile({ ChatContext }) {
   const userName = users.find((x) => x.id === userInListId).username;
 
   function leftMessage(message) {
-    if (!single) {
-      return trueItems.includes(message.username);
-    } else {
-      return (
-        message.receiverId === loggedInUser.id &&
-        message.senderId === userInListId
-      );
-    }
+    return (
+      message.receiverId === loggedInUser.id &&
+      message.senderId === userInListId
+    );
   }
 
   function rightMessage(message) {
@@ -62,7 +50,7 @@ function UserProfile({ ChatContext }) {
         senderUsername: loggedInUser.username,
         content: newMessage,
         hourMinDate,
-        dayDate, 
+        dayDate,
       };
 
       fetch(`${API_URL}/messages`, {
@@ -98,9 +86,7 @@ function UserProfile({ ChatContext }) {
     <div className="profile-wrapper">
       <SearchInMessage ChatContext={ChatContext} />
       <div className="chat-with">
-        <h3>
-          {`Chat with ${userName}`}
-        </h3>
+        <h3>{`Chat with ${userName}`}</h3>
       </div>
       <div className="user-profile-container">
         <ul className="messages-container">

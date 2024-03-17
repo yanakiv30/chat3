@@ -26,7 +26,7 @@ function App() {
   const [searchMessage, setSearchMessage] = useState("");
   const [isGroup, setIsGroup] = useState(false);
   let [trueItems, setTrueItems] = useState([]);
-  const [groupName, setGroupName] = useState("");
+ 
   const [single, setSingle] = useState(true);
   const [groups, setGroups] = useState([]);
 
@@ -70,8 +70,8 @@ function App() {
         trueItems,
         single,
         setSingle,
-        groupName,
-        setGroupName,
+        
+        
         groups,
         setGroups,
         handleLogout,
