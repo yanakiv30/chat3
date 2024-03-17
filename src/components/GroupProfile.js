@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 const API_URL = "http://localhost:3001";
 
-export default function GroupProfile({ChatContext}) {
-  const {groups,loggedInUser,groupMessages,setGroupMessages} = useContext(ChatContext);
+export default function GroupProfile({ ChatContext }) {
+  const { groups, loggedInUser, groupMessages, setGroupMessages } =
+    useContext(ChatContext);
 
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
@@ -12,12 +13,14 @@ export default function GroupProfile({ChatContext}) {
   const grName = groups.find((x) => x.id === groupInListId)?.name;
 
   function leftGroupMessage(groupMessage) {
-    return (      
-      groupMessage.receiverId === groupInListId
-    );
+    return groupMessage.receiverId === groupInListId
+    &&groups.filter((group) => group.id === groupInListId)[0]
+  .members.includes(loggedInUser.username)
   }
-
-console.log("groupInListId = ",groupInListId);
+  
+  console.log(groups.filter((group) => group.id === groupInListId)[0]
+  .members.includes(loggedInUser.username));
+  console.log("groupInListId = ", groupInListId);
 
   function rightGroupMessage(groupMessage) {
     return (
@@ -27,8 +30,8 @@ console.log("groupInListId = ",groupInListId);
   }
 
   const userGroupMessages = groupMessages.filter(
-    (groupMessage) => leftGroupMessage(groupMessage) ||
-     rightGroupMessage(groupMessage)
+    (groupMessage) =>
+      leftGroupMessage(groupMessage) || rightGroupMessage(groupMessage)
   );
 
   function handleSendGroupMessage() {
@@ -42,7 +45,7 @@ console.log("groupInListId = ",groupInListId);
       const newGroupMessageObject = {
         id: uuid(),
         senderId: loggedInUser.id,
-        receiverId: groupInListId,  
+        receiverId: groupInListId,
         senderUsername: loggedInUser.username,
         content: newGroupMessage,
         hourMinDate,
@@ -64,20 +67,19 @@ console.log("groupInListId = ",groupInListId);
     }
   }
 
-  
-
   return (
     <div className="profile-wrapper">
       <div className="chat-with">
         <h3>{`Chat with ${grName}`}</h3>
       </div>
       <div className="user-profile-container">
-
-      <ul className="messages-container">
+        <ul className="messages-container">
           {userGroupMessages.map((groupMessage, index) => (
             <div
               className={` ${
-                rightGroupMessage(groupMessage) ? "message-right" : "message-left"
+                rightGroupMessage(groupMessage)
+                  ? "message-right"
+                  : "message-left"
               }`}
               key={groupMessage.id}
             >
@@ -90,7 +92,8 @@ console.log("groupInListId = ",groupInListId);
               <br></br>
               <li className="message">
                 <p>
-                  <strong>{groupMessage.senderUsername}:</strong> {groupMessage.content}
+                  <strong>{groupMessage.senderUsername}:</strong>{" "}
+                  {groupMessage.content}
                 </p>
                 <br></br>
                 <p className="date">{groupMessage.hourMinDate}</p>
@@ -107,7 +110,7 @@ console.log("groupInListId = ",groupInListId);
           ))}
         </ul>
 
-      <div className="message-send">
+        <div className="message-send">
           <input
             type="text"
             value={newGroupMessage}
@@ -122,7 +125,6 @@ console.log("groupInListId = ",groupInListId);
           />
           <button onClick={handleSendGroupMessage}>Send</button>
         </div>
-
       </div>
     </div>
   );
