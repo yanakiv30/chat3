@@ -40,6 +40,15 @@
         "vasil",
         "niki"
       ]
+    },
+    {
+      "id": "a2431eac-0770-49b5-b6b0-ad3782654527",
+      "name": "group-nv",
+      "members": [
+        "niki",
+        "vasil",
+        "elena"
+      ]
     }
   ],
   "groupMessages": [
@@ -113,6 +122,42 @@
       "senderUsername": "elena",
       "content": "elena-ev3",
       "hourMinDate": "11:07",
+      "dayDate": "17.2.2024"
+    },
+    {
+      "id": "797336ce-9c34-423e-8cf3-af4ac7de3799",
+      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "receiverId": "a2431eac-0770-49b5-b6b0-ad3782654527",
+      "senderUsername": "elena",
+      "content": "elena-nv1",
+      "hourMinDate": "11:24",
+      "dayDate": "17.2.2024"
+    },
+    {
+      "id": "ebbf1e6f-371f-4cc0-9459-dbd8f1c5d693",
+      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "receiverId": "a2431eac-0770-49b5-b6b0-ad3782654527",
+      "senderUsername": "elena",
+      "content": "elena-nv2",
+      "hourMinDate": "11:26",
+      "dayDate": "17.2.2024"
+    },
+    {
+      "id": "ccc753f4-3d38-4b20-83cc-c1e2a2749f16",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "a2431eac-0770-49b5-b6b0-ad3782654527",
+      "senderUsername": "niki",
+      "content": "niki-nv1",
+      "hourMinDate": "12:32",
+      "dayDate": "17.2.2024"
+    },
+    {
+      "id": "98e85176-3d95-4d8f-ac46-beef7ed86e5b",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "a2431eac-0770-49b5-b6b0-ad3782654527",
+      "senderUsername": "niki",
+      "content": "niki-nv2",
+      "hourMinDate": "12:32",
       "dayDate": "17.2.2024"
     }
   ],

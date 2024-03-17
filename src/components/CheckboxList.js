@@ -23,7 +23,10 @@ function CheckboxList({ ChatContext }) {
 
   function handleSetGroups() {
     const isDuplicate = groups?.some((obj) => obj.name.includes(groupName));
+    
     if (!isDuplicate) {
+      // const checkedMembers= trueItems.includes(loggedInUser.username)?
+      // trueItems :[...trueItems, loggedInUser.username];
       const newGroup = {
         id: uuid(),
         name: groupName,

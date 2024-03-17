@@ -13,9 +13,11 @@ export default function GroupProfile({ChatContext}) {
 
   function leftGroupMessage(groupMessage) {
     return (      
-      groupMessage.senderId === groupInListId
+      groupMessage.receiverId === groupInListId
     );
   }
+
+console.log("groupInListId = ",groupInListId);
 
   function rightGroupMessage(groupMessage) {
     return (
@@ -72,7 +74,7 @@ export default function GroupProfile({ChatContext}) {
       <div className="user-profile-container">
 
       <ul className="messages-container">
-          {groupMessages.map((groupMessage, index) => (
+          {userGroupMessages.map((groupMessage, index) => (
             <div
               className={` ${
                 rightGroupMessage(groupMessage) ? "message-right" : "message-left"
@@ -80,8 +82,8 @@ export default function GroupProfile({ChatContext}) {
               key={groupMessage.id}
             >
               <p className="day-date">
-                {groupMessages[index - 1]?.dayDate ===
-                groupMessages[index].dayDate
+                {userGroupMessages[index - 1]?.dayDate ===
+                userGroupMessages[index].dayDate
                   ? ""
                   : groupMessage.dayDate}
               </p>
