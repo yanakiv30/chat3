@@ -33,58 +33,50 @@
   ],
   "groups": [
     {
-      "id": "83defec4-c836-41fa-9a11-713dca4111c7",
-      "name": "evm",
-      "members": [
-        "elena",
-        "vasil",
-        "mariya",
-        "niki"
-      ]
-    },
-    {
-      "id": "fd4c34c0-f672-43df-a013-2c8e6502873d",
-      "name": "cool",
-      "members": [
-        "vasil",
-        "mariya",
-        "niki"
-      ]
-    },
-    {
-      "id": "a247ec14-bd57-4911-977c-3cd0d292c75b",
+      "id": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
       "name": "group-ev",
       "members": [
         "elena",
         "vasil",
         "niki"
       ]
-    },
-    {
-      "id": "1e781c1b-cfd7-4dd0-9eb7-4bac6f2a5910",
-      "name": "group-em",
-      "members": [
-        "elena",
-        "mariya",
-        "niki"
-      ]
     }
   ],
   "groupMessages": [
     {
-      "id": "d9ed97bd-50ee-4db6-97b3-5cb4b2c84c1c",
+      "id": "745b34ae-979c-4c39-9080-f0a9e90c6646",
       "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "1e781c1b-cfd7-4dd0-9eb7-4bac6f2a5910",
-      "content": "niki-em",
-      "hourMinDate": "8:38",
+      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
+      "senderUsername": "niki",
+      "content": "niki-ev1",
+      "hourMinDate": "10:24",
       "dayDate": "17.2.2024"
     },
     {
-      "id": "185e40f3-b284-497d-8bbe-89d8f1b82398",
+      "id": "a5c2585c-837e-47a2-a43c-86d2c794efb6",
       "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "1e781c1b-cfd7-4dd0-9eb7-4bac6f2a5910",
-      "content": "niki-em2",
-      "hourMinDate": "8:41",
+      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
+      "senderUsername": "niki",
+      "content": "niki-ev2",
+      "hourMinDate": "10:25",
+      "dayDate": "17.2.2024"
+    },
+    {
+      "id": "b50c1afe-182c-48ba-9519-be3a7202a84e",
+      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
+      "senderUsername": "elena",
+      "content": "elena-ev1",
+      "hourMinDate": "10:26",
+      "dayDate": "17.2.2024"
+    },
+    {
+      "id": "0cd1cbe8-7097-4415-958e-5f8de329ec00",
+      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
+      "senderUsername": "elena",
+      "content": "elena-ev2",
+      "hourMinDate": "10:26",
       "dayDate": "17.2.2024"
     }
   ],

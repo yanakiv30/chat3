@@ -11,6 +11,23 @@ const[groupMessages, setGroupMessages] = useState([]);
   const groupInListId = params.groupId;
   const grName = groups.find((x) => x.id === groupInListId)?.name;
 
+  function leftGroupMessage(groupMessage) {
+    return (      
+      groupMessage.senderId === groupInListId
+    );
+  }
+
+  function rightGroupMessage(groupMessage) {
+    return (
+      groupMessage.receiverId === groupInListId &&
+      groupMessage.senderId === loggedInUser.id
+    );
+  }
+
+  const userGroupMessages = groupMessages.filter(
+    (groupMessage) => leftGroupMessage(groupMessage) ||
+     rightGroupMessage(groupMessage)
+  );
 
   function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {
@@ -23,7 +40,8 @@ const[groupMessages, setGroupMessages] = useState([]);
       const newGroupMessageObject = {
         id: uuid(),
         senderId: loggedInUser.id,
-        receiverId: groupInListId,       
+        receiverId: groupInListId,  
+        senderUsername: loggedInUser.username,
         content: newGroupMessage,
         hourMinDate,
         dayDate,
@@ -44,6 +62,7 @@ const[groupMessages, setGroupMessages] = useState([]);
     }
   }
 
+  
 
   return (
     <div className="profile-wrapper">
@@ -51,6 +70,41 @@ const[groupMessages, setGroupMessages] = useState([]);
         <h3>{`Chat with ${grName}`}</h3>
       </div>
       <div className="user-profile-container">
+
+      <ul className="messages-container">
+          {groupMessages.map((groupMessage, index) => (
+            <div
+              className={` ${
+                rightGroupMessage(groupMessage) ? "message-right" : "message-left"
+              }`}
+              key={groupMessage.id}
+            >
+              <p className="day-date">
+                {groupMessages[index - 1]?.dayDate ===
+                groupMessages[index].dayDate
+                  ? ""
+                  : groupMessage.dayDate}
+              </p>
+              <br></br>
+              <li className="message">
+                <p>
+                  <strong>{groupMessage.senderUsername}:</strong> {groupMessage.content}
+                </p>
+                <br></br>
+                <p className="date">{groupMessage.hourMinDate}</p>
+                {/* {rightGroupMessage(groupMessage) ? (
+                  <button
+                    className="date"
+                    onClick={() => handleDeleteMessages(message.id)}
+                  >
+                    Delete
+                  </button>
+                ) : null} */}
+              </li>
+            </div>
+          ))}
+        </ul>
+
       <div className="message-send">
           <input
             type="text"
