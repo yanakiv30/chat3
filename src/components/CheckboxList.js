@@ -59,7 +59,9 @@ function CheckboxList({ ChatContext }) {
     <div>
       {groups.length > 0 ? "Groups" : ""}
       <ul>
-        {groups.map((group) => (
+        {groups
+        .filter(group=> group.members.includes(loggedInUser.username))
+        .map((group) => (
           <li key={group.name}>
             <NavLink to={`/groups/${group.id}`}>{group.name}</NavLink>
             {/* <button onClick={handleGroupSwitch}>{group ? group.name : ""}</button> */}

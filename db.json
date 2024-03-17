@@ -205,24 +205,7 @@
       "hourMinDate": "16:27",
       "dayDate": "17.2.2024"
     },
-    {
-      "id": "0319ad0b-87d4-42a9-8fbd-dd66781f1afb",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "70289d8b-903a-4c51-8c65-81cc079499aa",
-      "senderUsername": "elena",
-      "content": "elena-nm1",
-      "hourMinDate": "16:28",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "a2383fc8-84ba-44eb-bd73-0cebe10b6f02",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "70289d8b-903a-4c51-8c65-81cc079499aa",
-      "senderUsername": "elena",
-      "content": "elena-nm2",
-      "hourMinDate": "16:28",
-      "dayDate": "17.2.2024"
-    },
+    
     {
       "id": "20edb180-8e57-4bd5-854f-41444e3754b1",
       "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
