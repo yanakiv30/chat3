@@ -5,8 +5,13 @@ import SearchInMessage from "./SearchInMessage";
 const API_URL = "http://localhost:3001";
 
 export default function GroupProfile({ ChatContext }) {
-  const { groups, loggedInUser, groupMessages, setGroupMessages,searchMessage, } =
-    useContext(ChatContext);
+  const {
+    groups,
+    loggedInUser,
+    groupMessages,
+    setGroupMessages,
+    searchMessage,
+  } = useContext(ChatContext);
 
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
@@ -14,14 +19,13 @@ export default function GroupProfile({ ChatContext }) {
   const grName = groups.find((x) => x.id === groupInListId)?.name;
 
   function leftGroupMessage(groupMessage) {
-    return groupMessage.receiverId === groupInListId
-    &&groups.filter((group) => group.id === groupInListId)[0]
-  .members.includes(loggedInUser.username)
+    return (
+      groupMessage.receiverId === groupInListId &&
+      groups
+        .filter((group) => group.id === groupInListId)[0]
+        .members.includes(loggedInUser.username)
+    );
   }
-  
-  console.log(groups.filter((group) => group.id === groupInListId)[0]
-  .members.includes(loggedInUser.username));
-  console.log("groupInListId = ", groupInListId);
 
   function rightGroupMessage(groupMessage) {
     return (
@@ -30,14 +34,11 @@ export default function GroupProfile({ ChatContext }) {
     );
   }
 
-  const userGroupMessages = groupMessages
-  .filter((groupMessage) => (leftGroupMessage(groupMessage) || rightGroupMessage(groupMessage))
-  && groupMessage.content.includes(searchMessage)
+  const userGroupMessages = groupMessages.filter(
+    (groupMessage) =>
+      (leftGroupMessage(groupMessage) || rightGroupMessage(groupMessage)) &&
+      groupMessage.content.includes(searchMessage)
   );
-
-  // const searchedMessage = userMessages.filter((userMessage) =>
-  //   userMessage.content.includes(searchMessage)
-  // );
 
   function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {
@@ -69,7 +70,21 @@ export default function GroupProfile({ ChatContext }) {
         .catch((error) => console.error("Error posting message:", error));
 
       setNewGroupMessage("");
-    }
+    }    
+  }
+
+  function handleDeleteGroupMessages(idForDelete) {
+    const updatedMessages = groupMessages.filter((x) => x.id !== idForDelete);
+    setGroupMessages(updatedMessages);
+
+    fetch(`${API_URL}/groupMessages/${idForDelete}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setGroupMessages(updatedMessages);
+      })
+      .catch((error) => console.error("Error deleting message:", error));
   }
 
   return (
@@ -103,14 +118,14 @@ export default function GroupProfile({ ChatContext }) {
                 </p>
                 <br></br>
                 <p className="date">{groupMessage.hourMinDate}</p>
-                {/* {rightGroupMessage(groupMessage) ? (
+                {rightGroupMessage(groupMessage) ? (
                   <button
                     className="date"
-                    onClick={() => handleDeleteMessages(message.id)}
+                    onClick={() => handleDeleteGroupMessages(groupMessage.id)}
                   >
                     Delete
                   </button>
-                ) : null} */}
+                ) : null}
               </li>
             </div>
           ))}
