@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import SearchInMessage from "./SearchInMessage";
 const API_URL = "http://localhost:3001";
 
 export default function GroupProfile({ ChatContext }) {
-  const { groups, loggedInUser, groupMessages, setGroupMessages } =
+  const { groups, loggedInUser, groupMessages, setGroupMessages,searchMessage, } =
     useContext(ChatContext);
 
   const [newGroupMessage, setNewGroupMessage] = useState("");
@@ -29,10 +30,14 @@ export default function GroupProfile({ ChatContext }) {
     );
   }
 
-  const userGroupMessages = groupMessages.filter(
-    (groupMessage) =>
-      leftGroupMessage(groupMessage) || rightGroupMessage(groupMessage)
+  const userGroupMessages = groupMessages
+  .filter((groupMessage) => (leftGroupMessage(groupMessage) || rightGroupMessage(groupMessage))
+  && groupMessage.content.includes(searchMessage)
   );
+
+  // const searchedMessage = userMessages.filter((userMessage) =>
+  //   userMessage.content.includes(searchMessage)
+  // );
 
   function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {
@@ -69,6 +74,7 @@ export default function GroupProfile({ ChatContext }) {
 
   return (
     <div className="profile-wrapper">
+      <SearchInMessage ChatContext={ChatContext} />
       <div className="chat-with">
         <h3>{`Chat with ${grName}`}</h3>
       </div>
