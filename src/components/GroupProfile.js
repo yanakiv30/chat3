@@ -4,8 +4,8 @@ import { v4 as uuid } from "uuid";
 const API_URL = "http://localhost:3001";
 
 export default function GroupProfile({ChatContext}) {
-  const {groups,loggedInUser} = useContext(ChatContext);
-const[groupMessages, setGroupMessages] = useState([]);
+  const {groups,loggedInUser,groupMessages,setGroupMessages} = useContext(ChatContext);
+
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
   const groupInListId = params.groupId;

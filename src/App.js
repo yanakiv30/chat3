@@ -22,12 +22,12 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
-  
+  const [groupMessages, setGroupMessages] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchMessage, setSearchMessage] = useState("");
   const [isGroup, setIsGroup] = useState(false);
   let [trueItems, setTrueItems] = useState([]);
- 
+
   const [single, setSingle] = useState(true);
   const [groups, setGroups] = useState([]);
 
@@ -46,6 +46,17 @@ function App() {
       .then((response) => response.json())
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
+
+    fetch(`${API_URL}/groups`)
+      .then((response) => response.json())
+      .then((data) => setGroups(data))
+      .catch((error) => console.error("Error fetching users:", error));
+
+    fetch(`${API_URL}/groupMessages`)
+      .then((response) => response.json())
+      .then((data) => setGroupMessages(data))
+      .catch((error) => console.error("Error fetching users:", error));
+
     fetch(`${API_URL}/messages`)
       .then((response) => response.json())
       .then((data) => setMessages(data))
@@ -71,8 +82,8 @@ function App() {
         trueItems,
         single,
         setSingle,
-        
-        
+        groupMessages,
+        setGroupMessages,
         groups,
         setGroups,
         handleLogout,
