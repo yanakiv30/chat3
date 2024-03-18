@@ -21,33 +21,15 @@
 
 .app-container button {
   color: rgb(160, 105, 79);
-  border-radius: 10%;
+  border-radius: 1cqb;
+  width: fit-content;
+  font-size: 10px;
 }
 
 .main-container {
   display: flex;
   width: 80%;
   gap: 22px;
-}
-
-.left-container {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px; */
-  background-color: #f0f0f0;
-  width: 50%;
-}
-
-.left-container .button-link {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.left-container .button-link button {
-  width: fit-content;
-  font-size: 10px;
 }
 
 .user-list-container {
@@ -57,9 +39,18 @@
   border: 3px solid #ccc;
   padding: 10px;
   max-height: 100%;
-  overflow-y: auto;
-  
+  overflow-y: auto;  
+  background-color: #f0f0f0;
+  width: 50%;
 }
+
+.user-list-container .set {
+  border: 3px solid #ccc;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10%;
+}
+
 
 .profile-wrapper {
   /* border: 1px solid #b36b6b; */
@@ -87,7 +78,7 @@
   border: 3px solid #ccc;
   padding: 10px;
   width: 97%;
-  height: 87%;
+  height: 84%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

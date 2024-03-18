@@ -23,7 +23,7 @@ function UserList({ ChatContext }) {
       </div>
       <br></br>
 
-      <h2 style={{ fontSize: "35px" }}>Welcome, {loggedInUser.username}!</h2>
+      <h2 style={{ fontSize: "35px" }}>Welcome, to Chat  {loggedInUser.username}!</h2>
       <SearchUser ChatContext={ChatContext} />
       <ul>
         {searchedUser

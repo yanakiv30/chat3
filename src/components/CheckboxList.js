@@ -5,7 +5,7 @@ const API_URL = "http://localhost:3001";
 
 function CheckboxList({ ChatContext }) {
   const { users, loggedInUser } = useContext(ChatContext);
-  let { trueItems, groups, setGroups } = useContext(ChatContext);
+  let { groups, setGroups } = useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});
   const [groupName, setGroupName] = useState("");
   let names = [];
@@ -17,16 +17,16 @@ function CheckboxList({ ChatContext }) {
       [name]: !prevCheckedItems[name],
     }));
   }
-  trueItems = Object.keys(checkedItems).filter(
+  let trueItems = Object.keys(checkedItems).filter(
     (key) => checkedItems[key] === true
   );
 
   function handleSetGroups() {
-    const isDuplicate = groups?.some((obj) => obj.name.includes(groupName));
-    
-    if (!isDuplicate) {
-      // const checkedMembers= trueItems.includes(loggedInUser.username)?
-      // trueItems :[...trueItems, loggedInUser.username];
+    // const isDuplicate = groups?.some((obj) => obj.name.includes(groupName));
+    const isDuplicate = groups?.some((obj) => obj.name === groupName);
+
+
+    if (!isDuplicate) {      
       const newGroup = {
         id: uuid(),
         name: groupName,
@@ -60,43 +60,40 @@ function CheckboxList({ ChatContext }) {
       {groups.length > 0 ? "Groups" : ""}
       <ul>
         {groups
-        .filter(group=> group.members.includes(loggedInUser.username))
-        .map((group) => (
-          <li key={group.name}>
-            <NavLink to={`/groups/${group.id}`}>{group.name}</NavLink>
-            {/* <button onClick={handleGroupSwitch}>{group ? group.name : ""}</button> */}
-          </li>
-        ))}
+          .filter((group) => group.members.includes(loggedInUser.username))
+          .map((group) => (
+            <li key={group.name}>
+              <NavLink to={`/groups/${group.id}`}>{group.name}</NavLink>
+            </li>
+          ))}
       </ul>
       <br></br>
 
-      {/* <p style={{ color: "red" }}>{trueItems.join(", ")} </p> */}
-
-      <p>Set new Group</p>
-      <input
-        style={{ width: "fit-content" }}
-        type="text"
-        value={groupName}
-        onChange={(e) => setGroupName(e.target.value)}
-        placeholder="Enter unique name "
-      />
-
-      <p>Choose members :</p>
-      <ul>
-        {names.map((name) => (
-          <li key={name}>
-            <input
-              type="checkbox"
-              id={name}
-              checked={checkedItems[name] || false}
-              onChange={() => handleCheckboxChange(name)}
-            />
-            <label htmlFor={name}>{name}</label>
-          </li>
-        ))}
-      </ul>
-
-      <button onClick={handleSetGroups}>Create</button>
+      <div className="set">
+        <p>Set new Group</p>
+        <input
+          style={{ width: "fit-content" }}
+          type="text"
+          value={groupName}
+          onChange={(e) => setGroupName(e.target.value)}
+          placeholder="Enter unique name "
+        />
+        <p>Choose members :</p>
+        <ul>
+          {names.map((name) => (
+            <li key={name}>
+              <input
+                type="checkbox"
+                id={name}
+                checked={checkedItems[name] || false}
+                onChange={() => handleCheckboxChange(name)}
+              />
+              <label htmlFor={name}>{name}</label>
+            </li>
+          ))}
+        </ul>
+        <button onClick={handleSetGroups}>Create</button>
+      </div>
     </div>
   );
 }

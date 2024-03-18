@@ -1,5 +1,4 @@
 import React, { useState, useEffect, createContext } from "react";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import UserList from "./components/UserList";
@@ -8,7 +7,6 @@ import Login from "./components/Login";
 import GroupProfile from "./components/GroupProfile";
 
 const API_URL = "http://localhost:3001";
-let isUserActive = false;
 const ChatContext = createContext();
 
 function App() {
@@ -17,14 +15,8 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [groupMessages, setGroupMessages] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchMessage, setSearchMessage] = useState("");
-  const [isGroup, setIsGroup] = useState(false);
-  let [trueItems, setTrueItems] = useState([]);
-  const [single, setSingle] = useState(true);
-  const [groups, setGroups] = useState([]);
-
-  
-
+  const [searchMessage, setSearchMessage] = useState(""); 
+  const [groups, setGroups] = useState([]);  
   
   useEffect(() => {
     fetch(`${API_URL}/users`)
@@ -50,19 +42,13 @@ function App() {
       value={{
         users: users,
         loggedInUser: loggedInUser,
-        setLoggedInUser,
-        isUserActive: isUserActive,
-        setMessages: setMessages,
-        messages: messages,
-        searchQuery: searchQuery,
-        setSearchQuery: setSearchQuery,      
+        setLoggedInUser,      
+        setMessages,
+        messages,
+        searchQuery,
+        setSearchQuery,      
         searchMessage,
-        setSearchMessage,
-        isGroup,
-        setIsGroup,
-        trueItems,
-        single,
-        setSingle,
+        setSearchMessage,                  
         groupMessages,
         setGroupMessages,
         groups,
@@ -72,10 +58,8 @@ function App() {
       <Router>
         <div className="app-container">
           {loggedInUser ? (
-            <div className="main-container">
-              <div className="left-container">
-                <UserList ChatContext={ChatContext} />
-              </div>
+            <div className="main-container">              
+                <UserList ChatContext={ChatContext} />              
               <Routes>
                 <Route
                   path="/messages/:userId"

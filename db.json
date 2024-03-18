@@ -35,30 +35,19 @@
     {
       "id": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
       "name": "group-ev",
-      "members": [
-        "elena",
-        "vasil",
-        "niki"
-      ]
+      "members": ["elena", "vasil", "niki"]
     },
     {
       "id": "a2431eac-0770-49b5-b6b0-ad3782654527",
       "name": "group-nv",
-      "members": [
-        "niki",
-        "vasil",
-        "elena"
-      ]
+      "members": ["niki", "vasil", "elena"]
     },
     {
       "id": "70289d8b-903a-4c51-8c65-81cc079499aa",
       "name": "group-nm",
-      "members": [
-        "niki",
-        "mariya",
-        "iliya"
-      ]
+      "members": ["niki", "mariya", "iliya"]
     }
+   
   ],
   "groupMessages": [
     {
@@ -213,6 +202,15 @@
       "content": "niki-nm2",
       "hourMinDate": "19:34",
       "dayDate": "17.2.2024"
+    },
+    {
+      "id": "2613c5fe-519a-43ae-865d-2faa63927557",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "7f4a5777-7bbd-446a-ae8b-b3161e22ca5d",
+      "senderUsername": "niki",
+      "content": "jnjnjnjn",
+      "hourMinDate": "6:45",
+      "dayDate": "18.2.2024"
     }
   ],
   "messages": [

@@ -86,7 +86,7 @@ function UserProfile({ ChatContext }) {
     <div className="profile-wrapper">
       <SearchInMessage ChatContext={ChatContext} />
       <div className="chat-with">
-        <h3>{`Chat with ${userName}`}</h3>
+        <h3>Chat with {userName ? userName:""}</h3>
       </div>
       <div className="user-profile-container">
         <ul className="messages-container">
