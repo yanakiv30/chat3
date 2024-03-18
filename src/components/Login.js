@@ -41,6 +41,8 @@ export default function Login({ ChatContext }) {
   
   return (
     <div className="login">
+      <h2>Welcome to chatSPA</h2>
+     
       <form
         onSubmit={(e) => {
           e.preventDefault();

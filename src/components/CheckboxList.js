@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 const API_URL = "http://localhost:3001";
@@ -21,8 +21,7 @@ function CheckboxList({ ChatContext }) {
     (key) => checkedItems[key] === true
   );
 
-  function handleSetGroups() {
-    // const isDuplicate = groups?.some((obj) => obj.name.includes(groupName));
+  function handleSetGroups() {    
     const isDuplicate = groups?.some((obj) => obj.name === groupName);
 
 
@@ -31,6 +30,7 @@ function CheckboxList({ ChatContext }) {
         id: uuid(),
         name: groupName,
         members: [...trueItems, loggedInUser.username],
+        admin:loggedInUser.username
       };
 
       fetch(`${API_URL}/groups`, {
@@ -46,14 +46,11 @@ function CheckboxList({ ChatContext }) {
     } else {
       alert("Duplicate name");
     }
-  }
+  }  
 
-  useEffect(() => {
-    fetch(`${API_URL}/groups`)
-      .then((response) => response.json())
-      .then((data) => setGroups(data))
-      .catch((error) => console.error("Error fetching users:", error));
-  }, [setGroups]);
+function handleSettings() {
+  
+}
 
   return (
     <div>
@@ -63,7 +60,10 @@ function CheckboxList({ ChatContext }) {
           .filter((group) => group.members.includes(loggedInUser.username))
           .map((group) => (
             <li key={group.name}>
-              <NavLink to={`/groups/${group.id}`}>{group.name}</NavLink>
+              <NavLink to={`/groups/${group.id}`}>{`${group.name} `}</NavLink>
+              
+             { group.admin===loggedInUser.username ? <button style={{fontSize:"8px"}} 
+               onClick={handleSettings}>Settings</button> :""}
             </li>
           ))}
       </ul>

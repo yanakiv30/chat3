@@ -7,7 +7,6 @@ const API_URL = "http://localhost:3001";
 function UserProfile({ ChatContext }) {
   const { setMessages, loggedInUser, messages, users, searchMessage } =
     useContext(ChatContext);
-
   const [newMessage, setNewMessage] = useState("");
   const params = useParams();
   const userInListId = params.userId;
@@ -105,9 +104,8 @@ function UserProfile({ ChatContext }) {
               </p>
               <br></br>
               <li className="message">
-                <p>
-                  <strong>{message.senderUsername}:</strong> {message.content}
-                </p>
+                <p style={{color:"blue"}}>{message.senderUsername}:</p>
+                <p> {message.content}</p>
                 <br></br>
                 <p className="date">{message.hourMinDate}</p>
                 {rightMessage(message) ? (

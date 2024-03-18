@@ -2,6 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+To run "fake" server on http://localhost:3001/
+### `npm run json-server`
+
 ## Available Scripts
 
 In the project directory, you can run:

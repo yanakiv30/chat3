@@ -70,7 +70,7 @@ export default function GroupProfile({ ChatContext }) {
         .catch((error) => console.error("Error posting message:", error));
 
       setNewGroupMessage("");
-    }    
+    }
   }
 
   function handleDeleteGroupMessages(idForDelete) {
@@ -112,10 +112,9 @@ export default function GroupProfile({ ChatContext }) {
               </p>
               <br></br>
               <li className="message">
-                <p>
-                  <strong>{groupMessage.senderUsername}:</strong>{" "}
-                  {groupMessage.content}
-                </p>
+                <p style={{color:"blue"}}>{groupMessage.senderUsername}:</p>
+                <p>{groupMessage.content}</p>
+
                 <br></br>
                 <p className="date">{groupMessage.hourMinDate}</p>
                 {rightGroupMessage(groupMessage) ? (

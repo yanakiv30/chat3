@@ -35,19 +35,50 @@
     {
       "id": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
       "name": "group-ev",
-      "members": ["elena", "vasil", "niki"]
+      "members": [
+        "elena",
+        "vasil",
+        "niki"
+      ]
     },
     {
       "id": "a2431eac-0770-49b5-b6b0-ad3782654527",
       "name": "group-nv",
-      "members": ["niki", "vasil", "elena"]
+      "members": [
+        "niki",
+        "vasil",
+        "elena"
+      ]
     },
     {
       "id": "70289d8b-903a-4c51-8c65-81cc079499aa",
       "name": "group-nm",
-      "members": ["niki", "mariya", "iliya"]
+      "members": [
+        "niki",
+        "mariya",
+        "iliya"
+      ]
+    },
+    {
+      "id": "44b7d326-71e3-4a67-946f-3e46c52e1710",
+      "name": "group-nev",
+      "members": [
+        "elena",
+        "vasil",
+        "niki"
+      ],
+      "admin": "niki"
+    },
+    {
+      "id": "c38dadd5-e192-4f5e-9e1c-5296a609d097",
+      "name": "group-evi",
+      "members": [
+        "vasil",
+        "iliya",
+        "elena"
+      ],
+      "admin": "elena"
     }
-   
   ],
   "groupMessages": [
     {
@@ -211,6 +242,42 @@
       "content": "jnjnjnjn",
       "hourMinDate": "6:45",
       "dayDate": "18.2.2024"
+    },
+    {
+      "id": "7f325fe0-e293-4d0d-9f41-905d1e2683d2",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "44b7d326-71e3-4a67-946f-3e46c52e1710",
+      "senderUsername": "niki",
+      "content": "niki-nev1",
+      "hourMinDate": "0:54",
+      "dayDate": "19.2.2024"
+    },
+    {
+      "id": "eb22f13e-e030-4235-bf8c-739720df781a",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "44b7d326-71e3-4a67-946f-3e46c52e1710",
+      "senderUsername": "niki",
+      "content": "niki-nev2",
+      "hourMinDate": "0:54",
+      "dayDate": "19.2.2024"
+    },
+    {
+      "id": "64316bd8-a0d2-4d61-b417-1422a098efda",
+      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
+      "receiverId": "44b7d326-71e3-4a67-946f-3e46c52e1710",
+      "senderUsername": "vasil",
+      "content": "vasil-nev1",
+      "hourMinDate": "0:55",
+      "dayDate": "19.2.2024"
+    },
+    {
+      "id": "e4edc3db-2041-479a-b235-29fa3d344663",
+      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
+      "receiverId": "44b7d326-71e3-4a67-946f-3e46c52e1710",
+      "senderUsername": "vasil",
+      "content": "vasil-nev2",
+      "hourMinDate": "0:55",
+      "dayDate": "19.2.2024"
     }
   ],
   "messages": [
