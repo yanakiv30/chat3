@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import SettingsGroup from "./SettingsGroup";
 const API_URL = "http://localhost:3001";
 
 function CheckboxList({ ChatContext }) {
@@ -8,6 +9,7 @@ function CheckboxList({ ChatContext }) {
   let { groups, setGroups } = useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});
   const [groupName, setGroupName] = useState("");
+  const [idSettings, setIdSettings] = useState();
   let names = [];
   users.map((user) => names.push(user.username));
   names = names.filter((name) => name !== loggedInUser.username);
@@ -58,31 +60,39 @@ function handleDelete(groupId) {
     }
     return response.json();
 })
-.then(() => {
-    // Изтриваме групата от списъка, след като е успешно изтрита от сървъра
+.then(() => {   
     setGroups(groups.filter(group => group.id !== groupId));
 })
 .catch((error) => console.error("Error deleting group:", error));
-
 }
+
+function handleSettings(id) {
+  setIdSettings(id);
+  console.log(id)
+};
+
 
   return (
     <div>
-      {groups.length > 0 ? "Groups" : ""}
-      <ul>
+
+      {groups.length >0 && !idSettings ? "Groups" : ""}
+      {idSettings ? <SettingsGroup /> :  <ul>
         {groups
           .filter((group) => group.members.includes(loggedInUser.username))
           .map((group) => (
             <li key={group.name}>
-              <NavLink to={`/groups/${group.id}`}>{`${group.name} `}</NavLink>
-              
-             { group.admin===loggedInUser.username ? <button style={{fontSize:"8px"}} 
-               onClick={()=>handleDelete(group.id)}>Delete</button> :""}
-            </li>
+              <NavLink to={`/groups/${group.id}`}>{`${group.name} `}</NavLink>              
+             { group.admin===loggedInUser.username ? 
+             <p> <button style={{fontSize:"8px"}} 
+             onClick={()=>handleDelete(group.id)}>Delete</button> 
+             <button style={{fontSize:"8px"}} 
+             onClick={()=>handleSettings(group.id)}>Settings</button></p>
+               :""}               
+            </li>            
           ))}
-      </ul>
+      </ul>}
       <br></br>
-
+      
       <div className="set">
         <p>Set new Group</p>
         <input
