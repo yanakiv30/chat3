@@ -68,7 +68,7 @@ function handleDelete(groupId) {
 
 function handleSettings(id) {
   setIdSettings(id);
-  console.log(id)
+  
 };
 
 
@@ -76,7 +76,7 @@ function handleSettings(id) {
     <div>
 
       {groups.length >0 && !idSettings ? "Groups" : ""}
-      {idSettings ? <SettingsGroup /> :  <ul>
+      {idSettings ? <SettingsGroup ChatContext={ChatContext} idSettings={idSettings}/> :  <ul>
         {groups
           .filter((group) => group.members.includes(loggedInUser.username))
           .map((group) => (
