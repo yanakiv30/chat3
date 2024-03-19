@@ -48,8 +48,22 @@ function CheckboxList({ ChatContext }) {
     }
   }  
 
-function handleSettings() {
-  
+function handleDelete(groupId) {
+  fetch(`${API_URL}/groups/${groupId}`, {
+    method: "DELETE",
+})
+.then((response) => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then(() => {
+    // Изтриваме групата от списъка, след като е успешно изтрита от сървъра
+    setGroups(groups.filter(group => group.id !== groupId));
+})
+.catch((error) => console.error("Error deleting group:", error));
+
 }
 
   return (
@@ -63,7 +77,7 @@ function handleSettings() {
               <NavLink to={`/groups/${group.id}`}>{`${group.name} `}</NavLink>
               
              { group.admin===loggedInUser.username ? <button style={{fontSize:"8px"}} 
-               onClick={handleSettings}>Settings</button> :""}
+               onClick={()=>handleDelete(group.id)}>Delete</button> :""}
             </li>
           ))}
       </ul>

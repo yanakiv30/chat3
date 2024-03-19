@@ -60,7 +60,17 @@
       ]
     },
     {
-      "id": "44b7d326-71e3-4a67-946f-3e46c52e1710",
+      "id": "c38dadd5-e192-4f5e-9e1c-5296a609d097",
+      "name": "group-evi",
+      "members": [
+        "vasil",
+        "iliya",
+        "elena"
+      ],
+      "admin": "elena"
+    },
+    {
+      "id": "a3e8db1c-d020-4fed-a7ba-50868043c579",
       "name": "group-nev",
       "members": [
         "elena",
@@ -70,14 +80,14 @@
       "admin": "niki"
     },
     {
-      "id": "c38dadd5-e192-4f5e-9e1c-5296a609d097",
-      "name": "group-evi",
+      "id": "b653be8f-23b9-4615-b2ee-910aab07382a",
+      "name": "group-nem",
       "members": [
-        "vasil",
-        "iliya",
-        "elena"
+        "elena",
+        "mariya",
+        "niki"
       ],
-      "admin": "elena"
+      "admin": "niki"
     }
   ],
   "groupMessages": [
@@ -277,6 +287,42 @@
       "senderUsername": "vasil",
       "content": "vasil-nev2",
       "hourMinDate": "0:55",
+      "dayDate": "19.2.2024"
+    },
+    {
+      "id": "4e1dc5f2-fbc6-47ff-bd16-353b65e24a28",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "a3e8db1c-d020-4fed-a7ba-50868043c579",
+      "senderUsername": "niki",
+      "content": "niki-nev1",
+      "hourMinDate": "2:30",
+      "dayDate": "19.2.2024"
+    },
+    {
+      "id": "ba796882-13d4-4756-a64f-267e42cd9149",
+      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
+      "receiverId": "a3e8db1c-d020-4fed-a7ba-50868043c579",
+      "senderUsername": "niki",
+      "content": "niki-nev2",
+      "hourMinDate": "2:30",
+      "dayDate": "19.2.2024"
+    },
+    {
+      "id": "55948edf-f718-40fc-8fc4-7c438ac43148",
+      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "receiverId": "a3e8db1c-d020-4fed-a7ba-50868043c579",
+      "senderUsername": "elena",
+      "content": "elena-nev1",
+      "hourMinDate": "2:31",
+      "dayDate": "19.2.2024"
+    },
+    {
+      "id": "cbc08b54-c48e-4ca9-9e75-e3610897638c",
+      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
+      "receiverId": "a3e8db1c-d020-4fed-a7ba-50868043c579",
+      "senderUsername": "elena",
+      "content": "elena-nev2",
+      "hourMinDate": "2:31",
       "dayDate": "19.2.2024"
     }
   ],
