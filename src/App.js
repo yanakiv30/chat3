@@ -15,11 +15,10 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [groupMessages, setGroupMessages] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchMessage, setSearchMessage] = useState(""); 
-  const [groups, setGroups] = useState([]);  
-  
+  const [searchMessage, setSearchMessage] = useState("");
+  const [groups, setGroups] = useState([]);
+  const [idSettings, setIdSettings] = useState();
 
-  
   useEffect(() => {
     fetch(`${API_URL}/users`)
       .then((response) => response.json())
@@ -44,24 +43,26 @@ function App() {
       value={{
         users: users,
         loggedInUser: loggedInUser,
-        setLoggedInUser,      
+        setLoggedInUser,
         setMessages,
         messages,
         searchQuery,
-        setSearchQuery,      
+        setSearchQuery,
         searchMessage,
-        setSearchMessage,                  
+        setSearchMessage,
         groupMessages,
         setGroupMessages,
         groups,
-        setGroups,        
+        setGroups,
+        idSettings,
+        setIdSettings,
       }}
     >
       <Router>
         <div className="app-container">
           {loggedInUser ? (
-            <div className="main-container">              
-                <UserList ChatContext={ChatContext} />              
+            <div className="main-container">
+              <UserList ChatContext={ChatContext} />
               <Routes>
                 <Route
                   path="/messages/:userId"

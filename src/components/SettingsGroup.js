@@ -1,7 +1,7 @@
 import { useContext } from "react"
 
-export default function SettingsGroup({ChatContext, idSettings}) {
-    const {groups}= useContext(ChatContext);   
+export default function SettingsGroup({ChatContext}) {
+    const {groups,idSettings}= useContext(ChatContext);   
     const groupToSet=groups.filter(group=> group.id===idSettings)[0].name;    
     return (
         <div className="settings" >

@@ -77,7 +77,11 @@ ul {
   border: 3px solid #ccc;
   margin-top: 17px;
   margin-bottom: 10px;
+  padding: 5px;
   width: 99%;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: beige;
 }
 
 .user-profile-container {

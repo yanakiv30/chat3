@@ -17,6 +17,7 @@ export default function GroupProfile({ ChatContext }) {
   const params = useParams();
   const groupInListId = params.groupId;
   const grName = groups.find((x) => x.id === groupInListId)?.name;
+  const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
 
   function leftGroupMessage(groupMessage) {
     return (
@@ -91,7 +92,7 @@ export default function GroupProfile({ ChatContext }) {
     <div className="profile-wrapper">
       <SearchInMessage ChatContext={ChatContext} />
       <div className="chat-with">
-        <h3>{`Chat with ${grName}`}</h3>
+        <h3>{`Chat with ${grName} with members ${groupMemebers.join(", ")}`}</h3>
       </div>
       <div className="user-profile-container">
         <ul className="messages-container">
