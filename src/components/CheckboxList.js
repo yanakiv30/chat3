@@ -50,83 +50,62 @@ function CheckboxList({ ChatContext }) {
     }
   }
 
-  function handleDelete(groupId) {
-    fetch(`${API_URL}/groups/${groupId}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then(() => {
-        setGroups(groups.filter((group) => group.id !== groupId));
-      })
-      .catch((error) => console.error("Error deleting group:", error));
-  }
-
-  function handleSettings(id) {
-    setIdSettings(id);
-  }
+  // function handleSettings(id) {
+  //   setIdSettings(id);
+  // }
 
   return (
     <div wrapper>
-      {idSettings ? (
-        <SettingsGroup ChatContext={ChatContext} />
-      ) : (
-        <>
-          {groups.length > 0 && !idSettings ? "Groups" : ""}
-          <ul>
-            {groups
-              .filter((group) => group.members.includes(loggedInUser.username))
-              .map((group) => (
-                <li key={group.name}>
-                  <NavLink
-                    to={`/groups/${group.id}`}
-                  >{`${group.name} `}</NavLink>
-                  {group.admin === loggedInUser.username ? (
-                    <button
-                      style={{ fontSize: "8px" }}
-                      onClick={() => handleSettings(group.id)}
-                    >
-                      Settings
-                    </button>
-                  ) : (
-                    ""
-                  )}
-                </li>
-              ))}
-          </ul>
-          <br></br>
+      {groups.length > 0 && !idSettings ? "Groups" : ""}
+      <ul>
+        {groups
+          .filter((group) => group.members.includes(loggedInUser.username))
+          .map((group) => (
+            <li key={group.name}>
+              <NavLink to={`/groups/${group.id}`}>{`${group.name} `}</NavLink>
+              {group.admin === loggedInUser.username ? (
+                <>
+                  {/* <button
+                        style={{ fontSize: "8px" }}
+                        onClick={() => handleSettings(group.id)}
+                      >
+                        Settings
+                      </button> */}
+                  <NavLink to={`/settingsGroup/${group.id}`}>Settings</NavLink>
+                </>
+              ) : (
+                ""
+              )}
+            </li>
+          ))}
+      </ul>
+      <br></br>
 
-          <div className="set">
-            <p>Set new Group</p>
-            <input
-              style={{ width: "fit-content" }}
-              type="text"
-              value={groupName}
-              onChange={(e) => setGroupName(e.target.value)}
-              placeholder="Enter unique name "
-            />
-            <p>Choose members :</p>
-            <ul>
-              {names.map((name) => (
-                <li key={name}>
-                  <input
-                    type="checkbox"
-                    id={name}
-                    checked={checkedItems[name] || false}
-                    onChange={() => handleCheckboxChange(name)}
-                  />
-                  <label htmlFor={name}>{name}</label>
-                </li>
-              ))}
-            </ul>
-            <button onClick={handleSetGroups}>Create</button>
-          </div>
-        </>
-      )}
+      <div className="set">
+        <p>Set new Group</p>
+        <input
+          style={{ width: "fit-content" }}
+          type="text"
+          value={groupName}
+          onChange={(e) => setGroupName(e.target.value)}
+          placeholder="Enter unique name "
+        />
+        <p>Choose members :</p>
+        <ul>
+          {names.map((name) => (
+            <li key={name}>
+              <input
+                type="checkbox"
+                id={name}
+                checked={checkedItems[name] || false}
+                onChange={() => handleCheckboxChange(name)}
+              />
+              <label htmlFor={name}>{name}</label>
+            </li>
+          ))}
+        </ul>
+        <button onClick={handleSetGroups}>Create</button>
+      </div>
     </div>
   );
 }

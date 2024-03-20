@@ -5,6 +5,7 @@ import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
 import Login from "./components/Login";
 import GroupProfile from "./components/GroupProfile";
+import SettingsGroup from "./components/SettingsGroup";
 
 const API_URL = "http://localhost:3001";
 const ChatContext = createContext();
@@ -71,6 +72,10 @@ function App() {
                 <Route
                   path="/groups/:groupId"
                   element={<GroupProfile ChatContext={ChatContext} />}
+                />
+                <Route
+                  path="/settingsGroup/:groupId"
+                  element={<SettingsGroup ChatContext={ChatContext} />}
                 />
               </Routes>
             </div>
