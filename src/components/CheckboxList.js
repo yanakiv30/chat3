@@ -73,7 +73,7 @@ function CheckboxList({ ChatContext }) {
   return (
     <div wrapper>
       {idSettings ? (
-        <SettingsGroup ChatContext={ChatContext}  />
+        <SettingsGroup ChatContext={ChatContext} />
       ) : (
         <>
           {groups.length > 0 && !idSettings ? "Groups" : ""}
@@ -86,21 +86,12 @@ function CheckboxList({ ChatContext }) {
                     to={`/groups/${group.id}`}
                   >{`${group.name} `}</NavLink>
                   {group.admin === loggedInUser.username ? (
-                    <p>
-                      {" "}
-                      <button
-                        style={{ fontSize: "8px" }}
-                        onClick={() => handleDelete(group.id)}
-                      >
-                        Delete
-                      </button>
-                      <button
-                        style={{ fontSize: "8px" }}
-                        onClick={() => handleSettings(group.id)}
-                      >
-                        Settings
-                      </button>
-                    </p>
+                    <button
+                      style={{ fontSize: "8px" }}
+                      onClick={() => handleSettings(group.id)}
+                    >
+                      Settings
+                    </button>
                   ) : (
                     ""
                   )}

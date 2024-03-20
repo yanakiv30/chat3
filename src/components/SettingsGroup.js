@@ -2,7 +2,7 @@ import { useContext } from "react";
 const API_URL = "http://localhost:3001";
 
 export default function SettingsGroup({ ChatContext }) {
-  const { groups, setGroups, idSettings } = useContext(ChatContext);
+  const { groups, setGroups, idSettings,setIdSettings } = useContext(ChatContext);
   const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
 console.log(idSettings)
   function addUser() {}
@@ -10,7 +10,7 @@ console.log(idSettings)
   function deleteUser() {}
 
   function deleteGroup(groupId) {
-   console.log(groupId)
+//    console.log(groupId)
     fetch(`${API_URL}/groups/${groupId}`, {
       method: "DELETE",
     })
@@ -24,6 +24,7 @@ console.log(idSettings)
         setGroups(groups.filter((group) => group.id !== groupId));
       })
       .catch((error) => console.error("Error deleting group:", error));
+      setIdSettings();
   }
 
   return (
