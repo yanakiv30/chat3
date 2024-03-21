@@ -14,8 +14,9 @@ export default function SettingsGroup({ ChatContext }) {
   console.log(idSettings);
   function addUser() {}
 
-  function deleteUser(idSettings) {
-    console.log(groups.filter((group) => group.id === idSettings)[0].members);
+  function deleteUser(member) {
+    console.log(groups.filter((group) => group.id === idSettings)[0]
+    .members.find(x=> x===member));
   }
 
   function deleteGroup(groupId) {
@@ -45,17 +46,17 @@ export default function SettingsGroup({ ChatContext }) {
           <p> Delete User</p>
           {groups
             .filter((group) => group.id === idSettings)[0]
-            ?.members.map((member) => (
+            ?.members.slice(0,-1).map((member) => (
               <li key={member}>
                 <p>
                   {member}
-                  <button>Delete</button>
+                  <button onClick={()=>deleteUser(member)}>Delete</button>
                 </p>
               </li>
             ))}
         </ul>
 
-        <button onClick={() => deleteUser(idSettings)}>Delete User</button>
+        {/* <button onClick={() => deleteUser(idSettings)}>Delete User</button> */}
         <button onClick={() => deleteGroup(idSettings)}>Delete Group</button>
       </div>
     </div>

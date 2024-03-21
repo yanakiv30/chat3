@@ -6,8 +6,7 @@ const API_URL = "http://localhost:3001";
 
 function CheckboxList({ ChatContext }) {
   const { users, loggedInUser } = useContext(ChatContext);
-  let { groups, setGroups} =
-    useContext(ChatContext);
+  let { groups, setGroups } = useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});
   const [groupName, setGroupName] = useState("");
 
@@ -50,8 +49,6 @@ function CheckboxList({ ChatContext }) {
     }
   }
 
-  
-
   return (
     <div className="wrapper">
       {groups.length > 0 ? "Groups" : ""}
@@ -62,15 +59,7 @@ function CheckboxList({ ChatContext }) {
             <li key={group.name}>
               <NavLink to={`/groups/${group.id}`}>{`${group.name} `}</NavLink>
               {group.admin === loggedInUser.username ? (
-                <>
-                  {/* <button
-                        style={{ fontSize: "8px" }}
-                        onClick={() => handleSettings(group.id)}
-                      >
-                        Settings
-                      </button> */}
-                  <NavLink to={`/settingsGroup/${group.id}`}>Settings</NavLink>
-                </>
+                <NavLink to={`/settingsGroup/${group.id}`}>Settings</NavLink>
               ) : (
                 ""
               )}
