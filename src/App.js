@@ -18,7 +18,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchMessage, setSearchMessage] = useState("");
   const [groups, setGroups] = useState([]);
-  const [idSettings, setIdSettings] = useState();
+ 
  
 
   useEffect(() => {
@@ -55,9 +55,7 @@ function App() {
         groupMessages,
         setGroupMessages,
         groups,
-        setGroups,
-        idSettings, 
-        setIdSettings
+        setGroups,     
        
       }}
     >
