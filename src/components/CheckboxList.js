@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import SettingsGroup from "./SettingsGroup";
+
 const API_URL = "http://localhost:3001";
 
 function CheckboxList({ ChatContext }) {
   const { users, loggedInUser } = useContext(ChatContext);
-  let { groups, setGroups, idSettings, setIdSettings } =
+  let { groups, setGroups} =
     useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});
   const [groupName, setGroupName] = useState("");
@@ -50,13 +50,11 @@ function CheckboxList({ ChatContext }) {
     }
   }
 
-  // function handleSettings(id) {
-  //   setIdSettings(id);
-  // }
+  
 
   return (
-    <div wrapper>
-      {groups.length > 0 && !idSettings ? "Groups" : ""}
+    <div className="wrapper">
+      {groups.length > 0 ? "Groups" : ""}
       <ul>
         {groups
           .filter((group) => group.members.includes(loggedInUser.username))

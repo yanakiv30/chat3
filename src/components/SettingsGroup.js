@@ -1,14 +1,14 @@
-import { useContext } from "react";
+import { useContext} from "react";
 import { useParams } from "react-router-dom";
 const API_URL = "http://localhost:3001";
 
 export default function SettingsGroup({ ChatContext }) {
-  const { groups, setGroups, idSettings, setIdSettings } =
-    useContext(ChatContext);
-  const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
-  const params = useParams();
+  const { groups, setGroups } = useContext(ChatContext);
 
-  setIdSettings(params.groupId);
+  const params = useParams();
+  const idSettings =params.groupId;
+  const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
+
   console.log("params= ", params);
 
   console.log(idSettings);
@@ -33,7 +33,7 @@ export default function SettingsGroup({ ChatContext }) {
         setGroups(groups.filter((group) => group.id !== groupId));
       })
       .catch((error) => console.error("Error deleting group:", error));
-    setIdSettings();
+    
   }
 
   return (
@@ -46,7 +46,7 @@ export default function SettingsGroup({ ChatContext }) {
           {groups
             .filter((group) => group.id === idSettings)[0]
             ?.members.map((member) => (
-              <li>
+              <li key={member}>
                 <p>
                   {member}
                   <button>Delete</button>

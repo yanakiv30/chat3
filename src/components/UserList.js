@@ -4,7 +4,7 @@ import SearchUser from "./SearchUser";
 import CheckboxList from "./CheckboxList";
 
 function UserList({ ChatContext }) {
-  const { loggedInUser, searchQuery, users, setLoggedInUser, idSettings } =
+  const { loggedInUser, searchQuery, users, setLoggedInUser} =
     useContext(ChatContext);
   const searchedUser =
     searchQuery.length > 0
@@ -27,8 +27,7 @@ function UserList({ ChatContext }) {
       <h2 style={{ fontSize: "35px" }}>
         Welcome, to Chat {loggedInUser.username}!
       </h2>
-      {!idSettings && (
-        <>
+      
           <SearchUser ChatContext={ChatContext} />
           <ul>
             {searchedUser
@@ -39,8 +38,7 @@ function UserList({ ChatContext }) {
                 </li>
               ))}
           </ul>
-        </>
-      )}
+     
       <CheckboxList ChatContext={ChatContext} />
     </div>
   );

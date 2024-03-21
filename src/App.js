@@ -19,6 +19,7 @@ function App() {
   const [searchMessage, setSearchMessage] = useState("");
   const [groups, setGroups] = useState([]);
   const [idSettings, setIdSettings] = useState();
+ 
 
   useEffect(() => {
     fetch(`${API_URL}/users`)
@@ -55,8 +56,9 @@ function App() {
         setGroupMessages,
         groups,
         setGroups,
-        idSettings,
-        setIdSettings,
+        idSettings, 
+        setIdSettings
+       
       }}
     >
       <Router>

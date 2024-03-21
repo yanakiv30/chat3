@@ -70,21 +70,21 @@
       "admin": "elena"
     },
     {
-      "id": "a3e8db1c-d020-4fed-a7ba-50868043c579",
-      "name": "group-nev",
-      "members": [
-        "elena",
-        "vasil",
-        "niki"
-      ],
-      "admin": "niki"
-    },
-    {
       "id": "b653be8f-23b9-4615-b2ee-910aab07382a",
       "name": "group-nem",
       "members": [
         "elena",
         "mariya",
+        "niki"
+      ],
+      "admin": "niki"
+    },
+    {
+      "id": "a3e8db1c-d020-4fed-a7ba-50868043c579",
+      "name": "group-nev",
+      "members": [
+        "elena",
+        "vasil",
         "niki"
       ],
       "admin": "niki"
