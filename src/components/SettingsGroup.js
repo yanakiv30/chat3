@@ -9,14 +9,17 @@ export default function SettingsGroup({ ChatContext }) {
   const idSettings =params.groupId;
   const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
 
-  console.log("params= ", params);
+  // console.log("params= ", params);
 
-  console.log(idSettings);
-  function addUser() {}
+  // console.log(idSettings);
+  function addUser() {
+  alert("Missing code for adding users")
+  }
 
   function deleteUser(member) {
-    console.log(groups.filter((group) => group.id === idSettings)[0]
-    .members.find(x=> x===member));
+    // console.log(groups.filter((group) => group.id === idSettings)[0]
+    // .members.find(x=> x===member));
+    alert("Missing code for deleting users")
   }
 
   function deleteGroup(groupId) {
