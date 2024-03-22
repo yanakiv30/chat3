@@ -11,23 +11,54 @@ ul {
 }
 
 .background-login {
-  
-  background-image: url('https://img.freepik.com/free-vector/hand-drawn-flat-people-talking_23-2149051163.jpg?size=626&ext=jpg&ga=GA1.1.1091172772.1701493794&semt=ais');
-
-  
-  background-size: cover; /* Cover the entire element */
-  background-position: center; /* Center the background image */
-  background-repeat: no-repeat; /* Do not repeat the background image */
-}
-
-
-.login {
-  font-size: 16px;
+  /* Стилове за фоновия елемент */
+  background-image: url('https://img.freepik.com/free-photo/group-friends-checking-phone_23-2148308946.jpg?size=626&ext=jpg&ga=GA1.1.1091172772.1701493794&semt=ais');
+  background-size: cover;
+  background-position: center;
+  height: 60vh; /* Задайте височина според вашите нужди */
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  justify-content: center;
   align-items: center;
 }
+
+.login {
+  /* Стилове за контейнера на формата за вход */
+  background-color: rgba(255, 255, 255, 0.2); /* Бял цвят на фона с 70% прозрачност */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+  /* Стилове за инпут полетата */
+  background-color: rgba(255, 255, 255, 0.1); /* Бял цвят на фона с 50% прозрачност */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 10px; /* Добавете разстояние между полетата */
+  width: 100%; /* Ширина на полетата */
+  box-sizing: border-box; /* Уверете се, че padding-ът и border-ът са включени в ширината */
+}
+
+.login h2 {
+  text-align: center;
+}
+
+button {
+  /* Стилове за бутоните */
+  background-color: #7dade1; /* Цвят на фона на бутона */
+  color: #fff; /* Цвят на текста на бутона */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  /* Стилове за бутона при ховър */
+  background-color: #0056b3; /* Променен цвят на фона на бутона */
+}
+
 
 .app-container {
   display: flex;

@@ -38,7 +38,7 @@ export default function Login({ ChatContext }) {
   return (
     <div className="background-login">
       <div className="login">
-        {" "}
+        
         <h2>Welcome to chatSPA</h2>
         <form
           onSubmit={(e) => {
@@ -58,6 +58,7 @@ export default function Login({ ChatContext }) {
 
           <button type="submit">Login</button>
         </form>
+        <br></br><br></br><br></br>
         <form
           onSubmit={(e) => {
             e.preventDefault();
