@@ -43,6 +43,7 @@ export default function SettingsGroup({ ChatContext }) {
   return (
     <div className="settings">
       <p>Settings {groupToSet}</p>
+      <br></br>
       <div className="wrapper">
         <button onClick={addUser}>Add User</button>
         <ul>
