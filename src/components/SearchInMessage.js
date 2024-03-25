@@ -5,9 +5,10 @@ function SearchInMessage({ ChatContext }) {
 
   return (
     <input
+      style={{ width: "40%", borderRadius: "7px" }}
       value={searchMessage}
-      onChange={((e) => setSearchMessage(e.target.value))}
-      placeholder="Search in messages ..."
+      onChange={(e) => setSearchMessage(e.target.value)}
+      placeholder="🔍 Search in messages ..."
     />
   );
 }

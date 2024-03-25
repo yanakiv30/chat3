@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import SearchInMessage from "./SearchInMessage";
+import Avatar from "./Avatar";
 const API_URL = "http://localhost:3001";
 
 function UserProfile({ ChatContext }) {
@@ -83,9 +84,11 @@ function UserProfile({ ChatContext }) {
 
   return (
     <div className="profile-wrapper">
-      <SearchInMessage ChatContext={ChatContext} />
+      
       <div className="chat-with">
-        <h3>Chat with {userName ? userName:""}</h3>
+        <Avatar name={userName ? userName:""}/>
+        <h4>{userName ? userName:""}</h4>
+        <SearchInMessage ChatContext={ChatContext} />
       </div>
       <div className="user-profile-container">
         <ul className="messages-container">

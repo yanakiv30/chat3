@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import SearchUser from "./SearchUser";
 import CheckboxList from "./CheckboxList";
+import Avatar from "./Avatar";
 
 function UserList({ ChatContext }) {
   const { loggedInUser, searchQuery, users, setLoggedInUser } =
@@ -24,12 +25,12 @@ function UserList({ ChatContext }) {
         <button onClick={handleLogout}>Logout</button>
       </div>
       <br></br>
-
-      <h2 style={{ fontSize: "35px" }}>
-        Welcome, to Chat {loggedInUser.username}!
-      </h2>
-
-      <SearchUser ChatContext={ChatContext} />
+      <div className="icon-and-search">
+        {/* <h2 style={{ fontSize: "35px" }}>{loggedInUser.username}!</h2> */}
+        <Avatar name={loggedInUser.username}/>
+        <SearchUser ChatContext={ChatContext} />
+      </div>
+<br></br>
       <ul>
         {searchedUser
           .filter((user) => user.id !== loggedInUser.id)
