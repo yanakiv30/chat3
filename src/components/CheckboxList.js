@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import GroupList from "./GroupList";
 
 const API_URL = "http://localhost:3001";
 
@@ -51,23 +52,6 @@ function CheckboxList({ ChatContext }) {
 
   return (
     <div className="wrapper">
-      {groups.length > 0 ? "Groups" : ""}
-      <ul>
-        {groups
-          .filter((group) => group.members.includes(loggedInUser.username))
-          .map((group) => (
-            <li key={group.name}>
-              <NavLink to={`/groups/${group.id}`}>{`${group.name} `}</NavLink>
-              {group.admin === loggedInUser.username ? (
-                <NavLink to={`/settingsGroup/${group.id}`}>Settings</NavLink>
-              ) : (
-                ""
-              )}
-            </li>
-          ))}
-      </ul>
-      <br></br>
-
       <div className="set">
         <p>Set new Group</p>
         <input

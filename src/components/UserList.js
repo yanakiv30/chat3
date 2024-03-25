@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import SearchUser from "./SearchUser";
 import CheckboxList from "./CheckboxList";
 import Avatar from "./Avatar";
+import Dropdown from "./Dropdown";
+import GroupList from "./GroupList";
 
 function UserList({ ChatContext }) {
   const { loggedInUser, searchQuery, users, setLoggedInUser } =
@@ -28,6 +30,7 @@ function UserList({ ChatContext }) {
       <div className="icon-and-search">
         {/* <h2 style={{ fontSize: "35px" }}>{loggedInUser.username}!</h2> */}
         <Avatar name={loggedInUser.username}/>
+        <Dropdown />
         <SearchUser ChatContext={ChatContext} />
       </div>
 <br></br>
@@ -40,8 +43,8 @@ function UserList({ ChatContext }) {
             </li>
           ))}
       </ul>
-
-      <CheckboxList ChatContext={ChatContext} />
+      <GroupList ChatContext={ChatContext}/>
+      {/* <CheckboxList ChatContext={ChatContext} /> */}
     </div>
   );
 }

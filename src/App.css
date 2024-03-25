@@ -218,13 +218,13 @@ button:hover {
   gap: 10px;
 }
 .avatar {
-  width: 25px; /* Променете го според вашите изисквания за размер */
-  height: 25px; /* Променете го според вашите изисквания за размер */
+  width: 20px; /* Променете го според вашите изисквания за размер */
+  height: 20px; /* Променете го според вашите изисквания за размер */
   border-radius: 50%; /* За да направите кръгла иконка */
   background-color: #5b53f0; /* Цвят на фона */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px; /* Размер на шрифта */
+  font-size: 15px; /* Размер на шрифта */
   color: #fff; /* Цвят на текста */
 }
