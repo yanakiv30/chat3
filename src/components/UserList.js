@@ -4,7 +4,7 @@ import SearchUser from "./SearchUser";
 import CheckboxList from "./CheckboxList";
 
 function UserList({ ChatContext }) {
-  const { loggedInUser, searchQuery, users, setLoggedInUser} =
+  const { loggedInUser, searchQuery, users, setLoggedInUser } =
     useContext(ChatContext);
   const searchedUser =
     searchQuery.length > 0
@@ -20,6 +20,7 @@ function UserList({ ChatContext }) {
   return (
     <div className="user-list-container">
       <div className="button-link">
+        <p>🗣️ChatSpa</p>
         <button onClick={handleLogout}>Logout</button>
       </div>
       <br></br>
@@ -27,18 +28,18 @@ function UserList({ ChatContext }) {
       <h2 style={{ fontSize: "35px" }}>
         Welcome, to Chat {loggedInUser.username}!
       </h2>
-      
-          <SearchUser ChatContext={ChatContext} />
-          <ul>
-            {searchedUser
-              .filter((user) => user.id !== loggedInUser.id)
-              .map((user) => (
-                <li key={user.id}>
-                  <NavLink to={`/messages/${user.id}`}>{user.username}</NavLink>
-                </li>
-              ))}
-          </ul>
-     
+
+      <SearchUser ChatContext={ChatContext} />
+      <ul>
+        {searchedUser
+          .filter((user) => user.id !== loggedInUser.id)
+          .map((user) => (
+            <li key={user.id}>
+              <NavLink to={`/messages/${user.id}`}>{user.username}</NavLink>
+            </li>
+          ))}
+      </ul>
+
       <CheckboxList ChatContext={ChatContext} />
     </div>
   );
