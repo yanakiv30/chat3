@@ -72,6 +72,7 @@ function App() {
                   path="/userOptions"
                   element={<UserOptions ChatContext={ChatContext} />}
                 />
+                
 
                 <Route
                   path="/messages/:userId"
@@ -82,7 +83,7 @@ function App() {
                   element={<GroupProfile ChatContext={ChatContext} />}
                 />
                 <Route
-                  path="/groups/setGroups"
+                  path="/groups/createGroups"
                   element={<CheckboxList ChatContext={ChatContext} />}
                 />
                 <Route

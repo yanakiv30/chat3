@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
+
 import { v4 as uuid } from "uuid";
-import GroupList from "./GroupList";
+
+import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:3001";
 
 function CheckboxList({ ChatContext }) {
-  const { users, loggedInUser, setLoggedInUser } = useContext(ChatContext);
+  const navigate = useNavigate();
+  const { users, loggedInUser } = useContext(ChatContext);
   let { groups, setGroups } = useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});
   const [groupName, setGroupName] = useState("");
@@ -56,7 +58,10 @@ function CheckboxList({ ChatContext }) {
         className="set"
         style={{ border: "1px solid #ccc", borderRadius: "7px" }}
       >
-        <p>Set new Group</p>
+        <p style={{display:"flex", justifyContent:"space-between"}}>
+          <span>Set new Group </span>
+          <button onClick={() => navigate("/userOptions")}>X</button>
+        </p>
         <input
           style={{ width: "fit-content" }}
           type="text"

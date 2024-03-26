@@ -5,23 +5,23 @@ export default function UserOptions({ ChatContext }) {
   const { setLoggedInUser } = useContext(ChatContext);
   return (
     <div>
-      <br></br>
+     
       <div>
         <NavLink
-          to={"/groups/setGroups"}
+          to={"/groups/createGroups"}
           style={{ border: "2px solid #ccc", borderRadius: "7px" }}
         >
-          Set new group
+          Create new group
         </NavLink>
       </div>
 
       <br></br>
       <div>
         <button
-          onClick={null}
+          onClick={()=>alert("No functionality yet!")}
           style={{ border: "1px solid #ccc", borderRadius: "7px" }}
         >
-          Profile Settings
+          User Settings
         </button>
       </div>
       <br></br>
