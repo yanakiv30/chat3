@@ -53,7 +53,7 @@ function CheckboxList({ ChatContext }) {
   }
 
   return (
-    <div className="wrapper">
+    <div style={{backgroundColor:" rgb(234, 229, 225)",height:"fit-content"}}  className="wrapper">
       <div
         className="set"
         style={{ border: "1px solid #ccc", borderRadius: "7px" }}

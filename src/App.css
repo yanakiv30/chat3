@@ -14,33 +14,27 @@ ul {
 }
 
 .background-login {
- 
-  /* background-image: url('https://img.freepik.com/free-photo/group-friends-checking-phone_23-2148308946.jpg?size=626&ext=jpg&ga=GA1.1.1091172772.1701493794&semt=ais');
-  background-size: cover;
-  background-position: center;
-  height: 60vh; 
-  display: flex;
-  justify-content: center;
-  align-items: center; */
-}
-
-.login {
- 
-  background-color: rgba(255, 255, 255, 0.7); /* Бял цвят на фона с 70% прозрачност */
-  padding: 20px;
+  background-color: #a29dc2;
+  border: 2px solid #859bee;
   border-radius: 10px;
 }
+
+/* .login {
+ 
+  background-color: rgba(255, 255, 255, 0.7); 
+  padding: 20px;
+  border-radius: 10px;
+} */
 
 input[type="text"],
 input[type="password"] {
- 
-  background-color: rgba(255, 255, 255, 0.1); 
+  background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 8px;
-  margin-bottom: 10px; 
-  width: 100%; 
-  box-sizing: border-box; 
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .login h2 {
@@ -48,9 +42,8 @@ input[type="password"] {
 }
 
 button {
-  
-  background-color: #f9e5e5; 
-  color: #ffffff; 
+  background-color: #f9e5e5;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
@@ -58,10 +51,8 @@ button {
 }
 
 button:hover {
-
-  background-color: #0056b3; 
+  background-color: #0056b3;
 }
-
 
 .app-container {
   display: flex;
@@ -86,6 +77,7 @@ button:hover {
   width: 80%;
   gap: 0px;
   border-radius: 10px;
+  
 }
 
 .user-list-container {
@@ -99,18 +91,17 @@ button:hover {
   background-color: #e8e8db;
   width: 50%;
   border-radius: 10px;
+  flex: 0 0 30%;
 }
 
-.button-link{
+.button-link {
   display: flex;
   justify-content: space-between;
 }
 
-
-.icon-and-search{
+.icon-and-search {
   display: flex;
   gap: 10px;
-  
 }
 
 .user-list-container .set {
@@ -118,6 +109,7 @@ button:hover {
   width: fit-content;
   padding: 10px;
   border-radius: 10%;
+  
 }
 
 .profile-wrapper {
@@ -126,7 +118,6 @@ button:hover {
   width: 65%;
   display: flex;
   flex-direction: column;
-  
 }
 
 .profile-wrapper .search-bar {
