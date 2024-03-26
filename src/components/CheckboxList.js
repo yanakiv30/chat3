@@ -6,7 +6,7 @@ import GroupList from "./GroupList";
 const API_URL = "http://localhost:3001";
 
 function CheckboxList({ ChatContext }) {
-  const { users, loggedInUser } = useContext(ChatContext);
+  const { users, loggedInUser, setLoggedInUser } = useContext(ChatContext);
   let { groups, setGroups } = useContext(ChatContext);
   const [checkedItems, setCheckedItems] = useState({});
   const [groupName, setGroupName] = useState("");
@@ -52,7 +52,10 @@ function CheckboxList({ ChatContext }) {
 
   return (
     <div className="wrapper">
-      <div className="set">
+      <div
+        className="set"
+        style={{ border: "1px solid #ccc", borderRadius: "7px" }}
+      >
         <p>Set new Group</p>
         <input
           style={{ width: "fit-content" }}
@@ -77,6 +80,33 @@ function CheckboxList({ ChatContext }) {
         </ul>
         <button onClick={handleSetGroups}>Create</button>
       </div>
+      {/* <br></br> <br></br> <br></br>
+      <div>
+        <button
+          onClick={() => setLoggedInUser(null)}
+          style={{ border: "1px solid #ccc", borderRadius: "7px" }}
+        >
+          Set new group
+        </button>
+      </div>
+      <br></br>
+      <div>
+        <button
+          onClick={() => setLoggedInUser(null)}
+          style={{ border: "1px solid #ccc", borderRadius: "7px" }}
+        >
+          Logout
+        </button>
+      </div>
+      <br></br>
+      <div>
+        <button
+          onClick={null}
+          style={{ border: "1px solid #ccc", borderRadius: "7px" }}
+        >
+          Settings
+        </button>
+      </div> */}
     </div>
   );
 }

@@ -6,6 +6,8 @@ import UserProfile from "./components/UserProfile";
 import Login from "./components/Login";
 import GroupProfile from "./components/GroupProfile";
 import SettingsGroup from "./components/SettingsGroup";
+import CheckboxList from "./components/CheckboxList";
+import UserOptions from "./components/UserOptions";
 
 const API_URL = "http://localhost:3001";
 const ChatContext = createContext();
@@ -65,6 +67,12 @@ function App() {
             <div className="main-container">
               <UserList ChatContext={ChatContext} />
               <Routes>
+
+              <Route
+                  path="/userOptions"
+                  element={<UserOptions ChatContext={ChatContext} />}
+                />
+
                 <Route
                   path="/messages/:userId"
                   element={<UserProfile ChatContext={ChatContext} />}
@@ -72,6 +80,10 @@ function App() {
                 <Route
                   path="/groups/:groupId"
                   element={<GroupProfile ChatContext={ChatContext} />}
+                />
+                <Route
+                  path="/groups/setGroups"
+                  element={<CheckboxList ChatContext={ChatContext} />}
                 />
                 <Route
                   path="/settingsGroup/:groupId"

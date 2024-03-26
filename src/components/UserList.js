@@ -31,6 +31,7 @@ function UserList({ ChatContext }) {
         {/* <h2 style={{ fontSize: "35px" }}>{loggedInUser.username}!</h2> */}
         <Avatar name={loggedInUser.username}/>
         <Dropdown />
+        {/* <NavLink to={"/groups/setGroups"}>▼</NavLink> */}
         <SearchUser ChatContext={ChatContext} />
       </div>
 <br></br>
