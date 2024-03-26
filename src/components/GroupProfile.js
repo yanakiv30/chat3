@@ -92,8 +92,15 @@ export default function GroupProfile({ ChatContext }) {
   return (
     <div className="profile-wrapper">
       <div className="chat-with">
-        <Avatar name={grName} />
-        <h4>{`${grName} ( ${groupMemebers.join(", ")} )`}</h4>
+        <div>
+          <div style={{display:"flex",gap:"5px"}}>
+          <Avatar name={grName} />
+          <h4>{`${grName} `}</h4>
+          </div>          
+          <p style={{fontSize:"10px",textAlign:"center"}}>members: {groupMemebers.join(", ")} </p>
+        </div>
+        
+
         <SearchInMessage ChatContext={ChatContext} />
       </div>
       <div className="user-profile-container">
