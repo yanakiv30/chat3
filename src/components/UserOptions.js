@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function UserOptions({ ChatContext }) {
+  const navigate = useNavigate();
   const { setLoggedInUser } = useContext(ChatContext);
   return (
     <div
@@ -9,7 +11,7 @@ export default function UserOptions({ ChatContext }) {
         border: "2px solid #ccc",
         borderRadius: "7px",
         height: "fit-content",
-        backgroundColor:" rgb(234, 229, 225)"
+        backgroundColor: " rgb(234, 229, 225)",
       }}
     >
       <div>
@@ -19,6 +21,7 @@ export default function UserOptions({ ChatContext }) {
         >
           Create new group
         </NavLink>
+        <button onClick={() => navigate("/")}>X</button>
       </div>
 
       <br></br>

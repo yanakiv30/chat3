@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import SearchUser from "./SearchUser";
 
 import Avatar from "./Avatar";
-import Dropdown from "./Dropdown";
+
 import GroupList from "./GroupList";
 
 function UserList({ ChatContext }) {
@@ -22,8 +22,10 @@ function UserList({ ChatContext }) {
       </div>
       <br></br>
       <div className="icon-and-search">
-        <Avatar name={loggedInUser.username} />
-        <Dropdown />
+        <div style={{ display: "flex" }}>
+          <Avatar name={loggedInUser.username} />
+          <Link to={"/userOptions"}>▼</Link>
+        </div>
 
         <SearchUser ChatContext={ChatContext} />
       </div>
@@ -33,7 +35,7 @@ function UserList({ ChatContext }) {
           .filter((user) => user.id !== loggedInUser.id)
           .map((user) => (
             <li key={user.id}>
-              <div style={{display:"flex", gap:"5px"}}>
+              <div style={{ display: "flex", gap: "5px" }}>
                 <Avatar name={user.username} />
                 <NavLink to={`/messages/${user.id}`}>{user.username}</NavLink>
               </div>
