@@ -37,7 +37,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => dispatch(setMessages(data)))
       .catch((error) => console.error("Error fetching messages:", error));
-  }, []);
+  }, [dispatch]);
 
   return (
     <Router>

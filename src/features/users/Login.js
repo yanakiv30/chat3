@@ -28,9 +28,11 @@ export default function Login() {
   }
 
   function handleLogin(username, password) {
-    const user = users.find(
+    console.log(users[0]);
+    const user = users[0].find(
       (u) => u.username === username && u.password === password
     );
+    console.log(user)
     if (user) {
       dispatch(setLoggedInUser(user)); //user is a object
       
