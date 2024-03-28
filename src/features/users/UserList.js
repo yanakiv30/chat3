@@ -7,7 +7,7 @@ import Avatar from "./Avatar";
 import GroupList from "../groups/GroupList";
 import { useSelector } from "react-redux";
 
-function UserList({ ChatContext }) {
+function UserList() {
   
   const { searchQuery,users, loggedInUser  } = useSelector(store=>store.user);
   const searchedUser =
@@ -29,7 +29,7 @@ function UserList({ ChatContext }) {
           <Link to={"/userOptions"}>▼</Link>
         </div>
 
-        <SearchUser ChatContext={ChatContext} />
+        <SearchUser />
       </div>
       <br></br>
       <ul>
@@ -44,7 +44,7 @@ function UserList({ ChatContext }) {
             </li>
           ))}
       </ul>
-      <GroupList ChatContext={ChatContext} />
+      <GroupList />
     </div>
   );
 }
