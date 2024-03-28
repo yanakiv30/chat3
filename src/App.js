@@ -9,6 +9,7 @@ import SettingsGroup from "./features/groups/SettingsGroup";
 import CheckboxList from "./features/groups/CheckboxList";
 import UserOptions from "./features/users/UserOptions";
 
+
 const API_URL = "http://localhost:3001";
 const ChatContext = createContext();
 
@@ -25,6 +26,7 @@ function App() {
   useEffect(() => {
     fetch(`${API_URL}/users`)
       .then((response) => response.json())
+      // .then((data) => setUsers(data))
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
     fetch(`${API_URL}/groups`)
@@ -40,6 +42,8 @@ function App() {
       .then((data) => setMessages(data))
       .catch((error) => console.error("Error fetching messages:", error));
   }, []);
+
+
 
   return (
     <ChatContext.Provider
