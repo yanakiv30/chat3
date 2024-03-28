@@ -8,7 +8,7 @@ const initialState= {
     searchQuery:"",
     searchMessage:"",
   };
-
+//setMessages([...messages, data]
  const userSlice= createSlice({
     name:"user",
     initialState,
@@ -17,8 +17,17 @@ const initialState= {
             state.loggedInUser = action.payload;
           },
           setUsers(state, action) {
-            state.users = action.payload;
+            state.users.push(action.payload);
           },
+          setMessages(state, action) {
+            state.messages.push(action.payload);
+          },
+          setSearchQuery(state, action) {
+            state.searchQuery =action.payload
+          },
+          setSearchMessage(state, action) {
+            state.searchMessage =action.payload
+          }
     }
  }) 
 

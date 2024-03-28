@@ -11,10 +11,10 @@ const groupSlice= createSlice({
     initialState,
     reducers: {
         setGroups(state, action) {
-            state.groups = action.payload;
+            state.groups.push(action.payload);
           },
           setGroupMessages(state, action) {
-            state.groupMessages = action.payload;
+            state.groupMessages.push(action.payload);
           },
     }
  }) 
