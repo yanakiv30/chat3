@@ -13,8 +13,9 @@ const API_URL = "http://localhost:3001";
 const ChatContext = createContext();
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  
   const [users, setUsers] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [groupMessages, setGroupMessages] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
