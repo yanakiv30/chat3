@@ -11,8 +11,9 @@ const API_URL = "http://localhost:3001";
 function CheckboxList({ ChatContext }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { users, loggedInUser } =useSelector(selectUsers);
-  // let { groups, setGroups } = useSelector(selectUsers);
+  
+ let { groups,users, loggedInUser  } = useSelector(store=>store.user);
+ console.log(groups,users, loggedInUser);
   const [checkedItems, setCheckedItems] = useState({});
   const [groupName, setGroupName] = useState("");
 

@@ -1,24 +1,24 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import SearchInMessage from "../users/SearchInMessage";
 import Avatar from "../users/Avatar";
+import {setGroupMessages  } from '../users/userSlice';
+import { useDispatch, useSelector } from "react-redux";
+
+
 const API_URL = "http://localhost:3001";
 
-export default function GroupProfile({ ChatContext }) {
-  const {
-    groups,
-    loggedInUser,
-    groupMessages,
-    setGroupMessages,
-    searchMessage,
-  } = useContext(ChatContext);
+export default function GroupProfile() {
+ 
+  const { groups, loggedInUser, groupMessages,searchMessage } = useSelector(store=>store.user);
 
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
   const groupInListId = params.groupId;
   const grName = groups.find((x) => x.id === groupInListId)?.name;
   const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
+  const dispatch = useDispatch();
 
   function leftGroupMessage(groupMessage) {
     return (
@@ -68,7 +68,7 @@ export default function GroupProfile({ ChatContext }) {
         body: JSON.stringify(newGroupMessageObject),
       })
         .then((response) => response.json())
-        .then((data) => setGroupMessages([...groupMessages, data]))//setGroupMessages(data)
+        .then((data) => dispatch(setGroupMessages(data)))//setGroupMessages(data)
         .catch((error) => console.error("Error posting message:", error));
 
       setNewGroupMessage("");
@@ -102,7 +102,7 @@ export default function GroupProfile({ ChatContext }) {
           </p>
         </div>
 
-        <SearchInMessage ChatContext={ChatContext} />
+        <SearchInMessage />
       </div>
       <div className="user-profile-container">
         <ul className="messages-container">

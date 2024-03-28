@@ -1,10 +1,13 @@
-import { useContext } from "react";
+
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import {setLoggedInUser  } from './userSlice';
+import { useDispatch } from "react-redux";
 
 export default function UserOptions({ ChatContext }) {
   const navigate = useNavigate();
-  const { setLoggedInUser } = useContext(ChatContext);
+  const dispatch = useDispatch();
+  
   return (
     <div
       style={{
@@ -37,7 +40,7 @@ export default function UserOptions({ ChatContext }) {
 
       <div>
         <button
-          onClick={() => setLoggedInUser(null)}
+          onClick={() => dispatch(setLoggedInUser(null))}
           style={{ border: "1px solid #ccc", borderRadius: "7px" }}
         >
           Logout

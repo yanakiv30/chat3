@@ -1,13 +1,15 @@
-import { useContext } from "react";
+
 import { Link, NavLink } from "react-router-dom";
 import SearchUser from "./SearchUser";
 
 import Avatar from "./Avatar";
 
 import GroupList from "../groups/GroupList";
+import { useSelector } from "react-redux";
 
 function UserList({ ChatContext }) {
-  const { loggedInUser, searchQuery, users } = useContext(ChatContext);
+  
+  const { searchQuery,users, loggedInUser  } = useSelector(store=>store.user);
   const searchedUser =
     searchQuery.length > 0
       ? users.filter(

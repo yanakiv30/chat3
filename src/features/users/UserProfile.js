@@ -1,13 +1,17 @@
-import { useContext, useState } from "react";
+import {setMessages  } from './userSlice';
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import SearchInMessage from "./SearchInMessage";
 import Avatar from "./Avatar";
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 const API_URL = "http://localhost:3001";
 
 function UserProfile({ ChatContext }) {
-  const { setMessages, loggedInUser, messages, users, searchMessage } =
-    useContext(ChatContext);
+  
+  const dispatch = useDispatch();
+  const { searchMessage,loggedInUser,messages,users } = useSelector(store=>store.user);
+
   const [newMessage, setNewMessage] = useState("");
   const params = useParams();
   const userInListId = params.userId;
@@ -61,7 +65,7 @@ function UserProfile({ ChatContext }) {
         body: JSON.stringify(newMessageObject),
       })
         .then((response) => response.json())
-        .then((data) => setMessages([...messages, data]))
+        .then((data) => dispatch(setMessages(data)))
         .catch((error) => console.error("Error posting message:", error));
 
       setNewMessage("");
@@ -70,14 +74,14 @@ function UserProfile({ ChatContext }) {
 
   function handleDeleteMessages(idForDelete) {
     const updatedMessages = messages.filter((x) => x.id !== idForDelete);
-    setMessages(updatedMessages);
+    dispatch(setMessages(updatedMessages));
 
     fetch(`${API_URL}/messages/${idForDelete}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then(() => {
-        setMessages(updatedMessages);
+        dispatch(setMessages(updatedMessages));
       })
       .catch((error) => console.error("Error deleting message:", error));
   }

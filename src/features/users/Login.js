@@ -1,10 +1,13 @@
-import { useContext } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
+import {setUsers,setLoggedInUser  } from '../users/userSlice';
 const API_URL = "http://localhost:3001";
 
-export default function Login({ ChatContext }) {
-  const { users, setUsers, setLoggedInUser } = useContext(ChatContext);
-
+export default function Login() {
+ 
+  const { users } = useSelector(store=>store.user);
+  const dispatch = useDispatch();
   function handleSignUp(newUsername, newPassword) {
     const newUser = {
       id: uuid(),
@@ -20,7 +23,7 @@ export default function Login({ ChatContext }) {
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
-      .then((data) => setUsers([...users, data]))
+      .then((data) => dispatch(setUsers( data)))
       .catch((error) => console.error("Error creating user:", error));
   }
 
@@ -29,22 +32,24 @@ export default function Login({ ChatContext }) {
       (u) => u.username === username && u.password === password
     );
     if (user) {
-      setLoggedInUser(user); //user is a object
+      dispatch(setLoggedInUser(user)); //user is a object
       
     } else {
       alert("Invalid credentials");
     }
   }
-
+  // console.log(users,setUsers,setLoggedInUser)
   return (
+    
     <div className="background-login">
       <div className="login">
-        
+       
         <h2>Welcome to chatSPA</h2>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
+            console.log(formData);
             handleLogin(formData.get("username"), formData.get("password"));
           }}
         >
@@ -60,7 +65,8 @@ export default function Login({ ChatContext }) {
           <button type="submit">Login</button>
         </form>
         <br></br><br></br><br></br>
-        <form
+       
+        {/* <form
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -79,7 +85,7 @@ export default function Login({ ChatContext }) {
             <input type="password" name="newPassword" required />
           </label>
           <button type="submit">Sign Up</button>
-        </form>
+        </form> */}
       </div>
     </div>
   );

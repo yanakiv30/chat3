@@ -1,13 +1,15 @@
-import { useContext } from "react";
 
-function SearchUser({ ChatContext }) {
-  const { searchQuery, setSearchQuery } = useContext(ChatContext);
-
+import { useDispatch, useSelector } from 'react-redux';
+import {setSearchQuery  } from './userSlice';
+function SearchUser() {
+  
+  const dispatch = useDispatch();
+  const { searchQuery } = useSelector(store=>store.user);
   return (
     <input
       style={{ width:"60%",borderRadius:"7px" }}
       value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
+      onChange={(e) => dispatch(setSearchQuery(e.target.value))}
       placeholder=" 🔍 Search in users or groups"
     />
   );

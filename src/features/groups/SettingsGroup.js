@@ -1,10 +1,13 @@
-import { useContext} from "react";
+
 import { useParams } from "react-router-dom";
+import {setGroups  } from '../users/userSlice';
+import { useDispatch, useSelector } from "react-redux";
 const API_URL = "http://localhost:3001";
 
-export default function SettingsGroup({ ChatContext }) {
-  const { groups, setGroups } = useContext(ChatContext);
 
+export default function SettingsGroup() {
+  const dispatch = useDispatch();
+  const { groups} = useSelector(store=>store.user);
   const params = useParams();
   const idSettings =params.groupId;
   const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
@@ -34,7 +37,7 @@ export default function SettingsGroup({ ChatContext }) {
         return response.json();
       })
       .then(() => {
-        setGroups(groups.filter((group) => group.id !== groupId));
+        dispatch(setGroups(groups.filter((group) => group.id !== groupId)));
       })
       .catch((error) => console.error("Error deleting group:", error));
     
