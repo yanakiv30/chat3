@@ -8,7 +8,7 @@ const initialState= {
     searchQuery:"",
     searchMessage:"",
   };
-//setMessages([...messages, data]
+
  const userSlice= createSlice({
     name:"user",
     initialState,

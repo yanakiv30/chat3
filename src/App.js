@@ -64,7 +64,7 @@ function App() {
     >
       <Router>
         <div className="app-container">
-          {console.log("loggedInUser = ",loggedInUser)}
+          {/* {console.log("loggedInUser = ",loggedInUser)} */}
           {loggedInUser ? (
             <div className="main-container">
               <UserList ChatContext={ChatContext} />
