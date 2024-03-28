@@ -45,23 +45,7 @@ function App() {
 
 
   return (
-    <ChatContext.Provider
-      value={{
-        users: users,
-        loggedInUser,
-        setLoggedInUser,
-        setMessages,
-        messages,
-        searchQuery,
-        setSearchQuery,
-        searchMessage,
-        setSearchMessage,
-        groupMessages,
-        setGroupMessages,
-        groups,
-        setGroups,
-      }}
-    >
+   
       <Router>
         <div className="app-container">
           {/* {console.log("loggedInUser = ",loggedInUser)} */}
@@ -97,7 +81,7 @@ function App() {
           )}
         </div>
       </Router>
-    </ChatContext.Provider>
+    
   );
 }
 export default App;

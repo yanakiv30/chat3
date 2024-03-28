@@ -7,6 +7,8 @@ const initialState= {
     messages:[],
     searchQuery:"",
     searchMessage:"",
+    groups:[],
+    groupMessages:[],
   };
 
  const userSlice= createSlice({
@@ -27,11 +29,18 @@ const initialState= {
           },
           setSearchMessage(state, action) {
             state.searchMessage =action.payload
+          },
+          setGroups(state, action) {
+            state.groups.push(action.payload);
+          },
+          setGroupMessages(state, action) {
+            state.groupMessages.push(action.payload);
           }
     }
  }) 
 
  console.log(userSlice);
 
- export const{setLoggedInUser, setUsers}= userSlice.actions;
+ export const{setLoggedInUser, setUsers,setMessages,setSearchQuery,
+  setSearchMessage,setGroups,setGroupMessages}= userSlice.actions;
  export default userSlice.reducer;
