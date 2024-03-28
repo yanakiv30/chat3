@@ -1,16 +1,16 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import Avatar from "./Avatar";
+import Avatar from "../users/Avatar";
 
 export default function GroupList({ ChatContext }) {
-  const { groups, loggedInUser,searchQuery } = useContext(ChatContext);
+  const { groups, loggedInUser, searchQuery } = useContext(ChatContext);
 
   const searchedGroups =
-  searchQuery.length > 0
-    ? groups.filter(
-        (group) => group && group.name && group.name.includes(searchQuery)
-      )
-    : groups;
+    searchQuery.length > 0
+      ? groups.filter(
+          (group) => group && group.name && group.name.includes(searchQuery)
+        )
+      : groups;
 
   return (
     <div>

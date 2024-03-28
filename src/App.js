@@ -1,13 +1,13 @@
 import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import UserList from "./components/UserList";
-import UserProfile from "./components/UserProfile";
-import Login from "./components/Login";
-import GroupProfile from "./components/GroupProfile";
-import SettingsGroup from "./components/SettingsGroup";
-import CheckboxList from "./components/CheckboxList";
-import UserOptions from "./components/UserOptions";
+import UserList from "./features/users/UserList";
+import UserProfile from "./features/users/UserProfile";
+import Login from "./features/users/Login";
+import GroupProfile from "./features/groups/GroupProfile";
+import SettingsGroup from "./features/groups/SettingsGroup";
+import CheckboxList from "./features/groups/CheckboxList";
+import UserOptions from "./features/users/UserOptions";
 
 const API_URL = "http://localhost:3001";
 const ChatContext = createContext();
@@ -20,8 +20,6 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchMessage, setSearchMessage] = useState("");
   const [groups, setGroups] = useState([]);
- 
- 
 
   useEffect(() => {
     fetch(`${API_URL}/users`)
@@ -57,8 +55,7 @@ function App() {
         groupMessages,
         setGroupMessages,
         groups,
-        setGroups,     
-       
+        setGroups,
       }}
     >
       <Router>
@@ -67,12 +64,10 @@ function App() {
             <div className="main-container">
               <UserList ChatContext={ChatContext} />
               <Routes>
-
-              <Route
+                <Route
                   path="/userOptions"
                   element={<UserOptions ChatContext={ChatContext} />}
                 />
-                
 
                 <Route
                   path="/messages/:userId"

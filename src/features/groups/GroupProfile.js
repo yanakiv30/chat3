@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import SearchInMessage from "./SearchInMessage";
-import Avatar from "./Avatar";
+import SearchInMessage from "../users/SearchInMessage";
+import Avatar from "../users/Avatar";
 const API_URL = "http://localhost:3001";
 
 export default function GroupProfile({ ChatContext }) {
@@ -93,13 +93,14 @@ export default function GroupProfile({ ChatContext }) {
     <div className="profile-wrapper">
       <div className="chat-with">
         <div>
-          <div style={{display:"flex",gap:"5px"}}>
-          <Avatar name={grName} />
-          <h4>{`${grName} `}</h4>
-          </div>          
-          <p style={{fontSize:"10px",textAlign:"center"}}>members: {groupMemebers.join(", ")} </p>
+          <div style={{ display: "flex", gap: "5px" }}>
+            <Avatar name={grName} />
+            <h4>{`${grName} `}</h4>
+          </div>
+          <p style={{ fontSize: "10px", textAlign: "center" }}>
+            members: {groupMemebers.join(", ")}{" "}
+          </p>
         </div>
-        
 
         <SearchInMessage ChatContext={ChatContext} />
       </div>

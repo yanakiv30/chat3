@@ -84,10 +84,9 @@ function UserProfile({ ChatContext }) {
 
   return (
     <div className="profile-wrapper">
-      
       <div className="chat-with">
-        <Avatar name={userName ? userName:""}/>
-        <h4>{userName ? userName:""}</h4>
+        <Avatar name={userName ? userName : ""} />
+        <h4>{userName ? userName : ""}</h4>
         <SearchInMessage ChatContext={ChatContext} />
       </div>
       <div className="user-profile-container">
@@ -107,7 +106,7 @@ function UserProfile({ ChatContext }) {
               </p>
               <br></br>
               <li className="message">
-                <p style={{color:"blue"}}>{message.senderUsername}:</p>
+                <p style={{ color: "blue" }}>{message.senderUsername}:</p>
                 <p> {message.content}</p>
                 <br></br>
                 <p className="date">{message.hourMinDate}</p>

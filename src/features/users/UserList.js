@@ -4,7 +4,7 @@ import SearchUser from "./SearchUser";
 
 import Avatar from "./Avatar";
 
-import GroupList from "./GroupList";
+import GroupList from "../groups/GroupList";
 
 function UserList({ ChatContext }) {
   const { loggedInUser, searchQuery, users } = useContext(ChatContext);
