@@ -13,13 +13,16 @@ const initialState= {
     name:"user",
     initialState,
     reducers: {
-        setLoggedInUser: (state, action) => {
+        setLoggedInUser(state, action) {
             state.loggedInUser = action.payload;
           },
-          setUsers: (state, action) => {
+          setUsers(state, action) {
             state.users = action.payload;
           },
     }
- })
+ }) 
 
  console.log(userSlice);
+
+ export const{setLoggedInUser, setUsers}= userSlice.actions;
+ export default userSlice.reducer;

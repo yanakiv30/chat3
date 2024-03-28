@@ -45,7 +45,7 @@ function CheckboxList({ ChatContext }) {
         body: JSON.stringify(newGroup),
       })
         .then((response) => response.json())
-        .then((data) => setGroups([...groups, data]))
+        .then((data) => setGroups([...groups, data]))//setGroups(data)
         .catch((error) => console.error("Error posting message:", error));
     } else {
       alert("Duplicate name");
@@ -85,33 +85,7 @@ function CheckboxList({ ChatContext }) {
         </ul>
         <button onClick={handleSetGroups}>Create</button>
       </div>
-      {/* <br></br> <br></br> <br></br>
-      <div>
-        <button
-          onClick={() => setLoggedInUser(null)}
-          style={{ border: "1px solid #ccc", borderRadius: "7px" }}
-        >
-          Set new group
-        </button>
-      </div>
-      <br></br>
-      <div>
-        <button
-          onClick={() => setLoggedInUser(null)}
-          style={{ border: "1px solid #ccc", borderRadius: "7px" }}
-        >
-          Logout
-        </button>
-      </div>
-      <br></br>
-      <div>
-        <button
-          onClick={null}
-          style={{ border: "1px solid #ccc", borderRadius: "7px" }}
-        >
-          Settings
-        </button>
-      </div> */}
+      
     </div>
   );
 }

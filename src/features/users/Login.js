@@ -30,6 +30,7 @@ export default function Login({ ChatContext }) {
     );
     if (user) {
       setLoggedInUser(user); //user is a object
+      
     } else {
       alert("Invalid credentials");
     }
@@ -78,7 +79,7 @@ export default function Login({ ChatContext }) {
             <input type="password" name="newPassword" required />
           </label>
           <button type="submit">Sign Up</button>
-        </form>{" "}
+        </form>
       </div>
     </div>
   );

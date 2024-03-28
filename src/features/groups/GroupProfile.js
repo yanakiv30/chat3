@@ -68,7 +68,7 @@ export default function GroupProfile({ ChatContext }) {
         body: JSON.stringify(newGroupMessageObject),
       })
         .then((response) => response.json())
-        .then((data) => setGroupMessages([...groupMessages, data]))
+        .then((data) => setGroupMessages([...groupMessages, data]))//setGroupMessages(data)
         .catch((error) => console.error("Error posting message:", error));
 
       setNewGroupMessage("");

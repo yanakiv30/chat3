@@ -25,13 +25,12 @@ function App() {
 
   useEffect(() => {
     fetch(`${API_URL}/users`)
-      .then((response) => response.json())
-      // .then((data) => setUsers(data))
-      .then((data) => setUsers(data))
+      .then((response) => response.json())      
+      .then((data) => setUsers(data)) //
       .catch((error) => console.error("Error fetching users:", error));
     fetch(`${API_URL}/groups`)
-      .then((response) => response.json())
-      .then((data) => setGroups(data))
+      .then((response) => response.json())      
+      .then((data) => setGroups(data))//
       .catch((error) => console.error("Error fetching users:", error));
     fetch(`${API_URL}/groupMessages`)
       .then((response) => response.json())
@@ -49,7 +48,7 @@ function App() {
     <ChatContext.Provider
       value={{
         users: users,
-        loggedInUser: loggedInUser,
+        loggedInUser,
         setLoggedInUser,
         setMessages,
         messages,
@@ -65,6 +64,7 @@ function App() {
     >
       <Router>
         <div className="app-container">
+          {console.log("loggedInUser = ",loggedInUser)}
           {loggedInUser ? (
             <div className="main-container">
               <UserList ChatContext={ChatContext} />
