@@ -1,4 +1,4 @@
-import {setMessages  } from './userSlice';
+import {setMessages ,addMessage } from './userSlice';
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import SearchInMessage from "./SearchInMessage";
@@ -65,7 +65,7 @@ function UserProfile({ ChatContext }) {
         body: JSON.stringify(newMessageObject),
       })
         .then((response) => response.json())
-        .then((data) => dispatch(setMessages(data)))
+        .then((data) => dispatch(addMessage(data)))
         .catch((error) => console.error("Error posting message:", error));
 
       setNewMessage("");

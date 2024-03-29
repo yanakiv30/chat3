@@ -29,6 +29,11 @@
       "id": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
       "username": "vasil vasilev vasilev",
       "password": "v5"
+    },
+    {
+      "id": "b09ebda8-9267-430f-895b-759f823531e8",
+      "username": "new",
+      "password": "n3"
     }
   ],
   "groups": [
@@ -88,6 +93,16 @@
         "niki"
       ],
       "admin": "niki"
+    },
+    {
+      "id": "a7b9e3d7-e9bc-4920-839a-f14be9b424cb",
+      "name": "group-en",
+      "members": [
+        "elena",
+        "niki",
+        "new"
+      ],
+      "admin": "new"
     }
   ],
   "groupMessages": [
@@ -236,15 +251,6 @@
       "dayDate": "17.2.2024"
     },
     {
-      "id": "7cf5664a-07cf-411b-8e8c-7bac9b6fd3a4",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "70289d8b-903a-4c51-8c65-81cc079499aa",
-      "senderUsername": "niki",
-      "content": "niki-nm2",
-      "hourMinDate": "19:34",
-      "dayDate": "17.2.2024"
-    },
-    {
       "id": "2613c5fe-519a-43ae-865d-2faa63927557",
       "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
       "receiverId": "7f4a5777-7bbd-446a-ae8b-b3161e22ca5d",
@@ -295,15 +301,6 @@
       "receiverId": "a3e8db1c-d020-4fed-a7ba-50868043c579",
       "senderUsername": "niki",
       "content": "niki-nev1",
-      "hourMinDate": "2:30",
-      "dayDate": "19.2.2024"
-    },
-    {
-      "id": "ba796882-13d4-4756-a64f-267e42cd9149",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "a3e8db1c-d020-4fed-a7ba-50868043c579",
-      "senderUsername": "niki",
-      "content": "niki-nev2",
       "hourMinDate": "2:30",
       "dayDate": "19.2.2024"
     },
@@ -793,15 +790,6 @@
       "senderUsername": "niki",
       "content": " niki-elena-large mes 19",
       "hourMinDate": "5:39",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "98b35c52-556f-41f7-99e2-fb575b8fb437",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena-large mes 20",
-      "hourMinDate": "5:43",
       "dayDate": "12.2.2024"
     },
     {

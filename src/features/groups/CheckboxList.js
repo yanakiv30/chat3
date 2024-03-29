@@ -1,6 +1,6 @@
 import React, {  useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import {setGroups  } from '../users/userSlice';
+import {addGroup } from '../users/userSlice';
 
 import { v4 as uuid } from "uuid";
 
@@ -49,7 +49,7 @@ function CheckboxList({ ChatContext }) {
         body: JSON.stringify(newGroup),
       })
         .then((response) => response.json())
-        .then((data) =>dispatch( setGroups(data)))//setGroups(data)
+        .then((data) =>dispatch( addGroup(data)))//setGroups(data)
         .catch((error) => console.error("Error posting message:", error));
     } else {
       alert("Duplicate name");

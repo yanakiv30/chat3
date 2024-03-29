@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import SearchInMessage from "../users/SearchInMessage";
 import Avatar from "../users/Avatar";
-import {setGroupMessages  } from '../users/userSlice';
+import {setGroupMessages,addGroupMessage  } from '../users/userSlice';
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -68,7 +68,7 @@ export default function GroupProfile() {
         body: JSON.stringify(newGroupMessageObject),
       })
         .then((response) => response.json())
-        .then((data) => dispatch(setGroupMessages(data)))//setGroupMessages(data)
+        .then((data) => dispatch(addGroupMessage(data)))//setGroupMessages(data)
         .catch((error) => console.error("Error posting message:", error));
 
       setNewGroupMessage("");
@@ -77,14 +77,14 @@ export default function GroupProfile() {
 
   function handleDeleteGroupMessages(idForDelete) {
     const updatedMessages = groupMessages.filter((x) => x.id !== idForDelete);
-    setGroupMessages(updatedMessages);
+    dispatch(setGroupMessages(updatedMessages));
 
     fetch(`${API_URL}/groupMessages/${idForDelete}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then(() => {
-        setGroupMessages(updatedMessages);
+        dispatch(setGroupMessages(updatedMessages));
       })
       .catch((error) => console.error("Error deleting message:", error));
   }

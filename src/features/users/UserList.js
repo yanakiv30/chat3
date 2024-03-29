@@ -26,7 +26,7 @@ function UserList() {
       <div className="icon-and-search">
         <div style={{ display: "flex" }}>
           <Avatar name={loggedInUser.username} />
-          <Link to={"/userOptions"}>▼</Link>
+          <p>{loggedInUser.username}<Link to={"/userOptions"}>▼</Link></p>
         </div>
 
         <SearchUser />

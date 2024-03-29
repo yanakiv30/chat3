@@ -1,7 +1,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
-import {setUsers,setLoggedInUser  } from '../users/userSlice';
+import {setLoggedInUser,addUser  } from '../users/userSlice';
 const API_URL = "http://localhost:3001";
 
 export default function Login() {
@@ -23,7 +23,7 @@ export default function Login() {
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
-      .then((data) => dispatch(setUsers( data)))
+      .then((data) => dispatch(addUser( data)))
       .catch((error) => console.error("Error creating user:", error));
   }
 
