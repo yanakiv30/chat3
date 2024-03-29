@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import UserList from "./features/users/UserList";
@@ -9,16 +9,17 @@ import SettingsGroup from "./features/groups/SettingsGroup";
 import CheckboxList from "./features/groups/CheckboxList";
 import UserOptions from "./features/users/UserOptions";
 import { useDispatch, useSelector } from "react-redux";
-import {setUsers,setGroupMessages,setMessages,setGroups  } from './features/users/userSlice';
+import {  setUsers, setMessages} 
+from "./features/users/userSlice";
+
+import { setGroupMessages,   setGroups} 
+from "./features/groups/groupSlice";
 
 const API_URL = "http://localhost:3001";
-const ChatContext = createContext();
 
 function App() {
   const dispatch = useDispatch();
-  const {loggedInUser } = useSelector(store=>store.user);
-
-  
+  const { loggedInUser } = useSelector((store) => store.user);
 
   useEffect(() => {
     fetch(`${API_URL}/users`)
@@ -45,33 +46,21 @@ function App() {
         {/* {console.log("loggedInUser = ",loggedInUser)} */}
         {loggedInUser ? (
           <div className="main-container">
-            <UserList ChatContext={ChatContext} />
+            <UserList />
             <Routes>
-              <Route
-                path="/userOptions"
-                element={<UserOptions ChatContext={ChatContext} />}
-              />
+              <Route path="/userOptions" element={<UserOptions />} />
 
-              <Route
-                path="/messages/:userId"
-                element={<UserProfile ChatContext={ChatContext} />}
-              />
-              <Route
-                path="/groups/:groupId"
-                element={<GroupProfile ChatContext={ChatContext} />}
-              />
-              <Route
-                path="/groups/createGroups"
-                element={<CheckboxList ChatContext={ChatContext} />}
-              />
+              <Route path="/messages/:userId" element={<UserProfile />} />
+              <Route path="/groups/:groupId" element={<GroupProfile />} />
+              <Route path="/groups/createGroups" element={<CheckboxList />} />
               <Route
                 path="/settingsGroup/:groupId"
-                element={<SettingsGroup ChatContext={ChatContext} />}
+                element={<SettingsGroup />}
               />
             </Routes>
           </div>
         ) : (
-          <Login ChatContext={ChatContext} />
+          <Login />
         )}
       </div>
     </Router>

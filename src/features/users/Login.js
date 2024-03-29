@@ -1,13 +1,14 @@
-
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
-import {setLoggedInUser,addUser  } from '../users/userSlice';
+import { setLoggedInUser, addUser } from "../users/userSlice";
+import { useState } from "react";
 const API_URL = "http://localhost:3001";
 
 export default function Login() {
- 
-  const { users } = useSelector(store=>store.user);
+  const { users } = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const [signUpMessage, setSignUpMessage] = useState("");
+
   function handleSignUp(newUsername, newPassword) {
     const newUser = {
       id: uuid(),
@@ -23,29 +24,29 @@ export default function Login() {
       body: JSON.stringify(newUser),
     })
       .then((response) => response.json())
-      .then((data) => dispatch(addUser( data)))
+      .then((data) => {
+        dispatch(addUser(data));
+        setSignUpMessage(`Sign up successful! Welcome, ${data.username}!`);
+      })
       .catch((error) => console.error("Error creating user:", error));
   }
 
   function handleLogin(username, password) {
-    console.log("users",users);
+    console.log("users", users);
     const user = users.find(
       (u) => u.username === username && u.password === password
     );
-    console.log("user= ",user)
+    console.log("user= ", user);
     if (user) {
       dispatch(setLoggedInUser(user)); //user is a object
-      
     } else {
       alert("Invalid credentials");
     }
   }
   // console.log(users,setUsers,setLoggedInUser)
   return (
-    
     <div className="background-login">
       <div className="login">
-       
         <h2>Welcome to chatSPA</h2>
         <form
           onSubmit={(e) => {
@@ -66,8 +67,10 @@ export default function Login() {
 
           <button type="submit">Login</button>
         </form>
-        <br></br><br></br><br></br>
-       
+        <br></br>
+        <br></br>
+        <br></br>
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -88,6 +91,7 @@ export default function Login() {
           </label>
           <button type="submit">Sign Up</button>
         </form>
+        {signUpMessage && <div>{signUpMessage}</div>}
       </div>
     </div>
   );

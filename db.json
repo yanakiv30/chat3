@@ -31,7 +31,7 @@
       "password": "v5"
     },
     {
-      "id": "b09ebda8-9267-430f-895b-759f823531e8",
+      "id": "8f822813-ba44-4286-8af9-3470b423ae5b",
       "username": "new",
       "password": "n3"
     }
@@ -93,16 +93,6 @@
         "niki"
       ],
       "admin": "niki"
-    },
-    {
-      "id": "a7b9e3d7-e9bc-4920-839a-f14be9b424cb",
-      "name": "group-en",
-      "members": [
-        "elena",
-        "niki",
-        "new"
-      ],
-      "admin": "new"
     }
   ],
   "groupMessages": [

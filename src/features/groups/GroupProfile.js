@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import SearchInMessage from "../users/SearchInMessage";
 import Avatar from "../users/Avatar";
-import {setGroupMessages,addGroupMessage  } from '../users/userSlice';
+import {setGroupMessages,addGroupMessage  } from '../groups/groupSlice';
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -11,8 +11,8 @@ const API_URL = "http://localhost:3001";
 
 export default function GroupProfile() {
  
-  const { groups, loggedInUser, groupMessages,searchMessage } = useSelector(store=>store.user);
-
+  const { loggedInUser, searchMessage } = useSelector(store=>store.user);
+  const { groups, groupMessages} = useSelector(store=>store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
   const groupInListId = params.groupId;

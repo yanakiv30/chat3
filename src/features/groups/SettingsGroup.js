@@ -1,13 +1,13 @@
 
 import { useParams } from "react-router-dom";
-import {setGroups  } from '../users/userSlice';
+import {setGroups  } from '../groups/groupSlice';
 import { useDispatch, useSelector } from "react-redux";
 const API_URL = "http://localhost:3001";
 
 
 export default function SettingsGroup() {
   const dispatch = useDispatch();
-  const { groups} = useSelector(store=>store.user);
+  const { groups} = useSelector(store=>store.group);
   const params = useParams();
   const idSettings =params.groupId;
   const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;

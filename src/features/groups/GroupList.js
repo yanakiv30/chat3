@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 
 export default function GroupList({ ChatContext }) {
   
-  const { groups, loggedInUser,searchQuery  } = useSelector(store=>store.user);
+  const {  loggedInUser,searchQuery  } = useSelector(store=>store.user);
+  const { groups  } = useSelector(store=>store.group);
   const searchedGroups =
     searchQuery.length > 0
       ? groups.filter(
