@@ -1,12 +1,10 @@
-
 import { NavLink } from "react-router-dom";
 import Avatar from "../users/Avatar";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../store";
 
 export default function GroupList({ ChatContext }) {
-  
-  const {  loggedInUser,searchQuery  } = useSelector(store=>store.user);
-  const { groups  } = useSelector(store=>store.group);
+  const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
+  const { groups } = useAppSelector((store) => store.group);
   const searchedGroups =
     searchQuery.length > 0
       ? groups.filter(

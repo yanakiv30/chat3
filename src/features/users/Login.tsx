@@ -1,11 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { setLoggedInUser, addUser } from "../users/userSlice";
+import { setLoggedInUser, addUser } from "./userSlice";
+import { useAppSelector } from "../../store";
 
 const API_URL = "http://localhost:3001";
 
 export default function Login() {
-  const { users } = useSelector((store) => store.user);
+  const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
 
   async function handleSignUp(newUsername, newPassword) {

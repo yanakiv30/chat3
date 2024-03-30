@@ -1,16 +1,18 @@
-import {setMessages ,addMessage } from './userSlice';
+import { setMessages, addMessage } from "./userSlice";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import SearchInMessage from "./SearchInMessage";
 import Avatar from "./Avatar";
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useAppSelector } from "../../store";
 const API_URL = "http://localhost:3001";
 
 function UserProfile({ ChatContext }) {
-  
   const dispatch = useDispatch();
-  const { searchMessage,loggedInUser,messages,users } = useSelector(store=>store.user);
+  const { searchMessage, loggedInUser, messages, users } = useAppSelector(
+    (store) => store.user
+  );
 
   const [newMessage, setNewMessage] = useState("");
   const params = useParams();

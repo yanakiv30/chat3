@@ -8,18 +8,17 @@ import GroupProfile from "./features/groups/GroupProfile";
 import SettingsGroup from "./features/groups/SettingsGroup";
 import CheckboxList from "./features/groups/CheckboxList";
 import UserOptions from "./features/users/UserOptions";
-import { useDispatch, useSelector } from "react-redux";
-import {  setUsers, setMessages} 
-from "./features/users/userSlice";
+import { useDispatch } from "react-redux";
+import { setUsers, setMessages } from "./features/users/userSlice";
 
-import { setGroupMessages,   setGroups} 
-from "./features/groups/groupSlice";
+import { setGroupMessages, setGroups } from "./features/groups/groupSlice";
+import { useAppSelector } from "./store";
 
 const API_URL = "http://localhost:3001";
 
 function App() {
   const dispatch = useDispatch();
-  const { loggedInUser } = useSelector((store) => store.user);
+  const { loggedInUser } = useAppSelector((store) => store.user);
 
   useEffect(() => {
     fetch(`${API_URL}/users`)

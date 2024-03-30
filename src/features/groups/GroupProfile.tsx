@@ -3,16 +3,15 @@ import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import SearchInMessage from "../users/SearchInMessage";
 import Avatar from "../users/Avatar";
-import {setGroupMessages,addGroupMessage  } from '../groups/groupSlice';
-import { useDispatch, useSelector } from "react-redux";
-
+import { setGroupMessages, addGroupMessage } from "./groupSlice";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../store";
 
 const API_URL = "http://localhost:3001";
 
 export default function GroupProfile() {
- 
-  const { loggedInUser, searchMessage } = useSelector(store=>store.user);
-  const { groups, groupMessages} = useSelector(store=>store.group);
+  const { loggedInUser, searchMessage } = useAppSelector((store) => store.user);
+  const { groups, groupMessages } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
   const groupInListId = params.groupId;
@@ -68,7 +67,7 @@ export default function GroupProfile() {
         body: JSON.stringify(newGroupMessageObject),
       })
         .then((response) => response.json())
-        .then((data) => dispatch(addGroupMessage(data)))//setGroupMessages(data)
+        .then((data) => dispatch(addGroupMessage(data))) //setGroupMessages(data)
         .catch((error) => console.error("Error posting message:", error));
 
       setNewGroupMessage("");

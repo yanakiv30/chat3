@@ -1,29 +1,28 @@
-
 import { useNavigate, useParams } from "react-router-dom";
-import {setGroups  } from '../groups/groupSlice';
-import { useDispatch, useSelector } from "react-redux";
+import { setGroups } from "./groupSlice";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../store";
 const API_URL = "http://localhost:3001";
-
 
 export default function SettingsGroup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { groups} = useSelector(store=>store.group);
+  const { groups } = useAppSelector((store) => store.group);
   const params = useParams();
-  const idSettings =params.groupId;
+  const idSettings = params.groupId;
   const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
 
   // console.log("params= ", params);
 
   // console.log(idSettings);
   function addUser() {
-  alert("Missing code for adding users")
+    alert("Missing code for adding users");
   }
 
   function deleteUser(member) {
     // console.log(groups.filter((group) => group.id === idSettings)[0]
     // .members.find(x=> x===member));
-    alert("Missing code for deleting users")
+    alert("Missing code for deleting users");
   }
 
   function deleteGroup(groupId) {
@@ -41,15 +40,14 @@ export default function SettingsGroup() {
         dispatch(setGroups(groups.filter((group) => group.id !== groupId)));
       })
       .catch((error) => console.error("Error deleting group:", error));
-    
   }
 
   return (
     <div className="settings">
-      <p>Settings {groupToSet} 
-      <button onClick={() => navigate("/userOptions")}>X</button></p>
-
-      
+      <p>
+        Settings {groupToSet}
+        <button onClick={() => navigate("/userOptions")}>X</button>
+      </p>
 
       <br></br>
       <div className="wrapper">
@@ -58,11 +56,12 @@ export default function SettingsGroup() {
           <p> Delete User</p>
           {groups
             .filter((group) => group.id === idSettings)[0]
-            ?.members.slice(0,-1).map((member) => (
+            ?.members.slice(0, -1)
+            .map((member) => (
               <li key={member}>
                 <p>
                   {member}
-                  <button onClick={()=>deleteUser(member)}>Delete</button>
+                  <button onClick={() => deleteUser(member)}>Delete</button>
                 </p>
               </li>
             ))}

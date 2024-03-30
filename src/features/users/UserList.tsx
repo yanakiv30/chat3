@@ -1,16 +1,17 @@
-
 import { Link, NavLink } from "react-router-dom";
 import SearchUser from "./SearchUser";
-import {setLoggedInUser  } from './userSlice';
+import { setLoggedInUser } from "./userSlice";
 import { useDispatch } from "react-redux";
 import Avatar from "./Avatar";
 
 import GroupList from "../groups/GroupList";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../store";
 
 function UserList() {
   const dispatch = useDispatch();
-  const { searchQuery,users, loggedInUser  } = useSelector(store=>store.user);
+  const { searchQuery, users, loggedInUser } = useAppSelector(
+    (store) => store.user
+  );
   const searchedUser =
     searchQuery.length > 0
       ? users.filter(
@@ -39,7 +40,10 @@ function UserList() {
       <div className="icon-and-search">
         <div style={{ display: "flex" }}>
           <Avatar name={loggedInUser.username} />
-          <p>{loggedInUser.username}<Link to={"/userOptions"}>▼</Link></p>
+          <p>
+            {loggedInUser.username}
+            <Link to={"/userOptions"}>▼</Link>
+          </p>
         </div>
 
         <SearchUser />

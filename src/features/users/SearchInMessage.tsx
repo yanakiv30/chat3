@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import {setSearchMessage  } from './userSlice';
+import { useDispatch } from "react-redux";
+import { setSearchMessage } from "./userSlice";
+import { useAppSelector } from "../../store";
 
 function SearchInMessage() {
-  
   const dispatch = useDispatch();
-  const { searchMessage } = useSelector(store=>store.user);
+  const { searchMessage } = useAppSelector((store) => store.user);
 
   return (
     <input

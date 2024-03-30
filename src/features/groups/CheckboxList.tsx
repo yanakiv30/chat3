@@ -1,20 +1,21 @@
-import React, {  useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import {addGroup } from '../groups/groupSlice';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addGroup } from "./groupSlice";
 
 import { v4 as uuid } from "uuid";
 
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../store";
 
 const API_URL = "http://localhost:3001";
 
 function CheckboxList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
- let {users, loggedInUser  } = useSelector(store=>store.user);
- let { groups } = useSelector(store=>store.group);
-//  console.log(groups,users, loggedInUser);
+
+  let { users, loggedInUser } = useAppSelector((store) => store.user);
+  let { groups } = useAppSelector((store) => store.group);
+  //  console.log(groups,users, loggedInUser);
   const [checkedItems, setCheckedItems] = useState({});
   const [groupName, setGroupName] = useState("");
 
@@ -50,7 +51,7 @@ function CheckboxList() {
         body: JSON.stringify(newGroup),
       })
         .then((response) => response.json())
-        .then((data) =>dispatch( addGroup(data)))
+        .then((data) => dispatch(addGroup(data)))
         .catch((error) => console.error("Error posting message:", error));
     } else {
       alert("Duplicate name");
@@ -58,12 +59,15 @@ function CheckboxList() {
   }
 
   return (
-    <div style={{backgroundColor:" rgb(234, 229, 225)",height:"fit-content"}}  className="wrapper">
+    <div
+      style={{ backgroundColor: " rgb(234, 229, 225)", height: "fit-content" }}
+      className="wrapper"
+    >
       <div
         className="set"
         style={{ border: "1px solid #ccc", borderRadius: "7px" }}
       >
-        <p style={{display:"flex", justifyContent:"space-between"}}>
+        <p style={{ display: "flex", justifyContent: "space-between" }}>
           <span>Create Group </span>
           <button onClick={() => navigate("/userOptions")}>X</button>
         </p>
@@ -90,7 +94,6 @@ function CheckboxList() {
         </ul>
         <button onClick={handleSetGroups}>Create</button>
       </div>
-      
     </div>
   );
 }
