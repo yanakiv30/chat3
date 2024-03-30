@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import Avatar from "../users/Avatar";
 import { useAppSelector } from "../../store";
 
-export default function GroupList({ ChatContext }) {
+export default function GroupList() {
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
   const { groups } = useAppSelector((store) => store.group);
   const searchedGroups =

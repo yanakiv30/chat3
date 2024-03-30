@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useAppSelector } from "../../store";
 const API_URL = "http://localhost:3001";
 
-function UserProfile({ ChatContext }) {
+function UserProfile() {
   const dispatch = useDispatch();
   const { searchMessage, loggedInUser, messages, users } = useAppSelector(
     (store) => store.user
@@ -93,7 +93,7 @@ function UserProfile({ ChatContext }) {
       <div className="chat-with">
         <Avatar name={userName ? userName : ""} />
         <h4>{userName ? userName : ""}</h4>
-        <SearchInMessage ChatContext={ChatContext} />
+        <SearchInMessage  />
       </div>
       <div className="user-profile-container">
         <ul className="messages-container">

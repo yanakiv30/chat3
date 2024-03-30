@@ -58,7 +58,7 @@ export default function Login() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            const formData = new FormData(e.target);
+            const formData = new FormData(e.target as HTMLFormElement);
             // console.log(formData);
             handleLogin(formData.get("username"), formData.get("password"));
           }}
@@ -81,7 +81,7 @@ export default function Login() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            const formData = new FormData(e.target);
+            const formData = new FormData(e.target as HTMLFormElement);
             handleSignUp(
               formData.get("newUsername"),
               formData.get("newPassword")

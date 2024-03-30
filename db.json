@@ -405,15 +405,6 @@
       "dayDate": "12.2.2024"
     },
     {
-      "id": "6b6604c6-8cae-42a1-b42c-ac04252d7502",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "niki",
-      "content": "niki-mariya-mes2",
-      "hourMinDate": "4:48",
-      "dayDate": "12.2.2024"
-    },
-    {
       "id": "23f4946e-9597-4748-886a-1c22fbe36deb",
       "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
       "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
@@ -473,15 +464,6 @@
       "receiverId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
       "senderUsername": "elena",
       "content": "elena-vasil-mes2",
-      "hourMinDate": "4:52",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "38ca23d8-27f7-464b-880f-e24e9e85e461",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "elena",
-      "content": "elena-mariya-mes1",
       "hourMinDate": "4:52",
       "dayDate": "12.2.2024"
     },
