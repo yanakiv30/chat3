@@ -1,14 +1,15 @@
 
 import { Link, NavLink } from "react-router-dom";
 import SearchUser from "./SearchUser";
-
+import {setLoggedInUser  } from './userSlice';
+import { useDispatch } from "react-redux";
 import Avatar from "./Avatar";
 
 import GroupList from "../groups/GroupList";
 import { useSelector } from "react-redux";
 
 function UserList() {
-  
+  const dispatch = useDispatch();
   const { searchQuery,users, loggedInUser  } = useSelector(store=>store.user);
   const searchedUser =
     searchQuery.length > 0
@@ -21,6 +22,18 @@ function UserList() {
     <div className="user-list-container">
       <div className="button-link">
         <p>🗣️ChatSpa</p>
+        <NavLink
+          to={"/groups/createGroups"}
+          style={{ border: "2px solid #ccc", borderRadius: "7px" }}
+        >
+          Create new group
+        </NavLink>
+        <button
+          onClick={() => dispatch(setLoggedInUser(null))}
+          style={{ border: "1px solid #ccc", borderRadius: "7px" }}
+        >
+          Logout
+        </button>
       </div>
       <br></br>
       <div className="icon-and-search">

@@ -8,13 +8,13 @@ import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:3001";
 
-function CheckboxList({ ChatContext }) {
+function CheckboxList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
  let {users, loggedInUser  } = useSelector(store=>store.user);
  let { groups } = useSelector(store=>store.group);
- console.log(groups,users, loggedInUser);
+//  console.log(groups,users, loggedInUser);
   const [checkedItems, setCheckedItems] = useState({});
   const [groupName, setGroupName] = useState("");
 
@@ -64,7 +64,7 @@ function CheckboxList({ ChatContext }) {
         style={{ border: "1px solid #ccc", borderRadius: "7px" }}
       >
         <p style={{display:"flex", justifyContent:"space-between"}}>
-          <span>Set new Group </span>
+          <span>Create Group </span>
           <button onClick={() => navigate("/userOptions")}>X</button>
         </p>
         <input

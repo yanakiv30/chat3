@@ -38,11 +38,11 @@ export default function Login() {
   }
 
   function handleLogin(username, password) {
-    console.log("users", users);
+    // console.log("users", users);
     const user = users.find(
       (u) => u.username === username && u.password === password
     );
-    console.log("user= ", user);
+    // console.log("user= ", user);
     if (user) {
       dispatch(setLoggedInUser(user)); //user is a object
     } else {
@@ -58,7 +58,7 @@ export default function Login() {
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
-            console.log(formData);
+            // console.log(formData);
             handleLogin(formData.get("username"), formData.get("password"));
           }}
         >

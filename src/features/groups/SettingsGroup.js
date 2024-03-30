@@ -1,11 +1,12 @@
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {setGroups  } from '../groups/groupSlice';
 import { useDispatch, useSelector } from "react-redux";
 const API_URL = "http://localhost:3001";
 
 
 export default function SettingsGroup() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { groups} = useSelector(store=>store.group);
   const params = useParams();
@@ -45,7 +46,11 @@ export default function SettingsGroup() {
 
   return (
     <div className="settings">
-      <p>Settings {groupToSet}</p>
+      <p>Settings {groupToSet} 
+      <button onClick={() => navigate("/userOptions")}>X</button></p>
+
+      
+
       <br></br>
       <div className="wrapper">
         <button onClick={addUser}>Add User</button>
