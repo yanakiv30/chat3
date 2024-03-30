@@ -1,34 +1,40 @@
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { setLoggedInUser, addUser } from "../users/userSlice";
-import { useState } from "react";
+
 const API_URL = "http://localhost:3001";
 
 export default function Login() {
   const { users } = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  const [signUpMessage, setSignUpMessage] = useState("");
 
-  function handleSignUp(newUsername, newPassword) {
+  async function handleSignUp(newUsername, newPassword) {
+    if (users.some((user) => user.username === newUsername)) {
+      alert("This username already exists!");
+      return;
+    }
     const newUser = {
       id: uuid(),
       username: newUsername,
       password: newPassword,
     };
-
-    fetch(`${API_URL}/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(addUser(data));
-        setSignUpMessage(`Sign up successful! Welcome, ${data.username}!`);
-      })
-      .catch((error) => console.error("Error creating user:", error));
+    try {
+      const response = await fetch(`${API_URL}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      dispatch(addUser(data));
+      dispatch(setLoggedInUser(data));
+    } catch (error) {
+      console.error("Error creating user:", error);
+    }
   }
 
   function handleLogin(username, password) {
@@ -91,7 +97,6 @@ export default function Login() {
           </label>
           <button type="submit">Sign Up</button>
         </form>
-        {signUpMessage && <div>{signUpMessage}</div>}
       </div>
     </div>
   );
