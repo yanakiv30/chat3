@@ -1,8 +1,15 @@
+<!-- "npm i -g typescript" to install typescript on the PC -->
+
+<!-- "tsc" in powershell -> check for typescript errors -->
+
+<!-- "Set-ExecutionPolicy RemoteSigned" in powershell if you get a powershell error running the above  -->
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 To run "fake" server on http://localhost:3001/
+
 ### `npm run json-server`
 
 ## Available Scripts
