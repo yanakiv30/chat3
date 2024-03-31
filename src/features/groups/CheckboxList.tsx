@@ -35,7 +35,7 @@ function CheckboxList() {
     }));
   }
   let trueItems = Object.keys(checkedItems).filter(
-    (key) => checkedItems[key] === true
+    (key:string) => checkedItems[key] === true
   );
 
   function handleSetGroups() {

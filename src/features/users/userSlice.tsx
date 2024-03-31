@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   users: [] as {id: string; username: string;password: string;}[],
   loggedInUser: null as { username: string;id: string;} | null,
-  messages: [] as { content: string;}[],
+  messages: [] as { id:string;senderId:string;receiverId:string;
+    senderUsername:string;content: string;hourMinDate:string;dayDate:string}[],
   searchQuery: "",
   searchMessage: "", 
 };

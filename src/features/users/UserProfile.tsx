@@ -17,19 +17,35 @@ function UserProfile() {
   const [newMessage, setNewMessage] = useState("");
   const params = useParams();
   const userInListId = params.userId;
-  const userName = users.find((x) => x.id === userInListId).username;
+  const userName = users.find((x) => x.id === userInListId)?.username;
 
-  function leftMessage(message) {
+  function leftMessage(message: {
+    id: string;
+    senderId: string;
+    receiverId: string;
+    senderUsername: string;
+    content: string;
+    hourMinDate: string;
+    dayDate: string;
+  }) {
     return (
-      message.receiverId === loggedInUser.id &&
+      message.receiverId === loggedInUser!.id &&
       message.senderId === userInListId
     );
   }
 
-  function rightMessage(message) {
+  function rightMessage(message: {
+    id: string;
+    senderId: string;
+    receiverId: string;
+    senderUsername: string;
+    content: string;
+    hourMinDate: string;
+    dayDate: string;
+  }) {
     return (
       message.receiverId === userInListId &&
-      message.senderId === loggedInUser.id
+      message.senderId === loggedInUser!.id
     );
   }
 
@@ -51,9 +67,9 @@ function UserProfile() {
 
       const newMessageObject = {
         id: uuid(),
-        senderId: loggedInUser.id,
+        senderId: loggedInUser!.id,
         receiverId: userInListId,
-        senderUsername: loggedInUser.username,
+        senderUsername: loggedInUser!.username,
         content: newMessage,
         hourMinDate,
         dayDate,
@@ -74,7 +90,7 @@ function UserProfile() {
     }
   }
 
-  function handleDeleteMessages(idForDelete) {
+  function handleDeleteMessages(idForDelete:string) {
     const updatedMessages = messages.filter((x) => x.id !== idForDelete);
     dispatch(setMessages(updatedMessages));
 
