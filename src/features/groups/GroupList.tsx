@@ -14,7 +14,7 @@ export default function GroupList() {
 
   return (
     <div>
-      {searchedGroups.length > 0 ? "Groups" : ""}
+      {/* {searchedGroups.length > 0 ? "Groups" : ""} */}
       <ul>
         {searchedGroups
           .filter((group) => group.members.includes(loggedInUser!.username))

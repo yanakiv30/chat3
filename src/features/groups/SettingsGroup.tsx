@@ -19,13 +19,13 @@ export default function SettingsGroup() {
     alert("Missing code for adding users");
   }
 
-  function deleteUser(member:string) {
+  function deleteUser(member: string) {
     // console.log(groups.filter((group) => group.id === idSettings)[0]
     // .members.find(x=> x===member));
     alert("Missing code for deleting ");
   }
 
-  function deleteGroup(groupId:string) {
+  function deleteGroup(groupId: string) {
     //    console.log(groupId)
     fetch(`${API_URL}/groups/${groupId}`, {
       method: "DELETE",
@@ -52,18 +52,19 @@ export default function SettingsGroup() {
       <br></br>
       <div className="wrapper">
         <button onClick={addUser}>Add User</button>
-        <br></br>
+
         <ul>
-          
           {groups
             .filter((group) => group.id === idSettings)[0]
             ?.members.slice(0, -1)
             .map((member) => (
               <li key={member}>
-                <p>
-                 
-                  <button onClick={() => deleteUser(member)}>Delete  {member}</button>
-                </p>
+                <div>
+                  <br></br>
+                  <button onClick={() => deleteUser(member)}>
+                    Delete {member}
+                  </button>
+                </div>
               </li>
             ))}
         </ul>

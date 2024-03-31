@@ -106,12 +106,15 @@ function UserProfile() {
 
   return (
     <div className="profile-wrapper">
+     
+      <div className="user-profile-container">
+
       <div className="chat-with">
         <Avatar name={userName ? userName : ""} />
         <h4>{userName ? userName : ""}</h4>
         <SearchInMessage  />
       </div>
-      <div className="user-profile-container">
+
         <ul className="messages-container">
           {searchedMessage.map((message, index) => (
             <div

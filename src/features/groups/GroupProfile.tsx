@@ -24,7 +24,7 @@ export default function GroupProfile() {
     senderId: string;
     receiverId: string;
     senderUsername: string;
-    content: string; 
+    content: string;
     hourMinDate: string;
     dayDate: string;
   }) {
@@ -41,7 +41,7 @@ export default function GroupProfile() {
     senderId: string;
     receiverId: string;
     senderUsername: string;
-    content: string; 
+    content: string;
     hourMinDate: string;
     dayDate: string;
   }) {
@@ -90,7 +90,7 @@ export default function GroupProfile() {
     }
   }
 
-  function handleDeleteGroupMessages(idForDelete:string) {
+  function handleDeleteGroupMessages(idForDelete: string) {
     const updatedMessages = groupMessages.filter((x) => x.id !== idForDelete);
     dispatch(setGroupMessages(updatedMessages));
 
@@ -106,20 +106,21 @@ export default function GroupProfile() {
 
   return (
     <div className="profile-wrapper">
-      <div className="chat-with">
-        <div>
-          <div style={{ display: "flex", gap: "5px" }}>
-            <Avatar name={grName ||""} />
-            <h4>{`${grName} `}</h4>
+      <div className="user-profile-container">
+        <div className="chat-with">
+          <div>
+            <div style={{ display: "flex", gap: "5px" }}>
+              <Avatar name={grName || ""} />
+              <h4>{`${grName} `}</h4>
+            </div>
+            <p style={{ fontSize: "10px", textAlign: "center" }}>
+              members: {groupMemebers!.join(", ")}{" "}
+            </p>
           </div>
-          <p style={{ fontSize: "10px", textAlign: "center" }}>
-            members: {groupMemebers!.join(", ")}{" "}
-          </p>
+
+          <SearchInMessage />
         </div>
 
-        <SearchInMessage />
-      </div>
-      <div className="user-profile-container">
         <ul className="messages-container">
           {userGroupMessages.map((groupMessage, index) => (
             <div
