@@ -24,7 +24,7 @@ function UserProfile() {
     senderId: string;
     receiverId: string;
     senderUsername: string;
-    content: string;
+    content: string; 
     hourMinDate: string;
     dayDate: string;
   }) {

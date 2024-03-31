@@ -17,13 +17,13 @@ export default function GroupList() {
       {searchedGroups.length > 0 ? "Groups" : ""}
       <ul>
         {searchedGroups
-          .filter((group) => group.members.includes(loggedInUser.username))
+          .filter((group) => group.members.includes(loggedInUser!.username))
           .map((group) => (
             <li key={group.name}>
               <div style={{ display: "flex", gap: "5px" }}>
                 <Avatar name={group.name} />
                 <NavLink to={`/groups/${group.id}`}>{`${group.name} `}</NavLink>
-                {group.admin === loggedInUser.username ? (
+                {group.admin === loggedInUser!.username ? (
                   <NavLink to={`/settingsGroup/${group.id}`}>Settings</NavLink>
                 ) : (
                   ""

@@ -19,19 +19,35 @@ export default function GroupProfile() {
   const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
   const dispatch = useDispatch();
 
-  function leftGroupMessage(groupMessage) {
+  function leftGroupMessage(groupMessage: {
+    id: string;
+    senderId: string;
+    receiverId: string;
+    senderUsername: string;
+    content: string; 
+    hourMinDate: string;
+    dayDate: string;
+  }) {
     return (
       groupMessage.receiverId === groupInListId &&
       groups
         .filter((group) => group.id === groupInListId)[0]
-        .members.includes(loggedInUser.username)
+        .members.includes(loggedInUser!.username)
     );
   }
 
-  function rightGroupMessage(groupMessage) {
+  function rightGroupMessage(groupMessage: {
+    id: string;
+    senderId: string;
+    receiverId: string;
+    senderUsername: string;
+    content: string; 
+    hourMinDate: string;
+    dayDate: string;
+  }) {
     return (
       groupMessage.receiverId === groupInListId &&
-      groupMessage.senderId === loggedInUser.id
+      groupMessage.senderId === loggedInUser!.id
     );
   }
 
@@ -51,9 +67,9 @@ export default function GroupProfile() {
 
       const newGroupMessageObject = {
         id: uuid(),
-        senderId: loggedInUser.id,
+        senderId: loggedInUser!.id,
         receiverId: groupInListId,
-        senderUsername: loggedInUser.username,
+        senderUsername: loggedInUser!.username,
         content: newGroupMessage,
         hourMinDate,
         dayDate,
@@ -74,7 +90,7 @@ export default function GroupProfile() {
     }
   }
 
-  function handleDeleteGroupMessages(idForDelete) {
+  function handleDeleteGroupMessages(idForDelete:string) {
     const updatedMessages = groupMessages.filter((x) => x.id !== idForDelete);
     dispatch(setGroupMessages(updatedMessages));
 
@@ -93,11 +109,11 @@ export default function GroupProfile() {
       <div className="chat-with">
         <div>
           <div style={{ display: "flex", gap: "5px" }}>
-            <Avatar name={grName} />
+            <Avatar name={grName ||""} />
             <h4>{`${grName} `}</h4>
           </div>
           <p style={{ fontSize: "10px", textAlign: "center" }}>
-            members: {groupMemebers.join(", ")}{" "}
+            members: {groupMemebers!.join(", ")}{" "}
           </p>
         </div>
 
