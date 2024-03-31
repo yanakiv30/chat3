@@ -52,16 +52,17 @@ export default function SettingsGroup() {
       <br></br>
       <div className="wrapper">
         <button onClick={addUser}>Add User</button>
+        <br></br>
         <ul>
-          <p> Delete User</p>
+          
           {groups
             .filter((group) => group.id === idSettings)[0]
             ?.members.slice(0, -1)
             .map((member) => (
               <li key={member}>
                 <p>
-                  {member}
-                  <button onClick={() => deleteUser(member)}>Delete</button>
+                 
+                  <button onClick={() => deleteUser(member)}>Delete  {member}</button>
                 </p>
               </li>
             ))}
