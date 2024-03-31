@@ -9,7 +9,7 @@ export default function Login() {
   const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
 
-  async function handleSignUp(newUsername, newPassword) {
+  async function handleSignUp(newUsername: string, newPassword: string) {
     if (users.some((user) => user.username === newUsername)) {
       alert("This username already exists!");
       return;
@@ -38,7 +38,7 @@ export default function Login() {
     }
   }
 
-  function handleLogin(username, password) {
+  function handleLogin(username: string, password: string) {
     // console.log("users", users);
     const user = users.find(
       (u) => u.username === username && u.password === password
@@ -60,7 +60,10 @@ export default function Login() {
             e.preventDefault();
             const formData = new FormData(e.target as HTMLFormElement);
             // console.log(formData);
-            handleLogin(formData.get("username"), formData.get("password"));
+            const username = formData.get("username");
+            const password = formData.get("password");
+            if (typeof username === "string" && typeof password === "string")
+              handleLogin(username, password);
           }}
         >
           <label>
@@ -82,10 +85,13 @@ export default function Login() {
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.target as HTMLFormElement);
-            handleSignUp(
-              formData.get("newUsername"),
-              formData.get("newPassword")
-            );
+            const newUsername = formData.get("newUsername");
+            const newPassword = formData.get("newPassword");
+            if (
+              typeof newUsername === "string" &&
+              typeof newPassword === "string"
+            )
+              handleSignUp(newUsername, newPassword);
           }}
         >
           <label>
