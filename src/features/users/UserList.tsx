@@ -39,18 +39,20 @@ function UserList() {
       <br></br>
       <div className="icon-and-search">
         <div style={{ display: "flex" }}>
-          <Avatar name={loggedInUser.username} />
+          
+          {loggedInUser&&<Avatar name={loggedInUser.username} />}
           <p>
-            {loggedInUser.username}
+            {loggedInUser&&loggedInUser.username}
             <Link to={"/userOptions"}>▼</Link>
           </p>
+          
         </div>
 
         <SearchUser />
       </div>
       <br></br>
       <ul>
-        {searchedUser
+        {loggedInUser&&searchedUser
           .filter((user) => user.id !== loggedInUser.id)
           .map((user) => (
             <li key={user.id}>

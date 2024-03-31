@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { useDispatch } from "react-redux";
 import { addGroup } from "./groupSlice";
 
@@ -6,6 +7,7 @@ import { v4 as uuid } from "uuid";
 
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../store";
+
 
 const API_URL = "http://localhost:3001";
 
@@ -16,13 +18,17 @@ function CheckboxList() {
   let { users, loggedInUser } = useAppSelector((store) => store.user);
   let { groups } = useAppSelector((store) => store.group);
   //  console.log(groups,users, loggedInUser);
-  const [checkedItems, setCheckedItems] = useState({});
+  // const [checkedItems, setCheckedItems] = useState({});
   const [groupName, setGroupName] = useState("");
 
-  let names = [];
+  let names:string[] = [];
   users.map((user) => names.push(user.username));
-  names = names.filter((name) => name !== loggedInUser.username);
-  function handleCheckboxChange(name) {
+  names = names.filter((name) => name !== loggedInUser?.username);
+  type CheckedItems = {
+    [key: string]: boolean;
+  };
+  const [checkedItems, setCheckedItems] = useState<CheckedItems>({});
+  function handleCheckboxChange(name:string) {
     setCheckedItems((prevCheckedItems) => ({
       ...prevCheckedItems,
       [name]: !prevCheckedItems[name],
@@ -35,7 +41,7 @@ function CheckboxList() {
   function handleSetGroups() {
     const isDuplicate = groups?.some((obj) => obj.name === groupName);
 
-    if (!isDuplicate) {
+    if (!isDuplicate&&loggedInUser) {
       const newGroup = {
         id: uuid(),
         name: groupName,
