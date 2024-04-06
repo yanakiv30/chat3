@@ -1,16 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuid } from "uuid";
-import { setLoggedInUser, addUser } from "../users/userSlice";
+import { useDispatch } from "react-redux";
 
-const API_URL = "http://localhost:3001";
+import { setLoggedInUser } from "./userSlice";
+import { useAppSelector } from "../../store";
 
 export default function Login2() {
-  const { users } = useSelector((store) => store.user);
+  const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
 
-  
-
-  function handleLogin(username, password) {
+  function handleLogin(username: string, password: string) {
     // console.log("users", users);
     const user = users.find(
       (u) => u.username === username && u.password === password
@@ -30,9 +27,12 @@ export default function Login2() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            const formData = new FormData(e.target);
+            const formData = new FormData(e.target as HTMLFormElement);
             // console.log(formData);
-            handleLogin(formData.get("username"), formData.get("password"));
+            const username = formData.get("username");
+            const password = formData.get("password");
+            if (typeof username === "string" && typeof password === "string")
+              handleLogin(username, password);
           }}
         >
           <label>
@@ -49,9 +49,12 @@ export default function Login2() {
         <br></br>
         <br></br>
         <br></br>
-
-       
+      </div>
+      <div className="to-sign">
+      <p>If you don't have an account 
+        , please :  <button>Sign-Up</button> </p>
       </div>
     </div>
+    
   );
 }

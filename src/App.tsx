@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import UserList from "./features/users/UserList";
 import UserProfile from "./features/users/UserProfile";
-import Login from "./features/users/Login";
+import Login2 from "./features/users/Login2";
 import GroupProfile from "./features/groups/GroupProfile";
 import SettingsGroup from "./features/groups/SettingsGroup";
 import CheckboxList from "./features/groups/CheckboxList";
@@ -59,7 +59,7 @@ function App() {
             </Routes>
           </div>
         ) : (
-          <Login />
+          <Login2 />
         )}
       </div>
     </Router>

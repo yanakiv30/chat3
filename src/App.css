@@ -14,9 +14,11 @@ ul {
 }
 
 .background-login {
-  background-color: #94c8bf;
+  background-color: #b1ad81;
   border: 2px solid #b285ee;
   border-radius: 10px;
+  height:fit-content;
+  padding: 10px;
 }
 
 /* .login {

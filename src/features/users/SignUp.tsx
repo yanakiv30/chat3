@@ -1,14 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { setLoggedInUser, addUser } from "../users/userSlice";
+import { setLoggedInUser, addUser } from "./userSlice";
+import { useAppSelector } from "../../store";
 
 const API_URL = "http://localhost:3001";
 
-export default function SignUp() {
-  const { users } = useSelector((store) => store.user);
+export default function Login() {
+  const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
 
-  async function handleSignUp(newUsername, newPassword) {
+  async function handleSignUp(newUsername: string, newPassword: string) {
     if (users.some((user) => user.username === newUsername)) {
       alert("This username already exists!");
       return;
@@ -37,13 +38,45 @@ export default function SignUp() {
     }
   }
 
-  
+  function handleLogin(username: string, password: string) {
+    // console.log("users", users);
+    const user = users.find(
+      (u) => u.username === username && u.password === password
+    );
+    // console.log("user= ", user);
+    if (user) {
+      dispatch(setLoggedInUser(user)); //user is a object
+    } else {
+      alert("Invalid credentials");
+    }
+  }
+  // console.log(users,setUsers,setLoggedInUser)
   return (
     <div className="background-login">
       <div className="login">
         <h2>Welcome to chatSPA</h2>
-        
-        
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target as HTMLFormElement);
+            // console.log(formData);
+            const username = formData.get("username");
+            const password = formData.get("password");
+            if (typeof username === "string" && typeof password === "string")
+              handleLogin(username, password);
+          }}
+        >
+          <label>
+            Username:
+            <input type="text" name="username" required />
+          </label>
+          <label>
+            Password:
+            <input type="password" name="password" required />
+          </label>
+
+          <button type="submit">Login</button>
+        </form>
         <br></br>
         <br></br>
         <br></br>
@@ -51,11 +84,14 @@ export default function SignUp() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            const formData = new FormData(e.target);
-            handleSignUp(
-              formData.get("newUsername"),
-              formData.get("newPassword")
-            );
+            const formData = new FormData(e.target as HTMLFormElement);
+            const newUsername = formData.get("newUsername");
+            const newPassword = formData.get("newPassword");
+            if (
+              typeof newUsername === "string" &&
+              typeof newPassword === "string"
+            )
+              handleSignUp(newUsername, newPassword);
           }}
         >
           <label>
