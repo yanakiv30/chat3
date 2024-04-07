@@ -52,10 +52,7 @@ function App() {
         {loggedInUser ? (
           <div className="main-container">
             <UserList />
-            <Routes>
-              <Route path="/login2" element={<Login2 />} />
-              <Route path="/signUp" element={<SignUp />} />
-              <Route path="/userlist" element={<UserList />} />
+            <Routes>             
               <Route path="/userOptions" element={<UserOptions />} />
               <Route path="/messages/:userId" element={<UserProfile />} />
               <Route path="/groups/:groupId" element={<GroupProfile />} />

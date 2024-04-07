@@ -1,9 +1,8 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Navigate } from "react-router-dom";
 import SearchUser from "./SearchUser";
 import { setLoggedInUser } from "./userSlice";
 import { useDispatch } from "react-redux";
 import Avatar from "./Avatar";
-
 import GroupList from "../groups/GroupList";
 import { useAppSelector } from "../../store";
 
@@ -39,31 +38,30 @@ function UserList() {
       <br></br>
       <div className="icon-and-search">
         <div style={{ display: "flex" }}>
-          
-          {loggedInUser&&<Avatar name={loggedInUser.username} />}
+          {loggedInUser && <Avatar name={loggedInUser.username} />}
           <p>
-            {loggedInUser&&loggedInUser.username}
+            {loggedInUser && loggedInUser.username}
             <Link to={"/userOptions"}>▼</Link>
           </p>
-          
         </div>
 
         <SearchUser />
       </div>
       <br></br>
       <ul>
-        {loggedInUser&&searchedUser
-          .filter((user) => user.id !== loggedInUser.id)
-          .map((user) => (
-            <li key={user.id}>
-              <div style={{ display: "flex", gap: "5px" }}>
-                <Avatar name={user.username} />
-                <NavLink to={`/messages/${user.id}`}>{user.username}</NavLink>
-              </div>
-            </li>
-          ))}
+        {loggedInUser &&
+          searchedUser
+            .filter((user) => user.id !== loggedInUser.id)
+            .map((user) => (
+              <li key={user.id}>
+                <div style={{ display: "flex", gap: "5px" }}>
+                  <Avatar name={user.username} />
+                  <NavLink to={`/messages/${user.id}`}>{user.username}</NavLink>
+                </div>
+              </li>
+            ))}
       </ul>
-      <GroupList />
+      <GroupList />      
     </div>
   );
 }

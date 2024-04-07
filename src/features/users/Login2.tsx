@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { setLoggedInUser, addUser } from "./userSlice";
@@ -9,7 +9,7 @@ const API_URL = "http://localhost:3001";
 export default function Login2() {
   const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const [isPressed, setIsPressed] = useState(false);
   console.log("isPress= ", isPressed);
 
@@ -88,13 +88,12 @@ export default function Login2() {
 
           <p>
             If you don't have an account , please :
-            {/* <button onClick={() => navigate("/signUp")}>Register</button> */}
             <button onClick={() => setIsPressed(true)}>Register</button>
           </p>
         </div>
       ) : (
         <div className="login">
-           <h2>Please Sign Up</h2>
+          <h2>Please Sign Up</h2>
           <form
             onSubmit={(e) => {
               e.preventDefault();

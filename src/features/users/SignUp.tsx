@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { setLoggedInUser, addUser } from "./userSlice";
 import { useAppSelector } from "../../store";
-
 const API_URL = "http://localhost:3001";
 
 export default function Login2() {
@@ -37,17 +36,14 @@ export default function Login2() {
       console.error("Error creating user:", error);
     }
   }
-
   
   return (
     <div className="background-login">
       <div className="login">
-        <h2>Welcome to chatSPA</h2>
-      
+        <h2>Welcome to chatSPA</h2>      
         <br></br>
         <br></br>
         <br></br>
-
         <form
           onSubmit={(e) => {
             e.preventDefault();
