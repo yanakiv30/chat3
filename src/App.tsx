@@ -49,24 +49,26 @@ function App() {
     <Router>
       <div className="app-container">
         {/* {console.log("loggedInUser = ",loggedInUser)} */}
-
-        <div className="main-container">
-          <Routes>
-            <Route path="/login2" element={<Login2 />} />
-            <Route path="/signUp" element={<SignUp />} />
-            <Route path="/userlist" element={<UserList />} />
-            <Route path="/userOptions" element={<UserOptions />} />
-            <Route path="/messages/:userId" element={<UserProfile />} />
-            <Route path="/groups/:groupId" element={<GroupProfile />} />
-            <Route path="/groups/createGroups" element={<CheckboxList />} />
-            <Route path="/settingsGroup/:groupId" element={<SettingsGroup />} />
-          </Routes>
-          {!loggedInUser ? (
-            <Navigate to="/login2" />
-          ) : (
-            <Navigate to="/userlist" />
-          )}
-        </div>
+        {loggedInUser ? (
+          <div className="main-container">
+            <UserList />
+            <Routes>
+              <Route path="/login2" element={<Login2 />} />
+              <Route path="/signUp" element={<SignUp />} />
+              <Route path="/userlist" element={<UserList />} />
+              <Route path="/userOptions" element={<UserOptions />} />
+              <Route path="/messages/:userId" element={<UserProfile />} />
+              <Route path="/groups/:groupId" element={<GroupProfile />} />
+              <Route path="/groups/createGroups" element={<CheckboxList />} />
+              <Route
+                path="/settingsGroup/:groupId"
+                element={<SettingsGroup />}
+              />
+            </Routes>
+          </div>
+        ) : (
+          <Login2 />
+        )}
 
         {/* {!loggedInUser&&<Navigate to="/login" />} */}
       </div>
