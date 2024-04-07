@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import UserList from "./features/users/UserList";
 import UserProfile from "./features/users/UserProfile";
 import Login2 from "./features/users/Login2";
+import SignUp from "./features/users/SignUp";
 import GroupProfile from "./features/groups/GroupProfile";
 import SettingsGroup from "./features/groups/SettingsGroup";
 import CheckboxList from "./features/groups/CheckboxList";
@@ -43,10 +44,12 @@ function App() {
     <Router>
       <div className="app-container">
         {/* {console.log("loggedInUser = ",loggedInUser)} */}
-        {loggedInUser ? (
+        
           <div className="main-container">
-            <UserList />
+            {loggedInUser?<UserList /> :<Login2 />}
             <Routes>
+            <Route path="/login" element={<Login2 />} />
+            <Route path="/signUp" element={<SignUp />} />
               <Route path="/userOptions" element={<UserOptions />} />
 
               <Route path="/messages/:userId" element={<UserProfile />} />
@@ -58,9 +61,9 @@ function App() {
               />
             </Routes>
           </div>
-        ) : (
-          <Login2 />
-        )}
+        
+          {/* {!loggedInUser&&<Navigate to="/login" />} */}
+        
       </div>
     </Router>
   );

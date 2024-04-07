@@ -52,7 +52,7 @@ export default function Login2() {
       </div>
       <div className="to-sign">
       <p>If you don't have an account 
-        , please :  <button>Sign-Up</button> </p>
+        , please :  <button>Register</button> </p>
       </div>
     </div>
     
