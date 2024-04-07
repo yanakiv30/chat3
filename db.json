@@ -34,6 +34,21 @@
       "id": "7666ab0f-d989-4855-98c2-4fced7c47aae",
       "username": "new",
       "password": "n3"
+    },
+    {
+      "id": "0e3adb52-240d-4476-b155-687ae967263c",
+      "username": "new6",
+      "password": "n4"
+    },
+    {
+      "id": "f3fc55c6-5faa-4665-95e7-306208eef395",
+      "username": "new7",
+      "password": "n4"
+    },
+    {
+      "id": "6ef8d3e5-2468-4b6e-ad34-1ab84020d157",
+      "username": "new8",
+      "password": "n4"
     }
   ],
   "groups": [

@@ -1,5 +1,10 @@
 import { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 import UserList from "./features/users/UserList";
 import UserProfile from "./features/users/UserProfile";
@@ -44,26 +49,26 @@ function App() {
     <Router>
       <div className="app-container">
         {/* {console.log("loggedInUser = ",loggedInUser)} */}
-        
-          <div className="main-container">
-            {loggedInUser?<UserList /> :<Login2 />}
-            <Routes>
-            <Route path="/login" element={<Login2 />} />
-            <Route path="/signUp" element={<SignUp />} />
-              <Route path="/userOptions" element={<UserOptions />} />
 
-              <Route path="/messages/:userId" element={<UserProfile />} />
-              <Route path="/groups/:groupId" element={<GroupProfile />} />
-              <Route path="/groups/createGroups" element={<CheckboxList />} />
-              <Route
-                path="/settingsGroup/:groupId"
-                element={<SettingsGroup />}
-              />
-            </Routes>
-          </div>
-        
-          {/* {!loggedInUser&&<Navigate to="/login" />} */}
-        
+        <div className="main-container">
+          <Routes>
+            <Route path="/login2" element={<Login2 />} />
+            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/userlist" element={<UserList />} />
+            <Route path="/userOptions" element={<UserOptions />} />
+            <Route path="/messages/:userId" element={<UserProfile />} />
+            <Route path="/groups/:groupId" element={<GroupProfile />} />
+            <Route path="/groups/createGroups" element={<CheckboxList />} />
+            <Route path="/settingsGroup/:groupId" element={<SettingsGroup />} />
+          </Routes>
+          {!loggedInUser ? (
+            <Navigate to="/login2" />
+          ) : (
+            <Navigate to="/userlist" />
+          )}
+        </div>
+
+        {/* {!loggedInUser&&<Navigate to="/login" />} */}
       </div>
     </Router>
   );
