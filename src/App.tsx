@@ -9,22 +9,19 @@ import "./App.css";
 import UserList from "./features/users/UserList";
 import UserProfile from "./features/users/UserProfile";
 import Login2 from "./features/users/Login2";
-import SignUp from "./features/users/SignUp";
 import GroupProfile from "./features/groups/GroupProfile";
 import SettingsGroup from "./features/groups/SettingsGroup";
 import CheckboxList from "./features/groups/CheckboxList";
 import UserOptions from "./features/users/UserOptions";
 import { useDispatch } from "react-redux";
 import { setUsers, setMessages } from "./features/users/userSlice";
-
 import { setGroupMessages, setGroups } from "./features/groups/groupSlice";
 import { useAppSelector } from "./store";
-
 const API_URL = "http://localhost:3001";
 
 function App() {
   const dispatch = useDispatch();
-  const { loggedInUser } = useAppSelector((store) => store.user);
+  const { loggedInUser, users } = useAppSelector((store) => store.user);
 
   useEffect(() => {
     fetch(`${API_URL}/users`)
@@ -45,14 +42,28 @@ function App() {
       .catch((error) => console.error("Error fetching messages:", error));
   }, [dispatch]);
 
+  function initialView(users: Array<{ id: string }>, loggedInUser: { id: string }) {
+    const finded = users.find((user) => user.id !== loggedInUser.id);
+    if (finded) return finded.id;
+    else return loggedInUser.id;
+  }
+
   return (
     <Router>
       <div className="app-container">
-        {/* {console.log("loggedInUser = ",loggedInUser)} */}
         {loggedInUser ? (
           <div className="main-container">
             <UserList />
-            <Routes>             
+            <Routes>
+              <Route
+                index
+                element={
+                  <Navigate
+                    replace
+                    to={`/messages/${initialView(users, loggedInUser)}`}
+                  />
+                }
+              />
               <Route path="/userOptions" element={<UserOptions />} />
               <Route path="/messages/:userId" element={<UserProfile />} />
               <Route path="/groups/:groupId" element={<GroupProfile />} />
@@ -65,9 +76,7 @@ function App() {
           </div>
         ) : (
           <Login2 />
-        )}
-
-        {/* {!loggedInUser&&<Navigate to="/login" />} */}
+        )}       
       </div>
     </Router>
   );
