@@ -10,23 +10,16 @@ export default function SettingsGroup() {
   const { groups } = useAppSelector((store) => store.group);
   const params = useParams();
   const idSettings = params.groupId;
-  const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
-
-  // console.log("params= ", params);
-
-  // console.log(idSettings);
+  const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;  
   function addUser() {
     alert("Missing code for adding users");
   }
 
-  function deleteUser(member: string) {
-    // console.log(groups.filter((group) => group.id === idSettings)[0]
-    // .members.find(x=> x===member));
+  function deleteUser(member: string) {   
     alert("Missing code for deleting ");
   }
 
-  function deleteGroup(groupId: string) {
-    //    console.log(groupId)
+  function deleteGroup(groupId: string) {    
     fetch(`${API_URL}/groups/${groupId}`, {
       method: "DELETE",
     })
@@ -52,7 +45,6 @@ export default function SettingsGroup() {
       <br></br>
       <div className="wrapper">
         <button onClick={addUser}>Add User</button>
-
         <ul>
           {groups
             .filter((group) => group.id === idSettings)[0]
@@ -67,9 +59,7 @@ export default function SettingsGroup() {
                 </div>
               </li>
             ))}
-        </ul>
-
-        {/* <button onClick={() => deleteUser(idSettings)}>Delete User</button> */}
+        </ul>        
         <button onClick={() => deleteGroup(idSettings!)}>Delete Group</button>
       </div>
     </div>

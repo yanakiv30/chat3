@@ -1,11 +1,9 @@
-
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function UserOptions() {
   const navigate = useNavigate();
-  
-  
+
   return (
     <div
       style={{
@@ -33,7 +31,6 @@ export default function UserOptions() {
         >
           User Settings
         </button>
-        
       </div>
       <br></br>
     </div>

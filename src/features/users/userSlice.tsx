@@ -1,14 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  users: [] as {id: string; username: string;password: string;}[],
-  loggedInUser: null as { username: string;id: string;} | null,
-  messages: [] as { id:string;senderId:string;receiverId:string;
-    senderUsername:string;content: string;hourMinDate:string;dayDate:string}[],
+  users: [] as { id: string; username: string; password: string }[],
+  loggedInUser: null as { username: string; id: string } | null,
+  messages: [] as {
+    id: string;
+    senderId: string;
+    receiverId: string;
+    senderUsername: string;
+    content: string;
+    hourMinDate: string;
+    dayDate: string;
+  }[],
   searchQuery: "",
-  searchMessage: "", 
+  searchMessage: "",
 };
-
 
 const userSlice = createSlice({
   name: "user",
@@ -17,24 +23,24 @@ const userSlice = createSlice({
     setLoggedInUser(state, action) {
       state.loggedInUser = action.payload;
     },
-    setUsers(state, action) {    
-      state.users =[...action.payload];      
+    setUsers(state, action) {
+      state.users = [...action.payload];
     },
-    addUser(state, action) {     
-      state.users =[...state.users,action.payload];     
+    addUser(state, action) {
+      state.users = [...state.users, action.payload];
     },
     setMessages(state, action) {
       state.messages = [...action.payload];
     },
     addMessage(state, action) {
-      state.messages = [...state.messages,action.payload];
+      state.messages = [...state.messages, action.payload];
     },
     setSearchQuery(state, action) {
       state.searchQuery = action.payload;
     },
     setSearchMessage(state, action) {
       state.searchMessage = action.payload;
-    },   
+    },
   },
 });
 export const {
@@ -44,6 +50,6 @@ export const {
   setMessages,
   addMessage,
   setSearchQuery,
-  setSearchMessage 
+  setSearchMessage,
 } = userSlice.actions;
 export default userSlice.reducer;
