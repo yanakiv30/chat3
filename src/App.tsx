@@ -6,7 +6,6 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.css";
-import UserList from "./features/users/UserList";
 import UserProfile from "./features/users/UserProfile";
 import Login2 from "./features/users/Login2";
 import GroupProfile from "./features/groups/GroupProfile";
@@ -17,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { setUsers, setMessages } from "./features/users/userSlice";
 import { setGroupMessages, setGroups } from "./features/groups/groupSlice";
 import { useAppSelector } from "./store";
+import MemberList from "./features/users/MemberList";
 const API_URL = "http://localhost:3001";
 
 function App() {
@@ -42,7 +42,10 @@ function App() {
       .catch((error) => console.error("Error fetching messages:", error));
   }, [dispatch]);
 
-  function initialView(users: Array<{ id: string }>, loggedInUser: { id: string }) {
+  function initialView(
+    users: Array<{ id: string }>,
+    loggedInUser: { id: string }
+  ) {
     const finded = users.find((user) => user.id !== loggedInUser.id);
     if (finded) return finded.id;
     else return loggedInUser.id;
@@ -53,7 +56,7 @@ function App() {
       <div className="app-container">
         {loggedInUser ? (
           <div className="main-container">
-            <UserList />
+            <MemberList />
             <Routes>
               <Route
                 index
@@ -76,7 +79,7 @@ function App() {
           </div>
         ) : (
           <Login2 />
-        )}       
+        )}
       </div>
     </Router>
   );
