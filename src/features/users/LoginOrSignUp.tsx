@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { setLoggedInUser, addUser } from "./userSlice";
 import { useAppSelector } from "../../store";
+import Login from "./Login";
+import SignUp from "./SignUp";
 const API_URL = "http://localhost:3001";
 
 export default function LoginOrSignUp() {
@@ -53,64 +55,9 @@ export default function LoginOrSignUp() {
   return (
     <div className="background-login">
       {!isPressedRegister ? (
-        <div className="login">
-          <h2>Welcome to chatSPA</h2>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.target as HTMLFormElement);
-              const username = formData.get("username");
-              const password = formData.get("password");
-              if (typeof username === "string" && typeof password === "string")
-                handleLogin(username, password);
-            }}
-          >
-            <label>
-              Username:
-              <input type="text" name="username" required />
-            </label>
-            <label>
-              Password:
-              <input type="password" name="password" required />
-            </label>
-
-            <button type="submit">Login</button>
-          </form>
-          <br></br>
-          <br></br>
-          <br></br>
-          <p>
-            If you don't have an account , please :
-            <button onClick={() => setIsPressedRegister(true)}>Register</button>
-          </p>
-        </div>
+        <Login handleLogin={handleLogin} setIsPressedRegister={setIsPressedRegister} />
       ) : (
-        <div className="login">
-          <h2>Please Sign Up</h2>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.target as HTMLFormElement);
-              const newUsername = formData.get("newUsername");
-              const newPassword = formData.get("newPassword");
-              if (
-                typeof newUsername === "string" &&
-                typeof newPassword === "string"
-              )
-                handleSignUp(newUsername, newPassword);
-            }}
-          >
-            <label>
-              New Username:
-              <input type="text" name="newUsername" required />
-            </label>
-            <label>
-              New Password:
-              <input type="password" name="newPassword" required />
-            </label>
-            <button type="submit">Sign Up</button>
-          </form>
-        </div>
+        <SignUp handleSignUp={handleSignUp}/>
       )}
     </div>
   );
