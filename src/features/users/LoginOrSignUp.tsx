@@ -1,23 +1,19 @@
 import { useState } from "react";
-
 import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { setLoggedInUser, addUser } from "./userSlice";
 import { useAppSelector } from "../../store";
 const API_URL = "http://localhost:3001";
 
-export default function Login2() {
+export default function LoginOrSignUp() {
   const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
-
-  const [isPressed, setIsPressed] = useState(false);
-  console.log("isPress= ", isPressed);
+  const [isPressedRegister, setIsPressedRegister] = useState(false);
 
   function handleLogin(username: string, password: string) {
     const user = users.find(
       (u) => u.username === username && u.password === password
     );
-
     if (user) {
       dispatch(setLoggedInUser(user)); //user is a object
     } else {
@@ -56,15 +52,13 @@ export default function Login2() {
 
   return (
     <div className="background-login">
-      {!isPressed ? (
+      {!isPressedRegister ? (
         <div className="login">
           <h2>Welcome to chatSPA</h2>
-
           <form
             onSubmit={(e) => {
               e.preventDefault();
               const formData = new FormData(e.target as HTMLFormElement);
-
               const username = formData.get("username");
               const password = formData.get("password");
               if (typeof username === "string" && typeof password === "string")
@@ -85,10 +79,9 @@ export default function Login2() {
           <br></br>
           <br></br>
           <br></br>
-
           <p>
             If you don't have an account , please :
-            <button onClick={() => setIsPressed(true)}>Register</button>
+            <button onClick={() => setIsPressedRegister(true)}>Register</button>
           </p>
         </div>
       ) : (

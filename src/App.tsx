@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import UserProfile from "./features/users/UserProfile";
-import Login2 from "./features/users/Login2";
 import GroupProfile from "./features/groups/GroupProfile";
 import SettingsGroup from "./features/groups/SettingsGroup";
 import CheckboxList from "./features/groups/CheckboxList";
@@ -17,6 +16,7 @@ import { setUsers, setMessages } from "./features/users/userSlice";
 import { setGroupMessages, setGroups } from "./features/groups/groupSlice";
 import { useAppSelector } from "./store";
 import MemberList from "./features/users/MemberList";
+import LoginOrSignUp from "./features/users/LoginOrSignUp";
 const API_URL = "http://localhost:3001";
 
 function App() {
@@ -78,7 +78,7 @@ function App() {
             </Routes>
           </div>
         ) : (
-          <Login2 />
+          <LoginOrSignUp />
         )}
       </div>
     </Router>

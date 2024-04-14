@@ -1,11 +1,9 @@
-import { Link, NavLink } from "react-router-dom";
-import SearchUser from "./IconAndSearch";
-
 import Avatar from "./Avatar";
 import GroupList from "../groups/GroupList";
 import { useAppSelector } from "../../store";
 import LogoLogout from "./LogoLogout";
 import IconAndSearch from "./IconAndSearch";
+import { NavLink } from "react-router-dom";
 
 function MemberList() {
   const { searchQuery, users, loggedInUser } = useAppSelector(
