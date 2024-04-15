@@ -20,13 +20,8 @@ export default function GroupProfile() {
   const dispatch = useDispatch();
 
   function leftGroupMessage(groupMessage: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
+    id: string;    
+    receiverId: string;    
   }) {
     return (
       groupMessage.receiverId === groupInListId &&
@@ -39,11 +34,7 @@ export default function GroupProfile() {
   function rightGroupMessage(groupMessage: {
     id: string;
     senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
+    receiverId: string;  
   }) {
     return (
       groupMessage.receiverId === groupInListId &&
@@ -93,7 +84,6 @@ export default function GroupProfile() {
   function handleDeleteGroupMessages(idForDelete: string) {
     const updatedMessages = groupMessages.filter((x) => x.id !== idForDelete);
     dispatch(setGroupMessages(updatedMessages));
-
     fetch(`${API_URL}/groupMessages/${idForDelete}`, {
       method: "DELETE",
     })
@@ -117,7 +107,6 @@ export default function GroupProfile() {
               members: {groupMemebers!.join(", ")}{" "}
             </p>
           </div>
-
           <SearchInMessage />
         </div>
 
