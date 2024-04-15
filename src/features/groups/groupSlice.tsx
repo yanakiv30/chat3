@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  groups: [] as { name: string;id: string;members:[string];admin:string}[],
- 
+  groups: [] as { name: string;id: string;members:[string];admin:string}[], 
   groupMessages:  [] as { id:string;senderId:string;receiverId:string;
     senderUsername:string;content: string;hourMinDate:string;dayDate:string}[],
 };

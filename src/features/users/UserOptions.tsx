@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function UserOptions() {
   const navigate = useNavigate();
-
+  
   return (
     <div
       style={{

@@ -16,7 +16,6 @@ function IconAndSearch() {
           <Link to={"/userOptions"}>▼</Link>
         </p>
       </div>
-
       <input
         style={{ width: "60%", borderRadius: "7px" }}
         value={searchQuery}
@@ -26,5 +25,4 @@ function IconAndSearch() {
     </div>
   );
 }
-
 export default IconAndSearch;

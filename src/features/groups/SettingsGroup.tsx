@@ -14,11 +14,9 @@ export default function SettingsGroup() {
   function addUser() {
     alert("Missing code for adding users");
   }
-
   function deleteUser(member: string) {   
     alert("Missing code for deleting ");
   }
-
   function deleteGroup(groupId: string) {    
     fetch(`${API_URL}/groups/${groupId}`, {
       method: "DELETE",
@@ -41,7 +39,6 @@ export default function SettingsGroup() {
         Settings {groupToSet}
         <button onClick={() => navigate("/userOptions")}>X</button>
       </p>
-
       <br></br>
       <div className="wrapper">
         <button onClick={addUser}>Add User</button>

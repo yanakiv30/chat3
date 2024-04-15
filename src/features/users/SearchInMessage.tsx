@@ -15,5 +15,4 @@ function SearchInMessage() {
     />
   );
 }
-
 export default SearchInMessage;
