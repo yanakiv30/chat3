@@ -5,11 +5,8 @@ import Avatar from "../features/users/Avatar";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../store";
-import {
-  newMessageObjectFunc,
-  rightMessage,
-  searchedMessageFunc,
-} from "../utils/messageUtils";
+import { newMessageObjectFunc } from "../utils/messageUtils";
+import UserMessagesContainer from "../features/users/UserMessagesContainer";
 const API_URL = "http://localhost:3001";
 
 function UserMessages() {
@@ -57,13 +54,6 @@ function UserMessages() {
       .catch((error) => console.error("Error deleting message:", error));
   }
 
-  const searchedMessage = searchedMessageFunc(
-    messages,
-    loggedInUser,
-    userInListId,
-    searchMessage
-  );
-
   return (
     <div className="profile-wrapper">
       <div className="user-profile-container">
@@ -72,42 +62,13 @@ function UserMessages() {
           <h4>{userName ? userName : ""}</h4>
           <SearchInMessage />
         </div>
-
-        <ul className="messages-container">
-          {searchedMessage.map((message, index) => (
-            <div
-              className={` ${
-                rightMessage(message, loggedInUser, userInListId)
-                  ? "message-right"
-                  : "message-left"
-              }`}
-              key={message.id}
-            >
-              <p className="day-date">
-                {searchedMessage[index - 1]?.dayDate ===
-                searchedMessage[index].dayDate
-                  ? ""
-                  : message.dayDate}
-              </p>
-              <br></br>
-              <li className="message">
-                <p style={{ color: "blue" }}>{message.senderUsername}:</p>
-                <p> {message.content}</p>
-                <br></br>
-                <p className="date">{message.hourMinDate}</p>
-                {rightMessage(message, loggedInUser, userInListId) ? (
-                  <button
-                    className="date"
-                    onClick={() => handleDeleteMessages(message.id)}
-                  >
-                    Delete
-                  </button>
-                ) : null}
-              </li>
-            </div>
-          ))}
-        </ul>
-
+        <UserMessagesContainer
+          messages={messages}
+          loggedInUser={loggedInUser}
+          userInListId={userInListId}
+          searchMessage={searchMessage}
+          handleDeleteMessages={handleDeleteMessages}
+        />
         <div className="message-send">
           <input
             type="text"
