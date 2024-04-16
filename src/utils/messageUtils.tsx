@@ -1,4 +1,6 @@
- export function leftMessage(message: {
+import { v4 as uuid } from "uuid";
+
+export function leftMessage(message: {
     id: string;
     senderId: string;
     receiverId: string;    
@@ -43,4 +45,27 @@
     || rightMessage(message,loggedInUser,userInListId)
     ).filter((userMessage) =>
     userMessage.content.includes(searchMessage))}
-  
+
+   export function newMessageObjectFunc(loggedInUser: {
+    username: string;
+    id: string;
+} | null,userInListId: string | undefined,newMessage: string) {
+    const currentDate = new Date();
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
+    const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
+    const dayDate = `${currentDate.getDate()}
+    .${currentDate.getMonth()}.${currentDate.getFullYear()}`;
+    const newMessageObject = {
+        id: uuid(),
+        senderId: loggedInUser!.id,
+        receiverId: userInListId,
+        senderUsername: loggedInUser!.username,
+        content: newMessage,
+        hourMinDate,
+        dayDate,
+      };
+      return newMessageObject;
+   }
+
+   

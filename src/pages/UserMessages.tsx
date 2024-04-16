@@ -1,43 +1,34 @@
 import { setMessages, addMessage } from "../features/users/userSlice";
 import { useParams } from "react-router-dom";
-import { v4 as uuid } from "uuid";
 import SearchInMessage from "../features/users/SearchInMessage";
 import Avatar from "../features/users/Avatar";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../store";
-import {  rightMessage,searchedMessageFunc } from "../utils/messageUtils";
+import {
+  newMessageObjectFunc,
+  rightMessage,
+  searchedMessageFunc,
+} from "../utils/messageUtils";
 const API_URL = "http://localhost:3001";
 
 function UserMessages() {
   const dispatch = useDispatch();
-  const { searchMessage, loggedInUser,messages, users } 
-  = useAppSelector((store) => store.user);
-
+  const { searchMessage, loggedInUser, messages, users } = useAppSelector(
+    (store) => store.user
+  );
   const [newMessage, setNewMessage] = useState("");
   const params = useParams();
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId)?.username;
-  
+
   function handleSendMessage() {
     if (newMessage.trim() !== "") {
-      const currentDate = new Date();
-      const hours = currentDate.getHours();
-      const minutes = currentDate.getMinutes();
-      const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
-      const dayDate = `${currentDate.getDate()}
-      .${currentDate.getMonth()}.${currentDate.getFullYear()}`;
-
-      const newMessageObject = {
-        id: uuid(),
-        senderId: loggedInUser!.id,
-        receiverId: userInListId,
-        senderUsername: loggedInUser!.username,
-        content: newMessage,
-        hourMinDate,
-        dayDate,
-      };
-
+      const newMessageObject = newMessageObjectFunc(
+        loggedInUser,
+        userInListId,
+        newMessage
+      );
       fetch(`${API_URL}/messages`, {
         method: "POST",
         headers: {
@@ -48,7 +39,6 @@ function UserMessages() {
         .then((response) => response.json())
         .then((data) => dispatch(addMessage(data)))
         .catch((error) => console.error("Error posting message:", error));
-
       setNewMessage("");
     }
   }
@@ -67,8 +57,12 @@ function UserMessages() {
       .catch((error) => console.error("Error deleting message:", error));
   }
 
-const searchedMessage= 
-searchedMessageFunc(messages,loggedInUser,userInListId,searchMessage);
+  const searchedMessage = searchedMessageFunc(
+    messages,
+    loggedInUser,
+    userInListId,
+    searchMessage
+  );
 
   return (
     <div className="profile-wrapper">
@@ -83,7 +77,9 @@ searchedMessageFunc(messages,loggedInUser,userInListId,searchMessage);
           {searchedMessage.map((message, index) => (
             <div
               className={` ${
-                rightMessage(message,loggedInUser,userInListId) ? "message-right" : "message-left"
+                rightMessage(message, loggedInUser, userInListId)
+                  ? "message-right"
+                  : "message-left"
               }`}
               key={message.id}
             >
@@ -99,7 +95,7 @@ searchedMessageFunc(messages,loggedInUser,userInListId,searchMessage);
                 <p> {message.content}</p>
                 <br></br>
                 <p className="date">{message.hourMinDate}</p>
-                {rightMessage(message,loggedInUser,userInListId) ? (
+                {rightMessage(message, loggedInUser, userInListId) ? (
                   <button
                     className="date"
                     onClick={() => handleDeleteMessages(message.id)}
