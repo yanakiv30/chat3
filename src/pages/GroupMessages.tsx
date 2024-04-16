@@ -12,7 +12,7 @@ import { useAppSelector } from "../store";
 
 const API_URL = "http://localhost:3001";
 
-export default function GroupProfile() {
+export default function GroupMessages() {
   const { loggedInUser, searchMessage } = useAppSelector((store) => store.user);
   const { groups, groupMessages } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");

@@ -6,11 +6,12 @@ import Avatar from "../features/users/Avatar";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../store";
+import { leftMessage, rightMessage } from "../utils/messageUtils";
 const API_URL = "http://localhost:3001";
 
-function UserProfile() {
+function UserMessages() {
   const dispatch = useDispatch();
-  const { searchMessage, loggedInUser, messages, users } = useAppSelector(
+  const { searchMessage, loggedInUser,messages, users } = useAppSelector(
     (store) => store.user
   );
 
@@ -19,38 +20,12 @@ function UserProfile() {
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId)?.username;
 
-  function leftMessage(message: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
-  }) {
-    return (
-      message.receiverId === loggedInUser!.id &&
-      message.senderId === userInListId
-    );
-  }
+  
 
-  function rightMessage(message: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
-  }) {
-    return (
-      message.receiverId === userInListId &&
-      message.senderId === loggedInUser!.id
-    );
-  }
+  
 
   const userMessages = messages.filter(
-    (message) => leftMessage(message) || rightMessage(message)
+    (message) => leftMessage(message,loggedInUser,userInListId) || rightMessage(message,loggedInUser,userInListId)
   );
 
   const searchedMessage = userMessages.filter((userMessage) =>
@@ -117,7 +92,7 @@ function UserProfile() {
           {searchedMessage.map((message, index) => (
             <div
               className={` ${
-                rightMessage(message) ? "message-right" : "message-left"
+                rightMessage(message,loggedInUser,userInListId) ? "message-right" : "message-left"
               }`}
               key={message.id}
             >
@@ -133,7 +108,7 @@ function UserProfile() {
                 <p> {message.content}</p>
                 <br></br>
                 <p className="date">{message.hourMinDate}</p>
-                {rightMessage(message) ? (
+                {rightMessage(message,loggedInUser,userInListId) ? (
                   <button
                     className="date"
                     onClick={() => handleDeleteMessages(message.id)}
@@ -165,4 +140,4 @@ function UserProfile() {
     </div>
   );
 }
-export default UserProfile;
+export default UserMessages;

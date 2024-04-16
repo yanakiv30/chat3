@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import UserOptions from "../../pages/UserOptions";
-import UserProfile from "../../pages/UserProfile";
-import GroupProfile from "../../pages/GroupProfile";
 import CheckboxList from "../../pages/CheckboxList";
 import SettingsGroup from "../../pages/SettingsGroup";
 import { useAppSelector } from "../../store";
+import UserMessages from "../../pages/UserMessages";
+import GroupMessages from "../../pages/GroupMessages";
 
 export default function AllRoutes() {
     const { loggedInUser, users } = useAppSelector((store) => store.user);
@@ -30,8 +30,8 @@ export default function AllRoutes() {
           }
         />
         <Route path="/userOptions" element={<UserOptions />} />
-        <Route path="/messages/:userId" element={<UserProfile />} />
-        <Route path="/groups/:groupId" element={<GroupProfile />} />
+        <Route path="/messages/:userId" element={<UserMessages />} />
+        <Route path="/groups/:groupId" element={<GroupMessages />} />
         <Route path="/groups/createGroups" element={<CheckboxList />} />
         <Route
           path="/settingsGroup/:groupId"
