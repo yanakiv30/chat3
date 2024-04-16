@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { setLoggedInUser, addUser } from "./userSlice";
-import { useAppSelector } from "../../store";
+import { setLoggedInUser, addUser } from "../features/users/userSlice";
+import { useAppSelector } from "../store";
 import Login from "./Login";
 import SignUp from "./SignUp";
 const API_URL = "http://localhost:3001";
@@ -55,9 +55,12 @@ export default function LoginOrSignUp() {
   return (
     <div className="background-login">
       {!isPressedRegister ? (
-        <Login handleLogin={handleLogin} setIsPressedRegister={setIsPressedRegister} />
+        <Login
+          handleLogin={handleLogin}
+          setIsPressedRegister={setIsPressedRegister}
+        />
       ) : (
-        <SignUp handleSignUp={handleSignUp}/>
+        <SignUp handleSignUp={handleSignUp} />
       )}
     </div>
   );

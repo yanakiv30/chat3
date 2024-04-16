@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { setGroups } from "./groupSlice";
+import { setGroups } from "../features/groups/groupSlice";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../store";
+import { useAppSelector } from "../store";
 const API_URL = "http://localhost:3001";
 
 export default function SettingsGroup() {
@@ -10,14 +10,14 @@ export default function SettingsGroup() {
   const { groups } = useAppSelector((store) => store.group);
   const params = useParams();
   const idSettings = params.groupId;
-  const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;  
+  const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
   function addUser() {
     alert("Missing code for adding users");
   }
-  function deleteUser(member: string) {   
+  function deleteUser(member: string) {
     alert("Missing code for deleting ");
   }
-  function deleteGroup(groupId: string) {    
+  function deleteGroup(groupId: string) {
     fetch(`${API_URL}/groups/${groupId}`, {
       method: "DELETE",
     })
@@ -56,7 +56,7 @@ export default function SettingsGroup() {
                 </div>
               </li>
             ))}
-        </ul>        
+        </ul>
         <button onClick={() => deleteGroup(idSettings!)}>Delete Group</button>
       </div>
     </div>

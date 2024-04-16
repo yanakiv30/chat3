@@ -1,11 +1,11 @@
-import { setMessages, addMessage } from "./userSlice";
+import { setMessages, addMessage } from "../features/users/userSlice";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import SearchInMessage from "./SearchInMessage";
-import Avatar from "./Avatar";
+import SearchInMessage from "../features/users/SearchInMessage";
+import Avatar from "../features/users/Avatar";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { useAppSelector } from "../../store";
+import { useAppSelector } from "../store";
 const API_URL = "http://localhost:3001";
 
 function UserProfile() {
@@ -24,7 +24,7 @@ function UserProfile() {
     senderId: string;
     receiverId: string;
     senderUsername: string;
-    content: string; 
+    content: string;
     hourMinDate: string;
     dayDate: string;
   }) {
@@ -90,7 +90,7 @@ function UserProfile() {
     }
   }
 
-  function handleDeleteMessages(idForDelete:string) {
+  function handleDeleteMessages(idForDelete: string) {
     const updatedMessages = messages.filter((x) => x.id !== idForDelete);
     dispatch(setMessages(updatedMessages));
 
@@ -106,14 +106,12 @@ function UserProfile() {
 
   return (
     <div className="profile-wrapper">
-     
       <div className="user-profile-container">
-
-      <div className="chat-with">
-        <Avatar name={userName ? userName : ""} />
-        <h4>{userName ? userName : ""}</h4>
-        <SearchInMessage  />
-      </div>
+        <div className="chat-with">
+          <Avatar name={userName ? userName : ""} />
+          <h4>{userName ? userName : ""}</h4>
+          <SearchInMessage />
+        </div>
 
         <ul className="messages-container">
           {searchedMessage.map((message, index) => (

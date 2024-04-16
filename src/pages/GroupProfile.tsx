@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import SearchInMessage from "../users/SearchInMessage";
-import Avatar from "../users/Avatar";
-import { setGroupMessages, addGroupMessage } from "./groupSlice";
+import SearchInMessage from "../features/users/SearchInMessage";
+import Avatar from "../features/users/Avatar";
+import {
+  setGroupMessages,
+  addGroupMessage,
+} from "../features/groups/groupSlice";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../store";
+import { useAppSelector } from "../store";
 
 const API_URL = "http://localhost:3001";
 
@@ -19,10 +22,7 @@ export default function GroupProfile() {
   const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
   const dispatch = useDispatch();
 
-  function leftGroupMessage(groupMessage: {
-    id: string;    
-    receiverId: string;    
-  }) {
+  function leftGroupMessage(groupMessage: { id: string; receiverId: string }) {
     return (
       groupMessage.receiverId === groupInListId &&
       groups
@@ -34,7 +34,7 @@ export default function GroupProfile() {
   function rightGroupMessage(groupMessage: {
     id: string;
     senderId: string;
-    receiverId: string;  
+    receiverId: string;
   }) {
     return (
       groupMessage.receiverId === groupInListId &&

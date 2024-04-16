@@ -1,11 +1,11 @@
-import Avatar from "./Avatar";
-import GroupList from "../groups/GroupList";
-import { useAppSelector } from "../../store";
-import LogoLogout from "./LogoLogout";
-import IconAndSearch from "./IconAndSearch";
+import Avatar from "../features/users/Avatar";
+import GroupList from "../features/groups/GroupList";
+import { useAppSelector } from "../store";
+import LogoLogout from "../features/users/LogoLogout";
+import IconAndSearch from "../features/users/IconAndSearch";
 import { NavLink } from "react-router-dom";
 
-function MemberList() {
+function ChatMembersList() {
   const { searchQuery, users, loggedInUser } = useAppSelector(
     (store) => store.user
   );
@@ -39,4 +39,4 @@ function MemberList() {
     </div>
   );
 }
-export default MemberList;
+export default ChatMembersList;
