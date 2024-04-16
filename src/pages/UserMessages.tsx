@@ -6,39 +6,27 @@ import Avatar from "../features/users/Avatar";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../store";
-import { leftMessage, rightMessage } from "../utils/messageUtils";
+import {  rightMessage,searchedMessageFunc } from "../utils/messageUtils";
 const API_URL = "http://localhost:3001";
 
 function UserMessages() {
   const dispatch = useDispatch();
-  const { searchMessage, loggedInUser,messages, users } = useAppSelector(
-    (store) => store.user
-  );
+  const { searchMessage, loggedInUser,messages, users } 
+  = useAppSelector((store) => store.user);
 
   const [newMessage, setNewMessage] = useState("");
   const params = useParams();
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId)?.username;
-
   
-
-  
-
-  const userMessages = messages.filter(
-    (message) => leftMessage(message,loggedInUser,userInListId) || rightMessage(message,loggedInUser,userInListId)
-  );
-
-  const searchedMessage = userMessages.filter((userMessage) =>
-    userMessage.content.includes(searchMessage)
-  );
-
   function handleSendMessage() {
     if (newMessage.trim() !== "") {
       const currentDate = new Date();
       const hours = currentDate.getHours();
       const minutes = currentDate.getMinutes();
       const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
-      const dayDate = `${currentDate.getDate()}.${currentDate.getMonth()}.${currentDate.getFullYear()}`;
+      const dayDate = `${currentDate.getDate()}
+      .${currentDate.getMonth()}.${currentDate.getFullYear()}`;
 
       const newMessageObject = {
         id: uuid(),
@@ -78,6 +66,9 @@ function UserMessages() {
       })
       .catch((error) => console.error("Error deleting message:", error));
   }
+
+const searchedMessage= 
+searchedMessageFunc(messages,loggedInUser,userInListId,searchMessage);
 
   return (
     <div className="profile-wrapper">
