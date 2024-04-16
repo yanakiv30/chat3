@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useAppSelector } from "../store";
 import { newMessageObjectFunc } from "../utils/messageUtils";
 import UserMessagesContainer from "../features/users/UserMessagesContainer";
+import SendUserMessage from "../features/users/SendUserMessage";
 const API_URL = "http://localhost:3001";
 
 function UserMessages() {
@@ -69,21 +70,8 @@ function UserMessages() {
           searchMessage={searchMessage}
           handleDeleteMessages={handleDeleteMessages}
         />
-        <div className="message-send">
-          <input
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                handleSendMessage();
-              }
-            }}
-            placeholder="Type your message..."
-          />
-          <button onClick={handleSendMessage}>Send</button>
-        </div>
+        <SendUserMessage newMessage={newMessage} setNewMessage={setNewMessage}
+         handleSendMessage={handleSendMessage}/>
       </div>
     </div>
   );
