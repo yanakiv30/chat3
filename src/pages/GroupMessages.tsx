@@ -9,6 +9,7 @@ import {
 } from "../features/groups/groupSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
+import { leftGroupMessage, rightMessage } from "../utils/messageUtils";
 
 const API_URL = "http://localhost:3001";
 
@@ -22,31 +23,34 @@ export default function GroupMessages() {
   const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
   const dispatch = useDispatch();
 
-  function leftGroupMessage(groupMessage: { id: string; receiverId: string }) {
-    return (
-      groupMessage.receiverId === groupInListId &&
-      groups
-        .filter((group) => group.id === groupInListId)[0]
-        .members.includes(loggedInUser!.username)
-    );
-  }
 
-  function rightGroupMessage(groupMessage: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-  }) {
-    return (
-      groupMessage.receiverId === groupInListId &&
-      groupMessage.senderId === loggedInUser!.id
-    );
-  }
+  
+  // function leftGroupMessage(groupMessage: { id: string; receiverId: string }) {
+  //   return (
+  //     groupMessage.receiverId === groupInListId &&
+  //     groups
+  //       .filter((group) => group.id === groupInListId)[0]
+  //       .members.includes(loggedInUser!.username)
+  //   );
+  // }
+
+  // function rightGroupMessage(groupMessage: {
+  //   id: string;
+  //   senderId: string;
+  //   receiverId: string;
+  // }) {
+  //   return (
+  //     groupMessage.receiverId === groupInListId &&
+  //     groupMessage.senderId === loggedInUser!.id
+  //   );
+  // }
 
   const userGroupMessages = groupMessages.filter(
     (groupMessage) =>
-      (leftGroupMessage(groupMessage) || rightGroupMessage(groupMessage)) &&
+      (leftGroupMessage(groupMessage,loggedInUser,groupInListId,groups) || rightMessage(groupMessage,loggedInUser,groupInListId)) &&
       groupMessage.content.includes(searchMessage)
   );
+  
 
   function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {
@@ -114,7 +118,7 @@ export default function GroupMessages() {
           {userGroupMessages.map((groupMessage, index) => (
             <div
               className={` ${
-                rightGroupMessage(groupMessage)
+                rightMessage(groupMessage,loggedInUser,groupInListId)
                   ? "message-right"
                   : "message-left"
               }`}
@@ -133,7 +137,7 @@ export default function GroupMessages() {
 
                 <br></br>
                 <p className="date">{groupMessage.hourMinDate}</p>
-                {rightGroupMessage(groupMessage) ? (
+                {rightMessage(groupMessage,loggedInUser,groupInListId) ? (
                   <button
                     className="date"
                     onClick={() => handleDeleteGroupMessages(groupMessage.id)}
