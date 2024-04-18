@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import GroupMessagesContainer from "../features/groups/GroupMessagesContainer";
 import SendUserMessage from "../features/users/SendUserMessage";
+import { searchedGroupMessagesFunc } from "../utils/messageUtils";
 
 const API_URL = "http://localhost:3001";
 
@@ -71,6 +72,9 @@ export default function GroupMessages() {
       .catch((error) => console.error("Error deleting message:", error));
   }
 
+  const searchedGroupMessages = searchedGroupMessagesFunc(groupMessages, 
+    loggedInUser,groupInListId, groups,searchMessage);
+
   return (
     <div className="profile-wrapper">
       <div className="user-profile-container">
@@ -87,7 +91,8 @@ export default function GroupMessages() {
           <SearchInMessage />
         </div>
         <GroupMessagesContainer groupMessages={groupMessages} loggedInUser={loggedInUser} groupInListId={groupInListId} 
-        groups={groups} searchMessage={searchMessage}handleDeleteGroupMessages={handleDeleteGroupMessages}/>
+        groups={groups} searchMessage={searchMessage}handleDeleteGroupMessages={handleDeleteGroupMessages}
+        searchedGroupMessages={searchedGroupMessages}/>
          
         <SendUserMessage newMessage={newGroupMessage} setNewMessage={setNewGroupMessage}
          handleSendMessage={handleSendGroupMessage}/>

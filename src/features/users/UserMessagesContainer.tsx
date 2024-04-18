@@ -1,7 +1,7 @@
 import { rightMessage, searchedMessageFunc } from "../../utils/messageUtils";
 
-export default function UserMessagesContainer({messages,loggedInUser, userInListId, searchMessage,
-  handleDeleteMessages}:any) {
+export default function UserMessagesContainer({messages,loggedInUser, 
+  userInListId, searchMessage, handleDeleteMessages}:any) {
   const searchedMessage = searchedMessageFunc(
     messages,
     loggedInUser,

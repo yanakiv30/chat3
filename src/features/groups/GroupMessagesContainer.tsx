@@ -1,10 +1,19 @@
-import { rightMessage, searchedGroupMessagesFunc } from "../../utils/messageUtils";
+import { rightMessage } from "../../utils/messageUtils";
 
-export default function GroupMessagesContainer({groupMessages, loggedInUser,groupInListId,
-     groups,searchMessage,handleDeleteGroupMessages}:any) {
+export default function GroupMessagesContainer({loggedInUser,
+    groupInListId,handleDeleteGroupMessages}:any ,searchedGroupMessages: {
+    id: string;
+    senderId: string;
+    receiverId: string;
+    senderUsername: string;
+    content: string;
+    hourMinDate: string;
+    dayDate: string;
+}[]) {
 
-const searchedGroupMessages = searchedGroupMessagesFunc(groupMessages, loggedInUser,
-    groupInListId, groups,searchMessage);
+ if (!Array.isArray(searchedGroupMessages)) {    
+    return <div>No messages found</div>;
+  }
 
     return(
        <ul className="messages-container">
