@@ -9,7 +9,7 @@ import {
 } from "../features/groups/groupSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
-import { leftGroupMessage, rightMessage } from "../utils/messageUtils";
+import { leftGroupMessage, rightMessage, searchedGroupMessagesFunc } from "../utils/messageUtils";
 
 const API_URL = "http://localhost:3001";
 
@@ -45,12 +45,14 @@ export default function GroupMessages() {
   //   );
   // }
 
-  const userGroupMessages = groupMessages.filter(
-    (groupMessage) =>
-      (leftGroupMessage(groupMessage,loggedInUser,groupInListId,groups) || rightMessage(groupMessage,loggedInUser,groupInListId)) &&
+  const userGroupMessages = groupMessages.filter((groupMessage) =>
+      (leftGroupMessage(groupMessage,loggedInUser,groupInListId,groups) ||
+   rightMessage(groupMessage,loggedInUser,groupInListId)) &&
       groupMessage.content.includes(searchMessage)
   );
   
+
+
 
   function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {

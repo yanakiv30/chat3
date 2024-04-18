@@ -107,3 +107,27 @@ export function newMessageObjectFunc(
   };
   return newMessageObject;
 }
+
+ export function searchedGroupMessagesFunc(groupMessages: {
+    id: string;
+    senderId: string;
+    receiverId: string;
+    senderUsername: string;
+    content: string;
+    hourMinDate: string;
+    dayDate: string;
+}[], loggedInUser: {
+    username: string;
+    id: string;
+} | null, groupInListId: string | undefined, groups: {
+    name: string;
+    id: string;
+    members: [string];
+    admin: string;
+}[], searchMessage: string){ 
+  return groupMessages.filter((groupMessage) =>
+      (leftGroupMessage(groupMessage,loggedInUser,groupInListId,groups) 
+  || rightMessage(groupMessage,loggedInUser,groupInListId)) &&
+      groupMessage.content.includes(searchMessage)
+  );}
+
