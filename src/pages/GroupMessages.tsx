@@ -9,7 +9,8 @@ import {
 } from "../features/groups/groupSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
-import { leftGroupMessage, rightMessage, searchedGroupMessagesFunc } from "../utils/messageUtils";
+import GroupMessagesContainer from "../features/groups/GroupMessagesContainer";
+import SendUserMessage from "../features/users/SendUserMessage";
 
 const API_URL = "http://localhost:3001";
 
@@ -21,38 +22,8 @@ export default function GroupMessages() {
   const groupInListId = params.groupId;
   const grName = groups.find((x) => x.id === groupInListId)?.name;
   const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
-  const dispatch = useDispatch();
-
-
+  const dispatch = useDispatch(); 
   
-  // function leftGroupMessage(groupMessage: { id: string; receiverId: string }) {
-  //   return (
-  //     groupMessage.receiverId === groupInListId &&
-  //     groups
-  //       .filter((group) => group.id === groupInListId)[0]
-  //       .members.includes(loggedInUser!.username)
-  //   );
-  // }
-
-  // function rightGroupMessage(groupMessage: {
-  //   id: string;
-  //   senderId: string;
-  //   receiverId: string;
-  // }) {
-  //   return (
-  //     groupMessage.receiverId === groupInListId &&
-  //     groupMessage.senderId === loggedInUser!.id
-  //   );
-  // }
-
-  const userGroupMessages = groupMessages.filter((groupMessage) =>
-      (leftGroupMessage(groupMessage,loggedInUser,groupInListId,groups) ||
-   rightMessage(groupMessage,loggedInUser,groupInListId)) &&
-      groupMessage.content.includes(searchMessage)
-  );
-  
-
-
 
   function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {
@@ -115,58 +86,13 @@ export default function GroupMessages() {
           </div>
           <SearchInMessage />
         </div>
+        <GroupMessagesContainer groupMessages={groupMessages} loggedInUser={loggedInUser} groupInListId={groupInListId} 
+        groups={groups} searchMessage={searchMessage}handleDeleteGroupMessages={handleDeleteGroupMessages}/>
+         
+        <SendUserMessage newMessage={newGroupMessage} setNewMessage={setNewGroupMessage}
+         handleSendMessage={handleSendGroupMessage}/>
 
-        <ul className="messages-container">
-          {userGroupMessages.map((groupMessage, index) => (
-            <div
-              className={` ${
-                rightMessage(groupMessage,loggedInUser,groupInListId)
-                  ? "message-right"
-                  : "message-left"
-              }`}
-              key={groupMessage.id}
-            >
-              <p className="day-date">
-                {userGroupMessages[index - 1]?.dayDate ===
-                userGroupMessages[index].dayDate
-                  ? ""
-                  : groupMessage.dayDate}
-              </p>
-              <br></br>
-              <li className="message">
-                <p style={{ color: "blue" }}>{groupMessage.senderUsername}:</p>
-                <p>{groupMessage.content}</p>
-
-                <br></br>
-                <p className="date">{groupMessage.hourMinDate}</p>
-                {rightMessage(groupMessage,loggedInUser,groupInListId) ? (
-                  <button
-                    className="date"
-                    onClick={() => handleDeleteGroupMessages(groupMessage.id)}
-                  >
-                    Delete
-                  </button>
-                ) : null}
-              </li>
-            </div>
-          ))}
-        </ul>
-
-        <div className="message-send">
-          <input
-            type="text"
-            value={newGroupMessage}
-            onChange={(e) => setNewGroupMessage(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                handleSendGroupMessage();
-              }
-            }}
-            placeholder="Type your message..."
-          />
-          <button onClick={handleSendGroupMessage}>Send</button>
-        </div>
+        
       </div>
     </div>
   );

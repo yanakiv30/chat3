@@ -1,4 +1,5 @@
-export default function SendUserMessage({newMessage, setNewMessage,handleSendMessage}:any) {
+export default function SendUserMessage({newMessage, setNewMessage,
+  handleSendMessage}:any) {
     return (
         <div className="message-send">
         <input
