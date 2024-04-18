@@ -23,8 +23,7 @@ export default function GroupMessages() {
   const groupInListId = params.groupId;
   const grName = groups.find((x) => x.id === groupInListId)?.name;
   const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
-  const dispatch = useDispatch(); 
-  
+  const dispatch = useDispatch();   
 
   function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {
@@ -74,7 +73,7 @@ export default function GroupMessages() {
 
   const searchedGroupMessages = searchedGroupMessagesFunc(groupMessages, 
     loggedInUser,groupInListId, groups,searchMessage);
-
+    
   return (
     <div className="profile-wrapper">
       <div className="user-profile-container">
@@ -90,13 +89,12 @@ export default function GroupMessages() {
           </div>
           <SearchInMessage />
         </div>
-        <GroupMessagesContainer groupMessages={groupMessages} loggedInUser={loggedInUser} groupInListId={groupInListId} 
-        groups={groups} searchMessage={searchMessage}handleDeleteGroupMessages={handleDeleteGroupMessages}
+        <GroupMessagesContainer  loggedInUser={loggedInUser} groupInListId={groupInListId} 
+        handleDeleteGroupMessages={handleDeleteGroupMessages}
         searchedGroupMessages={searchedGroupMessages}/>
          
         <SendUserMessage newMessage={newGroupMessage} setNewMessage={setNewGroupMessage}
          handleSendMessage={handleSendGroupMessage}/>
-
         
       </div>
     </div>

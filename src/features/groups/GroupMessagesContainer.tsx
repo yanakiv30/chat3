@@ -1,16 +1,8 @@
 import { rightMessage } from "../../utils/messageUtils";
 
 export default function GroupMessagesContainer({loggedInUser,
-    groupInListId,handleDeleteGroupMessages}:any ,searchedGroupMessages: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
-}[]) {
-
+    groupInListId,handleDeleteGroupMessages,searchedGroupMessages}:any ) {
+ 
  if (!Array.isArray(searchedGroupMessages)) {    
     return <div>No messages found</div>;
   }
