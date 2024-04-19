@@ -5,7 +5,7 @@ import Avatar from "../features/users/Avatar";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../store";
-import { newMessageObjectFunc } from "../utils/messageUtils";
+import { newMessageObjectFunc, searchedMessageFunc } from "../utils/messageUtils";
 import UserMessagesContainer from "../features/users/UserMessagesContainer";
 import SendUserMessage from "../features/users/SendUserMessage";
 const API_URL = "http://localhost:3001";
@@ -55,6 +55,13 @@ function UserMessages() {
       .catch((error) => console.error("Error deleting message:", error));
   }
 
+  const searchedMessage = searchedMessageFunc(
+    messages,
+    loggedInUser,
+    userInListId,
+    searchMessage
+  );
+
   return (
     <div className="profile-wrapper">
       <div className="user-profile-container">
@@ -63,12 +70,11 @@ function UserMessages() {
           <h4>{userName ? userName : ""}</h4>
           <SearchInMessage />
         </div>
-        <UserMessagesContainer
-          messages={messages}
+        <UserMessagesContainer          
           loggedInUser={loggedInUser}
-          userInListId={userInListId}
-          searchMessage={searchMessage}
+          userInListId={userInListId}          
           handleDeleteMessages={handleDeleteMessages}
+          searchedMessage={searchedMessage}
         />
         <SendUserMessage newMessage={newMessage} setNewMessage={setNewMessage}
          handleSendMessage={handleSendMessage}/>

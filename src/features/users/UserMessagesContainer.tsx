@@ -1,13 +1,11 @@
-import { rightMessage, searchedMessageFunc } from "../../utils/messageUtils";
+import { rightMessage } from "../../utils/messageUtils";
 
-export default function UserMessagesContainer({messages,loggedInUser, 
-  userInListId, searchMessage, handleDeleteMessages}:any) {
-  const searchedMessage = searchedMessageFunc(
-    messages,
-    loggedInUser,
-    userInListId,
-    searchMessage
-  );
+export default function UserMessagesContainer({loggedInUser, 
+  userInListId, handleDeleteMessages,searchedMessage}:any) {
+  
+    if (!Array.isArray(searchedMessage)) {    
+      return <div>No messages found</div>;
+    }
 
   return (
     <ul className="messages-container">

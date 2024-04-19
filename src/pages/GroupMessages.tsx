@@ -9,9 +9,10 @@ import {
 } from "../features/groups/groupSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
-import GroupMessagesContainer from "../features/groups/GroupMessagesContainer";
+
 import SendUserMessage from "../features/users/SendUserMessage";
 import { searchedGroupMessagesFunc } from "../utils/messageUtils";
+import UserMessagesContainer from "../features/users/UserMessagesContainer";
 
 const API_URL = "http://localhost:3001";
 
@@ -89,9 +90,9 @@ export default function GroupMessages() {
           </div>
           <SearchInMessage />
         </div>
-        <GroupMessagesContainer  loggedInUser={loggedInUser} groupInListId={groupInListId} 
-        handleDeleteGroupMessages={handleDeleteGroupMessages}
-        searchedGroupMessages={searchedGroupMessages}/>
+        <UserMessagesContainer  loggedInUser={loggedInUser} userInListId={groupInListId} 
+        handleDeleteMessages={handleDeleteGroupMessages}
+        searchedMessage={searchedGroupMessages}/>
          
         <SendUserMessage newMessage={newGroupMessage} setNewMessage={setNewGroupMessage}
          handleSendMessage={handleSendGroupMessage}/>
