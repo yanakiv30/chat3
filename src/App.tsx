@@ -16,6 +16,8 @@ function App() {
   const { loggedInUser } = useAppSelector((store) => store.user);
 
   useEffect(() => {
+    
+
     fetch(`${API_URL}/users`)
       .then((response) => response.json())
       .then((data) => dispatch(setUsers(data))) //
