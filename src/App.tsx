@@ -9,6 +9,7 @@ import { useAppSelector } from "./store";
 import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./features/users/AllRoutes";
+import {getUsers} from "./services/apiUsers"
 const API_URL = "http://localhost:3001";
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
   const { loggedInUser } = useAppSelector((store) => store.user);
 
   useEffect(() => {
-    
+    getUsers().then(data=> console.log(data));
 
     fetch(`${API_URL}/users`)
       .then((response) => response.json())
