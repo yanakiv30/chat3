@@ -14,241 +14,17 @@
       "id": "13a1c0ca-595d-4257-a727-ed2a6261b117",
       "username": "vasil",
       "password": "v5"
-    },
-    {
-      "id": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "username": "mariya",
-      "password": "m6"
-    },
-    {
-      "id": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "username": "iliya",
-      "password": "i5"
-    },
-    {
-      "id": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "username": "vasil vasilev vasilev",
-      "password": "v5"
-    },
-    {
-      "id": "23ba0644-e85a-4044-b6e6-7abc76b7c60b",
-      "username": "aaa",
-      "password": "a"
     }
   ],
   "groups": [
     {
-      "id": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
-      "name": "group-ev",
-      "members": [
-        "elena",
-        "vasil",
-        "niki"
-      ]
-    },
-    {
-      "id": "a2431eac-0770-49b5-b6b0-ad3782654527",
-      "name": "group-nv",
-      "members": [
-        "niki",
-        "vasil",
-        "elena"
-      ]
-    },
-    {
-      "id": "70289d8b-903a-4c51-8c65-81cc079499aa",
-      "name": "group-nm",
-      "members": [
-        "niki",
-        "mariya",
-        "iliya"
-      ]
-    },
-    {
-      "id": "c38dadd5-e192-4f5e-9e1c-5296a609d097",
-      "name": "group-evi",
-      "members": [
-        "vasil",
-        "iliya",
-        "elena"
-      ],
-      "admin": "elena"
-    },
-    {
-      "id": "b653be8f-23b9-4615-b2ee-910aab07382a",
-      "name": "group-nem",
-      "members": [
-        "elena",
-        "mariya",
-        "niki"
-      ],
-      "admin": "niki"
-    },
-    {
       "id": "a3e8db1c-d020-4fed-a7ba-50868043c579",
       "name": "group-nev",
-      "members": [
-        "elena",
-        "vasil",
-        "niki"
-      ],
+      "members": ["elena", "vasil", "niki"],
       "admin": "niki"
     }
   ],
   "groupMessages": [
-    {
-      "id": "745b34ae-979c-4c39-9080-f0a9e90c6646",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
-      "senderUsername": "niki",
-      "content": "niki-ev1",
-      "hourMinDate": "10:24",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "a5c2585c-837e-47a2-a43c-86d2c794efb6",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
-      "senderUsername": "niki",
-      "content": "niki-ev2",
-      "hourMinDate": "10:25",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "b50c1afe-182c-48ba-9519-be3a7202a84e",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
-      "senderUsername": "elena",
-      "content": "elena-ev1",
-      "hourMinDate": "10:26",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "0cd1cbe8-7097-4415-958e-5f8de329ec00",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
-      "senderUsername": "elena",
-      "content": "elena-ev2",
-      "hourMinDate": "10:26",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "3b17f7cb-27f0-4a85-8c92-17ea36d82698",
-      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
-      "senderUsername": "vasil",
-      "content": "vasil-ev1",
-      "hourMinDate": "11:05",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "95830c0e-5c83-47ef-8b02-43bd058a9de4",
-      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
-      "senderUsername": "vasil",
-      "content": "vasil-ev2",
-      "hourMinDate": "11:05",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "2d9b8b46-bb5b-4373-8b19-e71da71390b8",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
-      "senderUsername": "niki",
-      "content": "niki-ev3",
-      "hourMinDate": "11:06",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "4ab1b117-6165-4eca-904d-6057af6446a1",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "0e8bd734-97c0-4eb0-8bfc-b6cc0dfd7234",
-      "senderUsername": "elena",
-      "content": "elena-ev3",
-      "hourMinDate": "11:07",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "797336ce-9c34-423e-8cf3-af4ac7de3799",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "a2431eac-0770-49b5-b6b0-ad3782654527",
-      "senderUsername": "elena",
-      "content": "elena-nv1",
-      "hourMinDate": "11:24",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "ebbf1e6f-371f-4cc0-9459-dbd8f1c5d693",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "a2431eac-0770-49b5-b6b0-ad3782654527",
-      "senderUsername": "elena",
-      "content": "elena-nv2",
-      "hourMinDate": "11:26",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "ccc753f4-3d38-4b20-83cc-c1e2a2749f16",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "a2431eac-0770-49b5-b6b0-ad3782654527",
-      "senderUsername": "niki",
-      "content": "niki-nv1",
-      "hourMinDate": "12:32",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "98e85176-3d95-4d8f-ac46-beef7ed86e5b",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "a2431eac-0770-49b5-b6b0-ad3782654527",
-      "senderUsername": "niki",
-      "content": "niki-nv2",
-      "hourMinDate": "12:32",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "432fcecd-3098-46b5-be42-1923dec45750",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "70289d8b-903a-4c51-8c65-81cc079499aa",
-      "senderUsername": "iliya",
-      "content": "iliya-nm1",
-      "hourMinDate": "16:24",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "11ec6a54-b220-4f03-9f65-8eaa8fffbf10",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "70289d8b-903a-4c51-8c65-81cc079499aa",
-      "senderUsername": "iliya",
-      "content": "iliya-nm2",
-      "hourMinDate": "16:24",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "dabe45e1-7e5e-451a-b9cb-11e42b629349",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "70289d8b-903a-4c51-8c65-81cc079499aa",
-      "senderUsername": "niki",
-      "content": "niki-nm1",
-      "hourMinDate": "16:27",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "20edb180-8e57-4bd5-854f-41444e3754b1",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "a2431eac-0770-49b5-b6b0-ad3782654527",
-      "senderUsername": "elena",
-      "content": "elena-nv2",
-      "hourMinDate": "16:29",
-      "dayDate": "17.2.2024"
-    },
-    {
-      "id": "2613c5fe-519a-43ae-865d-2faa63927557",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "7f4a5777-7bbd-446a-ae8b-b3161e22ca5d",
-      "senderUsername": "niki",
-      "content": "jnjnjnjn",
-      "hourMinDate": "6:45",
-      "dayDate": "18.2.2024"
-    },
     {
       "id": "7f325fe0-e293-4d0d-9f41-905d1e2683d2",
       "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
@@ -324,30 +100,12 @@
   ],
   "messages": [
     {
-      "id": "dd8b5845-bf7d-45cb-9b14-0f1ac4d32151",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena elena large message elena 14",
-      "hourMinDate": "18:36",
-      "dayDate": "11.2.2024"
-    },
-    {
       "id": "7a2d58ac-7cd8-4363-b565-13e91d9c1256",
       "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
       "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
       "senderUsername": "niki",
       "content": "niki-elena elena large message elena 15",
       "hourMinDate": "18:48",
-      "dayDate": "11.2.2024"
-    },
-    {
-      "id": "8495bfcb-3231-4e8a-b86c-b241f85ec3a5",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena elena large message elena 16",
-      "hourMinDate": "21:31",
       "dayDate": "11.2.2024"
     },
     {
@@ -369,15 +127,6 @@
       "dayDate": "12.2.2024"
     },
     {
-      "id": "1477fff9-a444-4f4c-8767-7ce8c33bbdf5",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": "niki-elena-large mes 18",
-      "hourMinDate": "4:21",
-      "dayDate": "12.2.2024"
-    },
-    {
       "id": "1369b3b9-46e5-483d-9133-0212e87c4ec4",
       "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
       "receiverId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
@@ -395,51 +144,7 @@
       "hourMinDate": "4:47",
       "dayDate": "12.2.2024"
     },
-    {
-      "id": "de572e94-4dda-4f6e-b31c-a4e5e9cc353d",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "niki",
-      "content": "niki-mariya-mes1",
-      "hourMinDate": "4:48",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "23f4946e-9597-4748-886a-1c22fbe36deb",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "senderUsername": "niki",
-      "content": "niki-iliya-mes1",
-      "hourMinDate": "4:48",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "4f6e4649-3ed2-4941-8f3b-35cad8887ef4",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "senderUsername": "niki",
-      "content": "niki-iliya-mes2",
-      "hourMinDate": "4:49",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "1707e802-3d17-45ca-9933-5e961eb7bd37",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "niki",
-      "content": "niki-vasil vasilev vasilev mes1",
-      "hourMinDate": "4:49",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "1f7f1890-95d6-40bf-8328-03f55b92b5a3",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "niki",
-      "content": "niki-vasil vasilev vasilev mes2",
-      "hourMinDate": "4:50",
-      "dayDate": "12.2.2024"
-    },
+
     {
       "id": "1528ce65-abe0-47ec-923c-6620cc31d8bc",
       "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
@@ -467,51 +172,7 @@
       "hourMinDate": "4:52",
       "dayDate": "12.2.2024"
     },
-    {
-      "id": "480c96bc-8233-47bd-8d51-3f112a09d286",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "elena",
-      "content": "elena-mariya-mes2",
-      "hourMinDate": "4:52",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "cf2a4f03-7a4e-4649-878f-60a67dc2b681",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "senderUsername": "elena",
-      "content": "elena-iliya-mes1",
-      "hourMinDate": "4:53",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "dac6ec2d-77d5-4aac-9277-3a2f0b4e39f8",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "senderUsername": "elena",
-      "content": "elena-iliya-mes2",
-      "hourMinDate": "4:53",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "f436393d-dacb-471d-a1ac-b163536c597d",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "elena",
-      "content": "elena-vasil vasilev vasilev mes1",
-      "hourMinDate": "4:53",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "8fbf3507-7d27-4bb6-8afc-a391645e6cbd",
-      "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "elena",
-      "content": "elaena-vasil vasilev vasilev mes2",
-      "hourMinDate": "4:54",
-      "dayDate": "12.2.2024"
-    },
+
     {
       "id": "e68a4ca5-032c-4f04-b3c6-b7da61b2fd0d",
       "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
@@ -530,240 +191,7 @@
       "hourMinDate": "4:55",
       "dayDate": "12.2.2024"
     },
-    {
-      "id": "5ec2e9c9-2e5c-44e4-b4cb-5bb57d8c7f1a",
-      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "vasil",
-      "content": "vasil-mariya-mes1",
-      "hourMinDate": "4:55",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "96b03a56-aa77-447b-b259-866674bf6223",
-      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "vasil",
-      "content": "vasil-mariya-mes2",
-      "hourMinDate": "4:55",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "cbe6f537-7996-4b3a-bfcf-c9616b66585d",
-      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "senderUsername": "vasil",
-      "content": "vasil-iliya-mes1",
-      "hourMinDate": "4:56",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "0e909755-726b-4286-a80d-4dbaf4e4907a",
-      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "senderUsername": "vasil",
-      "content": "vasil-iliya-mes2",
-      "hourMinDate": "4:57",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "1c8aee4e-68e1-4523-80c7-70cda167edc4",
-      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "vasil",
-      "content": "vasil- vasil vasilev vasilev mes1",
-      "hourMinDate": "4:57",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "5cf93e39-2c00-43cb-846f-7d589e5fee18",
-      "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "vasil",
-      "content": "vasil- vasil vasilev-vasilev mes2",
-      "hourMinDate": "4:57",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "d488c78c-9922-487c-a42a-2602d1b7734e",
-      "senderId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "mariya",
-      "content": "mariya-elena mes1",
-      "hourMinDate": "4:59",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "47c11939-fc86-4760-8e56-a0aa027c6077",
-      "senderId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "senderUsername": "mariya",
-      "content": "mariya-niki-mes1",
-      "hourMinDate": "5:00",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "a50adf9e-0476-4893-b3f9-914fa1b7b51c",
-      "senderId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "receiverId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "senderUsername": "mariya",
-      "content": "mariya-vasil-mes1",
-      "hourMinDate": "5:00",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "fa82077d-566a-4330-bc06-b774266d05bb",
-      "senderId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "senderUsername": "mariya",
-      "content": "mariya-iliya-mes1",
-      "hourMinDate": "5:00",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "124aa735-8e75-43d2-abea-a6284336c6e5",
-      "senderId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "senderUsername": "mariya",
-      "content": "mariya-iliya-mes2",
-      "hourMinDate": "5:01",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "8a1979f6-8a04-4f93-b377-87e71a06380c",
-      "senderId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "mariya",
-      "content": "mariya-vasil vasilev vasilev mes 1",
-      "hourMinDate": "5:01",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "814e063d-15be-46e2-a47a-206b8a5d3338",
-      "senderId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "mariya",
-      "content": "mariya-vasil vasilev vasilev mes2",
-      "hourMinDate": "5:01",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "e29000f2-7c25-4c72-818c-7b3b5fa71068",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "iliya",
-      "content": "iliya-elena-mes1",
-      "hourMinDate": "5:02",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "1619718d-e58e-4258-b2c2-e16ce43147df",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "senderUsername": "iliya",
-      "content": "iliya-niki mes1",
-      "hourMinDate": "5:02",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "e0b9661f-aacd-4b6e-a052-052515bb40e9",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "senderUsername": "iliya",
-      "content": "iliya-vasil mes1",
-      "hourMinDate": "5:03",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "62dd5ee7-a961-4e7d-8d55-2cca0ec1040f",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "iliya",
-      "content": "iliya-mariya mes1",
-      "hourMinDate": "5:03",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "33072e1d-b884-4067-96e2-ec37c5671440",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "iliya",
-      "content": "iliya- vasil vasilev vasilev mes1",
-      "hourMinDate": "5:03",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "c823a952-d51b-4bfd-a609-7b02d15434be",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "senderUsername": "iliya",
-      "content": "iliya-vasil vasilev vasilev mes2",
-      "hourMinDate": "5:04",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "1448bdfb-19b6-45ed-8d9b-147c937f9a48",
-      "senderId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "vasil vasilev vasilev",
-      "content": "vasil vasilev vasilev -elena  -mes1",
-      "hourMinDate": "5:06",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "6fe8fb1f-3df1-4c73-95d5-acb4d6ec06b9",
-      "senderId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "senderUsername": "vasil vasilev vasilev",
-      "content": "vasil vasilev vasilev - niki -mes1",
-      "hourMinDate": "5:06",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "ad447c02-862f-41c8-aabc-c98e16121eab",
-      "senderId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "receiverId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "senderUsername": "vasil vasilev vasilev",
-      "content": "vasil vasilev vasilev - vasil -mes1",
-      "hourMinDate": "5:07",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "f90f551d-0046-48f1-a336-162578e42d01",
-      "senderId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "vasil vasilev vasilev",
-      "content": "vasil vasilev vasilev - mariya -mes1",
-      "hourMinDate": "5:07",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "7752003d-765e-43ed-b8cf-bc02168de4e0",
-      "senderId": "d674c0c6-17c3-42fe-bc4f-0ac351937643",
-      "receiverId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "senderUsername": "vasil vasilev vasilev",
-      "content": "vasil vasilev vasilev - iliya -mes1",
-      "hourMinDate": "5:07",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "4aa7576b-033d-4b8c-8ff4-cc43d0e4d6ec",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": " niki-elena-large mes 19",
-      "hourMinDate": "5:28",
-      "dayDate": "12.2.2024"
-    },
-    {
-      "id": "3f510b09-22c7-4ba7-988b-2d0e93caf1d0",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "niki",
-      "content": " niki-elena-large mes 19",
-      "hourMinDate": "5:39",
-      "dayDate": "12.2.2024"
-    },
+
     {
       "id": "16854537-0af8-451d-a7e6-38c3850e61db",
       "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
@@ -790,51 +218,6 @@
       "content": "elena-niki-mes4",
       "hourMinDate": "6:53",
       "dayDate": "12.2.2024"
-    },
-    {
-      "id": "dc4f8776-ee7a-4751-8d6d-738c84beaa71",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
-      "senderUsername": "iliya",
-      "content": "iliya-elena-mes2",
-      "hourMinDate": "20:20",
-      "dayDate": "13.2.2024"
-    },
-    {
-      "id": "0d3c708f-49f5-40b0-bf35-d5c49bdff149",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "senderUsername": "iliya",
-      "content": "iliya-niki-mes2",
-      "hourMinDate": "20:21",
-      "dayDate": "13.2.2024"
-    },
-    {
-      "id": "785934c4-1eef-42a5-a79b-9f5504863950",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
-      "senderUsername": "iliya",
-      "content": "iliya-vasil-mes2",
-      "hourMinDate": "20:21",
-      "dayDate": "13.2.2024"
-    },
-    {
-      "id": "8b88b29c-ac8b-42bb-9172-1f6183576033",
-      "senderId": "b631cb57-f08a-456f-94ff-7a5b0d392237",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "iliya",
-      "content": "iliya-mariya-mes2",
-      "hourMinDate": "20:21",
-      "dayDate": "13.2.2024"
-    },
-    {
-      "id": "5f834916-79c1-4412-a065-c9d23e040ce1",
-      "senderId": "b7bd18e8-5c09-4cfd-8595-1ab6bc2ba6b0",
-      "receiverId": "f24aacf9-72f9-4735-a4b3-ced15170fa43",
-      "senderUsername": "niki",
-      "content": "zdr Mariya",
-      "hourMinDate": "23:17",
-      "dayDate": "15.2.2024"
     }
   ]
 }
