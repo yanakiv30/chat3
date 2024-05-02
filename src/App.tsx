@@ -15,7 +15,7 @@ const API_URL = "http://localhost:3001";
 function App() {
   const dispatch = useDispatch();
   const { loggedInUser } = useAppSelector((store) => store.user);
-  let { isRegister } = useAppSelector((store) => store.user);
+  let { isRegister,isLoading } = useAppSelector((store) => store.user);
 
   useEffect(() => {
     getUsers().then((data) => {     
@@ -42,7 +42,7 @@ function App() {
     //   .then((response) => response.json())
     //   .then((data) => dispatch(setMessages(data)))
     //   .catch((error) => console.error("Error fetching messages:", error));
-  }, [dispatch,isRegister]);
+  }, [dispatch,isRegister,isLoading]);
 
   return (
     <Router>

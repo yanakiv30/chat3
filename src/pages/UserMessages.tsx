@@ -1,4 +1,8 @@
-import { setMessages, addMessage } from "../features/users/userSlice";
+import {
+  setMessages,
+  addMessage,
+  setIsLoading,
+} from "../features/users/userSlice";
 import { useParams } from "react-router-dom";
 import SearchInMessage from "../features/users/SearchInMessage";
 import Avatar from "../features/users/Avatar";
@@ -16,14 +20,13 @@ const API_URL = "http://localhost:3001";
 
 function UserMessages() {
   const dispatch = useDispatch();
-  const { searchMessage, loggedInUser, messages, users } = useAppSelector(
-    (store) => store.user
-  );
+  const { searchMessage, loggedInUser, isLoading, messages, users } =
+    useAppSelector((store) => store.user);
   const [newMessage, setNewMessage] = useState("");
   const params = useParams();
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId)?.username;
-
+ console.log("isLoading-1 : ",isLoading);
   async function handleSendMessage() {
     if (newMessage.trim() !== "") {
       const newMessageObject = newMessageObjectFunc(
@@ -32,22 +35,24 @@ function UserMessages() {
         newMessage
       );
 
-      try{
+      dispatch(setIsLoading(true));
+      console.log("isLoading-2 : ",isLoading);
+      try {
         const { data, error } = await supabase
-        .from("messages")
-        .insert(newMessageObject)
-        .select();
-        if(error) {
+          .from("messages")
+          .insert(newMessageObject)
+          .select();
+        if (error) {
           console.error(error);
           throw new Error("Messages could not be loaded");
         }
         dispatch(addMessage(data));
-
       } catch (error) {
         console.error("Error posting message:", error);
+      } finally {
+        dispatch(setIsLoading(false));
       }
-      
-
+      console.log("isLoading-3 : ",isLoading);
       // fetch(`${API_URL}/messages`, {
       //   method: "POST",
       //   headers: {
@@ -62,18 +67,37 @@ function UserMessages() {
     }
   }
 
-  function handleDeleteMessages(idForDelete: string) {
+  async function handleDeleteMessages(idForDelete: string) {
     const updatedMessages = messages.filter((x) => x.id !== idForDelete);
     dispatch(setMessages(updatedMessages));
 
-    fetch(`${API_URL}/messages/${idForDelete}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then(() => {
-        dispatch(setMessages(updatedMessages));
-      })
-      .catch((error) => console.error("Error deleting message:", error));
+    console.log("isLoading-4 : ",isLoading);
+    try{
+    const { error } = await supabase
+    .from('messages')
+    .delete()
+    .eq('id', idForDelete)
+    if (error) {
+      console.error(error);
+      throw new Error("Messages could not be deleted");
+    }
+    dispatch(setMessages(updatedMessages));
+  } catch (error) {
+    console.error("Error deleting message:", error);
+  } finally {
+    dispatch(setIsLoading(false));
+  }
+  console.log("isLoading-5 : ",isLoading);
+
+
+    // fetch(`${API_URL}/messages/${idForDelete}`, {
+    //   method: "DELETE",
+    // })
+    //   .then((response) => response.json())
+    //   .then(() => {
+    //     dispatch(setMessages(updatedMessages));
+    //   })
+    //   .catch((error) => console.error("Error deleting message:", error));
   }
 
   const searchedMessage = searchedMessageFunc(
