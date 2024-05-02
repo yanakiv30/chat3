@@ -44,6 +44,9 @@ export default function GroupMessages() {
         dayDate,
       };
 
+
+
+      
       fetch(`${API_URL}/groupMessages`, {
         method: "POST",
         headers: {

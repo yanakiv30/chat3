@@ -9,40 +9,45 @@ import { useAppSelector } from "./store";
 import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./features/users/AllRoutes";
-import {getMessages, getUsers} from "./services/apiUsers"
+import { getMessages, getUsers } from "./services/apiUsers";
+import { getGroupMessages, getGroups } from "./services/apiGroups";
 const API_URL = "http://localhost:3001";
 
 function App() {
   const dispatch = useDispatch();
   const { loggedInUser } = useAppSelector((store) => store.user);
-  let { isRegister,isLoading } = useAppSelector((store) => store.user);
+  let { isRegister, isLoading } = useAppSelector((store) => store.user);
 
   useEffect(() => {
-    getUsers().then((data) => {     
-      dispatch(setUsers(data))}) //
-    .catch((error) => console.error("Error fetching users:", error));
-
+    getUsers()
+      .then((data) => dispatch(setUsers(data)))
+      .catch((error) => console.error("Error fetching users:", error));
     // fetch(`${API_URL}/users`)
     //   .then((response) => response.json())
     //   .then((data) => dispatch(setUsers(data))) //
     //   .catch((error) => console.error("Error fetching users:", error));
-    fetch(`${API_URL}/groups`)
-      .then((response) => response.json())
-      .then((data) => dispatch(setGroups(data))) //
-      .catch((error) => console.error("Error fetching users:", error));
-    fetch(`${API_URL}/groupMessages`)
-      .then((response) => response.json())
+    getGroups()
+      .then((data) => dispatch(setGroups(data)))
+      .catch((error) => console.error("Error fetching groups", error));
+    // fetch(`${API_URL}/groups`)
+    //   .then((response) => response.json())
+    //   .then((data) => dispatch(setGroups(data))) //
+    //   .catch((error) => console.error("Error fetching users:", error));
+    getGroupMessages()
       .then((data) => dispatch(setGroupMessages(data)))
-      .catch((error) => console.error("Error fetching users:", error));
-
-    getMessages().then(data=> dispatch(setMessages(data)))
-    .catch(error=> console.error("Error fetching messages :", error));
-
+      .catch((error) => console.error("Error fetching Group Messages", error));
+    // fetch(`${API_URL}/groupMessages`)
+    //   .then((response) => response.json())
+    //   .then((data) => dispatch(setGroupMessages(data)))
+    //   .catch((error) => console.error("Error fetching users:", error));
+    getMessages()
+      .then((data) => dispatch(setMessages(data)))
+      .catch((error) => console.error("Error fetching messages :", error));
     // fetch(`${API_URL}/messages`)
     //   .then((response) => response.json())
     //   .then((data) => dispatch(setMessages(data)))
     //   .catch((error) => console.error("Error fetching messages:", error));
-  }, [dispatch,isRegister,isLoading]);
+  }, [dispatch, isRegister, isLoading]);
 
   return (
     <Router>
