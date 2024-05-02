@@ -20,7 +20,11 @@
     {
       "id": "a3e8db1c-d020-4fed-a7ba-50868043c579",
       "name": "group-nev",
-      "members": ["elena", "vasil", "niki"],
+      "members": [
+        "elena",
+        "vasil",
+        "niki"
+      ],
       "admin": "niki"
     }
   ],
@@ -144,7 +148,6 @@
       "hourMinDate": "4:47",
       "dayDate": "12.2.2024"
     },
-
     {
       "id": "1528ce65-abe0-47ec-923c-6620cc31d8bc",
       "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",
@@ -172,7 +175,6 @@
       "hourMinDate": "4:52",
       "dayDate": "12.2.2024"
     },
-
     {
       "id": "e68a4ca5-032c-4f04-b3c6-b7da61b2fd0d",
       "senderId": "13a1c0ca-595d-4257-a727-ed2a6261b117",
@@ -191,7 +193,6 @@
       "hourMinDate": "4:55",
       "dayDate": "12.2.2024"
     },
-
     {
       "id": "16854537-0af8-451d-a7e6-38c3850e61db",
       "senderId": "fbb5317a-b93b-4809-a0b9-f5ec28696de7",

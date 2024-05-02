@@ -36,6 +36,8 @@ function ChatMembersList() {
             ))}
       </ul>
       <GroupList />
+
+      <img style={{maxWidth:"70%"}} src="https://cpkaumakwusyxhmexnqr.supabase.co/storage/v1/object/public/messages-images/cabin-001.jpg" alt="some cabin"/>
     </div>
   );
 }

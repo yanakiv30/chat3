@@ -28,6 +28,7 @@ export default function UserMessagesContainer({loggedInUser,
           <li className="message">
             <p style={{ color: "blue" }}>{message.senderUsername}:</p>
             <p> {message.content}</p>
+            
             <br></br>
             <p className="date">{message.hourMinDate}</p>
             {rightMessage(message, loggedInUser, userInListId) ? (

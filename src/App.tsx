@@ -17,12 +17,13 @@ function App() {
   const { loggedInUser } = useAppSelector((store) => store.user);
 
   useEffect(() => {
-    getUsers().then(data=> console.log(data));
+    getUsers().then((data) => dispatch(setUsers(data))) //
+    .catch((error) => console.error("Error fetching users:", error));
 
-    fetch(`${API_URL}/users`)
-      .then((response) => response.json())
-      .then((data) => dispatch(setUsers(data))) //
-      .catch((error) => console.error("Error fetching users:", error));
+    // fetch(`${API_URL}/users`)
+    //   .then((response) => response.json())
+    //   .then((data) => dispatch(setUsers(data))) //
+    //   .catch((error) => console.error("Error fetching users:", error));
     fetch(`${API_URL}/groups`)
       .then((response) => response.json())
       .then((data) => dispatch(setGroups(data))) //
