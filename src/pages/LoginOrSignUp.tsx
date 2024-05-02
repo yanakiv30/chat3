@@ -6,14 +6,14 @@ import { useAppSelector } from "../store";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import supabase from "../services/supabase";
-const API_URL = "http://localhost:3001";
+const API_URL = "http://localhost:3001" ;
 
 export default function LoginOrSignUp() {
   const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
   //const [isPressedRegister, setIsPressedRegister] = useState(false);
   let { isRegister } = useAppSelector((store) => store.user);
-  console.log(isRegister);
+  
   function handleLogin(username: string, password: string) {
     const user = users.find(
       (u) => u.username === username && u.password === password
@@ -57,7 +57,7 @@ export default function LoginOrSignUp() {
       console.error(error);
       throw new Error("Users could not be loaded");
     }
-      console.log("from await 59",data);
+      
       dispatch(addUser(data));
       
      //dispatch(setLoggedInUser(data));
@@ -66,7 +66,7 @@ export default function LoginOrSignUp() {
     }
    dispatch(setIsRegister(false));
   //  setIsPressedRegister(false);
-   console.log("isRegister from Login/signUp",isRegister);
+  
   }
  
 

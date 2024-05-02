@@ -9,7 +9,7 @@ import { useAppSelector } from "./store";
 import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./features/users/AllRoutes";
-import {getUsers} from "./services/apiUsers"
+import {getMessages, getUsers} from "./services/apiUsers"
 const API_URL = "http://localhost:3001";
 
 function App() {
@@ -18,8 +18,7 @@ function App() {
   let { isRegister } = useAppSelector((store) => store.user);
 
   useEffect(() => {
-    getUsers().then((data) => {
-      console.log("usefect19", data);
+    getUsers().then((data) => {     
       dispatch(setUsers(data))}) //
     .catch((error) => console.error("Error fetching users:", error));
 
@@ -35,10 +34,14 @@ function App() {
       .then((response) => response.json())
       .then((data) => dispatch(setGroupMessages(data)))
       .catch((error) => console.error("Error fetching users:", error));
-    fetch(`${API_URL}/messages`)
-      .then((response) => response.json())
-      .then((data) => dispatch(setMessages(data)))
-      .catch((error) => console.error("Error fetching messages:", error));
+
+    getMessages().then(data=> dispatch(setMessages(data)))
+    .catch(error=> console.error("Error fetching messages :", error));
+
+    // fetch(`${API_URL}/messages`)
+    //   .then((response) => response.json())
+    //   .then((data) => dispatch(setMessages(data)))
+    //   .catch((error) => console.error("Error fetching messages:", error));
   }, [dispatch,isRegister]);
 
   return (
