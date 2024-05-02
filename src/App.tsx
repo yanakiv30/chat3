@@ -15,9 +15,12 @@ const API_URL = "http://localhost:3001";
 function App() {
   const dispatch = useDispatch();
   const { loggedInUser } = useAppSelector((store) => store.user);
+  let { isRegister } = useAppSelector((store) => store.user);
 
   useEffect(() => {
-    getUsers().then((data) => dispatch(setUsers(data))) //
+    getUsers().then((data) => {
+      console.log("usefect19", data);
+      dispatch(setUsers(data))}) //
     .catch((error) => console.error("Error fetching users:", error));
 
     // fetch(`${API_URL}/users`)
@@ -36,7 +39,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => dispatch(setMessages(data)))
       .catch((error) => console.error("Error fetching messages:", error));
-  }, [dispatch]);
+  }, [dispatch,isRegister]);
 
   return (
     <Router>

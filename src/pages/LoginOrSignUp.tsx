@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { setLoggedInUser, addUser } from "../features/users/userSlice";
+import { setLoggedInUser, addUser ,setIsRegister} from "../features/users/userSlice";
 import { useAppSelector } from "../store";
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -11,8 +11,9 @@ const API_URL = "http://localhost:3001";
 export default function LoginOrSignUp() {
   const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
-  const [isPressedRegister, setIsPressedRegister] = useState(false);
-
+  //const [isPressedRegister, setIsPressedRegister] = useState(false);
+  let { isRegister } = useAppSelector((store) => store.user);
+  console.log(isRegister);
   function handleLogin(username: string, password: string) {
     const user = users.find(
       (u) => u.username === username && u.password === password
@@ -24,7 +25,7 @@ export default function LoginOrSignUp() {
     }
   }
 
-  async function handleSignUp(newUsername: string, newPassword: string) {
+  async function handleSignUp(newUsername: string, newPassword: string,) {
     if (users.some((user) => user.username === newUsername)) {
       alert("This username already exists!");
       return;
@@ -56,24 +57,25 @@ export default function LoginOrSignUp() {
       console.error(error);
       throw new Error("Users could not be loaded");
     }
-
+      console.log("from await 59",data);
       dispatch(addUser(data));
       
-     dispatch(setLoggedInUser(data));
+     //dispatch(setLoggedInUser(data));
     } catch (error) {
       console.error("Error creating user:", error);
     }
-
-   
+   dispatch(setIsRegister(false));
+  //  setIsPressedRegister(false);
+   console.log("isRegister from Login/signUp",isRegister);
   }
  
 
   return (
     <div className="background-login">
-      {!isPressedRegister ? (
+      {!isRegister ? (
         <Login
           handleLogin={handleLogin}
-          setIsPressedRegister={setIsPressedRegister}
+          
         />
       ) : (
         <SignUp handleSignUp={handleSignUp} />
