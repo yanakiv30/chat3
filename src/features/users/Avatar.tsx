@@ -1,7 +1,7 @@
 interface AvatarProps{name:string}
 
 function Avatar({ name }:AvatarProps) {
-  const firstLetter = name[0].toUpperCase();
+const firstLetter = name ? name[0].toUpperCase():"Z" ;
   
 
   return <div className="avatar">{firstLetter}</div>;

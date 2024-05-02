@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { setLoggedInUser, addUser } from "../features/users/userSlice";
@@ -58,11 +58,15 @@ export default function LoginOrSignUp() {
     }
 
       dispatch(addUser(data));
-      dispatch(setLoggedInUser(data));
+      
+     dispatch(setLoggedInUser(data));
     } catch (error) {
       console.error("Error creating user:", error);
     }
+
+   
   }
+ 
 
   return (
     <div className="background-login">
