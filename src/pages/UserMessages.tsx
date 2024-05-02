@@ -5,9 +5,13 @@ import Avatar from "../features/users/Avatar";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../store";
-import { newMessageObjectFunc, searchedMessageFunc } from "../utils/messageUtils";
+import {
+  newMessageObjectFunc,
+  searchedMessageFunc,
+} from "../utils/messageUtils";
 import UserMessagesContainer from "../features/users/UserMessagesContainer";
 import SendUserMessage from "../features/users/SendUserMessage";
+import supabase from "../services/supabase";
 const API_URL = "http://localhost:3001";
 
 function UserMessages() {
@@ -20,23 +24,40 @@ function UserMessages() {
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId)?.username;
 
-  function handleSendMessage() {
+  async function handleSendMessage() {
     if (newMessage.trim() !== "") {
       const newMessageObject = newMessageObjectFunc(
         loggedInUser,
         userInListId,
         newMessage
       );
-      fetch(`${API_URL}/messages`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newMessageObject),
-      })
-        .then((response) => response.json())
-        .then((data) => dispatch(addMessage(data)))
-        .catch((error) => console.error("Error posting message:", error));
+
+      try{
+        const { data, error } = await supabase
+        .from("messages")
+        .insert(newMessageObject)
+        .select();
+        if(error) {
+          console.error(error);
+          throw new Error("Messages could not be loaded");
+        }
+        dispatch(addMessage(data));
+
+      } catch (error) {
+        console.error("Error posting message:", error);
+      }
+      
+
+      // fetch(`${API_URL}/messages`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(newMessageObject),
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => dispatch(addMessage(data)))
+      //   .catch((error) => console.error("Error posting message:", error));
       setNewMessage("");
     }
   }
@@ -70,14 +91,17 @@ function UserMessages() {
           <h4>{userName ? userName : ""}</h4>
           <SearchInMessage />
         </div>
-        <UserMessagesContainer          
+        <UserMessagesContainer
           loggedInUser={loggedInUser}
-          userInListId={userInListId}          
+          userInListId={userInListId}
           handleDeleteMessages={handleDeleteMessages}
           searchedMessage={searchedMessage}
         />
-        <SendUserMessage newMessage={newMessage} setNewMessage={setNewMessage}
-         handleSendMessage={handleSendMessage}/>
+        <SendUserMessage
+          newMessage={newMessage}
+          setNewMessage={setNewMessage}
+          handleSendMessage={handleSendMessage}
+        />
       </div>
     </div>
   );
