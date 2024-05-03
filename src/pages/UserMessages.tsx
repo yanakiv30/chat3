@@ -26,7 +26,7 @@ function UserMessages() {
   const params = useParams();
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId)?.username;
- console.log("isLoading-1 : ",isLoading);
+
   async function handleSendMessage() {
     if (newMessage.trim() !== "") {
       const newMessageObject = newMessageObjectFunc(
@@ -35,9 +35,9 @@ function UserMessages() {
         newMessage
       );
 
-      dispatch(setIsLoading(true));      
+      dispatch(setIsLoading(true));
       try {
-        const { data, error } = await supabase 
+        const { data, error } = await supabase
           .from("messages")
           .insert(newMessageObject)
           .select();
@@ -50,7 +50,7 @@ function UserMessages() {
         console.error("Error posting message:", error);
       } finally {
         dispatch(setIsLoading(false));
-      }      
+      }
       // fetch(`${API_URL}/messages`, {
       //   method: "POST",
       //   headers: {
@@ -70,21 +70,21 @@ function UserMessages() {
     dispatch(setMessages(updatedMessages));
 
     dispatch(setIsLoading(true));
-    try{
-    const { error } = await supabase
-    .from('messages')
-    .delete()
-    .eq('id', idForDelete)
-    if (error) {
-      console.error(error);
-      throw new Error("Messages could not be deleted");
+    try {
+      const { error } = await supabase
+        .from("messages")
+        .delete()
+        .eq("id", idForDelete);
+      if (error) {
+        console.error(error);
+        throw new Error("Messages could not be deleted");
+      }
+      dispatch(setMessages(updatedMessages));
+    } catch (error) {
+      console.error("Error deleting message:", error);
+    } finally {
+      dispatch(setIsLoading(false));
     }
-    dispatch(setMessages(updatedMessages));
-  } catch (error) {
-    console.error("Error deleting message:", error);
-  } finally {
-    dispatch(setIsLoading(false));
-  }
     // fetch(`${API_URL}/messages/${idForDelete}`, {
     //   method: "DELETE",
     // })

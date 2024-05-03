@@ -2,6 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { setGroups } from "../features/groups/groupSlice";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
+import supabase from "../services/supabase";
+import { setIsLoading } from "../features/users/userSlice";
+import { Audio } from 'react-loader-spinner';
 const API_URL = "http://localhost:3001";
 
 export default function SettingsGroup() {
@@ -16,25 +19,43 @@ export default function SettingsGroup() {
   }
   function deleteUser(member: string) {
     alert("Missing code for deleting ");
-  }
-  function deleteGroup(groupId: string) {
-    fetch(`${API_URL}/groups/${groupId}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then(() => {
-        dispatch(setGroups(groups.filter((group) => group.id !== groupId)));
-      })
-      .catch((error) => console.error("Error deleting group:", error));
+  } 
+
+  async function deleteGroup(groupId: string) {
+    dispatch(setIsLoading(true));
+    try {
+      const { error } = await supabase
+        .from("groups")
+        .delete()
+        .eq("id", groupId);
+      if (error) {
+        console.error(error);
+        throw new Error("Group could not be deleted");
+      }     
+    } catch (error) {
+      console.error("Error deleting group:", error);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+
+    // fetch(`${API_URL}/groups/${groupId}`, {
+    //   method: "DELETE",
+    // })
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error("Network response was not ok");
+    //     }
+    //     return response.json();
+    //   })
+    //   .then(() => {
+    //     dispatch(setGroups(groups.filter((group) => group.id !== groupId)));
+    //   })
+    //   .catch((error) => console.error("Error deleting group:", error));
   }
 
   return (
     <div className="settings">
+
       <p>
         Settings {groupToSet}
         <button onClick={() => navigate("/userOptions")}>X</button>

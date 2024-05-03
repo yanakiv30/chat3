@@ -52,6 +52,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
+        {isLoading && <p style={{ fontSize: '10px' }}>Loading ...</p>}
         {loggedInUser ? (
           <div className="main-container">
             <ChatMembersList />
