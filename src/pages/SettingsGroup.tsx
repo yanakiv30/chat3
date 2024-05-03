@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
 import { setIsLoading } from "../features/users/userSlice";
-import { Audio } from 'react-loader-spinner';
+
 const API_URL = "http://localhost:3001";
 
 export default function SettingsGroup() {

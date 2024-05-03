@@ -11,6 +11,7 @@ import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./features/users/AllRoutes";
 import { getMessages, getUsers } from "./services/apiUsers";
 import { getGroupMessages, getGroups } from "./services/apiGroups";
+import Spinner from "./utils/Spinner";
 const API_URL = "http://localhost:3001";
 
 function App() {
@@ -51,10 +52,10 @@ function App() {
 
   return (
     <Router>
-      <div className="app-container">
-        {isLoading && <p style={{ fontSize: '10px' }}>Loading ...</p>}
+      <div className="app-container">       
+        {isLoading && <Spinner/>}
         {loggedInUser ? (
-          <div className="main-container">
+          <div className="main-container">           
             <ChatMembersList />
             <AllRoutes />
           </div>
