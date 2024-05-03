@@ -35,10 +35,9 @@ function UserMessages() {
         newMessage
       );
 
-      dispatch(setIsLoading(true));
-      console.log("isLoading-2 : ",isLoading);
+      dispatch(setIsLoading(true));      
       try {
-        const { data, error } = await supabase
+        const { data, error } = await supabase 
           .from("messages")
           .insert(newMessageObject)
           .select();
@@ -51,8 +50,7 @@ function UserMessages() {
         console.error("Error posting message:", error);
       } finally {
         dispatch(setIsLoading(false));
-      }
-      console.log("isLoading-3 : ",isLoading);
+      }      
       // fetch(`${API_URL}/messages`, {
       //   method: "POST",
       //   headers: {
@@ -71,7 +69,7 @@ function UserMessages() {
     const updatedMessages = messages.filter((x) => x.id !== idForDelete);
     dispatch(setMessages(updatedMessages));
 
-    console.log("isLoading-4 : ",isLoading);
+    dispatch(setIsLoading(true));
     try{
     const { error } = await supabase
     .from('messages')
@@ -87,9 +85,6 @@ function UserMessages() {
   } finally {
     dispatch(setIsLoading(false));
   }
-  console.log("isLoading-5 : ",isLoading);
-
-
     // fetch(`${API_URL}/messages/${idForDelete}`, {
     //   method: "DELETE",
     // })
