@@ -7,6 +7,8 @@ import { v4 as uuid } from "uuid";
 
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store";
+import supabase from "../services/supabase";
+import { setIsLoading } from "../features/users/userSlice";
 
 const API_URL = "http://localhost:3001";
 
@@ -15,9 +17,7 @@ function CheckboxList() {
   const navigate = useNavigate();
 
   let { users, loggedInUser } = useAppSelector((store) => store.user);
-  let { groups } = useAppSelector((store) => store.group);
-  //  console.log(groups,users, loggedInUser);
-  // const [checkedItems, setCheckedItems] = useState({});
+  let { groups } = useAppSelector((store) => store.group); 
   const [groupName, setGroupName] = useState("");
 
   let names: string[] = [];
@@ -37,7 +37,7 @@ function CheckboxList() {
     (key: string) => checkedItems[key] === true
   );
 
-  function handleSetGroups() {
+  async function handleSetGroups() {
     const isDuplicate = groups?.some((obj) => obj.name === groupName);
 
     if (!isDuplicate && loggedInUser) {
@@ -48,16 +48,32 @@ function CheckboxList() {
         admin: loggedInUser.username,
       };
 
-      fetch(`${API_URL}/groups`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newGroup),
-      })
-        .then((response) => response.json())
-        .then((data) => dispatch(addGroup(data)))
-        .catch((error) => console.error("Error posting message:", error));
+    dispatch(setIsLoading(true));      
+      try {
+        const { data, error } = await supabase 
+          .from('groups')
+          .insert(newGroup)
+          .select();
+        if (error) {
+          console.error(error);
+          throw new Error("New group could not be loaded");
+        }
+        dispatch(addGroup(data));
+      } catch (error) {
+        console.error("Error creating new group:", error);
+      } finally {
+        dispatch(setIsLoading(false));
+      }   
+      // fetch(`${API_URL}/groups`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(newGroup),
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => dispatch(addGroup(data)))
+      //   .catch((error) => console.error("Error posting message:", error));
     } else {
       alert("Duplicate name");
     }

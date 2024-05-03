@@ -48,21 +48,19 @@ export default function GroupMessages() {
       dispatch(setIsLoading(true));      
       try {
         const { data, error } = await supabase 
-          .from("messages")
+          .from("groupMessages")
           .insert(newGroupMessageObject)
           .select();
         if (error) {
           console.error(error);
-          throw new Error("Messages could not be loaded");
+          throw new Error("Group Messages could not be loaded");
         }
         dispatch(addGroupMessage(data));
       } catch (error) {
-        console.error("Error posting message:", error);
+        console.error("Error creating Group message:", error);
       } finally {
         dispatch(setIsLoading(false));
-      }      
-
-      
+      }          
       // fetch(`${API_URL}/groupMessages`, {
       //   method: "POST",
       //   headers: {
