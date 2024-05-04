@@ -5,15 +5,14 @@ import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
 import { setIsLoading } from "../features/users/userSlice";
 import { useState } from "react";
-
-const API_URL = "http://localhost:3001";
-
 export default function SettingsGroup() {
+  const params = useParams();
+  const groupInListId = params.groupId;
   const [updateName, setUpdateName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { groups } = useAppSelector((store) => store.group);
-  const params = useParams();
+  const groupMemebers = groups.find((x) => x.id === groupInListId)?.members; 
   const idSettings = params.groupId;
   const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
 
@@ -94,44 +93,38 @@ export default function SettingsGroup() {
       dispatch(setIsLoading(false));
     }
 
-    // fetch(`${API_URL}/groups/${groupId}`, {
-    //   method: "DELETE",
-    // })
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error("Network response was not ok");
-    //     }
-    //     return response.json();
-    //   })
-    //   .then(() => {
-    //     dispatch(setGroups(groups.filter((group) => group.id !== groupId)));
-    //   })
-    //   .catch((error) => console.error("Error deleting group:", error));
+    
   }
 
   return (
     <div className="settings">
-      <p>
-        Settings {groupToSet}
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        {groupToSet}
         <button onClick={() => navigate("/userOptions")}>X</button>
-      </p>
+      </div>
+      <p> members: {groupMemebers!.join(", ")}</p>
       <br></br>
       <div className="wrapper">
-        <button onClick={() => addUser}>Add User</button>
         <div>
           <input
-            style={{width: "50%"}}
+            style={{ width: "50%" }}
             type="text"
             value={updateName}
-            onChange={(e) => setUpdateName(e.target.value)}           
+            onChange={(e) => setUpdateName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                changeGroupName(idSettings!);
+              }
+            }}
             placeholder="New group name .."
           />
-           <button onClick={() => changeGroupName(idSettings!)}>
-          Change Group Name
-        </button>
+          <button onClick={() => changeGroupName(idSettings!)}>
+            Update name
+          </button>
         </div>
+        <button onClick={() => addUser}>Add new member </button>
 
-       
         <ul>
           {groups
             .filter((group) => group.id === idSettings)[0]
@@ -141,13 +134,15 @@ export default function SettingsGroup() {
                 <div>
                   <br></br>
                   <button onClick={() => deleteUser(idSettings!, member)}>
-                    Delete {member}
+                    Delete member {member}
                   </button>
                 </div>
               </li>
             ))}
         </ul>
-        <button onClick={() => deleteGroup(idSettings!)}>Delete Group</button>
+        <button onClick={() => deleteGroup(idSettings!)}>
+          Delete the entire group
+        </button>
       </div>
     </div>
   );

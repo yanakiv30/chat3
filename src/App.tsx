@@ -52,8 +52,9 @@ function App() {
 
   return (
     <Router>
-      <div className="app-container">       
+      <div className="app-container" style={{ position: "relative" }}>       
         {isLoading && <Spinner/>}
+
         {loggedInUser ? (
           <div className="main-container">           
             <ChatMembersList />

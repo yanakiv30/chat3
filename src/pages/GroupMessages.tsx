@@ -24,7 +24,7 @@ export default function GroupMessages() {
   const params = useParams();
   const groupInListId = params.groupId;
   const grName = groups.find((x) => x.id === groupInListId)?.name;
-  const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
+  const groupMemebers = groups.find((x) => x.id === groupInListId)?.members; 
   const dispatch = useDispatch();   
 
   async function handleSendGroupMessage() {
@@ -60,18 +60,7 @@ export default function GroupMessages() {
         console.error("Error creating Group message:", error);
       } finally {
         dispatch(setIsLoading(false));
-      }          
-      // fetch(`${API_URL}/groupMessages`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(newGroupMessageObject),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => dispatch(addGroupMessage(data))) //setGroupMessages(data)
-      //   .catch((error) => console.error("Error posting message:", error));
-
+      }      
       setNewGroupMessage("");
     }
   }
@@ -96,16 +85,7 @@ export default function GroupMessages() {
   } finally {
     dispatch(setIsLoading(false));
   }
-
     
-    // fetch(`${API_URL}/groupMessages/${idForDelete}`, {
-    //   method: "DELETE",
-    // })
-    //   .then((response) => response.json())
-    //   .then(() => {
-    //     dispatch(setGroupMessages(updatedMessages));
-    //   })
-    //   .catch((error) => console.error("Error deleting message:", error));
   }
 
   const searchedGroupMessages = searchedGroupMessagesFunc(groupMessages, 
