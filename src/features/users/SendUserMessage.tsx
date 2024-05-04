@@ -17,8 +17,7 @@ export default function SendUserMessage({
             handleSendMessage();
           }
         }}
-        placeholder="Type your message..."
-      />
+        placeholder="Type your message..."      />
       
       <button onClick={handleSendMessage}>Send</button>
     </div>
