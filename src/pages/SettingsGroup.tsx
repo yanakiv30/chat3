@@ -14,11 +14,69 @@ export default function SettingsGroup() {
   const params = useParams();
   const idSettings = params.groupId;
   const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
-  function addUser() {
-    alert("Missing code for adding users");
+
+async function changeGroupName(groupId: string) {
+
+  dispatch(setIsLoading(true));
+  try {
+    const { error } = await supabase
+      .from("groups")
+      .update({ name: 'nem-update' })
+      .eq("id", groupId)
+      .select();
+    if (error) {
+      console.error(error);
+      throw new Error("Group could not be deleted");
+    }     
+  } catch (error) {
+    console.error("Error deleting group:", error);
+  } finally {
+    dispatch(setIsLoading(false));
   }
-  function deleteUser(member: string) {
-    alert("Missing code for deleting ");
+}
+
+  async function addUser( ) {
+    alert("Missing code for adding users");
+
+//     const { data, error } = await supabase
+//     .from('groups')
+//     .update({ other_column: 'otherValue' })
+//     .eq('some_column', 'someValue')
+//     .select()
+  
+
+// const { data, error } = await supabase
+//   .from('users')
+//   .update({
+//     address: {
+//       street: 'Melrose Place',
+//       postcode: 90210
+//     }
+//   })
+//   .eq('address->postcode', 90210)
+//   .select()
+
+
+//     dispatch(setIsLoading(true));
+//     try {
+//       const { error } = await supabase
+//         .from("groups")
+//         .delete()
+//         .eq("id", groupId);
+//       if (error) {
+//         console.error(error);
+//         throw new Error("User could not be added");
+//       }     
+//     } catch (error) {
+//       console.error("Error adding user:", error);
+//     } finally {
+//       dispatch(setIsLoading(false));
+//     }
+
+  }
+
+  async function deleteUser( groupId: string ,member:string) {
+   console.log(member)
   } 
 
   async function deleteGroup(groupId: string) {
@@ -62,7 +120,8 @@ export default function SettingsGroup() {
       </p>
       <br></br>
       <div className="wrapper">
-        <button onClick={addUser}>Add User</button>
+        <button onClick={()=>addUser}>Add User</button>
+        <button onClick={()=>changeGroupName(idSettings!)}>Change Group Name</button>
         <ul>
           {groups
             .filter((group) => group.id === idSettings)[0]
@@ -71,7 +130,7 @@ export default function SettingsGroup() {
               <li key={member}>
                 <div>
                   <br></br>
-                  <button onClick={() => deleteUser(member)}>
+                  <button onClick={() => deleteUser(idSettings!,member)}>
                     Delete {member}
                   </button>
                 </div>
