@@ -87,15 +87,13 @@ console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
       console.error("Error deleting group:", error);
     } finally {
       dispatch(setIsLoading(false));
-    }
-
-    
+    }    
   }
 
   return (
     <div className="settings">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        {groupToSet}
+        Group: {groupToSet}
         <button onClick={() => navigate("/userOptions")}>X</button>
       </div>
       <p> members: {groupMemebers!.join(", ")}</p>
@@ -119,23 +117,7 @@ console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
             Update name
           </button>
         </div>
-        <button onClick={() => addUser(idSettings!,"pesho")}>Add new member </button>
 
-        <ul>
-          {groups
-            .filter((group) => group.id === idSettings)[0]
-            ?.members.slice(0, -1)
-            .map((member) => (
-              <li key={member}>
-                <div>
-                  <br></br>
-                  <button onClick={() => deleteUser(idSettings!, member)}>
-                    Delete member {member}
-                  </button>
-                </div>
-              </li>
-            ))}
-        </ul>
         <button onClick={() => deleteGroup(idSettings!)}>
           Delete the entire group
         </button>
