@@ -35,43 +35,39 @@ export default function SettingsGroup() {
     }
   }
 
-  async function addUser() {
-    alert("Missing code for adding users");
+  async function addUser(groupId: string,addedUser:string) {
+    dispatch(setIsLoading(true));
+console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
 
-    //     const { data, error } = await supabase
-    //     .from('groups')
-    //     .update({ other_column: 'otherValue' })
-    //     .eq('some_column', 'someValue')
-    //     .select()
+// const { data, error } = await supabase
+//   .from('users')
+//   .update({
+//     address: {
+//       street: 'Melrose Place',
+//       postcode: 90210
+//     }
+//   })
+//   .eq('address->postcode', 90210)
+//   .select()
 
-    // const { data, error } = await supabase
-    //   .from('users')
-    //   .update({
-    //     address: {
-    //       street: 'Melrose Place',
-    //       postcode: 90210
-    //     }
-    //   })
-    //   .eq('address->postcode', 90210)
-    //   .select()
+//.update({ members: "[...groups.filter(group=>group.id===idSettings)[0].members],addedUser "})
+    try {
+      const { error } = await supabase
+        .from("groups")
+        .update({ members: [...groups.filter(group=>group.id===idSettings)[0].members,addedUser]})
+        .eq("id", groupId)
+        .select();
+      if (error) {
+        console.error(error);
+        throw new Error("User could not be added");
+      }
+    } catch (error) {
+      console.error("Error adding  group:", error);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
 
-    //     dispatch(setIsLoading(true));
-    //     try {
-    //       const { error } = await supabase
-    //         .from("groups")
-    //         .delete()
-    //         .eq("id", groupId);
-    //       if (error) {
-    //         console.error(error);
-    //         throw new Error("User could not be added");
-    //       }
-    //     } catch (error) {
-    //       console.error("Error adding user:", error);
-    //     } finally {
-    //       dispatch(setIsLoading(false));
-    //     }
   }
-
   async function deleteUser(groupId: string, member: string) {
     console.log(member);
   }
@@ -107,7 +103,7 @@ export default function SettingsGroup() {
       <div className="wrapper">
         <div>
           <input
-            style={{ width: "50%" }}
+            style={{ width: "60%" }}
             type="text"
             value={updateName}
             onChange={(e) => setUpdateName(e.target.value)}
@@ -117,13 +113,13 @@ export default function SettingsGroup() {
                 changeGroupName(idSettings!);
               }
             }}
-            placeholder="New group name .."
+            placeholder="Change group name .."
           />
           <button onClick={() => changeGroupName(idSettings!)}>
             Update name
           </button>
         </div>
-        <button onClick={() => addUser}>Add new member </button>
+        <button onClick={() => addUser(idSettings!,"pesho")}>Add new member </button>
 
         <ul>
           {groups
