@@ -67,8 +67,9 @@ function UserMessages() {
     try {
       const { error } = await supabase
         .from("messages")
-        .delete()
-        .eq("id", "c8b028e6-54cd-4bf0-9108-390e1e01ca5f");
+        .update({content: "updated content" })
+        .eq("id", idForEdit)
+        .select();
       if (error) {
         console.error(error);
         throw new Error("Message could not be edited");
