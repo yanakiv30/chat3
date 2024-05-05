@@ -59,32 +59,7 @@ function UserMessages() {
     }
   }
 
-  async function handleEditMessages(idForEdit: string) {
-     dispatch(setIsEdit(true));
-     const mesContent= messages.filter(message=> message.id===idForEdit)[0].content;
-     console.log(mesContent);
-     setMesContent(mesContent);
-    //const updatedMessages = messages.filter((x) => x.id !== idForEdit);
-    //dispatch(setMessages(updatedMessages));
-    console.log("updatedMessage: ",updatedMessage);
-    console.log(idForEdit);
-    dispatch(setIsLoading(true));
-    try {
-      const { error } = await supabase
-        .from("messages")
-        .update({content: updatedMessage })
-        .eq("id", idForEdit)
-        .select();
-      if (error) {
-        console.error(error);
-        throw new Error("Message could not be edited");
-      }
-    } catch (error) {
-      console.error("Error editing message:", error);
-    } finally {
-      dispatch(setIsLoading(false));
-    }
-  }
+  
   async function handleDeleteMessages(idForDelete: string) {
     //const updatedMessages = messages.filter((x) => x.id !== idForDelete);
     // dispatch(setMessages(updatedMessages));
@@ -124,8 +99,7 @@ function UserMessages() {
         </div>
         <UserMessagesContainer
           loggedInUser={loggedInUser}
-          userInListId={userInListId}
-          handleEditMessages={handleEditMessages}
+          userInListId={userInListId}          
           handleDeleteMessages={handleDeleteMessages}
           searchedMessage={searchedMessage}
         />
