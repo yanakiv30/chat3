@@ -1,9 +1,13 @@
+import { useDispatch } from "react-redux";
+import { setIsEdit } from "./userSlice";
+
 export default function EditUserMessage({
   updatedMessage,
   setUpdatedMessage,
   handleEditMessage,
   mesContent
 }: any) {
+  const dispatch = useDispatch();
   return (
     <div className="message-send">
       <input
@@ -19,7 +23,7 @@ export default function EditUserMessage({
        // placeholder={mesContent}
       />
       
-      <button onClick={() => handleEditMessage("42886d5c-905f-4551-8565-c787ceca14b9")}>Update message</button>
+      <button onClick={() =>dispatch(setIsEdit(false)) }>Update message</button>
     </div>
   );
 }
