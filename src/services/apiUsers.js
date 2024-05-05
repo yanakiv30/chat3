@@ -27,7 +27,7 @@ export async function insertUsers() {
 export async function getMessages() {
   const { data, error } = await supabase
   .from('messages')
-  .select('*');
+  .select('*')  
   if(error) 
   {console.log(error);
     throw new Error("Messages could not be loaded");

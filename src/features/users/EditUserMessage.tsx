@@ -41,9 +41,9 @@ export default function EditUserMessage() {
     <div className="message-send">
       <input
         type="text"
-        value={updateContent}
+        value={updateContent||mesContent}
         onChange={(e) => setUpdateContent(e.target.value || mesContent)}
-        placeholder={mesContent}
+        placeholder=""
       />
 
       <button onClick={() => edit(messageId)}>Update message</button>
