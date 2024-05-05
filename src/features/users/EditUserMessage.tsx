@@ -36,6 +36,7 @@ export default function EditUserMessage() {
     console.log("mesContent : ",mesContent)
     dispatch(setIsEdit(false));
   }
+  
   return (
     <div className="message-send">
       <input

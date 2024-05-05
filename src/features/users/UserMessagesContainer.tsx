@@ -27,7 +27,7 @@ export default function UserMessagesContainer({
 
   const messageContent = messages.filter(
     (message) => message.id === messageId
-  )[0].content;
+  )[0]?.content;
   dispatch(setMesContent(messageContent));
 
   console.log("messageId", messageId);
