@@ -20,6 +20,7 @@ import supabase from "../services/supabase";
 import EditUserMessage from "../features/users/EditUserMessage";
 
 function UserMessages() {
+  const [mesContent, setMesContent] =useState("");
   const dispatch = useDispatch();
   const { searchMessage, loggedInUser, isLoading, messages, users, isEdit } =
     useAppSelector((store) => store.user);
@@ -62,6 +63,7 @@ function UserMessages() {
      dispatch(setIsEdit(true));
      const mesContent= messages.filter(message=> message.id===idForEdit)[0].content;
      console.log(mesContent);
+     setMesContent(mesContent);
     //const updatedMessages = messages.filter((x) => x.id !== idForEdit);
     //dispatch(setMessages(updatedMessages));
     console.log("updatedMessage: ",updatedMessage);
@@ -138,6 +140,7 @@ function UserMessages() {
             updatedMessage={updatedMessage}
             setUpdatedMessage={setUpdatedMessage}
             handleEditMessage={handleSendMessage}
+            mesContent= {mesContent}
           />
         )}
       </div>
