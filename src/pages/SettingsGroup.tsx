@@ -17,6 +17,7 @@ export default function SettingsGroup() {
   const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
 
   async function changeGroupName(groupId: string) {
+  
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
@@ -39,18 +40,7 @@ export default function SettingsGroup() {
     dispatch(setIsLoading(true));
 console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
 
-// const { data, error } = await supabase
-//   .from('users')
-//   .update({
-//     address: {
-//       street: 'Melrose Place',
-//       postcode: 90210
-//     }
-//   })
-//   .eq('address->postcode', 90210)
-//   .select()
 
-//.update({ members: "[...groups.filter(group=>group.id===idSettings)[0].members],addedUser "})
     try {
       const { error } = await supabase
         .from("groups")
@@ -92,11 +82,14 @@ console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
 
   return (
     <div className="settings">
+      <div style={{backgroundColor:"yellow", borderRadius: "7px"}}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         Group: {groupToSet}
         <button onClick={() => navigate("/userOptions")}>X</button>
       </div>
       <p> members: {groupMemebers!.join(", ")}</p>
+      </div>
+      
       <br></br>
       <div className="wrapper">
         <div>

@@ -2,6 +2,7 @@ import {
   setMessages,
   addMessage,
   setIsLoading,
+  setIsEdit,
 } from "../features/users/userSlice";
 import { useParams } from "react-router-dom";
 import SearchInMessage from "../features/users/SearchInMessage";
@@ -16,13 +17,14 @@ import {
 import UserMessagesContainer from "../features/users/UserMessagesContainer";
 import SendUserMessage from "../features/users/SendUserMessage";
 import supabase from "../services/supabase";
-const API_URL = "http://localhost:3001";
+import EditUserMessage from "../features/users/EditUserMessage";
 
 function UserMessages() {
   const dispatch = useDispatch();
-  const { searchMessage, loggedInUser, isLoading, messages, users } =
+  const { searchMessage, loggedInUser, isLoading, messages, users, isEdit } =
     useAppSelector((store) => store.user);
   const [newMessage, setNewMessage] = useState("");
+
   const params = useParams();
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId)?.username;
@@ -51,23 +53,35 @@ function UserMessages() {
       } finally {
         dispatch(setIsLoading(false));
       }
-      // fetch(`${API_URL}/messages`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(newMessageObject),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => dispatch(addMessage(data)))
-      //   .catch((error) => console.error("Error posting message:", error));
+
       setNewMessage("");
     }
   }
 
+  async function handleEditMessages(idForEdit: string) {
+    // dispatch(setIsEdit(true));
+    //const updatedMessages = messages.filter((x) => x.id !== idForEdit);
+    //dispatch(setMessages(updatedMessages));
+    console.log(idForEdit);
+    dispatch(setIsLoading(true));
+    try {
+      const { error } = await supabase
+        .from("messages")
+        .delete()
+        .eq("id", "c8b028e6-54cd-4bf0-9108-390e1e01ca5f");
+      if (error) {
+        console.error(error);
+        throw new Error("Message could not be edited");
+      }
+    } catch (error) {
+      console.error("Error editing message:", error);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  }
   async function handleDeleteMessages(idForDelete: string) {
     const updatedMessages = messages.filter((x) => x.id !== idForDelete);
-    dispatch(setMessages(updatedMessages));
+    // dispatch(setMessages(updatedMessages));
 
     dispatch(setIsLoading(true));
     try {
@@ -79,20 +93,12 @@ function UserMessages() {
         console.error(error);
         throw new Error("Messages could not be deleted");
       }
-      dispatch(setMessages(updatedMessages));
+      //dispatch(setMessages(updatedMessages));
     } catch (error) {
       console.error("Error deleting message:", error);
     } finally {
       dispatch(setIsLoading(false));
     }
-    // fetch(`${API_URL}/messages/${idForDelete}`, {
-    //   method: "DELETE",
-    // })
-    //   .then((response) => response.json())
-    //   .then(() => {
-    //     dispatch(setMessages(updatedMessages));
-    //   })
-    //   .catch((error) => console.error("Error deleting message:", error));
   }
 
   const searchedMessage = searchedMessageFunc(
@@ -113,14 +119,23 @@ function UserMessages() {
         <UserMessagesContainer
           loggedInUser={loggedInUser}
           userInListId={userInListId}
+          handleEditMessages={handleEditMessages}
           handleDeleteMessages={handleDeleteMessages}
           searchedMessage={searchedMessage}
         />
-        <SendUserMessage
-          newMessage={newMessage}
-          setNewMessage={setNewMessage}
-          handleSendMessage={handleSendMessage}
-        />
+        {!isEdit ? (
+          <SendUserMessage
+            newMessage={newMessage}
+            setNewMessage={setNewMessage}
+            handleSendMessage={handleSendMessage}
+          />
+        ) : (
+          <EditUserMessage
+            newMessage={newMessage}
+            setNewMessage={setNewMessage}
+            handleEditMessage={handleSendMessage}
+          />
+        )}
       </div>
     </div>
   );

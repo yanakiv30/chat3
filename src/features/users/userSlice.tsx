@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
- isRegister:false, isLoading:false,
+ isRegister:false, isLoading:false,isEdit:false,
   users: [] as { id: string; username: string; password: string }[],
   loggedInUser: null as { username: string; id: string } | null,  
   messages: [] as {
@@ -23,6 +23,9 @@ const userSlice = createSlice({
   reducers: {
     setIsLoading(state, action) {
       state.isLoading = action.payload;
+    },
+    setIsEdit(state, action) {
+      state.isEdit = action.payload;
     },
     setIsRegister(state, action) {
       state.isRegister = action.payload;
@@ -59,7 +62,8 @@ export const {
   setSearchQuery,
   setSearchMessage,
   setIsRegister,
-  setIsLoading
+  setIsLoading,
+  setIsEdit
   
 } = userSlice.actions;
 export default userSlice.reducer;
