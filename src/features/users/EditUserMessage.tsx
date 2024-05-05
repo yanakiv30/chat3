@@ -1,61 +1,51 @@
 import { useDispatch } from "react-redux";
-import { setIsEdit, setIsLoading } from "./userSlice";
+import { setIsEdit, setIsLoading, setMesContent } from "./userSlice";
 import { useAppSelector } from "../../store";
 import supabase from "../../services/supabase";
+import { useState } from "react";
 
-export default function EditUserMessage({
-  updatedMessage,
-  setUpdatedMessage,
-  mesContent
-}: any) {
-
+export default function EditUserMessage() {
   const dispatch = useDispatch();
-  const { messageId,messages } = useAppSelector((store) => store.user);
+  const { messageId, messages, mesContent } = useAppSelector((store) => store.user);
+  const [updateContent, setUpdateContent] = useState("");
   
   async function handleEditMessage(idForEdit: string) {
+    
+
     dispatch(setIsEdit(true));
-    const mesContent= messages.filter(message=> message.id===idForEdit)[0].content;
-    console.log(mesContent);
-    //setMesContent(mesContent);
-   //const updatedMessages = messages.filter((x) => x.id !== idForEdit);
-   //dispatch(setMessages(updatedMessages));
-   //console.log("updatedMessage: ",updatedMessage);
-   console.log(idForEdit);
-   dispatch(setIsLoading(true));
-   try {
-     const { error } = await supabase
-       .from("messages")
-       .update({content: "default" })
-       .eq("id", idForEdit)
-       .select();
-     if (error) {
-       console.error(error);
-       throw new Error("Message could not be edited");
-     }
-   } catch (error) {
-     console.error("Error editing message:", error);
-   } finally {
-     dispatch(setIsLoading(false));
-   }
- }
+    dispatch(setIsLoading(true));
+    try {
+      const { error } = await supabase
+        .from("messages")
+        .update({ content: updateContent })
+        .eq("id", idForEdit)
+        .select();
+      if (error) {
+        console.error(error);
+        throw new Error("Message could not be edited");
+      }
+    } catch (error) {
+      console.error("Error editing message:", error);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  }
 
-
-  function edit(id:string){
+  function edit(id: string) {
     handleEditMessage(id);
-
-    dispatch(setIsEdit(false))
+    console.log("mesContent : ",mesContent)
+    dispatch(setIsEdit(false));
   }
   return (
     <div className="message-send">
       <input
         type="text"
-        value={updatedMessage|| mesContent}
-        onChange={(e) => setUpdatedMessage(e.target.value||mesContent)}
-       
-       // placeholder={mesContent}
+        value={updateContent}
+        onChange={(e) => setUpdateContent(e.target.value || mesContent)}
+        placeholder={mesContent}
       />
-      
-      <button onClick={() =>edit(messageId) }>Update message</button>
+
+      <button onClick={() => edit(messageId)}>Update message</button>
     </div>
   );
 }

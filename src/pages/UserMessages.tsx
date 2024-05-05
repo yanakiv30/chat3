@@ -110,12 +110,7 @@ function UserMessages() {
             handleSendMessage={handleSendMessage}
           />
         ) : (
-          <EditUserMessage
-            updatedMessage={updatedMessage}
-            setUpdatedMessage={setUpdatedMessage}
-            handleEditMessage={handleSendMessage}
-            mesContent= {mesContent}
-          />
+          <EditUserMessage />
         )}
       </div>
     </div>

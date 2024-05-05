@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { rightMessage } from "../../utils/messageUtils";
-import { setIsEdit, setMessageId } from "./userSlice";
+import { setIsEdit, setMesContent, setMessageId } from "./userSlice";
 import { useAppSelector } from "../../store";
 
 export default function UserMessagesContainer({
@@ -10,16 +10,26 @@ export default function UserMessagesContainer({
   handleDeleteMessages,
   searchedMessage,
 }: any) {
-  const { messageId } = useAppSelector((store) => store.user);
+
+  const { messageId,mesContent,messages } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
+ 
+  
   if (!Array.isArray(searchedMessage)) {
     return <div>No messages found</div>;
   }
   function editOnId(messageId: string) {
     console.log("messageId", messageId);
     dispatch(setMessageId(messageId));
+    console.log(mesContent);
     dispatch(setIsEdit(true));
   }
+
+  const messageContent = messages.filter(
+    (message) => message.id === messageId
+  )[0].content;
+  dispatch(setMesContent(messageContent));
+
   console.log("messageId", messageId);
   return (
     <ul className="messages-container">
