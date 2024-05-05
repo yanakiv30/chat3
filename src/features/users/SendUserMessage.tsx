@@ -12,7 +12,7 @@ export default function SendUserMessage({
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
-            handleSendMessage();
+            handleSendMessage(); 
           }
         }}
         placeholder="Type your message..."

@@ -24,7 +24,7 @@ function UserMessages() {
   const { searchMessage, loggedInUser, isLoading, messages, users, isEdit } =
     useAppSelector((store) => store.user);
   const [newMessage, setNewMessage] = useState("");
-
+  const [updatedMessage, setUpdatedMessage] = useState("");
   const params = useParams();
   const userInListId = params.userId;
   const userName = users.find((x) => x.id === userInListId)?.username;
@@ -59,15 +59,18 @@ function UserMessages() {
   }
 
   async function handleEditMessages(idForEdit: string) {
-    // dispatch(setIsEdit(true));
+     dispatch(setIsEdit(true));
+     const mesContent= messages.filter(message=> message.id===idForEdit)[0].content;
+     console.log(mesContent);
     //const updatedMessages = messages.filter((x) => x.id !== idForEdit);
     //dispatch(setMessages(updatedMessages));
+    console.log("updatedMessage: ",updatedMessage);
     console.log(idForEdit);
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
         .from("messages")
-        .update({content: "updated content" })
+        .update({content: updatedMessage })
         .eq("id", idForEdit)
         .select();
       if (error) {
@@ -81,7 +84,7 @@ function UserMessages() {
     }
   }
   async function handleDeleteMessages(idForDelete: string) {
-    const updatedMessages = messages.filter((x) => x.id !== idForDelete);
+    //const updatedMessages = messages.filter((x) => x.id !== idForDelete);
     // dispatch(setMessages(updatedMessages));
 
     dispatch(setIsLoading(true));
@@ -132,8 +135,8 @@ function UserMessages() {
           />
         ) : (
           <EditUserMessage
-            newMessage={newMessage}
-            setNewMessage={setNewMessage}
+            updatedMessage={updatedMessage}
+            setUpdatedMessage={setUpdatedMessage}
             handleEditMessage={handleSendMessage}
           />
         )}

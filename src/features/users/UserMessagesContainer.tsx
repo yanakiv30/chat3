@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux";
 import { rightMessage } from "../../utils/messageUtils";
+import { setIsEdit } from "./userSlice";
 
 export default function UserMessagesContainer({
   loggedInUser,
@@ -6,11 +8,14 @@ export default function UserMessagesContainer({
   handleEditMessages,
   handleDeleteMessages,
   searchedMessage,
-}: any) {
+}: any) 
+
+{
+  const dispatch = useDispatch();
   if (!Array.isArray(searchedMessage)) {
     return <div>No messages found</div>;
   }
-
+  
   return (
     <ul className="messages-container">
       {searchedMessage.map((message, index) => (
@@ -39,8 +44,8 @@ export default function UserMessagesContainer({
               <div style={{display:"flex", gap: "7px"}}>
                 <button
                   className="date"
-                  onClick={() => handleEditMessages(message.id)}
-                >
+                  onClick={() =>handleEditMessages(message.id) }
+                >                  
                   Edit
                 </button> 
 
