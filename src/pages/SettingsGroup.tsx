@@ -21,7 +21,7 @@ export default function SettingsGroup() {
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
-        .from("groups")
+        .from("groups0")
         .update({ name: `${updateName}` })
         .eq("id", groupId)
         .select();
@@ -43,7 +43,7 @@ console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
 
     try {
       const { error } = await supabase
-        .from("groups")
+        .from("groups0")
         .update({ members: [...groups.filter(group=>group.id===idSettings)[0].members,addedUser]})
         .eq("id", groupId)
         .select();
@@ -66,7 +66,7 @@ console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
-        .from("groups")
+        .from("groups0")
         .delete()
         .eq("id", groupId);
       if (error) {

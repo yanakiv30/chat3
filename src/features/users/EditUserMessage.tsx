@@ -16,7 +16,7 @@ export default function EditUserMessage() {
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
-        .from("messages")
+        .from("messages0")
         .update({ content: updateContent })
         .eq("id", idForEdit)
         .select();

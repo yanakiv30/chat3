@@ -1,7 +1,7 @@
 import supabase from "./supabase";
 
 export async function getUsers() {
-  const { data, error } = await supabase.from("users").select("*");
+  const { data, error } = await supabase.from("users0").select("*");
   if (error) {
     console.error(error);
     throw new Error("Users could not be loaded");
@@ -12,7 +12,7 @@ export async function getUsers() {
 
 export async function insertUsers() {
   const { data, error } = await supabase
-    .from("users")
+    .from("users0")
     .insert([{ id: "id1", username: "mariya", password: "m6" }])
     .select();
 
@@ -26,7 +26,7 @@ export async function insertUsers() {
 
 export async function getMessages() {
   const { data, error } = await supabase
-  .from('messages')
+  .from('messages0')
   .select('*')  
   if(error) 
   {console.log(error);

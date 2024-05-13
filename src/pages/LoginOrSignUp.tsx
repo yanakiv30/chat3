@@ -49,7 +49,7 @@ export default function LoginOrSignUp() {
       // const data = await response.json();
 
       const { data, error } = await supabase
-      .from("users")
+      .from("users0")
       .insert([{ id: uuid(), username: newUsername, password: newPassword }])
       .select();
   

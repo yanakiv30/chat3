@@ -48,7 +48,7 @@ export default function GroupMessages() {
       dispatch(setIsLoading(true));      
       try {
         const { data, error } = await supabase 
-          .from("groupMessages")
+          .from("groupMessages0")
           .insert(newGroupMessageObject)
           .select();
         if (error) {
@@ -72,7 +72,7 @@ export default function GroupMessages() {
     dispatch(setIsLoading(true));
     try{
     const { error } = await supabase
-    .from('groupMessages')
+    .from('groupMessages0')
     .delete()
     .eq('id', idForDelete)
     if (error) {

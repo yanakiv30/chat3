@@ -51,7 +51,7 @@ function CheckboxList() {
     dispatch(setIsLoading(true));      
       try {
         const { data, error } = await supabase 
-          .from('groups')
+          .from('groups0')
           .insert(newGroup)
           .select();
         if (error) {
