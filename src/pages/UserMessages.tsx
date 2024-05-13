@@ -41,7 +41,7 @@ function UserMessages() {
       dispatch(setIsLoading(true));
       try {
         const { data, error } = await supabase
-          .from("messages")
+          .from("messages0")
           .insert(newMessageObject)
           .select();
         if (error) {
@@ -67,7 +67,7 @@ function UserMessages() {
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
-        .from("messages")
+        .from("messages0")
         .delete()
         .eq("id", idForDelete);
       if (error) {
