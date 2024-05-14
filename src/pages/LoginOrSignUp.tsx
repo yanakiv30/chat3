@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
+
 import { useDispatch } from "react-redux";
-import { v4 as uuid } from "uuid";
-import { setLoggedInUser, addUser ,setIsRegister} from "../features/users/userSlice";
+import { setLoggedInUser,setIsRegister} from "../features/users/userSlice";
 import { useAppSelector } from "../store";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import supabase from "../services/supabase";
-const API_URL = "http://localhost:3001" ;
 
 export default function LoginOrSignUp() {
   const { users } = useAppSelector((store) => store.user);
-  const dispatch = useDispatch();
-  //const [isPressedRegister, setIsPressedRegister] = useState(false);
-  let { isRegister } = useAppSelector((store) => store.user);
+  const dispatch = useDispatch();  
+  const { isRegister } = useAppSelector((store) => store.user);
   
   function handleLogin(username: string, password: string) {
     const user = users.find(
@@ -25,57 +22,44 @@ export default function LoginOrSignUp() {
     }
   }
 
-  async function handleSignUp(newUsername: string, newPassword: string,) {
-    if (users.some((user) => user.username === newUsername)) {
-      alert("This username already exists!");
-      return;
-    }
-    const newUser = {
-      id: uuid(),
-      username: newUsername,
-      password: newPassword,
+  async function handleSignUp(newUsername: string, newPassword: string,
+    full_name:string,email:string,avatar:string,status:string) {
+    // if (users.some((user) => user.username === newUsername)) {
+    //   alert("This username already exists!");
+    //   return;
+    // }
+    const newUser = {      
+      email:email,
+      username:newUsername,
+      full_name:full_name,
+      password:newPassword,
+      avatar:avatar,
+      status:status
     };
-    try {
-      // const response = await fetch(`${API_URL}/users`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(newUser),
-      // });
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! status: ${response.status}`);
-      // }
-      // const data = await response.json();
-
+    try {     
       const { data, error } = await supabase
-      .from("users0")
-      .insert([{ id: uuid(), username: newUsername, password: newPassword }])
+      .from("users")
+      .insert([newUser])
       .select();
   
     if (error) {
       console.error(error);
       throw new Error("Users could not be loaded");
     }
-      
-      dispatch(addUser(data));
+      console.log(data)
+       //dispatch(addUser(data));
       
      //dispatch(setLoggedInUser(data));
     } catch (error) {
       console.error("Error creating user:", error);
     }
-   dispatch(setIsRegister(false));
-  //  setIsPressedRegister(false);
-  
+   dispatch(setIsRegister(false)); 
   }
- 
-
   return (
     <div className="background-login">
       {!isRegister ? (
         <Login
-          handleLogin={handleLogin}
-          
+          handleLogin={handleLogin}          
         />
       ) : (
         <SignUp handleSignUp={handleSignUp} />
