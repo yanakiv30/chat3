@@ -10,70 +10,65 @@ import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
 import { setIsLoading } from "../features/users/userSlice";
 
-const API_URL = "http://localhost:3001";
+
 
 function CheckboxList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   let { users, loggedInUser } = useAppSelector((store) => store.user);
+ //console.log(users);
   let { groups } = useAppSelector((store) => store.group); 
   const [groupName, setGroupName] = useState("");
 
-  let names: string[] = [];
-  users.map((user) => names.push(user.username));
-  names = names.filter((name) => name !== loggedInUser?.username);
+  //let names: string[] = [];
+  //users.map((user) => names.push(user.username));
+  const usersWithoutLoggedIn = users.filter((user) => user.id !== loggedInUser?.id);
+
   type CheckedItems = {
     [key: string]: boolean;
   };
   const [checkedItems, setCheckedItems] = useState<CheckedItems>({});
-  function handleCheckboxChange(name: string) {
+
+  function handleCheckboxChange(id: string) {
     setCheckedItems((prevCheckedItems) => ({
       ...prevCheckedItems,
-      [name]: !prevCheckedItems[name],
+      [id]: !prevCheckedItems[id],
     }));
   }
-  let trueItems = Object.keys(checkedItems).filter(
-    (key: string) => checkedItems[key] === true
-  );
+  // let trueItems = Object.keys(checkedItems).filter(
+  //   (key: string) => checkedItems[key] === true
+  // );
 
   async function handleSetGroups() {
     const isDuplicate = groups?.some((obj) => obj.name === groupName);
 
     if (!isDuplicate && loggedInUser) {
-      const newGroup = {
-        id: uuid(),
-        name: groupName,
-        members: [...trueItems, loggedInUser.username],
-        admin: loggedInUser.username,
+      const newGroup = {        
+        name: groupName,        
       };
 
     dispatch(setIsLoading(true));      
       try {
         const { data, error } = await supabase 
-          .from('groups0')
+          .from('teams')
           .insert(newGroup)
           .select();
         if (error) {
           console.error(error);
           throw new Error("New group could not be loaded");
         }
+
+
+        
+
         dispatch(addGroup(data));
       } catch (error) {
         console.error("Error creating new group:", error);
       } finally {
         dispatch(setIsLoading(false));
       }   
-      // fetch(`${API_URL}/groups`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(newGroup),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => dispatch(addGroup(data)))
-      //   .catch((error) => console.error("Error posting message:", error));
+      
     } else {
       alert("Duplicate name");
     }
@@ -101,15 +96,15 @@ function CheckboxList() {
         />
         <p>Choose members :</p>
         <ul>
-          {names.map((name) => (
-            <li key={name}>
+          {usersWithoutLoggedIn.map((user) => (
+            <li key={user.id}>
               <input
                 type="checkbox"
-                id={name}
-                checked={checkedItems[name] || false}
-                onChange={() => handleCheckboxChange(name)}
+                id={user.id}
+                checked={checkedItems[user.id] || false}
+                onChange={() => handleCheckboxChange(user.id)}
               />
-              <label htmlFor={name}>{name}</label>
+              <label>{user.username}</label>
             </li>
           ))}
         </ul>
