@@ -12,7 +12,7 @@ import { useAppSelector } from "../store";
 
 import SendUserMessage from "../features/users/SendUserMessage";
 import { searchedGroupMessagesFunc } from "../utils/messageUtils";
-import UserMessagesContainer from "../features/users/UserMessagesContainer";
+import UserMessagesContainer from "../features/users/UserMessageContainer";
 import { setIsLoading } from "../features/users/userSlice";
 import supabase from "../services/supabase";
 const API_URL = "http://localhost:3001";
@@ -24,8 +24,8 @@ export default function GroupMessages() {
   const params = useParams();
   const groupInListId = params.groupId;
   const grName = groups.find((x) => x.id === groupInListId)?.name;
-  const groupMemebers = groups.find((x) => x.id === groupInListId)?.members; 
-  const dispatch = useDispatch();   
+  const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
+  const dispatch = useDispatch();
 
   async function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {
@@ -45,9 +45,9 @@ export default function GroupMessages() {
         dayDate,
       };
 
-      dispatch(setIsLoading(true));      
+      dispatch(setIsLoading(true));
       try {
-        const { data, error } = await supabase 
+        const { data, error } = await supabase
           .from("groupMessages0")
           .insert(newGroupMessageObject)
           .select();
@@ -60,7 +60,7 @@ export default function GroupMessages() {
         console.error("Error creating Group message:", error);
       } finally {
         dispatch(setIsLoading(false));
-      }      
+      }
       setNewGroupMessage("");
     }
   }
@@ -70,27 +70,31 @@ export default function GroupMessages() {
     dispatch(setGroupMessages(updatedMessages));
 
     dispatch(setIsLoading(true));
-    try{
-    const { error } = await supabase
-    .from('groupMessages0')
-    .delete()
-    .eq('id', idForDelete)
-    if (error) {
-      console.error(error);
-      throw new Error("Group Messages could not be deleted");
+    try {
+      const { error } = await supabase
+        .from("groupMessages0")
+        .delete()
+        .eq("id", idForDelete);
+      if (error) {
+        console.error(error);
+        throw new Error("Group Messages could not be deleted");
+      }
+      dispatch(setGroupMessages(updatedMessages));
+    } catch (error) {
+      console.error("Error deleting group message:", error);
+    } finally {
+      dispatch(setIsLoading(false));
     }
-    dispatch(setGroupMessages(updatedMessages));
-  } catch (error) {
-    console.error("Error deleting group message:", error);
-  } finally {
-    dispatch(setIsLoading(false));
-  }
-    
   }
 
-  const searchedGroupMessages = searchedGroupMessagesFunc(groupMessages, 
-    loggedInUser,groupInListId, groups,searchMessage);
-    
+  const searchedGroupMessages = searchedGroupMessagesFunc(
+    groupMessages,
+    loggedInUser,
+    groupInListId,
+    groups,
+    searchMessage
+  );
+
   return (
     <div className="profile-wrapper">
       <div className="user-profile-container">
@@ -106,13 +110,18 @@ export default function GroupMessages() {
           </div>
           <SearchInMessage />
         </div>
-        <UserMessagesContainer  loggedInUser={loggedInUser} userInListId={groupInListId} 
-        handleDeleteMessages={handleDeleteGroupMessages}
-        searchedMessage={searchedGroupMessages}/>
-         
-        <SendUserMessage newMessage={newGroupMessage} setNewMessage={setNewGroupMessage}
-         handleSendMessage={handleSendGroupMessage}/>
-        
+        <UserMessagesContainer
+          loggedInUser={loggedInUser}
+          userInListId={groupInListId}
+          handleDeleteMessages={handleDeleteGroupMessages}
+          searchedMessage={searchedGroupMessages}
+        />
+
+        <SendUserMessage
+          newMessage={newGroupMessage}
+          setNewMessage={setNewGroupMessage}
+          handleSendMessage={handleSendGroupMessage}
+        />
       </div>
     </div>
   );

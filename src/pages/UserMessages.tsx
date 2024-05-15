@@ -14,13 +14,13 @@ import {
   newMessageObjectFunc,
   searchedMessageFunc,
 } from "../utils/messageUtils";
-import UserMessagesContainer from "../features/users/UserMessagesContainer";
+import UserMessagesContainer from "../features/users/UserMessageContainer";
 import SendUserMessage from "../features/users/SendUserMessage";
 import supabase from "../services/supabase";
 import EditUserMessage from "../features/users/EditUserMessage";
 
 function UserMessages() {
-  const [mesContent, setMesContent] =useState("");
+  const [mesContent, setMesContent] = useState("");
   const dispatch = useDispatch();
   const { searchMessage, loggedInUser, isLoading, messages, users, isEdit } =
     useAppSelector((store) => store.user);
@@ -59,7 +59,6 @@ function UserMessages() {
     }
   }
 
-  
   async function handleDeleteMessages(idForDelete: string) {
     //const updatedMessages = messages.filter((x) => x.id !== idForDelete);
     // dispatch(setMessages(updatedMessages));
@@ -99,7 +98,7 @@ function UserMessages() {
         </div>
         <UserMessagesContainer
           loggedInUser={loggedInUser}
-          userInListId={userInListId}          
+          userInListId={userInListId}
           handleDeleteMessages={handleDeleteMessages}
           searchedMessage={searchedMessage}
         />
