@@ -10,25 +10,52 @@ import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
 import { setIsLoading } from "../features/users/userSlice";
 
-
-
 function CheckboxList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   let { users, loggedInUser } = useAppSelector((store) => store.user);
- //console.log(users);
-  let { groups } = useAppSelector((store) => store.group); 
+  //console.log(users);
+  let { groups } = useAppSelector((store) => store.group);
   const [groupName, setGroupName] = useState("");
 
   //let names: string[] = [];
   //users.map((user) => names.push(user.username));
-  const usersWithoutLoggedIn = users.filter((user) => user.id !== loggedInUser?.id);
+  const usersWithoutLoggedIn = users.filter(
+    (user) => user.id !== loggedInUser?.id
+  );
 
   type CheckedItems = {
     [key: string]: boolean;
   };
-  const [checkedItems, setCheckedItems] = useState<CheckedItems>({});
+  const [checkedItems, setCheckedItems] = useState({} as CheckedItems);
+
+  async function createGroup(newGroup: { name: string }) {
+    const { data, error } = await supabase
+      .from("teams")
+      .insert(newGroup)
+      .select();
+    if (error) {
+      console.error(error);
+      throw new Error("New group could not be loaded");
+    }
+    return data[0];
+  }
+
+  async function connectTeamWithUsers(teamId: number, usersIds: number[]) {
+    const rows = usersIds.map((userId) => {
+      return { team_id: teamId, user_id: userId };
+    });
+    const { data, error } = await supabase
+      .from("teams_members")
+      .insert(rows)
+      .select();
+    if (error) {
+      console.error(error);
+      throw new Error("Failed to connect users to team");
+    }
+    return data;
+  }
 
   function handleCheckboxChange(id: string) {
     setCheckedItems((prevCheckedItems) => ({
@@ -36,41 +63,27 @@ function CheckboxList() {
       [id]: !prevCheckedItems[id],
     }));
   }
-  // let trueItems = Object.keys(checkedItems).filter(
-  //   (key: string) => checkedItems[key] === true
-  // );
+  const checkedIds = Object.keys(checkedItems)
+    .filter((key: string) => checkedItems[key] === true)
+    .map((key) => +key);
 
   async function handleSetGroups() {
     const isDuplicate = groups?.some((obj) => obj.name === groupName);
 
-    if (!isDuplicate && loggedInUser) {
-      const newGroup = {        
-        name: groupName,        
-      };
-
-    dispatch(setIsLoading(true));      
-      try {
-        const { data, error } = await supabase 
-          .from('teams')
-          .insert(newGroup)
-          .select();
-        if (error) {
-          console.error(error);
-          throw new Error("New group could not be loaded");
-        }
-
-
-        
-
-        dispatch(addGroup(data));
-      } catch (error) {
-        console.error("Error creating new group:", error);
-      } finally {
-        dispatch(setIsLoading(false));
-      }   
-      
-    } else {
+    if (isDuplicate || !loggedInUser) {
       alert("Duplicate name");
+      return;
+    }
+
+    dispatch(setIsLoading(true));
+
+    try {
+      const newGroup = await createGroup({ name: groupName });
+      const teamToMembers = await connectTeamWithUsers(newGroup.id, checkedIds);
+    } catch (error) {
+      console.error("Error creating new group:", error);
+    } finally {
+      dispatch(setIsLoading(false));
     }
   }
 
