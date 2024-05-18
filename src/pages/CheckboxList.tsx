@@ -1,10 +1,6 @@
 import { useState } from "react";
-
 import { useDispatch } from "react-redux";
 import { addGroup } from "../features/groups/groupSlice";
-
-import { v4 as uuid } from "uuid";
-
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
@@ -14,13 +10,9 @@ function CheckboxList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let { users, loggedInUser } = useAppSelector((store) => store.user);
-  //console.log(users);
+  let { users, loggedInUser } = useAppSelector((store) => store.user); 
   let { groups } = useAppSelector((store) => store.group);
-  const [groupName, setGroupName] = useState("");
-
-  //let names: string[] = [];
-  //users.map((user) => names.push(user.username));
+  const [groupName, setGroupName] = useState("");  
   const usersWithoutLoggedIn = users.filter(
     (user) => user.id !== loggedInUser?.id
   );
@@ -30,10 +22,10 @@ function CheckboxList() {
   };
   const [checkedItems, setCheckedItems] = useState({} as CheckedItems);
 
-  async function createGroup(newGroup: { name: string }) {
+  async function createTeam(newTeam: { name: string }) {
     const { data, error } = await supabase
       .from("teams")
-      .insert(newGroup)
+      .insert(newTeam)
       .select();
     if (error) {
       console.error(error);
@@ -63,23 +55,24 @@ function CheckboxList() {
       [id]: !prevCheckedItems[id],
     }));
   }
-  const checkedIds = Object.keys(checkedItems)
+  const checkedIds =[...Object.keys(checkedItems)
     .filter((key: string) => checkedItems[key] === true)
-    .map((key) => +key);
+    .map((key) => +key), +loggedInUser!.id];
+
+  console.log("checkedIds : ",checkedIds)
 
   async function handleSetGroups() {
-    const isDuplicate = groups?.some((obj) => obj.name === groupName);
-
-    if (isDuplicate || !loggedInUser) {
-      alert("Duplicate name");
-      return;
-    }
+    // const isDuplicate = groups?.some((obj) => obj.name === groupName);
+    // if (isDuplicate || !loggedInUser) {
+    //   alert("Duplicate name");
+    //   return;
+    // }
 
     dispatch(setIsLoading(true));
 
     try {
-      const newGroup = await createGroup({ name: groupName });
-      const teamToMembers = await connectTeamWithUsers(newGroup.id, checkedIds);
+      const newTeam = await createTeam({ name: groupName });
+      const teamToMembers = await connectTeamWithUsers(newTeam.id, checkedIds);
     } catch (error) {
       console.error("Error creating new group:", error);
     } finally {

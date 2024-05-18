@@ -11,22 +11,18 @@ export default function GroupList() {
   
   let visibleRow= teamsMembers.filter(row=>row.user_id===+loggedInUser!.id);
   console.log("visibleRow :",visibleRow);
-  const searchedGroups =
+  const searchedTeams =
     searchQuery.length > 0
-      ? groups.filter(
-          (group) => group && group.name && group.name.includes(searchQuery)
+      ? teams.filter(
+          (team) => team && team.name && team.name.includes(searchQuery)
         )
-      : groups;
-  const visibleIds= visibleRow.map(row=> row.team_id)   
-//const filteredTeams =  teams.filter(team=>  visibleRow.includes(team.id))
+      : teams;
+  const visibleIds= visibleRow.map(row=> row.team_id)  
   return (
-    <div>
-      {/* {searchedGroups.length > 0 ? "Groups" : ""} */}
+    <div>     
       <ul>
-        {
-          //  searchedGroups
-          // .filter((group) => group.members?.includes(loggedInUser!.username))
-          teams.filter(team=> visibleIds.includes(team.id))
+        {          
+          searchedTeams.filter(team=> visibleIds.includes(team.id))
           .map((team) => (
             <li key={team.id}>
               <div style={{ display: "flex", gap: "5px" }}>
