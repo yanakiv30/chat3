@@ -59,7 +59,7 @@ function CheckboxList() {
     .filter((key: string) => checkedItems[key] === true)
     .map((key) => +key), +loggedInUser!.id];
 
-  console.log("checkedIds : ",checkedIds)
+
 
   async function handleSetGroups() {
     // const isDuplicate = groups?.some((obj) => obj.name === groupName);

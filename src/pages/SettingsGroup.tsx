@@ -38,7 +38,7 @@ export default function SettingsGroup() {
 
   async function addUser(groupId: string,addedUser:string) {
     dispatch(setIsLoading(true));
-console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
+//console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
 
 
     try {
@@ -59,7 +59,7 @@ console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
 
   }
   async function deleteUser(groupId: string, member: string) {
-    console.log(member);
+    //console.log(member);
   }
 
   async function deleteGroup(groupId: string) {

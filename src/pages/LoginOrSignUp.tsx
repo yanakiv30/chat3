@@ -18,7 +18,7 @@ export default function LoginOrSignUp() {
     .select()
     .eq('username', username) 
     .eq('password', password)   
-    console.log("loggInuser-data  ", data)
+    
     // const user = users.find(
     //   (u) => u.username === username && u.password === password
     // );
@@ -53,7 +53,7 @@ export default function LoginOrSignUp() {
       console.error(error);
       throw new Error("Users could not be loaded");
     }
-      console.log(data)
+    
        //dispatch(addUser(data));
       
      //dispatch(setLoggedInUser(data));

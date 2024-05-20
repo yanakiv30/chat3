@@ -7,7 +7,7 @@ export async function getUsers() {
     console.error(error);
     throw new Error("Users could not be loaded");
   }
-  console.log("displayed users: ",data);
+
 
   return data;
 }

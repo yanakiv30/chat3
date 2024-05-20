@@ -33,7 +33,7 @@ export default function EditUserMessage() {
 
   function edit(id: string) {
     handleEditMessage(id);
-    console.log("mesContent : ",mesContent)
+    
     dispatch(setIsEdit(false));
   }
   
