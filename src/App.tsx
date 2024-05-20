@@ -10,7 +10,7 @@ import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./features/users/AllRoutes";
 import { getMessages, getUsers } from "./services/apiUsers";
-import { getGroupMessages, getTeams, getTeamsMembers } from "./services/apiGroups";
+import { getGroupMessages, getTeams} from "./services/apiGroups";
 import Spinner from "./utils/Spinner";
 
 
@@ -19,22 +19,21 @@ function App() {
   const { loggedInUser } = useAppSelector((store) => store.user);
   let { isRegister, isLoading } = useAppSelector((store) => store.user);
 
+  
   useEffect(() => {
+    if(!loggedInUser) return;
     getUsers()
       .then((data) => dispatch(setUsers(data)))
-      .catch((error) => console.error("Error fetching users:", error));
-   
-    // getGroups()
-    //   .then((data) => dispatch(setGroups(data)))
-    //   .catch((error) => console.error("Error fetching groups", error));
+      .catch((error) => console.error("Error fetching users:", error));    
+    
 
-      getTeams()
+      getTeams(+loggedInUser.id)
       .then((data) => dispatch(setTeams(data)))
       .catch((error) => console.error("Error fetching teams", error));
 
-    getTeamsMembers()
-    .then((data) => dispatch(setTeamsMembers(data)))
-    .catch((error) => console.error("Error fetching teams_members", error));
+    // getTeamsMembers()
+    // .then((data) => dispatch(setTeamsMembers(data)))
+    // .catch((error) => console.error("Error fetching teams_members", error));
 
     getGroupMessages()
       .then((data) => dispatch(setGroupMessages(data)))
@@ -44,7 +43,7 @@ function App() {
       .then((data) => dispatch(setMessages(data)))
       .catch((error) => console.error("Error fetching messages :", error));
     
-  }, [dispatch, isRegister, isLoading]);
+  }, [dispatch, isRegister, isLoading,loggedInUser]);
 
   return (
     <Router>

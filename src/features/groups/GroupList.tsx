@@ -4,11 +4,18 @@ import { useAppSelector } from "../../store";
 
 export default function GroupList() {
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
-  const { groups,teams, teamsMembers } = useAppSelector((store) => store.group);
+  const {teams, teamsMembers } = useAppSelector((store) => store.group);
   
   console.log("teamsMembers :",teamsMembers);
   console.log("loggedInUser.id :",loggedInUser!.id)
   
+  // const { data, error } = await supabase
+  // .from('cities')
+  // .select('name, country_id')
+  // .eq('name', 'The Shire')    // Correct
+
+
+
   let visibleRow= teamsMembers.filter(row=>row.user_id===+loggedInUser!.id);
   console.log("visibleRow :",visibleRow);
   const searchedTeams =

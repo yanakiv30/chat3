@@ -7,16 +7,23 @@ import SignUp from "./SignUp";
 import supabase from "../services/supabase";
 
 export default function LoginOrSignUp() {
-  const { users } = useAppSelector((store) => store.user);
+ // const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();  
   const { isRegister } = useAppSelector((store) => store.user);
   
-  function handleLogin(username: string, password: string) {
-    const user = users.find(
-      (u) => u.username === username && u.password === password
-    );
-    if (user) {
-      dispatch(setLoggedInUser(user)); //user is a object
+  async function handleLogin(username: string, password: string) {
+
+    const { data, error } = await supabase
+    .from('users')
+    .select()
+    .eq('username', username) 
+    .eq('password', password)   
+    console.log("loggInuser-data  ", data)
+    // const user = users.find(
+    //   (u) => u.username === username && u.password === password
+    // );
+    if (data) {
+      dispatch(setLoggedInUser(data[0])); //user is a object
     } else {
       alert("Invalid credentials");
     }

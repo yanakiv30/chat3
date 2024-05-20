@@ -1,6 +1,9 @@
 import supabase from "./supabase";
 
-export async function getTeams() {
+
+
+export async function getTeams(loggedInUserId:number) {
+  await getTeamsIds();
   const { data, error } = await supabase.from("teams").select("*");
   if (error) {
     console.error(error);
@@ -8,17 +11,21 @@ export async function getTeams() {
   }
   console.log("teams :", data);
   return data;
+
+  async function getTeamsIds() {
+    const { data, error } = await supabase.from("teams_members")
+    .select("team_id").eq('user_id',loggedInUserId);
+    if (error) {
+      console.error(error);
+      throw new Error("teams_members could not be loaded");
+    }
+    const teamsIds = data.map(x=> x.team_id);
+    console.log("teamsIds :", teamsIds);
+    return teamsIds;
+  }
 }
 
-export async function getTeamsMembers() {
-  const { data, error } = await supabase.from("teams_members").select("*");
-  if (error) {
-    console.error(error);
-    throw new Error("teams_members could not be loaded");
-  }
-  console.log("teams_members:", data);
-  return data;
-}
+ 
 
 export async function getGroupMessages() {
   const { data, error } = await supabase.from("groupMessages0").select("*");

@@ -1,11 +1,13 @@
 import supabase from "./supabase";
 
 export async function getUsers() {
-  const { data, error } = await supabase.from("users").select("*");//
+  const { data, error } = await supabase.from("users")
+  .select('username,id,avatar,status');//
   if (error) {
     console.error(error);
     throw new Error("Users could not be loaded");
   }
+  console.log("displayed users: ",data);
 
   return data;
 }
