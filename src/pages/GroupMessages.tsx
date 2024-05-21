@@ -105,7 +105,7 @@ export default function GroupMessages() {
               <h4>{`${grName} `}</h4>
             </div>
             <p style={{ fontSize: "10px", textAlign: "center" }}>
-              members: {groupMemebers!.join(", ")}{" "}
+              {/* members: {groupMemebers!.join(", ")} */}
             </p>
           </div>
           <SearchInMessage />

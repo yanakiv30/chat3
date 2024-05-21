@@ -1,18 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Message } from "../groups/groupSlice";
+export type User = { id: number; username: string; avatar: string };
 
 const initialState = {
- isRegister:false, isLoading:false,isEdit:false,messageId:"",mesContent:"",
-  users: [] as { id: string; username: string; password: string }[],
-  loggedInUser: null as { username: string; id: string } | null,  
-  messages: [] as {
-    id: string;
-    senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
-  }[],
+  isRegister: false,
+  isLoading: false,
+  isEdit: false,
+  messageId: "",
+  mesContent: "",
+  users: [] as User[],
+  loggedInUser: null as User | null,
+  messages: [] as Message[],
   searchQuery: "",
   searchMessage: "",
 };
@@ -71,7 +69,6 @@ export const {
   setIsLoading,
   setIsEdit,
   setMessageId,
-  setMesContent
-  
+  setMesContent,
 } = userSlice.actions;
 export default userSlice.reducer;

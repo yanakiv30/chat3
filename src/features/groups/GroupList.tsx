@@ -9,7 +9,7 @@ export default function GroupList() {
   const searchedTeams =
     searchQuery.length > 0
       ? teams.filter(
-          (team) => team && team.name && team.name.includes(searchQuery)
+          (team) => team && team.name && team.name.includes(searchQuery) 
         )
       : teams;
   

@@ -27,6 +27,8 @@ export async function getTeams(loggedInUserId: number) {
     console.log("teamsIds :", teamsIds);
     return teamsIds;
   }
+
+  
 }
 
 export async function getGroupMessages() {

@@ -1,4 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../users/userSlice";
+export type Message=  {
+  id: number;
+  senderId: number;    
+  content: string;
+  hourMinDate: string;
+  dayDate: string;
+};
 
 const initialState = {
   groups: [] as {
@@ -16,13 +24,8 @@ const initialState = {
     hourMinDate: string;
     dayDate: string;
   }[],
-  teamsMembers: [] as {
-    id: number;
-    role: string;
-    team_id: number;
-    user_id: number;
-  }[],
-  teams: [] as { id: number; name: string; avatar: string }[],
+
+  teams: [] as { id: number; name: string; avatar: string ; members?: User[]; messages? :Message}[],
 };
 
 const groupSlice = createSlice({
@@ -34,9 +37,6 @@ const groupSlice = createSlice({
     },
     setTeams(state, action) {
       state.teams = [...action.payload];
-    },
-    setTeamsMembers(state, action) {
-      state.teamsMembers = [...action.payload];
     },
 
     addGroup(state, action) {
@@ -57,6 +57,5 @@ export const {
   setGroupMessages,
   addGroupMessage,
   setTeams,
-  setTeamsMembers,
 } = groupSlice.actions;
 export default groupSlice.reducer;
