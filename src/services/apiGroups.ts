@@ -2,10 +2,11 @@ import supabase from "./supabase";
 
 export async function getTeams(loggedInUserId: number) {
   const teamsIds = await getTeamsIds();
-  
-  const { data, error } = await supabase.from("teams")
-  .select("*")
- .in('id',teamsIds);
+
+  const { data, error } = await supabase
+    .from("teams")
+    .select("*")
+    .in("id", teamsIds);
   if (error) {
     console.error(error);
     throw new Error("Teams could not be loaded");
