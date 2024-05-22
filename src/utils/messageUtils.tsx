@@ -1,21 +1,20 @@
 import { v4 as uuid } from "uuid";
+import { Message } from "../features/groups/groupSlice";
+import { User } from "../features/users/userSlice";
 
 export function leftGroupMessage(
-  groupMessage: { id: string; receiverId: string },
-  loggedInUser: {
-    username: string;
-    id: string;
-  } | null,
-  groupInListId: string | undefined,
+  groupMessage: Message,
+  loggedInUser: User | null,
+  groupInListId: number | undefined,
   groups: {
     name: string;
-    id: string;
+    id: number;
     members: [string];
     admin: string;
   }[]
 ) {
   return (
-    groupMessage.receiverId === groupInListId &&
+    // groupMessage.receiverId === groupInListId &&
     groups
       .filter((group) => group.id === groupInListId)[0]
       .members.includes(loggedInUser!.username)
@@ -23,70 +22,34 @@ export function leftGroupMessage(
 }
 
 export function leftMessage(
-  message: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-  },
-  loggedInUser: {
-    username: string;
-    id: string;
-  } | null,
-  userInListId: string | undefined
+  message: Message,
+  loggedInUser: User | null,
+  userInListId: number | undefined
 ) {
-  return (
-    message.receiverId === loggedInUser!.id && message.senderId === userInListId
-  );
+  return message.senderId === userInListId;
 }
 
 export function rightMessage(
-  message: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-  },
-  loggedInUser: {
-    username: string;
-    id: string;
-  } | null,
+  message: Message,
+  loggedInUser: User | null,
   userInListId: string | undefined
 ) {
-  return (
-    message.receiverId === userInListId && message.senderId === loggedInUser!.id
-  );
+  return message.senderId === loggedInUser!.id;
 }
 
 export function searchedMessageFunc(
-  messages: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
-  }[],
-  loggedInUser: {
-    username: string;
-    id: string;
-  } | null,
+  messages: Message[],
+  loggedInUser: User | null,
   userInListId: string | undefined,
   searchMessage: string
 ) {
-  return messages
-    .filter(
-      (message) =>
-        leftMessage(message, loggedInUser, userInListId) ||
-        rightMessage(message, loggedInUser, userInListId)
-    )
-    .filter((userMessage) => userMessage.content.includes(searchMessage));
+  return messages.filter((userMessage) =>
+    userMessage.content.includes(searchMessage)
+  );
 }
 
 export function newMessageObjectFunc(
-  loggedInUser: {
-    username: string;
-    id: string;
-  } | null,
+  loggedInUser: User | null,
   userInListId: string | undefined,
   newMessage: string
 ) {
@@ -108,26 +71,11 @@ export function newMessageObjectFunc(
   return newMessageObject;
 }
 
- export function searchedGroupMessagesFunc(groupMessages: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
-}[], loggedInUser: {
-    username: string;
-    id: string;
-} | null, groupInListId: string | undefined, groups: {
-    name: string;
-    id: string;
-    members: [string];
-    admin: string;
-}[], searchMessage: string){ 
+export function searchedGroupMessagesFunc(
+  groupMessages: Message[],  
+  searchMessage: string
+) {
   return groupMessages.filter((groupMessage) =>
-      (leftGroupMessage(groupMessage,loggedInUser,groupInListId,groups) 
-  || rightMessage(groupMessage,loggedInUser,groupInListId)) &&
-      groupMessage.content.includes(searchMessage)
-  );}
-
+    groupMessage.content.includes(searchMessage)
+  );
+}

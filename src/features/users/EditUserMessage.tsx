@@ -9,7 +9,7 @@ export default function EditUserMessage() {
   const { messageId, messages, mesContent } = useAppSelector((store) => store.user);
   const [updateContent, setUpdateContent] = useState("");
   
-  async function handleEditMessage(idForEdit: string) {
+  async function handleEditMessage(idForEdit: number) {
     
 
     dispatch(setIsEdit(true));
@@ -31,7 +31,7 @@ export default function EditUserMessage() {
     }
   }
 
-  function edit(id: string) {
+  function edit(id: number) {
     handleEditMessage(id);
     
     dispatch(setIsEdit(false));

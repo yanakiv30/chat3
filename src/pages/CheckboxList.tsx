@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addGroup } from "../features/groups/groupSlice";
+
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
@@ -10,8 +10,7 @@ function CheckboxList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let { users, loggedInUser } = useAppSelector((store) => store.user); 
-  let { groups } = useAppSelector((store) => store.group);
+  let { users, loggedInUser } = useAppSelector((store) => store.user);   
   const [groupName, setGroupName] = useState("");  
   const usersWithoutLoggedIn = users.filter(
     (user) => user.id !== loggedInUser?.id
@@ -49,7 +48,7 @@ function CheckboxList() {
     return data;
   }
 
-  function handleCheckboxChange(id: string) {
+  function handleCheckboxChange(id: number) {
     setCheckedItems((prevCheckedItems) => ({
       ...prevCheckedItems,
       [id]: !prevCheckedItems[id],
@@ -106,7 +105,7 @@ function CheckboxList() {
             <li key={user.id}>
               <input
                 type="checkbox"
-                id={user.id}
+                id={user.id +''} 
                 checked={checkedItems[user.id] || false}
                 onChange={() => handleCheckboxChange(user.id)}
               />

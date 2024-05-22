@@ -3,15 +3,15 @@ import UserOptions from "../../pages/UserOptions";
 import CheckboxList from "../../pages/CheckboxList";
 import SettingsGroup from "../../pages/SettingsGroup";
 import { useAppSelector } from "../../store";
-import UserMessages from "../../pages/UserMessages";
 import GroupMessages from "../../pages/GroupMessages";
+import { User } from "./userSlice";
 
 export default function AllRoutes() {
     const { loggedInUser, users } = useAppSelector((store) => store.user);
 
     function initialView(
-        users: Array<{ id: string }>,
-        loggedInUser: { id: string }
+        users: User[],
+        loggedInUser: User
       ) {
         const finded = users.find((user) => user.id !== loggedInUser.id);
         if (finded) return finded.id;
@@ -25,12 +25,11 @@ export default function AllRoutes() {
           element={
             <Navigate
               replace
-              to={`/messages/${initialView(users, loggedInUser! as { id: string })}`}
+              to={`/messages/${initialView(users, loggedInUser! )}`}
             />
           }
         />
-        <Route path="/userOptions" element={<UserOptions />} />
-        <Route path="/messages/:userId" element={<UserMessages />} />
+        <Route path="/userOptions" element={<UserOptions />} />        
         <Route path="/groups/:groupId" element={<GroupMessages />} />
         <Route path="/groups/createGroups" element={<CheckboxList />} />
         <Route

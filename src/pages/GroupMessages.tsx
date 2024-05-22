@@ -3,10 +3,7 @@ import { useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import SearchInMessage from "../features/users/SearchInMessage";
 import Avatar from "../features/users/Avatar";
-import {
-  setGroupMessages,
-  addGroupMessage,
-} from "../features/groups/groupSlice";
+
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 
@@ -15,59 +12,57 @@ import { searchedGroupMessagesFunc } from "../utils/messageUtils";
 import UserMessagesContainer from "../features/users/UserMessageContainer";
 import { setIsLoading } from "../features/users/userSlice";
 import supabase from "../services/supabase";
-const API_URL = "http://localhost:3001";
+
 
 export default function GroupMessages() {
   const { loggedInUser, searchMessage } = useAppSelector((store) => store.user);
-  const { groups, groupMessages } = useAppSelector((store) => store.group);
+  const { teams } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
-  const groupInListId = params.groupId;
-  const grName = groups.find((x) => x.id === groupInListId)?.name;
-  const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
+  const groupInListId = +params.groupId!;
+  const team = teams.find((x) => x.id === groupInListId)!;
   const dispatch = useDispatch();
 
   async function handleSendGroupMessage() {
-    if (newGroupMessage.trim() !== "") {
-      const currentDate = new Date();
-      const hours = currentDate.getHours();
-      const minutes = currentDate.getMinutes();
-      const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
-      const dayDate = `${currentDate.getDate()}.${currentDate.getMonth()}.${currentDate.getFullYear()}`;
+    // if (newGroupMessage.trim() !== "") {
+    //   const currentDate = new Date();
+    //   const hours = currentDate.getHours();
+    //   const minutes = currentDate.getMinutes();
+    //   const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
+    //   const dayDate = `${currentDate.getDate()}.${currentDate.getMonth()}.${currentDate.getFullYear()}`;
 
-      const newGroupMessageObject = {
-        id: uuid(),
-        senderId: loggedInUser!.id,
-        receiverId: groupInListId,
-        senderUsername: loggedInUser!.username,
-        content: newGroupMessage,
-        hourMinDate,
-        dayDate,
-      };
+    //   const newGroupMessageObject = {
+    //     id: uuid(),
+    //     senderId: loggedInUser!.id,
+    //     receiverId: groupInListId,
+    //     senderUsername: loggedInUser!.username,
+    //     content: newGroupMessage,
+    //     hourMinDate,
+    //     dayDate,
+    //   };
 
-      dispatch(setIsLoading(true));
-      try {
-        const { data, error } = await supabase
-          .from("groupMessages0")
-          .insert(newGroupMessageObject)
-          .select();
-        if (error) {
-          console.error(error);
-          throw new Error("Group Messages could not be loaded");
-        }
-        dispatch(addGroupMessage(data));
-      } catch (error) {
-        console.error("Error creating Group message:", error);
-      } finally {
-        dispatch(setIsLoading(false));
-      }
-      setNewGroupMessage("");
-    }
+    //   dispatch(setIsLoading(true));
+    //   try {
+    //     const { data, error } = await supabase
+    //       .from("groupMessages0")
+    //       .insert(newGroupMessageObject)
+    //       .select();
+    //     if (error) {
+    //       console.error(error);
+    //       throw new Error("Group Messages could not be loaded");
+    //     }
+    //    // dispatch(addGroupMessage(data));
+    //   } catch (error) {
+    //     console.error("Error creating Group message:", error);
+    //   } finally {
+    //     dispatch(setIsLoading(false));
+    //   }
+    //   setNewGroupMessage("");
+    // }
   }
 
   async function handleDeleteGroupMessages(idForDelete: string) {
-    const updatedMessages = groupMessages.filter((x) => x.id !== idForDelete);
-    dispatch(setGroupMessages(updatedMessages));
+    //const updatedMessages = groupMessages.filter((x) => x.id !== idForDelete);
 
     dispatch(setIsLoading(true));
     try {
@@ -79,7 +74,7 @@ export default function GroupMessages() {
         console.error(error);
         throw new Error("Group Messages could not be deleted");
       }
-      dispatch(setGroupMessages(updatedMessages));
+      // dispatch(setGroupMessages(updatedMessages));
     } catch (error) {
       console.error("Error deleting group message:", error);
     } finally {
@@ -88,10 +83,7 @@ export default function GroupMessages() {
   }
 
   const searchedGroupMessages = searchedGroupMessagesFunc(
-    groupMessages,
-    loggedInUser,
-    groupInListId,
-    groups,
+    team.messages || [],
     searchMessage
   );
 
@@ -101,8 +93,8 @@ export default function GroupMessages() {
         <div className="chat-with">
           <div>
             <div style={{ display: "flex", gap: "5px" }}>
-              <Avatar name={grName || ""} />
-              <h4>{`${grName} `}</h4>
+              <Avatar name={team.name || ""} />
+              <h4>{`${team.name} `}</h4>
             </div>
             <p style={{ fontSize: "10px", textAlign: "center" }}>
               {/* members: {groupMemebers!.join(", ")} */}

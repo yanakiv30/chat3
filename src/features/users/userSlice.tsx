@@ -6,7 +6,7 @@ const initialState = {
   isRegister: false,
   isLoading: false,
   isEdit: false,
-  messageId: "",
+  messageId: -1,
   mesContent: "",
   users: [] as User[],
   loggedInUser: null as User | null,
