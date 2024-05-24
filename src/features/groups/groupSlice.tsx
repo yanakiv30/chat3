@@ -11,9 +11,11 @@ export type Team = {
   id: number;
   name: string;
   avatar: string;
-  members?: User[];
-  messages?: Message[];
+  members: User[];
+  messages: Message[];
 };
+
+
 const initialState = {
   teams: [] as Team [],
 };
