@@ -3,10 +3,20 @@ import { User } from "../features/users/userSlice";
 import { useAppSelector } from "../store";
 import supabase from "./supabase";
 
-export async function getTeams(loggedInUserId: number) {
-  
-  const teamsIds = await getTeamsIds();
+export async function getUsers() {
+  const { data, error } = await supabase
+    .from("users")
+    .select("username,id,avatar,status"); //
+  if (error) {
+    console.error(error);
+    throw new Error("Users could not be loaded");
+  }
+  return data;
+}
 
+
+export async function getTeams(loggedInUserId: number) {
+  const teamsIds = await getTeamsIds();
   const { data: teamsData, error } = await supabase
     .from("teams")
     .select("*")
@@ -16,13 +26,15 @@ export async function getTeams(loggedInUserId: number) {
     throw new Error("Teams could not be loaded");
   }
   console.log("teams :", teamsData);
-  await loadMembersInTeams();
+  const membersInTeams = await loadMembersInTeams();
   await loadMessagesInTeams();
+  const users = await getUsers();
   const teamsWithMembers = teamsData.map((team) => ({
     ...team,
-    members: [] as User[],
+    members: membersInTeams
+      .filter((tm) => tm.team_id === team.id)
+      .map((tm) => users.find((user) => user.id === tm.user_id)!),
   }));
-   teamsWithMembers.map(team=> team.members.push({ id: 1, username: "User One", avatar: "Pesho" }));
   return teamsWithMembers;
 
   async function loadMessagesInTeams() {
@@ -45,17 +57,16 @@ export async function getTeams(loggedInUserId: number) {
   }
 
   async function loadMembersInTeams() {
-    const { data, error } = await supabase
-      .from("teams_members")
-      .select()
-       .in("team_id", teamsIds)
-      //.eq("team_id", teamId)
-      .order("created_at", { ascending: true });
+    const { data, error } = await supabase.from("teams_members").select();
+    // .in("team_id", teamsIds)
+    //.eq("team_id", teamId)
+    //.order("created_at", { ascending: true });
     if (error) {
       console.error(error);
       throw new Error("Team Messages could not be loaded");
     }
-    console.log("data from loadMembers ",data)
+    console.log("data from loadMembers ", data);
+    return data;
     //data.map((row) => console.log("member :", row.user_id));
   }
 
@@ -83,3 +94,26 @@ export async function getGroupMessages() {
   }
   return data;
 }
+
+export async function getMessages() {
+  const { data, error } = await supabase.from("messages0").select("*");
+  if (error) {
+    console.log(error);
+    throw new Error("Messages could not be loaded");
+  }
+  return data;
+}
+
+// export async function insertUsers() {
+//   const { data, error } = await supabase
+//     .from("users0")
+//     .insert([{ id: "id1", username: "mariya", password: "m6" }])
+//     .select();
+
+//   if (error) {
+//     console.error(error);
+//     throw new Error("Users could not be loaded");
+//   }
+
+//   return data;
+// }

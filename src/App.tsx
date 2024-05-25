@@ -9,8 +9,7 @@ import { useAppSelector } from "./store";
 import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./features/users/AllRoutes";
-import { getMessages, getUsers } from "./services/apiUsers";
-import { getGroupMessages, getTeams} from "./services/apiGroups";
+import { getGroupMessages, getTeams,getMessages, getUsers } from "./services/apiGroups";
 import Spinner from "./utils/Spinner";
 
 

@@ -99,8 +99,8 @@ export default function GroupMessages() {
               <Avatar name={team.name || ""} />
               <h4>{`${team.name} `}</h4>
             </div>
-            <p style={{ fontSize: "10px", textAlign: "center" }}>
-              {/* members: {groupMemebers!.join(", ")} */}
+            <p style={{ fontSize: "10px", textAlign: "center" }}>               
+               members: {team.members.map(user=> user.username).join(",")}
             </p>
           </div>
           <SearchInMessage />
