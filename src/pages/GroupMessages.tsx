@@ -58,7 +58,7 @@ export default function GroupMessages() {
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
-        .from("groupMessages0")
+        .from("messages")
         .delete()
         .eq("id", idForDelete);
       if (error) {

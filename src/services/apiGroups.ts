@@ -92,18 +92,18 @@ export async function getTeams(loggedInUserId: number) {
   }
 }
 
-export async function getGroupMessages() {
-  const { data, error } = await supabase.from("groupMessages0").select("*");
+// export async function getGroupMessages() {
+//   const { data, error } = await supabase.from("messages").select("*");
 
-  if (error) {
-    console.log(error);
-    throw new Error("Group Messages could not be loaded");
-  }
-  return data;
-}
+//   if (error) {
+//     console.log(error);
+//     throw new Error("Group Messages could not be loaded");
+//   }
+//   return data;
+// }
 
 export async function getMessages() {
-  const { data, error } = await supabase.from("messages0").select("*");
+  const { data, error } = await supabase.from("messages").select("*");
   if (error) {
     console.log(error);
     throw new Error("Messages could not be loaded");

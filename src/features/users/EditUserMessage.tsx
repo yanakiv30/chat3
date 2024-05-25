@@ -10,14 +10,12 @@ export default function EditUserMessage() {
   const [updateContent, setUpdateContent] = useState("");
   
   async function handleEditMessage(idForEdit: number) {
-    
-
     dispatch(setIsEdit(true));
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
-        .from("messages0")
-        .update({ content: updateContent })
+        .from("messages")
+        .update({ message: updateContent })
         .eq("id", idForEdit)
         .select();
       if (error) {

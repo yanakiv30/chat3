@@ -10,7 +10,7 @@ import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./features/users/AllRoutes";
 import {
-  getGroupMessages,
+ 
   getTeams,
   getMessages,
   getUsers,
