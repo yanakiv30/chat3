@@ -16,14 +16,15 @@ import supabase from "../services/supabase";
 
 export default function GroupMessages() {
   const { loggedInUser, searchMessage } = useAppSelector((store) => store.user);
-  const { teams } = useAppSelector((store) => store.group);
+  const { localTeams } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
   const groupInListId = +params.groupId!;
-  const team = teams.find((x) => x.id === groupInListId)!;
+  console.log(groupInListId)
+  const team = localTeams.find((x) => x.id === groupInListId)!;
   const dispatch = useDispatch();
 
-
+  
 
   async function handleSendGroupMessage() {
     // if (newGroupMessage.trim() !== "") {

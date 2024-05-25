@@ -11,10 +11,10 @@ export default function SettingsGroup() {
   const [updateName, setUpdateName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { teams } = useAppSelector((store) => store.group);
+  const { localTeams } = useAppSelector((store) => store.group);
   // const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
   const idSettings = +params.groupId!;
-  const teamToSet = teams.find((team) => team.id === idSettings)!;
+  const teamToSet = localTeams.find((team) => team.id === idSettings)!;
 
   async function changeGroupName(groupId: number) {
     // dispatch(setIsLoading(true));

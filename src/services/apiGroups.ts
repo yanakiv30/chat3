@@ -1,10 +1,13 @@
 import { Team } from "../features/groups/groupSlice";
+import { User } from "../features/users/userSlice";
+import { useAppSelector } from "../store";
 import supabase from "./supabase";
 
 export async function getTeams(loggedInUserId: number) {
+  
   const teamsIds = await getTeamsIds();
 
-  const { data:teamsData, error } = await supabase
+  const { data: teamsData, error } = await supabase
     .from("teams")
     .select("*")
     .in("id", teamsIds);
@@ -15,8 +18,12 @@ export async function getTeams(loggedInUserId: number) {
   console.log("teams :", teamsData);
   await loadMembersInTeams();
   await loadMessagesInTeams();
-
-  return teamsData;
+  const teamsWithMembers = teamsData.map((team) => ({
+    ...team,
+    members: [] as User[],
+  }));
+   teamsWithMembers.map(team=> team.members.push({ id: 1, username: "User One", avatar: "Pesho" }));
+  return teamsWithMembers;
 
   async function loadMessagesInTeams() {
     const { data, error } = await supabase
@@ -24,10 +31,12 @@ export async function getTeams(loggedInUserId: number) {
       .select()
       .in("team_id", teamsIds)
       .order("created_at", { ascending: true });
-      for (const message of data!) {
-        const teamContainingMessage= teamsData!.find(team=> team.id===message.team_id)! ;
-        if(!teamContainingMessage.messages)
-      }
+    for (const message of data!) {
+      const teamContainingMessage = teamsData!.find(
+        (team) => team.id === message.team_id
+      )!;
+      if (!teamContainingMessage) console.log(" !teamContainingMessage");
+    }
 
     if (error) {
       console.error(error);
@@ -39,12 +48,15 @@ export async function getTeams(loggedInUserId: number) {
     const { data, error } = await supabase
       .from("teams_members")
       .select()
-      .in("team_id", teamsIds)
+       .in("team_id", teamsIds)
+      //.eq("team_id", teamId)
       .order("created_at", { ascending: true });
     if (error) {
       console.error(error);
       throw new Error("Team Messages could not be loaded");
     }
+    console.log("data from loadMembers ",data)
+    //data.map((row) => console.log("member :", row.user_id));
   }
 
   async function getTeamsIds() {

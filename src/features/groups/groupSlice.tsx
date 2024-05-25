@@ -17,7 +17,7 @@ export type Team = {
 
 
 const initialState = {
-  teams: [] as Team [],
+  localTeams: [] as Team [],
 };
 
 const groupSlice = createSlice({
@@ -25,7 +25,7 @@ const groupSlice = createSlice({
   initialState,
   reducers: {
     setTeams(state, action) {
-      state.teams = [...action.payload];
+      state.localTeams = [...action.payload];
     },
 
     // setGroups(state, action) {
