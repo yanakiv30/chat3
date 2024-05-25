@@ -1,6 +1,7 @@
-import { Team } from "../features/groups/groupSlice";
+import { Message, Team } from "../features/groups/groupSlice";
 import { User } from "../features/users/userSlice";
 import { useAppSelector } from "../store";
+import { getHourDayDate } from "../utils/messageUtils";
 import supabase from "./supabase";
 
 export async function getUsers() {
@@ -14,7 +15,6 @@ export async function getUsers() {
   return data;
 }
 
-
 export async function getTeams(loggedInUserId: number) {
   const teamsIds = await getTeamsIds();
   const { data: teamsData, error } = await supabase
@@ -26,40 +26,48 @@ export async function getTeams(loggedInUserId: number) {
     throw new Error("Teams could not be loaded");
   }
   console.log("teams :", teamsData);
-  const membersInTeams = await loadMembersInTeams();
-  await loadMessagesInTeams();
+  const membersInTeams = await getMembersInTeams();
+  const messagesInTeams = await getMessagesInTeams();
   const users = await getUsers();
+
   const teamsWithMembers = teamsData.map((team) => ({
     ...team,
     members: membersInTeams
       .filter((tm) => tm.team_id === team.id)
       .map((tm) => users.find((user) => user.id === tm.user_id)!),
+    messages: messagesInTeams
+      .filter((row) => row.team_id === team.id)
+      .map((row) => {
+      //  const sender= users.find((user) => user.id === row.sender_id)!;
+
+       const message :Message ={'id':row.id!,'senderId':row.sender_id!,content:row.message!, 
+        ...getHourDayDate(new Date(row.created_at!))
+       };
+       return message;
+      }),
   }));
+
   return teamsWithMembers;
 
-  async function loadMessagesInTeams() {
+  async function getMessagesInTeams() {
     const { data, error } = await supabase
       .from("messages")
       .select()
       .in("team_id", teamsIds)
       .order("created_at", { ascending: true });
-    for (const message of data!) {
-      const teamContainingMessage = teamsData!.find(
-        (team) => team.id === message.team_id
-      )!;
-      if (!teamContainingMessage) console.log(" !teamContainingMessage");
-    }
 
     if (error) {
       console.error(error);
       throw new Error("Team Messages could not be loaded");
     }
+    return data;
   }
 
-  async function loadMembersInTeams() {
-    const { data, error } = await supabase.from("teams_members").select();
-    // .in("team_id", teamsIds)
-    //.eq("team_id", teamId)
+  async function getMembersInTeams() {
+    const { data, error } = await supabase
+      .from("teams_members")
+      .select()
+      .in("team_id", teamsIds);
     //.order("created_at", { ascending: true });
     if (error) {
       console.error(error);
@@ -67,7 +75,6 @@ export async function getTeams(loggedInUserId: number) {
     }
     console.log("data from loadMembers ", data);
     return data;
-    //data.map((row) => console.log("member :", row.user_id));
   }
 
   async function getTeamsIds() {

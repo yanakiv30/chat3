@@ -4,49 +4,50 @@ import "./App.css";
 
 import { useDispatch } from "react-redux";
 import { setUsers, setMessages } from "./features/users/userSlice";
-import {  setTeams } from "./features/groups/groupSlice";
+import { setTeams } from "./features/groups/groupSlice";
 import { useAppSelector } from "./store";
 import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./features/users/AllRoutes";
-import { getGroupMessages, getTeams,getMessages, getUsers } from "./services/apiGroups";
+import {
+  getGroupMessages,
+  getTeams,
+  getMessages,
+  getUsers,
+} from "./services/apiGroups";
 import Spinner from "./utils/Spinner";
-
 
 function App() {
   const dispatch = useDispatch();
   const { loggedInUser } = useAppSelector((store) => store.user);
   let { isRegister, isLoading } = useAppSelector((store) => store.user);
 
-  
   useEffect(() => {
-    if(!loggedInUser) return;
+    if (!loggedInUser) return;
     getUsers()
       .then((data) => dispatch(setUsers(data)))
-      .catch((error) => console.error("Error fetching users:", error));    
-    
+      .catch((error) => console.error("Error fetching users:", error));
 
-      getTeams(+loggedInUser.id)
+    getTeams(+loggedInUser.id)
       .then((data) => dispatch(setTeams(data)))
-      .catch((error) => console.error("Error fetching teams", error));    
+      .catch((error) => console.error("Error fetching teams", error));
 
     // getGroupMessages()
     //   .then((data) => dispatch(setGroupMessages(data)))
     //   .catch((error) => console.error("Error fetching Group Messages", error));
-   
+
     getMessages()
       .then((data) => dispatch(setMessages(data)))
       .catch((error) => console.error("Error fetching messages :", error));
-    
-  }, [dispatch, isRegister, isLoading,loggedInUser]);
+  }, [dispatch, isRegister, isLoading, loggedInUser]);
 
   return (
     <Router>
-      <div className="app-container" style={{ position: "relative" }}>       
-        {isLoading && <Spinner/>}
+      <div className="app-container" style={{ position: "relative" }}>
+        {isLoading && <Spinner />}
 
         {loggedInUser ? (
-          <div className="main-container">           
+          <div className="main-container">
             <ChatMembersList />
             <AllRoutes />
           </div>

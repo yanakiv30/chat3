@@ -53,26 +53,30 @@ export function newMessageObjectFunc(
   userInListId: string | undefined,
   newMessage: string
 ) {
-  const currentDate = new Date();
-  const hours = currentDate.getHours();
-  const minutes = currentDate.getMinutes();
+  // const { hourMinDate, dayDate } = getHourDayDate();
+  // const newMessageObject = {
+  //   id: uuid(),
+  //   senderId: loggedInUser!.id,
+  //   receiverId: userInListId,
+  //   senderUsername: loggedInUser!.username,
+  //   content: newMessage,
+  //   hourMinDate,
+  //   dayDate,
+  // };
+  // return newMessageObject;
+}
+
+export function getHourDayDate(date: Date) {
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
   const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
-  const dayDate = `${currentDate.getDate()}
-    .${currentDate.getMonth()}.${currentDate.getFullYear()}`;
-  const newMessageObject = {
-    id: uuid(),
-    senderId: loggedInUser!.id,
-    receiverId: userInListId,
-    senderUsername: loggedInUser!.username,
-    content: newMessage,
-    hourMinDate,
-    dayDate,
-  };
-  return newMessageObject;
+  const dayDate = `${date.getDate()}
+    .${date.getMonth()}.${date.getFullYear()}`;
+  return { hourMinDate, dayDate };
 }
 
 export function searchedGroupMessagesFunc(
-  groupMessages: Message[],  
+  groupMessages: Message[],
   searchMessage: string
 ) {
   return groupMessages.filter((groupMessage) =>
