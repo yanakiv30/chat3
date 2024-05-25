@@ -83,6 +83,7 @@ import { useDispatch } from "react-redux";
 import { rightMessage } from "../../utils/messageUtils";
 import { setIsEdit, setMesContent, setMessageId } from "./userSlice";
 import { useAppSelector } from "../../store";
+import { Message } from "../groups/groupSlice";
 
 export default function UserMessagesContainer({
   loggedInUser,
@@ -92,7 +93,7 @@ export default function UserMessagesContainer({
   searchedMessage,
 }: any) {
   const dispatch = useDispatch();
-  const { messageId, messages } = useAppSelector((store) => store.user);
+  const { messageId, messages,users } = useAppSelector((store) => store.user);
 
   useEffect(() => {
     const messageContent = messages.filter(
@@ -105,14 +106,14 @@ export default function UserMessagesContainer({
     return <div>No messages found</div>;
   }
 
-  function editOnId(messageId: string) {
+  function editOnId(messageId: number) {
     dispatch(setMessageId(messageId));
     dispatch(setIsEdit(true));
   }
 
   return (
     <ul className="messages-container">
-      {searchedMessage.map((message, index) => (
+      {searchedMessage.map((message:Message, index) => (
         <div
           className={`${
             rightMessage(message, loggedInUser, userInListId)
@@ -129,7 +130,7 @@ export default function UserMessagesContainer({
           </p>
           <br />
           <li className="message">
-            <p style={{ color: "blue" }}>{message.senderUsername}:</p>
+            <p style={{ color: "blue" }}>{users.filter(user=> user.id===message.senderId)[0].username}:</p>
             <p>{message.content}</p>
             <br />
             <p className="date">{message.hourMinDate}</p>
