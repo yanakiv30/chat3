@@ -13,55 +13,43 @@ import UserMessagesContainer from "../features/users/UserMessageContainer";
 import { setIsLoading } from "../features/users/userSlice";
 import supabase from "../services/supabase";
 
-
 export default function GroupMessages() {
   const { loggedInUser, searchMessage } = useAppSelector((store) => store.user);
   const { localTeams } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
   const groupInListId = +params.groupId!;
-  console.log(groupInListId)
+  console.log(groupInListId);
   const team = localTeams.find((x) => x.id === groupInListId)!;
   const dispatch = useDispatch();
 
-  
-
   async function handleSendGroupMessage() {
-    // if (newGroupMessage.trim() !== "") {
-    //   const currentDate = new Date();
-    //   const hours = currentDate.getHours();
-    //   const minutes = currentDate.getMinutes();
-    //   const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
-    //   const dayDate = `${currentDate.getDate()}.${currentDate.getMonth()}.${currentDate.getFullYear()}`;
+    if (newGroupMessage.trim() !== "") {
+      const newGroupMessageObject={        
+        sender_id: loggedInUser!.id,
+        team_id: groupInListId,
+        type : "text",
+        message: newGroupMessage,
+      };
 
-    //   const newGroupMessageObject = {
-    //     id: uuid(),
-    //     senderId: loggedInUser!.id,
-    //     receiverId: groupInListId,
-    //     senderUsername: loggedInUser!.username,
-    //     content: newGroupMessage,
-    //     hourMinDate,
-    //     dayDate,
-    //   };
-
-    //   dispatch(setIsLoading(true));
-    //   try {
-    //     const { data, error } = await supabase
-    //       .from("groupMessages0")
-    //       .insert(newGroupMessageObject)
-    //       .select();
-    //     if (error) {
-    //       console.error(error);
-    //       throw new Error("Group Messages could not be loaded");
-    //     }
-    //    // dispatch(addGroupMessage(data));
-    //   } catch (error) {
-    //     console.error("Error creating Group message:", error);
-    //   } finally {
-    //     dispatch(setIsLoading(false));
-    //   }
-    //   setNewGroupMessage("");
-    // }
+      dispatch(setIsLoading(true));
+      try {
+        const { data, error } = await supabase
+          .from("messages")
+          .insert(newGroupMessageObject)
+          .select();
+        if (error) {
+          console.error(error);
+          throw new Error("Group Messages could not be loaded");
+        }
+        // dispatch(addGroupMessage(data));
+      } catch (error) {
+        console.error("Error creating Group message:", error);
+      } finally {
+        dispatch(setIsLoading(false));
+      }
+      setNewGroupMessage("");
+    }
   }
 
   async function handleDeleteGroupMessages(idForDelete: string) {
@@ -99,8 +87,8 @@ export default function GroupMessages() {
               <Avatar name={team.name || ""} />
               <h4>{`${team.name} `}</h4>
             </div>
-            <p style={{ fontSize: "10px", textAlign: "center" }}>               
-               members: {team.members.map(user=> user.username).join(",")}
+            <p style={{ fontSize: "10px", textAlign: "center" }}>
+              members: {team.members.map((user) => user.username).join(",")}
             </p>
           </div>
           <SearchInMessage />
