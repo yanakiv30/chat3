@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { v4 as uuid } from "uuid";
 import SearchInMessage from "../features/users/SearchInMessage";
 import Avatar from "../features/users/Avatar";
 
@@ -12,23 +11,24 @@ import { searchedGroupMessagesFunc } from "../utils/messageUtils";
 import UserMessagesContainer from "../features/users/UserMessageContainer";
 import { setIsLoading } from "../features/users/userSlice";
 import supabase from "../services/supabase";
+import EditUserMessage from "../features/users/EditUserMessage";
 
 export default function GroupMessages() {
-  const { loggedInUser, searchMessage } = useAppSelector((store) => store.user);
+  const { loggedInUser, searchMessage,isLoading, messages, users, isEdit } = useAppSelector((store) => store.user);
   const { localTeams } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
   const groupInListId = +params.groupId!;
-  console.log(groupInListId);
+  
   const team = localTeams.find((x) => x.id === groupInListId)!;
   const dispatch = useDispatch();
 
   async function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {
-      const newGroupMessageObject={        
+      const newGroupMessageObject = {
         sender_id: loggedInUser!.id,
         team_id: groupInListId,
-        type : "text",
+        type: "text",
         message: newGroupMessage,
       };
 
@@ -98,13 +98,17 @@ export default function GroupMessages() {
           userInListId={groupInListId}
           handleDeleteMessages={handleDeleteGroupMessages}
           searchedMessage={searchedGroupMessages}
-        />
+        />       
 
-        <SendUserMessage
+        {!isEdit ? (
+          <SendUserMessage
           newMessage={newGroupMessage}
           setNewMessage={setNewGroupMessage}
           handleSendMessage={handleSendGroupMessage}
-        />
+          />
+        ) : (
+          <EditUserMessage />
+        )}
       </div>
     </div>
   );

@@ -87,26 +87,28 @@ import { Message } from "../groups/groupSlice";
 
 export default function UserMessagesContainer({
   loggedInUser,
-  userInListId,
-  handleEditMessages,
+  userInListId,  
   handleDeleteMessages,
   searchedMessage,
 }: any) {
   const dispatch = useDispatch();
   const { messageId, messages,users } = useAppSelector((store) => store.user);
-
+  console.log("messages ",messages);////////////////
   useEffect(() => {
+    
     const messageContent = messages.filter(
       (message) => message.id === messageId
-    )[0]?.content;
+    )[0]?.content; 
+    console.log("messageContent", messageContent) ;///////////////
     dispatch(setMesContent(messageContent));
   }, [messageId, messages, dispatch]);
-
+ 
   if (!Array.isArray(searchedMessage)) {
     return <div>No messages found</div>;
   }
 
   function editOnId(messageId: number) {
+    console.log(" messageId ", messageId);
     dispatch(setMessageId(messageId));
     dispatch(setIsEdit(true));
   }
