@@ -89,21 +89,20 @@ export default function UserMessagesContainer({
   loggedInUser,
   userInListId,  
   handleDeleteMessages,
-  searchedMessage,
+  searchedMessages,
 }: any) {
   const dispatch = useDispatch();
-  const { messageId, messages,users } = useAppSelector((store) => store.user);
-  console.log("messages ",messages);////////////////
-  useEffect(() => {
-    
-    const messageContent = messages.filter(
-      (message) => message.id === messageId
+  const { messageId,users } = useAppSelector((store) => store.user);
+  
+  useEffect(() => {    
+    const messageContent = searchedMessages.filter(
+      (message:any) => message.id === messageId
     )[0]?.content; 
     console.log("messageContent", messageContent) ;///////////////
     dispatch(setMesContent(messageContent));
-  }, [messageId, messages, dispatch]);
+  }, [messageId, searchedMessages, dispatch]);
  
-  if (!Array.isArray(searchedMessage)) {
+  if (!Array.isArray(searchedMessages)) {
     return <div>No messages found</div>;
   }
 
@@ -115,7 +114,7 @@ export default function UserMessagesContainer({
 
   return (
     <ul className="messages-container">
-      {searchedMessage.map((message:Message, index) => (
+      {searchedMessages.map((message:Message, index) => (
         <div
           className={`${
             rightMessage(message, loggedInUser, userInListId)
@@ -125,8 +124,8 @@ export default function UserMessagesContainer({
           key={message.id}
         >
           <p className="day-date">
-            {searchedMessage[index - 1]?.dayDate ===
-            searchedMessage[index].dayDate
+            {searchedMessages[index - 1]?.dayDate ===
+            searchedMessages[index].dayDate
               ? ""
               : message.dayDate}
           </p>

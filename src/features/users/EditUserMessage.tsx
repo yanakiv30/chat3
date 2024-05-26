@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { setIsEdit, setIsLoading, setMesContent } from "./userSlice";
+import { setIsEdit, setIsLoading } from "./userSlice";
 import { useAppSelector } from "../../store";
 import supabase from "../../services/supabase";
 import { useState } from "react";
 
 export default function EditUserMessage() {
   const dispatch = useDispatch();
-  const { messageId, messages, mesContent } = useAppSelector(
+  const { messageId, mesContent } = useAppSelector(
     (store) => store.user
   );
   console.log("mescontent", mesContent);
@@ -43,7 +43,7 @@ export default function EditUserMessage() {
     <div className="message-send">
       <input
         type="text"
-        value={updateContent || mesContent}
+        value={updateContent || mesContent||""}
         onChange={(e) => setUpdateContent(e.target.value || mesContent)}
         placeholder=""
       />

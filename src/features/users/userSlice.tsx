@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Message } from "../groups/groupSlice";
+
 export type User = { id: number; username: string; avatar: string };
 
 const initialState = {
@@ -10,7 +10,7 @@ const initialState = {
   mesContent: "",
   users: [] as User[],
   loggedInUser: null as User | null,
-  messages: [] as Message[],
+  // messages: [] as Message[],
   searchQuery: "",
   searchMessage: "",
 };
@@ -43,12 +43,12 @@ const userSlice = createSlice({
     addUser(state, action) {
       state.users = [...state.users, action.payload];
     },
-    setMessages(state, action) {
-      state.messages = [...action.payload];
-    },
-    addMessage(state, action) {
-      state.messages = [...state.messages, action.payload];
-    },
+    // setMessages(state, action) {
+    //   state.messages = [...action.payload];
+    // },
+    // addMessage(state, action) {
+    //   state.messages = [...state.messages, action.payload];
+    // },
     setSearchQuery(state, action) {
       state.searchQuery = action.payload;
     },
@@ -60,9 +60,7 @@ const userSlice = createSlice({
 export const {
   setLoggedInUser,
   setUsers,
-  addUser,
-  setMessages,
-  addMessage,
+  addUser,  
   setSearchQuery,
   setSearchMessage,
   setIsRegister,

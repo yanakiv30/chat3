@@ -14,7 +14,7 @@ import supabase from "../services/supabase";
 import EditUserMessage from "../features/users/EditUserMessage";
 
 export default function GroupMessages() {
-  const { loggedInUser, searchMessage,isLoading, messages, users, isEdit } = useAppSelector((store) => store.user);
+  const { loggedInUser, searchMessage, isEdit } = useAppSelector((store) => store.user);
   const { localTeams } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
@@ -97,7 +97,7 @@ export default function GroupMessages() {
           loggedInUser={loggedInUser}
           userInListId={groupInListId}
           handleDeleteMessages={handleDeleteGroupMessages}
-          searchedMessage={searchedGroupMessages}
+          searchedMessages={searchedGroupMessages}
         />       
 
         {!isEdit ? (

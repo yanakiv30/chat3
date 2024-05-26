@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 
 import { useDispatch } from "react-redux";
-import { setUsers, setMessages } from "./features/users/userSlice";
+import { setUsers } from "./features/users/userSlice";
 import { setTeams } from "./features/groups/groupSlice";
 import { useAppSelector } from "./store";
 import ChatMembersList from "./pages/ChatMembersList";
@@ -12,7 +12,6 @@ import AllRoutes from "./features/users/AllRoutes";
 import {
  
   getTeams,
-  getMessages,
   getUsers,
 } from "./services/apiGroups";
 import Spinner from "./utils/Spinner";
@@ -36,9 +35,10 @@ function App() {
     //   .then((data) => dispatch(setGroupMessages(data)))
     //   .catch((error) => console.error("Error fetching Group Messages", error));
 
-    getMessages()
-      .then((data) => dispatch(setMessages(data)))
-      .catch((error) => console.error("Error fetching messages :", error));
+    // getMessages()
+    //   .then((data) => dispatch(setMessages(data)))
+    //   .catch((error) => console.error("Error fetching messages :", error));
+
   }, [dispatch, isRegister, isLoading, loggedInUser]);
 
   return (
