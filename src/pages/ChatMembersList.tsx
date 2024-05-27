@@ -7,6 +7,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { createTeamWithMembers } from "../services/createTeam";
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../features/users/userSlice";
+import { getTeams } from "../services/apiGroups";
+import { setTeams } from "../features/groups/groupSlice";
 
 function ChatMembersList() {
   const { searchQuery, users, loggedInUser } = useAppSelector(
@@ -23,19 +25,25 @@ function ChatMembersList() {
       : users;
 
   async function handleUserClicked(userId: number) {
-    
     const doubleViewGroup = localTeams.find(
       (team) =>
         team.name === "" && team.members.some((user) => user.id === userId)
     );
     if (doubleViewGroup) navigate(`/messages/${doubleViewGroup.id}`);
     else {
-      dispatch(setIsLoading(true));
-      const doubleViewGroupId= await createTeamWithMembers("", [loggedInUser!.id, userId]);
-      dispatch(setIsLoading(false));
-      navigate(`/messages/${doubleViewGroupId}`);
+      //dispatch(setIsLoading(true));
+      const doubleViewGroupId = await createTeamWithMembers("", [
+        loggedInUser!.id,
+        userId,
+      ]);
+      getTeams(+loggedInUser!.id)
+        .then((data) => {
+          dispatch(setTeams(data));
+          navigate(`/messages/${doubleViewGroupId}`);
+        })
+        .catch((error) => console.error("Error fetching teams", error));
+      //dispatch(setIsLoading(false));
     }
-    
   }
 
   return (

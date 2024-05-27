@@ -27,13 +27,7 @@ function App() {
       .then((data) => dispatch(setTeams(data)))
       .catch((error) => console.error("Error fetching teams", error));
 
-    // getGroupMessages()
-    //   .then((data) => dispatch(setGroupMessages(data)))
-    //   .catch((error) => console.error("Error fetching Group Messages", error));
-
-    // getMessages()
-    //   .then((data) => dispatch(setMessages(data)))
-    //   .catch((error) => console.error("Error fetching messages :", error));
+    
   }, [dispatch, isRegister, isLoading, loggedInUser]);
 
   return (
