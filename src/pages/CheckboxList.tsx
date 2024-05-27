@@ -3,15 +3,16 @@ import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store";
-import supabase from "../services/supabase";
+
 import { setIsLoading } from "../features/users/userSlice";
+import { createTeamWithMembers } from "../services/createTeam";
 
 function CheckboxList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let { users, loggedInUser } = useAppSelector((store) => store.user);   
-  const [groupName, setGroupName] = useState("");  
+  let { users, loggedInUser } = useAppSelector((store) => store.user);
+  const [groupName, setGroupName] = useState("");
   const usersWithoutLoggedIn = users.filter(
     (user) => user.id !== loggedInUser?.id
   );
@@ -21,31 +22,16 @@ function CheckboxList() {
   };
   const [checkedItems, setCheckedItems] = useState({} as CheckedItems);
 
-  async function createTeam(newTeam: { name: string }) {
-    const { data, error } = await supabase
-      .from("teams")
-      .insert(newTeam)
-      .select();
-    if (error) {
-      console.error(error);
-      throw new Error("New group could not be loaded");
-    }
-    return data[0];
-  }
+  async function handleSetGroups() {
+    dispatch(setIsLoading(true));
 
-  async function connectTeamWithUsers(teamId: number, usersIds: number[]) {
-    const rows = usersIds.map((userId) => {
-      return { team_id: teamId, user_id: userId };
-    });
-    const { data, error } = await supabase
-      .from("teams_members")
-      .insert(rows)
-      .select();
-    if (error) {
-      console.error(error);
-      throw new Error("Failed to connect users to team");
+    try {
+      await createTeamWithMembers(groupName, checkedIds);
+    } catch (error) {
+      console.error("Error creating new group:", error);
+    } finally {
+      dispatch(setIsLoading(false));
     }
-    return data;
   }
 
   function handleCheckboxChange(id: number) {
@@ -54,30 +40,12 @@ function CheckboxList() {
       [id]: !prevCheckedItems[id],
     }));
   }
-  const checkedIds =[...Object.keys(checkedItems)
-    .filter((key: string) => checkedItems[key] === true)
-    .map((key) => +key), +loggedInUser!.id];
-
-
-
-  async function handleSetGroups() {
-    // const isDuplicate = groups?.some((obj) => obj.name === groupName);
-    // if (isDuplicate || !loggedInUser) {
-    //   alert("Duplicate name");
-    //   return;
-    // }
-
-    dispatch(setIsLoading(true));
-
-    try {
-      const newTeam = await createTeam({ name: groupName });
-      const teamToMembers = await connectTeamWithUsers(newTeam.id, checkedIds);
-    } catch (error) {
-      console.error("Error creating new group:", error);
-    } finally {
-      dispatch(setIsLoading(false));
-    }
-  }
+  const checkedIds = [
+    ...Object.keys(checkedItems)
+      .filter((key: string) => checkedItems[key] === true)
+      .map((key) => +key),
+    +loggedInUser!.id,
+  ];
 
   return (
     <div
@@ -105,7 +73,7 @@ function CheckboxList() {
             <li key={user.id}>
               <input
                 type="checkbox"
-                id={user.id +''} 
+                id={user.id + ""}
                 checked={checkedItems[user.id] || false}
                 onChange={() => handleCheckboxChange(user.id)}
               />

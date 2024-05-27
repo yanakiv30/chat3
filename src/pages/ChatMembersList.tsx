@@ -3,18 +3,31 @@ import GroupList from "../features/groups/GroupList";
 import { useAppSelector } from "../store";
 import LogoLogout from "../features/users/LogoLogout";
 import IconAndSearch from "../features/users/IconAndSearch";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function ChatMembersList() {
   const { searchQuery, users, loggedInUser } = useAppSelector(
     (store) => store.user
   );
-  const searchedUser =
+  const { localTeams } = useAppSelector((store) => store.group);
+  const navigate = useNavigate();
+  const searchedUsers =
     searchQuery.length > 0
       ? users.filter(
           (user) => user && user.username && user.username.includes(searchQuery)
         )
       : users;
+
+  function handleUserClicked(userId: number): void {
+    const doubleViewGroup= localTeams.find(team=> team.name==="" && team.members.some(user=> user.id===userId));
+    if(doubleViewGroup) navigate(`/messages/${doubleViewGroup.id}`)
+      else {
+    
+
+        
+      }
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <div className="user-list-container">
@@ -24,13 +37,13 @@ function ChatMembersList() {
       <br></br>
       <ul>
         {loggedInUser &&
-          searchedUser
+          searchedUsers
             .filter((user) => user.id !== loggedInUser.id)
             .map((user) => (
               <li key={user.id}>
                 <div style={{ display: "flex", gap: "5px" }}>
                   <Avatar name={user.username} />
-                  <NavLink to={`/messages/${user.id}`}>{user.username}</NavLink>
+                  <button onClick={()=>handleUserClicked(user.id)}>{user.username}</button>
                 </div>
               </li>
             ))}
