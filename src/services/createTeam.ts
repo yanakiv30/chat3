@@ -1,10 +1,11 @@
 import supabase from "../services/supabase";
 export async function createTeamWithMembers(
     teamName: string,
-    usersIds: number[]
+    membersIds: number[]
   ) {
     const newTeam = await createTeam({ name: teamName });
-    const teamToMembers = await connectTeamWithUsers(newTeam.id, usersIds);
+    const teamToMembers = await connectTeamWithUsers(newTeam.id, membersIds);
+    return newTeam.id;
   }
   
   async function createTeam(newTeam: { name: string }) {
@@ -16,8 +17,8 @@ export async function createTeamWithMembers(
     return data[0];
   }
   
-  async function connectTeamWithUsers(teamId: number, usersIds: number[]) {
-    const rows = usersIds.map((userId) => {
+  async function connectTeamWithUsers(teamId: number, membersIds: number[]) {
+    const rows = membersIds.map((userId) => {
       return { team_id: teamId, user_id: userId };
     });
     const { data, error } = await supabase

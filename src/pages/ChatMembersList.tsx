@@ -4,6 +4,9 @@ import { useAppSelector } from "../store";
 import LogoLogout from "../features/users/LogoLogout";
 import IconAndSearch from "../features/users/IconAndSearch";
 import { NavLink, useNavigate } from "react-router-dom";
+import { createTeamWithMembers } from "../services/createTeam";
+import { useDispatch } from "react-redux";
+import { setIsLoading } from "../features/users/userSlice";
 
 function ChatMembersList() {
   const { searchQuery, users, loggedInUser } = useAppSelector(
@@ -11,6 +14,7 @@ function ChatMembersList() {
   );
   const { localTeams } = useAppSelector((store) => store.group);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const searchedUsers =
     searchQuery.length > 0
       ? users.filter(
@@ -18,15 +22,20 @@ function ChatMembersList() {
         )
       : users;
 
-  function handleUserClicked(userId: number): void {
-    const doubleViewGroup= localTeams.find(team=> team.name==="" && team.members.some(user=> user.id===userId));
-    if(doubleViewGroup) navigate(`/messages/${doubleViewGroup.id}`)
-      else {
+  async function handleUserClicked(userId: number) {
     
-
-        
-      }
-    throw new Error("Function not implemented.");
+    const doubleViewGroup = localTeams.find(
+      (team) =>
+        team.name === "" && team.members.some((user) => user.id === userId)
+    );
+    if (doubleViewGroup) navigate(`/messages/${doubleViewGroup.id}`);
+    else {
+      dispatch(setIsLoading(true));
+      const doubleViewGroupId= await createTeamWithMembers("", [loggedInUser!.id, userId]);
+      dispatch(setIsLoading(false));
+      navigate(`/messages/${doubleViewGroupId}`);
+    }
+    
   }
 
   return (
@@ -43,14 +52,20 @@ function ChatMembersList() {
               <li key={user.id}>
                 <div style={{ display: "flex", gap: "5px" }}>
                   <Avatar name={user.username} />
-                  <button onClick={()=>handleUserClicked(user.id)}>{user.username}</button>
+                  <button onClick={() => handleUserClicked(user.id)}>
+                    {user.username}
+                  </button>
                 </div>
               </li>
             ))}
       </ul>
       <GroupList />
 
-      <img style={{maxWidth:"70%"}} src="https://cpkaumakwusyxhmexnqr.supabase.co/storage/v1/object/public/messages-images/cabin-001.jpg" alt="some cabin"/>
+      <img
+        style={{ maxWidth: "70%" }}
+        src="https://cpkaumakwusyxhmexnqr.supabase.co/storage/v1/object/public/messages-images/cabin-001.jpg"
+        alt="some cabin"
+      />
     </div>
   );
 }

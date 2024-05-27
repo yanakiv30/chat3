@@ -12,7 +12,7 @@ export default function GroupList() {
       ? localTeams.filter(
           (team) => team && team.name && team.name.includes(searchQuery)
         )
-      : localTeams;
+      : localTeams.filter(team=> team.name!=='');
 
   return (
     <div>
