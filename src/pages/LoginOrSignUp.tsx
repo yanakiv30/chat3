@@ -5,19 +5,24 @@ import { useAppSelector } from "../store";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import supabase from "../services/supabase";
+import { signInUser, signUpUser } from "../services/auth";
 
 export default function LoginOrSignUp() {
  // const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();  
   const { isRegister } = useAppSelector((store) => store.user);
   
-  async function handleLogin(username: string, password: string) {
+  async function handleLogin(email: string, password: string) {
+    const authResponse=await signInUser(email,password);
+    if(authResponse.error){
+      console.error(authResponse.error);
+      throw new Error("Failed to sign in user");
+    }
 
     const { data, error } = await supabase
     .from('users')
     .select()
-    .eq('username', username) 
-    .eq('password', password)   
+    .eq('auth_id', authResponse.data.user!.id);  
     
     // const user = users.find(
     //   (u) => u.username === username && u.password === password
@@ -35,13 +40,19 @@ export default function LoginOrSignUp() {
     //   alert("This username already exists!");
     //   return;
     // }
+
+    const authResponse = await signUpUser(email, newPassword);
+    if(authResponse.error){
+      console.error(authResponse.error);
+      throw new Error("Failed to sign up user");
+    }
+
     const newUser = {      
-      email:email,
       username:newUsername,
       full_name:full_name,
-      password:newPassword,
       avatar:avatar,
-      status:status
+      status:status,
+      auth_id:authResponse.data!.user!.id
     };
     try {     
       const { data, error } = await supabase
