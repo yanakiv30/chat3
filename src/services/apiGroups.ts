@@ -1,6 +1,4 @@
-import { Message, Team } from "../features/groups/groupSlice";
-import { User } from "../features/users/userSlice";
-import { useAppSelector } from "../store";
+import { Message } from "../features/groups/groupSlice";
 import { getHourDayDate } from "../utils/messageUtils";
 import supabase from "./supabase";
 
@@ -21,6 +19,7 @@ export async function getTeams(loggedInUserId: number) {
     .from("teams")
     .select("*")
     .in("id", teamsIds);
+
   if (error) {
     console.error(error);
     throw new Error("Teams could not be loaded");
@@ -38,12 +37,13 @@ export async function getTeams(loggedInUserId: number) {
     messages: messagesInTeams
       .filter((row) => row.team_id === team.id)
       .map((row) => {
-      //  const sender= users.find((user) => user.id === row.sender_id)!;
-
-       const message :Message ={'id':row.id!,'senderId':row.sender_id!,content:row.message!, 
-        ...getHourDayDate(new Date(row.created_at!))
-       };
-       return message;
+        const message: Message = {
+          id: row.id!,
+          senderId: row.sender_id!,
+          content: row.message!,
+          ...getHourDayDate(new Date(row.created_at!)),
+        };
+        return message;
       }),
   }));
 
@@ -53,7 +53,6 @@ export async function getTeams(loggedInUserId: number) {
     const { data, error } = await supabase
       .from("messages")
       .select()
-      .in("team_id", teamsIds)
       .order("created_at", { ascending: true });
 
     if (error) {
@@ -64,11 +63,7 @@ export async function getTeams(loggedInUserId: number) {
   }
 
   async function getMembersInTeams() {
-    const { data, error } = await supabase
-      .from("teams_members")
-      .select()
-      .in("team_id", teamsIds);
-    //.order("created_at", { ascending: true });
+    const { data, error } = await supabase.from("teams_members").select();
     if (error) {
       console.error(error);
       throw new Error("Team Messages could not be loaded");
@@ -92,16 +87,6 @@ export async function getTeams(loggedInUserId: number) {
   }
 }
 
-// export async function getGroupMessages() {
-//   const { data, error } = await supabase.from("messages").select("*");
-
-//   if (error) {
-//     console.log(error);
-//     throw new Error("Group Messages could not be loaded");
-//   }
-//   return data;
-// }
-
 export async function getMessages() {
   const { data, error } = await supabase.from("messages").select("*");
   if (error) {
@@ -110,17 +95,3 @@ export async function getMessages() {
   }
   return data;
 }
-
-// export async function insertUsers() {
-//   const { data, error } = await supabase
-//     .from("users0")
-//     .insert([{ id: "id1", username: "mariya", password: "m6" }])
-//     .select();
-
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Users could not be loaded");
-//   }
-
-//   return data;
-// }

@@ -1,4 +1,6 @@
 
+
+
 import { useDispatch } from "react-redux";
 import { setLoggedInUser,setIsRegister} from "../features/users/userSlice";
 import { useAppSelector } from "../store";
@@ -18,11 +20,10 @@ export default function LoginOrSignUp() {
       console.error(authResponse.error);
       throw new Error("Failed to sign in user");
     }
-
     const { data, error } = await supabase
     .from('users')
     .select()
-    .eq('auth_id', authResponse.data.user!.id);  
+    .eq('id', authResponse.user_id);  
     
     // const user = users.find(
     //   (u) => u.username === username && u.password === password
@@ -30,6 +31,7 @@ export default function LoginOrSignUp() {
     if (data) {
       dispatch(setLoggedInUser(data[0])); //user is a object
     } else {
+      console.error(error)
       alert("Invalid credentials");
     }
   }
@@ -51,23 +53,24 @@ export default function LoginOrSignUp() {
       username:newUsername,
       full_name:full_name,
       avatar:avatar,
-      status:status,
-      auth_id:authResponse.data!.user!.id
+      status:status
     };
     try {     
       const { data, error } = await supabase
       .from("users")
       .insert([newUser])
       .select();
-  
-    if (error) {
-      console.error(error);
-      throw new Error("Users could not be loaded");
-    }
     
-       //dispatch(addUser(data));
-      
-     //dispatch(setLoggedInUser(data));
+      if (error) {
+        console.error(error);
+        throw new Error("Users could not be loaded");
+      }
+      const usersAuthData = await supabase
+        .from("users_auth")
+        .insert([{user_id:data[0].id,auth_id:authResponse.data.user!.id}])
+        .select();
+
+
     } catch (error) {
       console.error("Error creating user:", error);
     }

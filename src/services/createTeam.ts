@@ -4,14 +4,14 @@ export async function createTeamWithMembers(
     membersIds: number[]
   ) {
     const newTeam = await createTeam({ name: teamName });
-    const teamToMembers = await connectTeamWithUsers(newTeam.id, membersIds);
+    await connectTeamWithUsers(newTeam.id, membersIds);
     return newTeam.id;
   }
   
   async function createTeam(newTeam: { name: string }) {
     const { data, error } = await supabase.from("teams").insert(newTeam).select();
     if (error) {
-      console.error(error);
+      console.error(error.message);
       throw new Error("New group could not be loaded");
     }
     return data[0];
@@ -23,12 +23,9 @@ export async function createTeamWithMembers(
     });
     const { data, error } = await supabase
       .from("teams_members")
-      .insert(rows)
-      .select();
+      .insert(rows);
     if (error) {
       console.error(error);
       throw new Error("Failed to connect users to team");
     }
-    return data;
   }
-  
