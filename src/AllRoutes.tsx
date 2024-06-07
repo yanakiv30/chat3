@@ -5,6 +5,7 @@ import SettingsGroup from "./pages/SettingsGroup";
 import { useAppSelector } from "./store";
 import GroupMessages from "./pages/GroupMessages";
 import { User } from "./features/users/userSlice";
+import Empty from "./pages/Empty";
 
 export default function AllRoutes() {
   const { loggedInUser, users } = useAppSelector((store) => store.user);
@@ -26,6 +27,7 @@ export default function AllRoutes() {
           />
         }
       /> */}
+      <Route path="/" element={<Empty />} />
       <Route path="/userOptions" element={<UserOptions />} />
       <Route path="/groups/:groupId" element={<GroupMessages />} />
       <Route path="/groups/createGroups" element={<CheckboxList />} />

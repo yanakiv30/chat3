@@ -5,7 +5,7 @@ import { useAppSelector } from "../../store";
 export default function GroupList() {
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
   const { localTeams } = useAppSelector((store) => store.group);
-  console.log("localTeams", localTeams);
+  //console.log("localTeams", localTeams);
 
   const searchedTeams =
     searchQuery.length > 0

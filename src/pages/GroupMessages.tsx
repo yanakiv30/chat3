@@ -19,7 +19,7 @@ export default function GroupMessages() {
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
   const groupInListId = +params.groupId!;
-  console.log("groupInListId", groupInListId);
+ // console.log("groupInListId", groupInListId);
   
   const team = localTeams.find((x) => x.id === groupInListId)!;
   const dispatch = useDispatch();

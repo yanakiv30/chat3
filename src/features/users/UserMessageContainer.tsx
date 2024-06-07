@@ -98,7 +98,7 @@ export default function UserMessagesContainer({
     const messageContent = searchedMessages.filter(
       (message:any) => message.id === messageId
     )[0]?.content; 
-    console.log("messageContent", messageContent) ;///////////////
+    //console.log("messageContent", messageContent) ;///////////////
     dispatch(setMesContent(messageContent));
   }, [messageId, searchedMessages, dispatch]);
  
