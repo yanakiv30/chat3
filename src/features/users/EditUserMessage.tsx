@@ -23,12 +23,11 @@ export default function EditUserMessage() {
         .eq("id", idForEdit)
         .select();
       if (error) {
-        throw new Error(error.message);
+        console.error(error);
+        throw new Error("Message could not be edited");
       }
     } catch (error) {
-      const errorMessage="Error editing message:"+ error;
-      alert(errorMessage)
-      console.error(errorMessage);
+      console.error("Error editing message:", error);
     } finally {
       dispatch(setIsLoading(false));
     }

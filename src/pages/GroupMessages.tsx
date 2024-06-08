@@ -78,7 +78,7 @@ export default function GroupMessages() {
     team.messages || [],
     searchMessage
   );
-
+ 
   return (
     <div className="profile-wrapper">
       <div className="user-profile-container">

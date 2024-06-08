@@ -14,19 +14,19 @@ export default function GroupList() {
         )
       : localTeams.filter(team=> team.name!=='');
 
+      searchedTeams.map(team=>console.log("team.members.at(-1).id= ",team.members.at(-1)!.id))
   return (
     <div>
       <ul>
         {searchedTeams.map((team) => (
-          <li key={team.id}>
+          
+          <li key={team.id}>            
             <div style={{ display: "flex", gap: "5px" }}>
               <Avatar name={team.name} />
-              <NavLink to={`/groups/${team.id}`}>{`${team.name} `}</NavLink>
-              {/* {group.admin === loggedInUser!.username ? (
-                  <NavLink to={`/settingsGroup/${group.id}`}>Settings</NavLink>
-                ) : (
-                  ""
-                )} */}
+              <NavLink to={`/groups/${team.id}`}>{`${team.name} `}</NavLink>        
+              {team.members.at(-1)!.id ===loggedInUser!.id ? 
+                  <NavLink to={`/settingsGroup/${team.id}`}>Settings</NavLink> : ""}
+               
             </div>
           </li>
         ))}
