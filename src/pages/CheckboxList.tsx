@@ -6,6 +6,7 @@ import { useAppSelector } from "../store";
 
 import { setIsLoading } from "../features/users/userSlice";
 import { createTeamWithMembers } from "../services/createTeam";
+import supabase from "../services/supabase";
 
 function CheckboxList() {
   const dispatch = useDispatch();
@@ -46,6 +47,8 @@ function CheckboxList() {
       .map((key) => +key),
     +loggedInUser!.id,
   ];
+
+
 
   return (
     <div
