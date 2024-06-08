@@ -40,12 +40,12 @@ export default function GroupMessages() {
           .insert(newGroupMessageObject)
           .select();
         if (error) {
-          console.error(error);
-          throw new Error("Group Messages could not be loaded");
+          throw new Error(error.message);
         }
-        // dispatch(addGroupMessage(data));
       } catch (error) {
-        console.error("Error creating Group message:", error);
+        const errorMessage="Error creating Group message: "+ error;
+        console.error(errorMessage);
+        alert(errorMessage);
       } finally {
         dispatch(setIsLoading(false));
       }

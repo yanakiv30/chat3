@@ -11,8 +11,10 @@ export async function createTeamWithMembers(
   async function createTeam(newTeam: { name: string }) {
     const { data, error } = await supabase.from("teams").insert(newTeam).select();
     if (error) {
-      console.error(error.message);
-      throw new Error("New group could not be loaded");
+      const errorMessage="New group could not be loaded: "+error.message;
+      alert(errorMessage);
+      console.error(errorMessage);
+      throw new Error(errorMessage);
     }
     return data[0];
   }
