@@ -90,7 +90,7 @@ export default function SettingsGroup() {
       <div style={{ backgroundColor: "beige", borderRadius: "7px" }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           Team: {teamToSet?.name}
-          <button onClick={() => navigate("/userOptions")}>X</button>
+          <button onClick={() => navigate("/")}>X</button>
         </div>
         <p> members: {membersArr.join(", ")}</p>
       </div>

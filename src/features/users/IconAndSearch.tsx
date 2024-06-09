@@ -13,7 +13,7 @@ function IconAndSearch() {
         {loggedInUser && <Avatar name={loggedInUser.username} />}
         <p>
           {loggedInUser && loggedInUser.username}
-          <Link to={"/userOptions"}>▼</Link>
+          
         </p>
       </div>
       <input

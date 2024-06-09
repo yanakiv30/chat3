@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import UserOptions from "./pages/UserOptions";
+
 import CheckboxList from "./pages/CheckboxList";
 import SettingsGroup from "./pages/SettingsGroup";
 import { useAppSelector } from "./store";
@@ -28,7 +28,7 @@ export default function AllRoutes() {
         }
       /> */}
       <Route path="/" element={<Empty />} />
-      <Route path="/userOptions" element={<UserOptions />} />
+      
       <Route path="/groups/:groupId" element={<GroupMessages />} />
       <Route path="/groups/createGroups" element={<CheckboxList />} />
       <Route path="/settingsGroup/:groupId" element={<SettingsGroup />} />

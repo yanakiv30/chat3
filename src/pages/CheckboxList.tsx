@@ -61,7 +61,7 @@ function CheckboxList() {
       >
         <p style={{ display: "flex", justifyContent: "space-between" }}>
           <span>Create Group </span>
-          <button onClick={() => navigate("/userOptions")}>X</button>
+          
         </p>
         <input
           style={{ width: "fit-content" }}
