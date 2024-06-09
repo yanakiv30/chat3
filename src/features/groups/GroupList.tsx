@@ -15,7 +15,7 @@ export default function GroupList() {
         )
       : localTeams.filter(team=> team.name!=='');
 
-      searchedTeams.map(team=>console.log("team.members.at(-1).id= ",team.members.at(-1)!.id))
+     // searchedTeams.map(team=>console.log("team.members.at(-1).id= ",team.members.at(-1)!.id))
   return (
     <div>
       <ul>
@@ -26,7 +26,7 @@ export default function GroupList() {
               <Avatar name={team.name} />
               <NavLink to={`/groups/${team.id}`}>{`${team.name} `}</NavLink>        
               {team.members.at(-1)!.id ===loggedInUser!.id ? 
-                  <NavLink to={`/settingsGroup/${team.id}`}><span style={{fontSize: "10px"}}>
+                  <NavLink to={`/settingsGroup/${team.id}`}><span style={{fontSize: "8px"}}>
                     <FaCog /></span> </NavLink> : ""}
                
             </div>

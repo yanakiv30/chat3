@@ -15,24 +15,28 @@ export default function SettingsGroup() {
   // const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
   const idSettings = +params.groupId!;
   const teamToSet = localTeams.find((team) => team.id === idSettings)!;
+  let membersArr:any=[];
+   teamToSet?.members.map(member=> membersArr.push(member.username));
+  
 
-  async function changeGroupName(groupId: number) {
-    // dispatch(setIsLoading(true));
-    // try {
-    //   const { error } = await supabase
-    //     .from("groups0")
-    //     .update({ name: `${updateName}` })
-    //     .eq("id", groupId)
-    //     .select();
-    //   if (error) {
-    //     console.error(error);
-    //     throw new Error("Group could not be renamed");
-    //   }
-    // } catch (error) {
-    //   console.error("Error renaming group:", error);
-    // } finally {
-    //   dispatch(setIsLoading(false));
-    // }
+  async function changeGroupName(teamId: number) {
+    if(updateName==="") return ;
+    dispatch(setIsLoading(true));
+    try {
+      const { error } = await supabase
+        .from("teams")
+        .update({ name: `${updateName}` })
+        .eq("id", teamId)
+        .select();
+      if (error) {
+        console.error(error);
+        throw new Error("Team could not be renamed");
+      }
+    } catch (error) {
+      console.error("Error renaming Team:", error);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
   }
 
   // async function addUser(groupId: string, addedUser: string) {
@@ -62,19 +66,20 @@ export default function SettingsGroup() {
   // }
  
 
-  async function deleteGroup(groupId: number) {
+  async function deleteGroup(teamId: number) {
     dispatch(setIsLoading(true));
+    console.log("teamId= ",teamId)
     try {
       const { error } = await supabase
-        .from("groups0")
+        .from("teams")
         .delete()
-        .eq("id", groupId);
+        .eq("id", teamId);
       if (error) {
         console.error(error);
-        throw new Error("Group could not be deleted");
+        throw new Error("Team could not be deleted");
       }
     } catch (error) {
-      console.error("Error deleting group:", error);
+      console.error("Error deleting team:", error);
     } finally {
       dispatch(setIsLoading(false));
     }
@@ -82,12 +87,12 @@ export default function SettingsGroup() {
 
   return (
     <div className="settings">
-      <div style={{ backgroundColor: "yellow", borderRadius: "7px" }}>
+      <div style={{ backgroundColor: "beige", borderRadius: "7px" }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          Team: {teamToSet.name}
+          Team: {teamToSet?.name}
           <button onClick={() => navigate("/userOptions")}>X</button>
         </div>
-        <p> members: {teamToSet.members?.join(", ")}</p>
+        <p> members: {membersArr.join(", ")}</p>
       </div>
 
       <br></br>
@@ -104,7 +109,7 @@ export default function SettingsGroup() {
                 changeGroupName(idSettings!);
               }
             }}
-            placeholder="Change group name .."
+            placeholder="Write new name .."
           />
           <button onClick={() => changeGroupName(idSettings!)}>
             Update name
