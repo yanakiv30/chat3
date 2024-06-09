@@ -71,7 +71,8 @@ function ChatMembersList() {
 
       <img
         style={{ maxWidth: "70%" }}
-        src="https://cpkaumakwusyxhmexnqr.supabase.co/storage/v1/object/public/messages-images/cabin-001.jpg"
+        src="https://img.freepik.com/premium-photo/two-cheerful-young-girls-using-smartphone-while-sitting-cafe-outdoors_650366-3065.jpg?w=900"
+       // src="https://cpkaumakwusyxhmexnqr.supabase.co/storage/v1/object/public/messages-images/cabin-001.jpg"
         alt="some cabin"
       />
     </div>
