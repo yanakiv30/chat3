@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { FaCog } from 'react-icons/fa';
 import Avatar from "../users/Avatar";
 import { useAppSelector } from "../../store";
 
@@ -25,7 +26,8 @@ export default function GroupList() {
               <Avatar name={team.name} />
               <NavLink to={`/groups/${team.id}`}>{`${team.name} `}</NavLink>        
               {team.members.at(-1)!.id ===loggedInUser!.id ? 
-                  <NavLink to={`/settingsGroup/${team.id}`}>Settings</NavLink> : ""}
+                  <NavLink to={`/settingsGroup/${team.id}`}><span style={{fontSize: "10px"}}>
+                    <FaCog /></span> </NavLink> : ""}
                
             </div>
           </li>
