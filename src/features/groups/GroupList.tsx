@@ -3,7 +3,7 @@ import { FaCog } from 'react-icons/fa';
 import Avatar from "../users/Avatar";
 import { useAppSelector } from "../../store";
 
-export default function GroupList() {
+export default function GroupList() { 
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
   const { localTeams } = useAppSelector((store) => store.group);
   //console.log("localTeams", localTeams);

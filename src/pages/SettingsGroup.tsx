@@ -83,10 +83,12 @@ export default function SettingsGroup() {
     } finally {
       dispatch(setIsLoading(false));
     }
+     navigate("/");
+    
   }
 
   return (
-    <div className="settings">
+    <div className="settings"> 
       <div style={{ backgroundColor: "beige", borderRadius: "7px" }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           Team: {teamToSet?.name}

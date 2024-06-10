@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SearchInMessage from "../features/users/SearchInMessage";
 import Avatar from "../features/users/Avatar";
 
@@ -12,17 +12,21 @@ import UserMessagesContainer from "../features/users/UserMessageContainer";
 import { setIsLoading } from "../features/users/userSlice";
 import supabase from "../services/supabase";
 import EditUserMessage from "../features/users/EditUserMessage";
+import Empty from "./Empty";
 
 export default function GroupMessages() {
+  const navigate = useNavigate();
   const { loggedInUser, searchMessage, isEdit } = useAppSelector((store) => store.user);
   const { localTeams } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
+  console.log("params = ",params);
   const groupInListId = +params.groupId!;
  // console.log("groupInListId", groupInListId);
-  
-  const team = localTeams.find((x) => x.id === groupInListId)!;
   const dispatch = useDispatch();
+  const team = localTeams.find((x) => x.id === groupInListId)!;
+ 
+  if(!team) return <Empty/>
 
   async function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {
@@ -54,8 +58,7 @@ export default function GroupMessages() {
   }
 
   async function handleDeleteGroupMessages(idForDelete: string) {
-    //const updatedMessages = groupMessages.filter((x) => x.id !== idForDelete);
-
+    
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
@@ -73,7 +76,7 @@ export default function GroupMessages() {
       dispatch(setIsLoading(false));
     }
   }
-
+ console.log("team80 = ",team);
   const searchedGroupMessages = searchedGroupMessagesFunc(
     team.messages || [],
     searchMessage
