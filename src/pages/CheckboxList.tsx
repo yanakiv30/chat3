@@ -28,11 +28,13 @@ function CheckboxList() {
 
     try {
       await createTeamWithMembers(groupName, checkedIds);
+      navigate("/");
     } catch (error) {
       console.error("Error creating new group:", error);
     } finally {
       dispatch(setIsLoading(false));
     }
+
   }
 
   function handleCheckboxChange(id: number) {
