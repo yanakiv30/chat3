@@ -1,23 +1,25 @@
 import { useDispatch } from "react-redux";
-import { setIsEdit, setIsLoading, setMesContent } from "./userSlice";
+import { setIsEdit, setIsLoading } from "./userSlice";
 import { useAppSelector } from "../../store";
 import supabase from "../../services/supabase";
 import { useState } from "react";
 
 export default function EditUserMessage() {
   const dispatch = useDispatch();
-  const { messageId, messages, mesContent } = useAppSelector((store) => store.user);
+  const { messageId, mesContent } = useAppSelector(
+    (store) => store.user
+  );
+ //console.log("mescontent", mesContent);
   const [updateContent, setUpdateContent] = useState("");
-  
-  async function handleEditMessage(idForEdit: string) {
-    
 
+  async function handleEditMessage(idForEdit: number) {
+   
     dispatch(setIsEdit(true));
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
-        .from("messages0")
-        .update({ content: updateContent })
+        .from("messages")
+        .update({ message: updateContent })
         .eq("id", idForEdit)
         .select();
       if (error) {
@@ -31,17 +33,17 @@ export default function EditUserMessage() {
     }
   }
 
-  function edit(id: string) {
+  function edit(id: number) {
+    
     handleEditMessage(id);
-    console.log("mesContent : ",mesContent)
     dispatch(setIsEdit(false));
   }
-  
+
   return (
     <div className="message-send">
       <input
         type="text"
-        value={updateContent||mesContent}
+        value={updateContent || mesContent||""}
         onChange={(e) => setUpdateContent(e.target.value || mesContent)}
         placeholder=""
       />

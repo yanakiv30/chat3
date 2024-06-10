@@ -1,82 +1,88 @@
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { v4 as uuid } from "uuid";
-import { setLoggedInUser, addUser ,setIsRegister} from "../features/users/userSlice";
+import { setLoggedInUser, setIsRegister } from "../features/users/userSlice";
 import { useAppSelector } from "../store";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import supabase from "../services/supabase";
-const API_URL = "http://localhost:3001" ;
+import { signInUser, signUpUser } from "../services/auth";
 
 export default function LoginOrSignUp() {
-  const { users } = useAppSelector((store) => store.user);
+ // const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
-  //const [isPressedRegister, setIsPressedRegister] = useState(false);
-  let { isRegister } = useAppSelector((store) => store.user);
-  
-  function handleLogin(username: string, password: string) {
-    const user = users.find(
-      (u) => u.username === username && u.password === password
-    );
-    if (user) {
-      dispatch(setLoggedInUser(user)); //user is a object
-    } else {
-      alert("Invalid credentials");
-    }
-  }
+  const { isRegister } = useAppSelector((store) => store.user);
 
-  async function handleSignUp(newUsername: string, newPassword: string,) {
-    if (users.some((user) => user.username === newUsername)) {
-      alert("This username already exists!");
-      return;
-    }
-    const newUser = {
-      id: uuid(),
-      username: newUsername,
-      password: newPassword,
-    };
-    try {
-      // const response = await fetch(`${API_URL}/users`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(newUser),
-      // });
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! status: ${response.status}`);
-      // }
-      // const data = await response.json();
-
+  async function handleLogin(email: string, password: string) {
+    try{
+      const authResponse = await signInUser(email, password);
+      if (authResponse.error) {
+        throw new Error(authResponse.error);
+      }
       const { data, error } = await supabase
-      .from("users0")
-      .insert([{ id: uuid(), username: newUsername, password: newPassword }])
-      .select();
+        .from("users")
+        .select()
+        .eq("id", authResponse.user_id);
   
-    if (error) {
-      console.error(error);
-      throw new Error("Users could not be loaded");
-    }
-      
-      dispatch(addUser(data));
-      
-     //dispatch(setLoggedInUser(data));
-    } catch (error) {
-      console.error("Error creating user:", error);
-    }
-   dispatch(setIsRegister(false));
-  //  setIsPressedRegister(false);
+      // const user = users.find(
+      //   (u) => u.username === username && u.password === password
+      // );
+      if (data) {
+        dispatch(setLoggedInUser(data[0])); //user is a object
+      } else {
+        console.error(error);
+        alert("Invalid credentials");
+      }
   
+    }catch (error: any) {
+      const errorMessage = "Error logging in user: " + error.message;
+      alert(errorMessage);
+      console.error(errorMessage);
+    }
   }
- 
 
+  async function handleSignUp(
+    newUsername: string,
+    newPassword: string,
+    full_name: string,
+    email: string,
+    avatar: string,
+    status: string
+  ) {
+    try {
+      const authResponse = await signUpUser(email, newPassword);
+      if (authResponse.error) {
+        throw new Error(authResponse.error.message);
+      }
+
+      const newUser = {
+        username: newUsername,
+        full_name: full_name,
+        avatar: avatar,
+        status: status,
+      };
+      const { data, error } = await supabase
+        .from("users")
+        .insert([newUser])
+        .select();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      const usersAuthData = await supabase
+        .from("users_auth")
+        .insert([{ user_id: data[0].id, auth_id: authResponse.data.user!.id }])
+        .select();
+    } catch (error: any) {
+      const errorMessage = "Error creating user: " + error.message;
+      alert(errorMessage);
+      console.error(errorMessage);
+    }
+    dispatch(setIsRegister(false));
+  }
   return (
     <div className="background-login">
       {!isRegister ? (
-        <Login
-          handleLogin={handleLogin}
-          
-        />
+        <Login handleLogin={handleLogin} />
       ) : (
         <SignUp handleSignUp={handleSignUp} />
       )}

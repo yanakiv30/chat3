@@ -5,7 +5,7 @@ import { useAppSelector } from "../store";
 function Login({
   handleLogin,  
 }: {
-  handleLogin: (username: string, password: string) => void;
+  handleLogin: (email: string, password: string) => void;
   
 }) {
 const dispatch = useDispatch();
@@ -17,15 +17,15 @@ const dispatch = useDispatch();
         onSubmit={(e) => {
           e.preventDefault();
           const formData = new FormData(e.target as HTMLFormElement);
-          const username = formData.get("username");
+          const email = formData.get("email");
           const password = formData.get("password");
-          if (typeof username === "string" && typeof password === "string")
-            handleLogin(username, password);
+          if (typeof email === "string" && typeof password === "string")
+            handleLogin(email, password);
         }}
       >
         <label>
-          Username:
-          <input type="text" name="username" required />
+          Email:
+          <input type="text" name="email" required />
         </label>
         <label>
           Password:

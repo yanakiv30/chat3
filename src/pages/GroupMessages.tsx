@@ -1,118 +1,124 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { v4 as uuid } from "uuid";
+import { useNavigate, useParams } from "react-router-dom";
 import SearchInMessage from "../features/users/SearchInMessage";
 import Avatar from "../features/users/Avatar";
-import {
-  setGroupMessages,
-  addGroupMessage,
-} from "../features/groups/groupSlice";
+
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 
 import SendUserMessage from "../features/users/SendUserMessage";
 import { searchedGroupMessagesFunc } from "../utils/messageUtils";
-import UserMessagesContainer from "../features/users/UserMessagesContainer";
+import UserMessagesContainer from "../features/users/UserMessageContainer";
 import { setIsLoading } from "../features/users/userSlice";
 import supabase from "../services/supabase";
-const API_URL = "http://localhost:3001";
+import EditUserMessage from "../features/users/EditUserMessage";
+import Empty from "./Empty";
 
 export default function GroupMessages() {
-  const { loggedInUser, searchMessage } = useAppSelector((store) => store.user);
-  const { groups, groupMessages } = useAppSelector((store) => store.group);
+  const navigate = useNavigate();
+  const { loggedInUser, searchMessage, isEdit } = useAppSelector((store) => store.user);
+  const { localTeams } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
-  const groupInListId = params.groupId;
-  const grName = groups.find((x) => x.id === groupInListId)?.name;
-  const groupMemebers = groups.find((x) => x.id === groupInListId)?.members; 
-  const dispatch = useDispatch();   
+  console.log("params = ",params);
+  const groupInListId = +params.groupId!;
+ // console.log("groupInListId", groupInListId);
+  const dispatch = useDispatch();
+  const team = localTeams.find((x) => x.id === groupInListId)!;
+ 
+  if(!team) return <Empty/>
 
   async function handleSendGroupMessage() {
     if (newGroupMessage.trim() !== "") {
-      const currentDate = new Date();
-      const hours = currentDate.getHours();
-      const minutes = currentDate.getMinutes();
-      const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
-      const dayDate = `${currentDate.getDate()}.${currentDate.getMonth()}.${currentDate.getFullYear()}`;
-
       const newGroupMessageObject = {
-        id: uuid(),
-        senderId: loggedInUser!.id,
-        receiverId: groupInListId,
-        senderUsername: loggedInUser!.username,
-        content: newGroupMessage,
-        hourMinDate,
-        dayDate,
+        sender_id: loggedInUser!.id,
+        team_id: groupInListId,
+        type: "text",
+        message: newGroupMessage,
       };
 
-      dispatch(setIsLoading(true));      
+      dispatch(setIsLoading(true));
       try {
-        const { data, error } = await supabase 
-          .from("groupMessages0")
+        const { data, error } = await supabase
+          .from("messages")
           .insert(newGroupMessageObject)
           .select();
         if (error) {
-          console.error(error);
-          throw new Error("Group Messages could not be loaded");
+          throw new Error(error.message);
         }
-        dispatch(addGroupMessage(data));
       } catch (error) {
-        console.error("Error creating Group message:", error);
+        const errorMessage="Error creating Group message: "+ error;
+        console.error(errorMessage);
+        alert(errorMessage);
       } finally {
         dispatch(setIsLoading(false));
-      }      
+      }
       setNewGroupMessage("");
     }
   }
 
   async function handleDeleteGroupMessages(idForDelete: string) {
-    const updatedMessages = groupMessages.filter((x) => x.id !== idForDelete);
-    dispatch(setGroupMessages(updatedMessages));
-
+    
     dispatch(setIsLoading(true));
-    try{
-    const { error } = await supabase
-    .from('groupMessages0')
-    .delete()
-    .eq('id', idForDelete)
-    if (error) {
-      console.error(error);
-      throw new Error("Group Messages could not be deleted");
+    try {
+      const { error } = await supabase
+        .from("messages")
+        .delete()
+        .eq("id", idForDelete);
+      if (error) {
+        console.error(error);
+        throw new Error("Group Messages could not be deleted");
+      }
+      // dispatch(setGroupMessages(updatedMessages));
+    } catch (error) {
+      console.error("Error deleting group message:", error);
+    } finally {
+      dispatch(setIsLoading(false));
     }
-    dispatch(setGroupMessages(updatedMessages));
-  } catch (error) {
-    console.error("Error deleting group message:", error);
-  } finally {
-    dispatch(setIsLoading(false));
   }
-    
-  }
-
-  const searchedGroupMessages = searchedGroupMessagesFunc(groupMessages, 
-    loggedInUser,groupInListId, groups,searchMessage);
-    
+ console.log("team80 = ",team);
+  const searchedGroupMessages = searchedGroupMessagesFunc(
+    team.messages || [],
+    searchMessage
+  );
+ 
   return (
     <div className="profile-wrapper">
       <div className="user-profile-container">
         <div className="chat-with">
           <div>
             <div style={{ display: "flex", gap: "5px" }}>
-              <Avatar name={grName || ""} />
-              <h4>{`${grName} `}</h4>
+              <Avatar name={team.name || ""} />
+              <h4>{`${team.name} `}</h4>
             </div>
             <p style={{ fontSize: "10px", textAlign: "center" }}>
-              members: {groupMemebers!.join(", ")}{" "}
+              members: {team.members.map((user) => user.username).join(",")}
             </p>
           </div>
           <SearchInMessage />
+           <img
+        style={{ maxWidth: "13%" }}
+        src="https://img.freepik.com/premium-photo/two-cheerful-young-girls-using-smartphone-while-sitting-cafe-outdoors_650366-3065.jpg?w=900"
+       // src="https://cpkaumakwusyxhmexnqr.supabase.co/storage/v1/object/public/messages-images/cabin-001.jpg"
+        alt="some cabin"
+      />
         </div>
-        <UserMessagesContainer  loggedInUser={loggedInUser} userInListId={groupInListId} 
-        handleDeleteMessages={handleDeleteGroupMessages}
-        searchedMessage={searchedGroupMessages}/>
-         
-        <SendUserMessage newMessage={newGroupMessage} setNewMessage={setNewGroupMessage}
-         handleSendMessage={handleSendGroupMessage}/>
-        
+        <UserMessagesContainer
+          loggedInUser={loggedInUser}
+          userInListId={groupInListId}
+          handleDeleteMessages={handleDeleteGroupMessages}
+          searchedMessages={searchedGroupMessages}
+        />       
+
+        {!isEdit ? (
+          <SendUserMessage
+          newMessage={newGroupMessage}
+          setNewMessage={setNewGroupMessage}
+          handleSendMessage={handleSendGroupMessage}
+          />
+        ) : (
+          <EditUserMessage />
+        )}
       </div>
     </div>
   );

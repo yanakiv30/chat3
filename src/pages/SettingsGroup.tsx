@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { setGroups } from "../features/groups/groupSlice";
+
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
@@ -7,89 +7,96 @@ import { setIsLoading } from "../features/users/userSlice";
 import { useState } from "react";
 export default function SettingsGroup() {
   const params = useParams();
-  const groupInListId = params.groupId;
+
   const [updateName, setUpdateName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { groups } = useAppSelector((store) => store.group);
-  const groupMemebers = groups.find((x) => x.id === groupInListId)?.members; 
-  const idSettings = params.groupId;
-  const groupToSet = groups.filter((group) => group.id === idSettings)[0]?.name;
-
-  async function changeGroupName(groupId: string) {
+  const { localTeams } = useAppSelector((store) => store.group);
+  // const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
+  const idSettings = +params.groupId!;
+  const teamToSet = localTeams.find((team) => team.id === idSettings)!;
+  let membersArr:any=[];
+   teamToSet?.members.map(member=> membersArr.push(member.username));
   
+
+  async function changeGroupName(teamId: number) {
+    if(updateName==="") return ;
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
-        .from("groups0")
+        .from("teams")
         .update({ name: `${updateName}` })
-        .eq("id", groupId)
+        .eq("id", teamId)
         .select();
       if (error) {
         console.error(error);
-        throw new Error("Group could not be renamed");
+        throw new Error("Team could not be renamed");
       }
     } catch (error) {
-      console.error("Error renaming group:", error);
+      console.error("Error renaming Team:", error);
     } finally {
       dispatch(setIsLoading(false));
     }
   }
 
-  async function addUser(groupId: string,addedUser:string) {
+  // async function addUser(groupId: string, addedUser: string) {
+  //   dispatch(setIsLoading(true));
+  //   // console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
+
+  //   try {
+  //     const { error } = await supabase
+  //       .from("groups0")
+  //       .update({
+  //         members: [
+  //           ...groups.filter((group) => group.id === idSettings)[0].members,
+  //           addedUser,
+  //         ],
+  //       })
+  //       .eq("id", groupId)
+  //       .select();
+  //     if (error) {
+  //       console.error(error);
+  //       throw new Error("User could not be added");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error adding  group:", error);
+  //   } finally {
+  //     dispatch(setIsLoading(false));
+  //   }
+  // }
+ 
+
+  async function deleteGroup(teamId: number) {
     dispatch(setIsLoading(true));
-console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
-
-
+    console.log("teamId= ",teamId)
     try {
       const { error } = await supabase
-        .from("groups0")
-        .update({ members: [...groups.filter(group=>group.id===idSettings)[0].members,addedUser]})
-        .eq("id", groupId)
-        .select();
-      if (error) {
-        console.error(error);
-        throw new Error("User could not be added");
-      }
-    } catch (error) {
-      console.error("Error adding  group:", error);
-    } finally {
-      dispatch(setIsLoading(false));
-    }
-
-  }
-  async function deleteUser(groupId: string, member: string) {
-    console.log(member);
-  }
-
-  async function deleteGroup(groupId: string) {
-    dispatch(setIsLoading(true));
-    try {
-      const { error } = await supabase
-        .from("groups0")
+        .from("teams")
         .delete()
-        .eq("id", groupId);
+        .eq("id", teamId);
       if (error) {
         console.error(error);
-        throw new Error("Group could not be deleted");
+        throw new Error("Team could not be deleted");
       }
     } catch (error) {
-      console.error("Error deleting group:", error);
+      console.error("Error deleting team:", error);
     } finally {
       dispatch(setIsLoading(false));
-    }    
+    }
+     navigate("/");
+    
   }
 
   return (
-    <div className="settings">
-      <div style={{backgroundColor:"yellow", borderRadius: "7px"}}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        Group: {groupToSet}
-        <button onClick={() => navigate("/userOptions")}>X</button>
+    <div className="settings"> 
+      <div style={{ backgroundColor: "beige", borderRadius: "7px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          Team: {teamToSet?.name}
+          <button onClick={() => navigate("/")}>X</button>
+        </div>
+        <p> members: {membersArr.join(", ")}</p>
       </div>
-      <p> members: {groupMemebers!.join(", ")}</p>
-      </div>
-      
+
       <br></br>
       <div className="wrapper">
         <div>
@@ -104,7 +111,7 @@ console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
                 changeGroupName(idSettings!);
               }
             }}
-            placeholder="Change group name .."
+            placeholder="Write new name .."
           />
           <button onClick={() => changeGroupName(idSettings!)}>
             Update name

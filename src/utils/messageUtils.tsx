@@ -1,21 +1,20 @@
 import { v4 as uuid } from "uuid";
+import { Message } from "../features/groups/groupSlice";
+import { User } from "../features/users/userSlice";
 
 export function leftGroupMessage(
-  groupMessage: { id: string; receiverId: string },
-  loggedInUser: {
-    username: string;
-    id: string;
-  } | null,
-  groupInListId: string | undefined,
+  groupMessage: Message,
+  loggedInUser: User | null,
+  groupInListId: number | undefined,
   groups: {
     name: string;
-    id: string;
+    id: number;
     members: [string];
     admin: string;
   }[]
 ) {
   return (
-    groupMessage.receiverId === groupInListId &&
+    // groupMessage.receiverId === groupInListId &&
     groups
       .filter((group) => group.id === groupInListId)[0]
       .members.includes(loggedInUser!.username)
@@ -23,111 +22,64 @@ export function leftGroupMessage(
 }
 
 export function leftMessage(
-  message: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-  },
-  loggedInUser: {
-    username: string;
-    id: string;
-  } | null,
-  userInListId: string | undefined
+  message: Message,
+  loggedInUser: User | null,
+  userInListId: number | undefined
 ) {
-  return (
-    message.receiverId === loggedInUser!.id && message.senderId === userInListId
-  );
+  return message.senderId === userInListId;
 }
 
 export function rightMessage(
-  message: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-  },
-  loggedInUser: {
-    username: string;
-    id: string;
-  } | null,
+  message: Message,
+  loggedInUser: User | null,
   userInListId: string | undefined
 ) {
-  return (
-    message.receiverId === userInListId && message.senderId === loggedInUser!.id
-  );
+  return message.senderId === loggedInUser!.id;
 }
 
 export function searchedMessageFunc(
-  messages: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
-  }[],
-  loggedInUser: {
-    username: string;
-    id: string;
-  } | null,
+  messages: Message[],
+  loggedInUser: User | null,
   userInListId: string | undefined,
   searchMessage: string
 ) {
-  return messages
-    .filter(
-      (message) =>
-        leftMessage(message, loggedInUser, userInListId) ||
-        rightMessage(message, loggedInUser, userInListId)
-    )
-    .filter((userMessage) => userMessage.content.includes(searchMessage));
+  return messages.filter((userMessage) =>
+    userMessage.content.includes(searchMessage)
+  );
 }
 
 export function newMessageObjectFunc(
-  loggedInUser: {
-    username: string;
-    id: string;
-  } | null,
+  loggedInUser: User | null,
   userInListId: string | undefined,
   newMessage: string
 ) {
-  const currentDate = new Date();
-  const hours = currentDate.getHours();
-  const minutes = currentDate.getMinutes();
-  const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
-  const dayDate = `${currentDate.getDate()}
-    .${currentDate.getMonth()}.${currentDate.getFullYear()}`;
-  const newMessageObject = {
-    id: uuid(),
-    senderId: loggedInUser!.id,
-    receiverId: userInListId,
-    senderUsername: loggedInUser!.username,
-    content: newMessage,
-    hourMinDate,
-    dayDate,
-  };
-  return newMessageObject;
+  // const { hourMinDate, dayDate } = getHourDayDate();
+  // const newMessageObject = {
+  //   id: uuid(),
+  //   senderId: loggedInUser!.id,
+  //   receiverId: userInListId,
+  //   senderUsername: loggedInUser!.username,
+  //   content: newMessage,
+  //   hourMinDate,
+  //   dayDate,
+  // };
+  // return newMessageObject;
 }
 
- export function searchedGroupMessagesFunc(groupMessages: {
-    id: string;
-    senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
-}[], loggedInUser: {
-    username: string;
-    id: string;
-} | null, groupInListId: string | undefined, groups: {
-    name: string;
-    id: string;
-    members: [string];
-    admin: string;
-}[], searchMessage: string){ 
-  return groupMessages.filter((groupMessage) =>
-      (leftGroupMessage(groupMessage,loggedInUser,groupInListId,groups) 
-  || rightMessage(groupMessage,loggedInUser,groupInListId)) &&
-      groupMessage.content.includes(searchMessage)
-  );}
+export function getHourDayDate(date: Date) {
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const hourMinDate = `${hours}:${minutes.toString().padStart(2, "0")}`;
+  const dayDate = `${date.getDate()}
+    .${date.getMonth()}.${date.getFullYear()}`;
+  return { hourMinDate, dayDate };
+}
 
+export function searchedGroupMessagesFunc(
+  groupMessages: Message[],
+  searchMessage: string
+) {
+  return groupMessages.filter((groupMessage) =>
+    groupMessage.content.includes(searchMessage)
+  );
+}

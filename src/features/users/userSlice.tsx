@@ -1,18 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export type User = { id: number; username: string; avatar: string };
+
 const initialState = {
- isRegister:false, isLoading:false,isEdit:false,messageId:"",mesContent:"",
-  users: [] as { id: string; username: string; password: string }[],
-  loggedInUser: null as { username: string; id: string } | null,  
-  messages: [] as {
-    id: string;
-    senderId: string;
-    receiverId: string;
-    senderUsername: string;
-    content: string;
-    hourMinDate: string;
-    dayDate: string;
-  }[],
+  isRegister: false,
+  isLoading: false,
+  isEdit: false,
+  messageId: -1,
+  mesContent: "",
+  users: [] as User[],
+  loggedInUser: null as User | null,
+  // messages: [] as Message[],
   searchQuery: "",
   searchMessage: "",
 };
@@ -45,12 +43,12 @@ const userSlice = createSlice({
     addUser(state, action) {
       state.users = [...state.users, action.payload];
     },
-    setMessages(state, action) {
-      state.messages = [...action.payload];
-    },
-    addMessage(state, action) {
-      state.messages = [...state.messages, action.payload];
-    },
+    // setMessages(state, action) {
+    //   state.messages = [...action.payload];
+    // },
+    // addMessage(state, action) {
+    //   state.messages = [...state.messages, action.payload];
+    // },
     setSearchQuery(state, action) {
       state.searchQuery = action.payload;
     },
@@ -62,16 +60,13 @@ const userSlice = createSlice({
 export const {
   setLoggedInUser,
   setUsers,
-  addUser,
-  setMessages,
-  addMessage,
+  addUser,  
   setSearchQuery,
   setSearchMessage,
   setIsRegister,
   setIsLoading,
   setIsEdit,
   setMessageId,
-  setMesContent
-  
+  setMesContent,
 } = userSlice.actions;
 export default userSlice.reducer;

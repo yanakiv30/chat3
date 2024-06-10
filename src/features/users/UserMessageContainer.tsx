@@ -83,36 +83,38 @@ import { useDispatch } from "react-redux";
 import { rightMessage } from "../../utils/messageUtils";
 import { setIsEdit, setMesContent, setMessageId } from "./userSlice";
 import { useAppSelector } from "../../store";
+import { Message } from "../groups/groupSlice";
 
 export default function UserMessagesContainer({
   loggedInUser,
-  userInListId,
-  handleEditMessages,
+  userInListId,  
   handleDeleteMessages,
-  searchedMessage,
+  searchedMessages,
 }: any) {
   const dispatch = useDispatch();
-  const { messageId, messages } = useAppSelector((store) => store.user);
-
-  useEffect(() => {
-    const messageContent = messages.filter(
-      (message) => message.id === messageId
-    )[0]?.content;
+  const { messageId,users } = useAppSelector((store) => store.user);
+  
+  useEffect(() => {    
+    const messageContent = searchedMessages.filter(
+      (message:any) => message.id === messageId
+    )[0]?.content; 
+    //console.log("messageContent", messageContent) ;///////////////
     dispatch(setMesContent(messageContent));
-  }, [messageId, messages, dispatch]);
-
-  if (!Array.isArray(searchedMessage)) {
+  }, [messageId, searchedMessages, dispatch]);
+ 
+  if (!Array.isArray(searchedMessages)) {
     return <div>No messages found</div>;
   }
 
-  function editOnId(messageId: string) {
+  function editOnId(messageId: number) {
+    console.log(" messageId ", messageId);
     dispatch(setMessageId(messageId));
     dispatch(setIsEdit(true));
   }
 
   return (
     <ul className="messages-container">
-      {searchedMessage.map((message, index) => (
+      {searchedMessages.map((message:Message, index) => (
         <div
           className={`${
             rightMessage(message, loggedInUser, userInListId)
@@ -122,14 +124,14 @@ export default function UserMessagesContainer({
           key={message.id}
         >
           <p className="day-date">
-            {searchedMessage[index - 1]?.dayDate ===
-            searchedMessage[index].dayDate
+            {searchedMessages[index - 1]?.dayDate ===
+            searchedMessages[index].dayDate
               ? ""
               : message.dayDate}
           </p>
           <br />
           <li className="message">
-            <p style={{ color: "blue" }}>{message.senderUsername}:</p>
+            <p style={{ color: "blue" }}>{users.filter(user=> user.id===message.senderId)[0].username}:</p>
             <p>{message.content}</p>
             <br />
             <p className="date">{message.hourMinDate}</p>
