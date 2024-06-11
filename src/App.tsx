@@ -34,20 +34,28 @@ function App() {
 
   useEffect(loadStateFromBackend, [loadStateFromBackend]);
 
-  const findTeamNameById = (id: number) => {
-    const team = localTeams.find((team) => team.id === id);
-    return team ? team.name : "Unknown/Empty team";
-  };
-
   useEffect(() => {
+    const findTeamNameById = (id: number) => {
+      const team = localTeams.find((team) => team.id === id);
+      if (!team) return "Unknown/Empty team";
+      if (team.name === "")
+        return team.members.find((member) => member.id !== loggedInUser?.id)
+          ?.username;
+      return team.name;
+
+      //return team ? team.name : ;
+    };
+
     const messageSubscription = supabase
       .channel("messages")
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
         (payload) => {
-          toast.success(`New message in "${payload.new.team_id}"`);
-          toast.success(`New message in "${ findTeamNameById(payload.new.team_id)}"`);
+          //toast.success(`New message in "${payload.new.team_id}"`);
+          toast.success(
+            `New message from "${findTeamNameById(payload.new.team_id)}"`
+          );
           loadStateFromBackend();
         }
       )
@@ -56,7 +64,7 @@ function App() {
         { event: "UPDATE", schema: "public", table: "messages" },
         (payload) => {
           loadStateFromBackend();
-          toast.info("Message updated!");
+          
         }
       )
       .on(
@@ -64,7 +72,7 @@ function App() {
         { event: "DELETE", schema: "public", table: "messages" },
         (payload) => {
           loadStateFromBackend();
-          toast.error("Message deleted!");
+          
         }
       )
       .subscribe();
@@ -125,7 +133,7 @@ function App() {
         loadStateFromBackend
       )
       .subscribe();
-  }, [loadStateFromBackend]);
+  }, [loadStateFromBackend, localTeams]);
 
   return (
     <Router>
