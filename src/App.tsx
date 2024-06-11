@@ -1,6 +1,8 @@
 import { useCallback, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useDispatch } from "react-redux";
 import { setUsers } from "./features/users/userSlice";
@@ -16,6 +18,7 @@ import supabase from "./services/supabase";
 function App() {
   const dispatch = useDispatch();
   const { loggedInUser } = useAppSelector((store) => store.user);
+  const { localTeams } = useAppSelector((store) => store.group);
   let { isLoading } = useAppSelector((store) => store.user);
   const loadStateFromBackend = useCallback(() => {
     if (!loggedInUser) return;
@@ -31,23 +34,37 @@ function App() {
 
   useEffect(loadStateFromBackend, [loadStateFromBackend]);
 
+  const findTeamNameById = (id: number) => {
+    const team = localTeams.find((team) => team.id === id);
+    return team ? team.name : "Unknown/Empty team";
+  };
+
   useEffect(() => {
     const messageSubscription = supabase
       .channel("messages")
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
-        loadStateFromBackend
+        (payload) => {
+          loadStateFromBackend();
+          toast.success(`New message in "${findTeamNameById(payload.new.team_id)}"`);
+        }
       )
       .on(
         "postgres_changes",
         { event: "UPDATE", schema: "public", table: "messages" },
-        loadStateFromBackend
+        (payload) => {
+          loadStateFromBackend();
+          toast.info("Message updated!");
+        }
       )
       .on(
         "postgres_changes",
         { event: "DELETE", schema: "public", table: "messages" },
-        loadStateFromBackend
+        (payload) => {
+          loadStateFromBackend();
+          toast.error("Message deleted!");
+        }
       )
       .subscribe();
 
@@ -118,6 +135,17 @@ function App() {
           <div className="main-container">
             <ChatMembersList />
             <AllRoutes />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
           </div>
         ) : (
           <LoginOrSignUp />
