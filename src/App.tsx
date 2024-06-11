@@ -46,8 +46,9 @@ function App() {
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
         (payload) => {
+          toast.success(`New message in "${payload.new.team_id}"`);
+          toast.success(`New message in "${ findTeamNameById(payload.new.team_id)}"`);
           loadStateFromBackend();
-          toast.success(`New message in "${findTeamNameById(payload.new.team_id)}"`);
         }
       )
       .on(
