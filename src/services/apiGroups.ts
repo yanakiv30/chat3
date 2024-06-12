@@ -24,7 +24,7 @@ export async function getTeams(loggedInUserId: number) {
     console.error(error);
     throw new Error("Teams could not be loaded");
   }
-  //console.log("teams :", teamsData);
+
   const membersInTeams = await getMembersInTeams();
   const messagesInTeams = await getMessagesInTeams();
   const users = await getUsers();
@@ -68,7 +68,7 @@ export async function getTeams(loggedInUserId: number) {
       console.error(error);
       throw new Error("Team Messages could not be loaded");
     }
-   // console.log("data from loadMembers ", data);
+
     return data;
   }
 
@@ -82,7 +82,7 @@ export async function getTeams(loggedInUserId: number) {
       throw new Error("teams_members could not be loaded");
     }
     const teamsIds = data.map((x) => x.team_id);
-    //console.log("teamsIds :", teamsIds);
+
     return teamsIds;
   }
 }
@@ -90,7 +90,6 @@ export async function getTeams(loggedInUserId: number) {
 export async function getMessages() {
   const { data, error } = await supabase.from("messages").select("*");
   if (error) {
-    console.log(error);
     throw new Error("Messages could not be loaded");
   }
   return data;

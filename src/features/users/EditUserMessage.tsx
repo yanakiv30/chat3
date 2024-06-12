@@ -6,14 +6,11 @@ import { useState } from "react";
 
 export default function EditUserMessage() {
   const dispatch = useDispatch();
-  const { messageId, mesContent } = useAppSelector(
-    (store) => store.user
-  );
- //console.log("mescontent", mesContent);
+  const { messageId, mesContent } = useAppSelector((store) => store.user);
+
   const [updateContent, setUpdateContent] = useState("");
 
   async function handleEditMessage(idForEdit: number) {
-   
     dispatch(setIsEdit(true));
     dispatch(setIsLoading(true));
     try {
@@ -34,7 +31,6 @@ export default function EditUserMessage() {
   }
 
   function edit(id: number) {
-    
     handleEditMessage(id);
     dispatch(setIsEdit(false));
   }
@@ -43,7 +39,7 @@ export default function EditUserMessage() {
     <div className="message-send">
       <input
         type="text"
-        value={updateContent || mesContent||""}
+        value={updateContent || mesContent || ""}
         onChange={(e) => setUpdateContent(e.target.value || mesContent)}
         placeholder=""
       />

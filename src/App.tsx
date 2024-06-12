@@ -52,7 +52,7 @@ function App() {
         { event: "INSERT", schema: "public", table: "messages" },
         (payload) => { 
           
-          console.log("payload.new= ",payload.new);
+         
           if (payload.new.sender_id !== loggedInUser?.id) {
             toast.success(
               `New message from "${findTeamNameById(payload.new.team_id)}"`

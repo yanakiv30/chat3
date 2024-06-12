@@ -10,16 +10,12 @@ export default function GroupList() {
     (store) => store.group
   );
 
-  //console.log("localTeams", localTeams);
-
   const searchedTeams =
     searchQuery.length > 0
       ? localTeams.filter(
           (team) => team && team.name && team.name.includes(searchQuery)
         )
       : localTeams.filter((team) => team.name !== "");
-
-  // searchedTeams.map(team=>console.log("team.members.at(-1).id= ",team.members.at(-1)!.id))
 
   return (
     <div>
@@ -42,7 +38,7 @@ export default function GroupList() {
               {team.id === teamWithNewMessage.team_id &&
               teamWithNewMessage.sender_id !== loggedInUser?.id ? (
                 <span style={{ color: "green", fontSize: "13px" }}>
-                  "You have new message"{" "}
+                  "You have a new message"{" "}
                 </span>
               ) : (
                 ""

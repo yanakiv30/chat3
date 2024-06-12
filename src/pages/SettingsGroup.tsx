@@ -15,12 +15,11 @@ export default function SettingsGroup() {
   // const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
   const idSettings = +params.groupId!;
   const teamToSet = localTeams.find((team) => team.id === idSettings)!;
-  let membersArr:any=[];
-   teamToSet?.members.map(member=> membersArr.push(member.username));
-  
+  let membersArr: any = [];
+  teamToSet?.members.map((member) => membersArr.push(member.username));
 
   async function changeGroupName(teamId: number) {
-    if(updateName==="") return ;
+    if (updateName === "") return;
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase
@@ -39,41 +38,11 @@ export default function SettingsGroup() {
     }
   }
 
-  // async function addUser(groupId: string, addedUser: string) {
-  //   dispatch(setIsLoading(true));
-  //   // console.log(...groups.filter(group=>group.id===idSettings)[0].members,addedUser)
-
-  //   try {
-  //     const { error } = await supabase
-  //       .from("groups0")
-  //       .update({
-  //         members: [
-  //           ...groups.filter((group) => group.id === idSettings)[0].members,
-  //           addedUser,
-  //         ],
-  //       })
-  //       .eq("id", groupId)
-  //       .select();
-  //     if (error) {
-  //       console.error(error);
-  //       throw new Error("User could not be added");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error adding  group:", error);
-  //   } finally {
-  //     dispatch(setIsLoading(false));
-  //   }
-  // }
- 
-
   async function deleteGroup(teamId: number) {
     dispatch(setIsLoading(true));
-    console.log("teamId= ",teamId)
+
     try {
-      const { error } = await supabase
-        .from("teams")
-        .delete()
-        .eq("id", teamId);
+      const { error } = await supabase.from("teams").delete().eq("id", teamId);
       if (error) {
         console.error(error);
         throw new Error("Team could not be deleted");
@@ -83,12 +52,11 @@ export default function SettingsGroup() {
     } finally {
       dispatch(setIsLoading(false));
     }
-     navigate("/");
-    
+    navigate("/");
   }
 
   return (
-    <div className="settings"> 
+    <div className="settings">
       <div style={{ backgroundColor: "beige", borderRadius: "7px" }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           Team: {teamToSet?.name}
