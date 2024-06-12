@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useDispatch } from "react-redux";
 import { setUsers } from "./features/users/userSlice";
-import { setTeams } from "./features/groups/groupSlice";
+import { setTeamIdWithNewMessage, setTeams } from "./features/groups/groupSlice";
 import { useAppSelector } from "./store";
 import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
@@ -35,6 +35,7 @@ function App() {
   useEffect(loadStateFromBackend, [loadStateFromBackend]);
 
   useEffect(() => {
+    
     const findTeamNameById = (id: number) => {
       const team = localTeams.find((team) => team.id === id);
       if (!team) return "Unknown/Empty team";
@@ -49,13 +50,16 @@ function App() {
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
-        (payload) => {
+        (payload) => { 
+          
+          console.log("payload.new.team_id = ",payload.new.team_id);
           if (payload.new.sender_id !== loggedInUser?.id) {
             toast.success(
               `New message from "${findTeamNameById(payload.new.team_id)}"`
             );
           }
-
+          dispatch(setTeamIdWithNewMessage(+payload.new.team_id));
+          
           loadStateFromBackend();
         }
       )
@@ -131,7 +135,7 @@ function App() {
         loadStateFromBackend
       )
       .subscribe();
-  }, [loadStateFromBackend, localTeams]);
+  }, [loadStateFromBackend, localTeams,loggedInUser,dispatch]);
 
   return (
     <Router>

@@ -20,7 +20,7 @@ export default function GroupMessages() {
   const { localTeams } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
-  console.log("params = ",params);
+  //console.log("params = ",params);
   const groupInListId = +params.groupId!;
  // console.log("groupInListId", groupInListId);
   const dispatch = useDispatch();
@@ -76,7 +76,7 @@ export default function GroupMessages() {
       dispatch(setIsLoading(false));
     }
   }
- console.log("team80 = ",team);
+ //console.log("team80 = ",team);
   const searchedGroupMessages = searchedGroupMessagesFunc(
     team.messages || [],
     searchMessage

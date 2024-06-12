@@ -15,9 +15,9 @@ export type Team = {
   messages: Message[];
 };
 
-
 const initialState = {
-  localTeams: [] as Team [],
+  localTeams: [] as Team[],
+  teamIdWithNewMessage: -1,
 };
 
 const groupSlice = createSlice({
@@ -26,6 +26,9 @@ const groupSlice = createSlice({
   reducers: {
     setTeams(state, action) {
       state.localTeams = [...action.payload];
+    },
+    setTeamIdWithNewMessage(state, action) {
+      state.teamIdWithNewMessage = action.payload;
     },
 
     // setGroups(state, action) {
@@ -44,5 +47,5 @@ const groupSlice = createSlice({
     // },
   },
 });
-export const { setTeams } = groupSlice.actions;
+export const { setTeams, setTeamIdWithNewMessage } = groupSlice.actions;
 export default groupSlice.reducer;
