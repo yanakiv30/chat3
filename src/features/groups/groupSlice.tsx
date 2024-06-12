@@ -14,10 +14,13 @@ export type Team = {
   members: User[];
   messages: Message[];
 };
-
+export type Payload = {
+  team_id: number;
+ sender_id:number;
+};
 const initialState = {
   localTeams: [] as Team[],
-  teamIdWithNewMessage: -1,
+  teamWithNewMessage: {} as Payload,
 };
 
 const groupSlice = createSlice({
@@ -27,8 +30,8 @@ const groupSlice = createSlice({
     setTeams(state, action) {
       state.localTeams = [...action.payload];
     },
-    setTeamIdWithNewMessage(state, action) {
-      state.teamIdWithNewMessage = action.payload;
+    setTeamWithNewMessage(state, action) {
+      state.teamWithNewMessage = action.payload;
     },
 
     // setGroups(state, action) {
@@ -47,5 +50,5 @@ const groupSlice = createSlice({
     // },
   },
 });
-export const { setTeams, setTeamIdWithNewMessage } = groupSlice.actions;
+export const { setTeams, setTeamWithNewMessage } = groupSlice.actions;
 export default groupSlice.reducer;

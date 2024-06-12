@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useDispatch } from "react-redux";
 import { setUsers } from "./features/users/userSlice";
-import { setTeamIdWithNewMessage, setTeams } from "./features/groups/groupSlice";
+import { setTeamWithNewMessage, setTeams } from "./features/groups/groupSlice";
 import { useAppSelector } from "./store";
 import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
@@ -52,13 +52,13 @@ function App() {
         { event: "INSERT", schema: "public", table: "messages" },
         (payload) => { 
           
-          console.log("payload.new.team_id = ",payload.new.team_id);
+          console.log("payload.new= ",payload.new);
           if (payload.new.sender_id !== loggedInUser?.id) {
             toast.success(
               `New message from "${findTeamNameById(payload.new.team_id)}"`
             );
           }
-          dispatch(setTeamIdWithNewMessage(+payload.new.team_id));
+          dispatch(setTeamWithNewMessage(payload.new));
           
           loadStateFromBackend();
         }
