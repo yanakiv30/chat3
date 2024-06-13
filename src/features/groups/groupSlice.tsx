@@ -14,6 +14,7 @@ export type Team = {
   members: User[];
   messages: Message[];
 };
+export type Flash = { [key: string]: boolean };
 export type Payload = {
   team_id: number;
  sender_id:number;
@@ -21,6 +22,7 @@ export type Payload = {
 const initialState = {
   localTeams: [] as Team[],
   teamWithNewMessage: {} as Payload,
+  arrFlashIdBool: [] as Flash[],
 };
 
 const groupSlice = createSlice({
@@ -30,25 +32,15 @@ const groupSlice = createSlice({
     setTeams(state, action) {
       state.localTeams = [...action.payload];
     },
+    setArrFlashIdBool(state, action) {
+      state.arrFlashIdBool = action.payload;
+    },
     setTeamWithNewMessage(state, action) {
       state.teamWithNewMessage = action.payload;
     },
 
-    // setGroups(state, action) {
-    //   state.groups = [...action.payload];
-    // },
-
-    // addGroup(state, action) {
-    //   state.groups = [...state.groups, action.payload];
-    // },
-    // setGroupMessages(state, action) {
-    //   state.groupMessages = [...action.payload];
-    // },
-
-    // addGroupMessage(state, action) {
-    //   state.groupMessages = [...state.groupMessages, action.payload];
-    // },
+   
   },
 });
-export const { setTeams, setTeamWithNewMessage } = groupSlice.actions;
+export const { setTeams, setTeamWithNewMessage, setArrFlashIdBool } = groupSlice.actions;
 export default groupSlice.reducer;

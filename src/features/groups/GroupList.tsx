@@ -2,11 +2,13 @@ import { NavLink } from "react-router-dom";
 import { FaCog } from "react-icons/fa";
 import Avatar from "../users/Avatar";
 import { useAppSelector } from "../../store";
-import { setTeamWithNewMessage } from "./groupSlice";
+import { setArrFlashIdBool } from "./groupSlice";
+import { useDispatch } from "react-redux";
 
 export default function GroupList() {
+  const dispatch=useDispatch();
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
-  const { localTeams, teamWithNewMessage } = useAppSelector(
+  const { localTeams, teamWithNewMessage ,arrFlashIdBool} = useAppSelector(
     (store) => store.group
   );
 
@@ -16,6 +18,20 @@ export default function GroupList() {
           (team) => team && team.name && team.name.includes(searchQuery)
         )
       : localTeams.filter((team) => team.name !== "");
+
+  //const arrayWithFlashTeamId: { [key: string]: boolean }[] = [];
+
+  searchedTeams.map((team) => {
+    const id = team.id;
+    const isNewMessage = team.id === teamWithNewMessage.team_id;
+    const obj: { [key: string]: boolean } = {};
+    obj[id] = isNewMessage;
+    isNewMessage&&dispatch(setArrFlashIdBool(obj))
+    return null;
+  });
+ 
+  //console.log("arrayWithFlashTeamId", arrayWithFlashTeamId);
+  console.log("arrFlasId", arrFlashIdBool);
 
   return (
     <div>
