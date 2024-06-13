@@ -37,13 +37,8 @@ export default function GroupList() {
               )}
 
               {team.id === teamWithNewMessage.team_id &&
-              teamWithNewMessage.sender_id !== loggedInUser?.id ? (
-                <span style={{ color: "green", fontSize: "13px" }}>
-                   <FlashingDot />
-                </span>
-              ) : (
-                ""
-              )}
+              teamWithNewMessage.sender_id !== loggedInUser?.id ? 
+                <span ><FlashingDot /></span>: "" }
             </div>
           </li>
         ))}
