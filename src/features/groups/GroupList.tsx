@@ -3,7 +3,6 @@ import { FaCog } from "react-icons/fa";
 import Avatar from "../users/Avatar";
 import { useAppSelector } from "../../store";
 import { setTeamWithNewMessage } from "./groupSlice";
-import FlashingDot from "../../utils/FlashingDot";
 
 export default function GroupList() {
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
@@ -39,7 +38,7 @@ export default function GroupList() {
               {team.id === teamWithNewMessage.team_id &&
               teamWithNewMessage.sender_id !== loggedInUser?.id ? (
                 <span style={{ color: "green", fontSize: "13px" }}>
-                   <FlashingDot />
+                  "You have a new message"{" "}
                 </span>
               ) : (
                 ""
