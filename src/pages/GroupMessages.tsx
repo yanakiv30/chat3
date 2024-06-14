@@ -12,7 +12,7 @@ import UserMessagesContainer from "../features/users/UserMessageContainer";
 import { setIsLoading } from "../features/users/userSlice";
 import supabase from "../services/supabase";
 import EditUserMessage from "../features/users/EditUserMessage";
-import Empty from "./Empty";
+import Empty from "./Empty"; 
 
 export default function GroupMessages() {
   const navigate = useNavigate();
