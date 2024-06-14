@@ -37,7 +37,8 @@ export default function GroupList() {
   });
 
  function  flashAndTeam(teamId:number){  
-  //flashedTeamsIds = flashedTeamsIds.filter(id=> id!==teamId)
+   setFlashedTeamsIds( flashedTeamsIds.filter(id=> id!==teamId));
+  
   navigate(`/groups/${teamId}`);
  }
 
