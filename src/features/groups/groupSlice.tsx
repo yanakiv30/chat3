@@ -33,7 +33,7 @@ const groupSlice = createSlice({
       state.localTeams = [...action.payload];
     },
     setArrFlashIdBool(state, action) {
-      state.arrFlashIdBool = action.payload;
+      state.arrFlashIdBool = [...action.payload]
     },
     setTeamWithNewMessage(state, action) {
       state.teamWithNewMessage = action.payload;

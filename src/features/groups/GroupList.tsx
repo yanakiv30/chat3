@@ -2,8 +2,9 @@ import { NavLink } from "react-router-dom";
 import { FaCog } from "react-icons/fa";
 import Avatar from "../users/Avatar";
 import { useAppSelector } from "../../store";
-import { setArrFlashIdBool } from "./groupSlice";
+import { Flash, setArrFlashIdBool } from "./groupSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 export default function GroupList() {
   const dispatch=useDispatch();
@@ -21,17 +22,44 @@ export default function GroupList() {
 
   //const arrayWithFlashTeamId: { [key: string]: boolean }[] = [];
 
+  //const arr1 =[] as Flash[];
+  const [arr1, setArr1] = useState([] as Flash[]);
+//   const addFlash = (flash: Flash) => {
+//   setArr1(prevArr1 => [...prevArr1, flash]);
+// };
+
+const addKeyValue = (obj: {[key: number]: boolean}, key:number, value:boolean) => {
+  obj[key] = value;
+};
+//const obj1 = {} as {[key: string]: boolean};
+const [obj1, setObj1] = useState({} as {[key: string]: boolean})
+const updateObj1 = (key: number, value: boolean) => {
+    setObj1(prevObj1 => ({
+      ...prevObj1,
+      [key]: value
+    }));
+  };
+
   searchedTeams.map((team) => {
     const id = team.id;
     const isNewMessage = team.id === teamWithNewMessage.team_id;
-    const obj: { [key: string]: boolean } = {};
+    const obj={} as { [key: string]: boolean } ;
     obj[id] = isNewMessage;
-    isNewMessage&&dispatch(setArrFlashIdBool(obj))
+   //isNewMessage&& arr1.push(obj);
+   const isTeamId = !Object.keys(obj1).find(key=> +key===team.id);
+   console.log(' isTeamId ', isTeamId );
+   console.log('Object.keys(obj1)',Object.keys(obj1));
+   
+   isTeamId&&isNewMessage&& updateObj1(team.id,true);
+   console.log("obj1", obj1);
+    // !Object.keys(arrFlashIdBool).find(key=> +key===team.id)&&
+    // isNewMessage&&dispatch(setArrFlashIdBool(arr1))
     return null;
   });
  
   //console.log("arrayWithFlashTeamId", arrayWithFlashTeamId);
-  console.log("arrFlasId", arrFlashIdBool);
+  // console.log("arr1", arr1);
+  // console.log("arrFlasId", arrFlashIdBool);
 
   return (
     <div>
