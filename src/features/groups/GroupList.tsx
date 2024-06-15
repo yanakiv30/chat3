@@ -23,21 +23,33 @@ export default function GroupList() {
       : localTeams.filter((team) => team.name !== "");
 
   let [flashedTeamsIds, setFlashedTeamsIds] = useState([] as number[]);
-  const updateFlashedTeams = (id: number) => {
-    setFlashedTeamsIds((prevIds) => [...prevIds, id]);
-  };
+  const [flashedTeamsIdsLog, setFlashedTeamsIdsLog] = useState({} as 
+    {[key:number]:number});
+    console.log("Object.values(flashedTeamsIdsLog)", Object.values(flashedTeamsIdsLog))
+
+    const updateFlashedTeamsIdsLog = (teamId: number, logId: number) => {
+      setFlashedTeamsIdsLog(prev => ({ ...prev, [teamId]: logId }));
+    }
+    
+    
+    const updateFlashedTeams = (id: number) => {
+      setFlashedTeamsIds((prevIds) => [...prevIds, id]);
+    };
 
   searchedTeams.map((team) => {
     const isNewMessage = team.id === teamWithNewMessage.team_id;
-    const isTeamId = !flashedTeamsIds.find((id) => +id === team.id);
+    //const isTeamId = !flashedTeamsIds.find((id) => +id === team.id);
+    const isTeamId = !Object.keys(flashedTeamsIdsLog).find((id) => +id === team.id);
+    console.log("Object.keys(flashedTeamsIdsLog)",Object.keys(flashedTeamsIdsLog))
     console.log(" isTeamId ", isTeamId);
-    isTeamId && isNewMessage && updateFlashedTeams(team.id);
-    console.log("flashedTeamsIds", flashedTeamsIds);
+    isTeamId && isNewMessage && updateFlashedTeamsIdsLog(team.id,loggedInUser!.id);
+    console.log("flashedTeamsIdsLog", flashedTeamsIdsLog);
     return null;
   });
 
  function  flashAndTeam(teamId:number){  
-   setFlashedTeamsIds( flashedTeamsIds.filter(id=> id!==teamId));
+   //setFlashedTeamsIds( flashedTeamsIds.filter(id=> id!==teamId));
+   //Object.keys(flashedTeamsIdsLog)
   
   navigate(`/groups/${teamId}`);
  }
@@ -48,8 +60,12 @@ export default function GroupList() {
         {searchedTeams.map((team) => (
           <li key={team.id}>
             <div style={{ display: "flex", gap: "5px" }}>
-              {teamWithNewMessage.sender_id !== loggedInUser?.id &&
-                flashedTeamsIds.includes(team.id) && <FlashingDot />}
+              {/* {teamWithNewMessage.sender_id !== loggedInUser?.id &&
+                flashedTeamsIds.includes(team.id) && <FlashingDot />} */}
+
+             
+              { Object.keys(flashedTeamsIdsLog).includes(""+team.id) && <FlashingDot />}
+
               <Avatar name={team.name} />
               <button onClick={()=>flashAndTeam(team.id)}>{team.name}</button>
               {/* <NavLink to={`/groups/${team.id}`}>{`${team.name} `}</NavLink> */}
