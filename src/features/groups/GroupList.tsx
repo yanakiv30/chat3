@@ -51,6 +51,9 @@ export default function GroupList() {
    //setFlashedTeamsIds( flashedTeamsIds.filter(id=> id!==teamId));
    //Object.keys(flashedTeamsIdsLog)
   
+   const newFlashedTeamsIdsLog = { ...flashedTeamsIdsLog };
+   delete newFlashedTeamsIdsLog[teamId];   
+   setFlashedTeamsIdsLog(newFlashedTeamsIdsLog);
   navigate(`/groups/${teamId}`);
  }
 
@@ -64,7 +67,9 @@ export default function GroupList() {
                 flashedTeamsIds.includes(team.id) && <FlashingDot />} */}
 
              
-              { Object.keys(flashedTeamsIdsLog).includes(""+team.id) && <FlashingDot />}
+              { Object.keys(flashedTeamsIdsLog).includes(""+team.id) && 
+               !Object.values(flashedTeamsIdsLog).includes(teamWithNewMessage.sender_id)&&
+              <FlashingDot />}
 
               <Avatar name={team.name} />
               <button onClick={()=>flashAndTeam(team.id)}>{team.name}</button>
