@@ -35,35 +35,50 @@ function App() {
   useEffect(loadStateFromBackend, [loadStateFromBackend]);
 
   useEffect(() => {
-    
-    const findTeamNameById = (id: number, senderId:number) => {
+    const findTeamNameById = (id: number, senderId: number) => {
       const team = localTeams.find((team) => team.id === id);
       const receivers = team?.members.filter(member=>member.id!==senderId)
-      console.log("receivers = ", receivers);
+      
       if (!team) return "Unknown/Empty team";
       if (team.name === "")
         return team.members.find((member) => member.id !== loggedInUser?.id)
           ?.username;
       return team.name;
     };
-    
+
+    function findReceivers(id: number, senderId: number) {
+      const team = localTeams.find((team) => team.id === id);
+      const receivers = team?.members.filter(
+        (member) => member.id !== senderId
+      );
+      console.log("receivers = ", receivers);
+      return receivers;
+    }
 
     const messageSubscription = supabase
       .channel("messages")
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
-        (payload) => { 
-          
-         
-          if (payload.new.sender_id !== loggedInUser?.id) {
-            
-            toast.success(
-              `New message from "${findTeamNameById(payload.new.team_id,payload.new.sender_id)}"`
-            );
-          }
-          dispatch(setTeamWithNewMessage(payload.new));
-          
+        (payload) => {
+          //  console.log("r=", findReceivers(payload.new.team_id,payload.new.sender_id)?.map(receiver=> localTeams.filter(team=>team.members.map(member=>member.id===receiver.id))));
+
+          if (
+            findReceivers(payload.new.team_id, payload.new.sender_id)?.map(
+              (receiver) => {
+                receiver.id === loggedInUser?.id &&
+                  toast.success(
+                    `New message from "${findTeamNameById(
+                      payload.new.team_id,
+                      payload.new.sender_id
+                    )}"`
+                  );
+                return null;
+              }
+            )
+          )
+            dispatch(setTeamWithNewMessage(payload.new));
+
           loadStateFromBackend();
         }
       )
@@ -139,7 +154,7 @@ function App() {
         loadStateFromBackend
       )
       .subscribe();
-  }, [loadStateFromBackend, localTeams,loggedInUser,dispatch]);
+  }, [loadStateFromBackend, localTeams, loggedInUser, dispatch]);
 
   return (
     <Router>
