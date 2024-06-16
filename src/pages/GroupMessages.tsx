@@ -13,6 +13,7 @@ import { setIsLoading } from "../features/users/userSlice";
 import supabase from "../services/supabase";
 import EditUserMessage from "../features/users/EditUserMessage";
 import Empty from "./Empty"; 
+import { setIsDeleteTeam } from "../features/groups/groupSlice";
 
 export default function GroupMessages() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export default function GroupMessages() {
   if (!team) return <Empty />;
 
   async function handleSendGroupMessage() {
+    dispatch(setIsDeleteTeam(false));
     if (newGroupMessage.trim() !== "") {
       const newGroupMessageObject = {
         sender_id: loggedInUser!.id,
@@ -39,7 +41,7 @@ export default function GroupMessages() {
         message: newGroupMessage,
       };
 
-      dispatch(setIsLoading(true));
+      //dispatch(setIsLoading(true));
       try {
         const { data, error } = await supabase
           .from("messages")
@@ -53,7 +55,7 @@ export default function GroupMessages() {
         console.error(errorMessage);
         alert(errorMessage);
       } finally {
-        dispatch(setIsLoading(false));
+       // dispatch(setIsLoading(false));
       }
       setNewGroupMessage("");
     }

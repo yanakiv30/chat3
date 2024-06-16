@@ -2,7 +2,7 @@ import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import { FaCog } from "react-icons/fa";
 import Avatar from "../users/Avatar";
 import { useAppSelector } from "../../store";
-import { Flash, setArrFlashIdBool } from "./groupSlice";
+import { setIsDeleteTeam } from "./groupSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import FlashingDot from "../../utils/FlashingDots";
@@ -11,10 +11,14 @@ export default function GroupList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
-  const { localTeams, teamWithNewMessage, arrFlashIdBool } = useAppSelector(
+  const { localTeams, teamWithNewMessage, isDeleteTeam } = useAppSelector(
     (store) => store.group
   );
+  const [flashedTeamsIdsLog, setFlashedTeamsIdsLog] = useState(
+    {} as { [key: number]: number }
+  );
 
+  //const [isDelete, setIsDelete]= useState(false);
   const searchedTeams =
     searchQuery.length > 0
       ? localTeams.filter(
@@ -22,40 +26,44 @@ export default function GroupList() {
         )
       : localTeams.filter((team) => team.name !== "");
 
-  let [flashedTeamsIds, setFlashedTeamsIds] = useState([] as number[]);
-  const [flashedTeamsIdsLog, setFlashedTeamsIdsLog] = useState({} as 
-    {[key:number]:number});
-    console.log("Object.values(flashedTeamsIdsLog)", Object.values(flashedTeamsIdsLog))
+  console.log(
+    "Object.values(flashedTeamsIdsLog)",
+    Object.values(flashedTeamsIdsLog)
+  );
 
-    const updateFlashedTeamsIdsLog = (teamId: number, logId: number) => {
-      setFlashedTeamsIdsLog(prev => ({ ...prev, [teamId]: logId }));
-    }
-    
-    
-    const updateFlashedTeams = (id: number) => {
-      setFlashedTeamsIds((prevIds) => [...prevIds, id]);
-    };
+  const updateFlashedTeamsIdsLog = (teamId: number, logId: number) => {
+    console.log("isDelete = ", isDeleteTeam);
+    !isDeleteTeam &&
+      setFlashedTeamsIdsLog((prev) => ({ ...prev, [teamId]: logId }));
+  };
 
   searchedTeams.map((team) => {
     const isNewMessage = team.id === teamWithNewMessage.team_id;
     //const isTeamId = !flashedTeamsIds.find((id) => +id === team.id);
-    const isTeamId = !Object.keys(flashedTeamsIdsLog).find((id) => +id === team.id);
-    console.log("Object.keys(flashedTeamsIdsLog)",Object.keys(flashedTeamsIdsLog))
+    const isTeamId = !Object.keys(flashedTeamsIdsLog).find(
+      (id) => +id === team.id
+    );
+    console.log(
+      "Object.keys(flashedTeamsIdsLog)",
+      Object.keys(flashedTeamsIdsLog)
+    );
     console.log(" isTeamId ", isTeamId);
-    isTeamId && isNewMessage && updateFlashedTeamsIdsLog(team.id,loggedInUser!.id);
+    teamWithNewMessage.sender_id !== loggedInUser!.id &&
+      isTeamId &&
+      isNewMessage &&
+      updateFlashedTeamsIdsLog(team.id, loggedInUser!.id);
     console.log("flashedTeamsIdsLog", flashedTeamsIdsLog);
     return null;
   });
 
- function  flashAndTeam(teamId:number){  
-   //setFlashedTeamsIds( flashedTeamsIds.filter(id=> id!==teamId));
-   //Object.keys(flashedTeamsIdsLog)
-  
-   const newFlashedTeamsIdsLog = { ...flashedTeamsIdsLog };
-   delete newFlashedTeamsIdsLog[teamId];   
-   setFlashedTeamsIdsLog(newFlashedTeamsIdsLog);
-  navigate(`/groups/${teamId}`);
- }
+  function deleteTeamFromIdsLog(teamId: number) {
+    console.log("//////////////////deleteTeamFromIdsLog is working");
+    const newFlashedTeamsIdsLog = { ...flashedTeamsIdsLog };
+    delete newFlashedTeamsIdsLog[teamId];
+    setFlashedTeamsIdsLog(newFlashedTeamsIdsLog);
+    dispatch(setIsDeleteTeam(true));
+    navigate(`/groups/${teamId}`);
+  }
 
   return (
     <div>
@@ -63,16 +71,15 @@ export default function GroupList() {
         {searchedTeams.map((team) => (
           <li key={team.id}>
             <div style={{ display: "flex", gap: "5px" }}>
-              {/* {teamWithNewMessage.sender_id !== loggedInUser?.id &&
-                flashedTeamsIds.includes(team.id) && <FlashingDot />} */}
-
-             
-              { Object.keys(flashedTeamsIdsLog).includes(""+team.id) && 
-               !Object.values(flashedTeamsIdsLog).includes(teamWithNewMessage.sender_id)&&
-              <FlashingDot />}
+              {Object.keys(flashedTeamsIdsLog).includes("" + team.id) &&
+                !Object.values(flashedTeamsIdsLog).includes(
+                  teamWithNewMessage.sender_id
+                ) && <FlashingDot />}
 
               <Avatar name={team.name} />
-              <button onClick={()=>flashAndTeam(team.id)}>{team.name}</button>
+              <button onClick={() => deleteTeamFromIdsLog(team.id)}>
+                {team.name}
+              </button>
               {/* <NavLink to={`/groups/${team.id}`}>{`${team.name} `}</NavLink> */}
               {team.members.at(-1)!.id === loggedInUser!.id && (
                 <NavLink to={`/settingsGroup/${team.id}`}>

@@ -1,7 +1,7 @@
 export default function SendUserMessage({
   newMessage,
   setNewMessage,
-  handleSendMessage,
+  handleSendMessage, 
 }: any) {
   return (
     <div className="message-send">

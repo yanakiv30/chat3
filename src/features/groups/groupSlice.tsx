@@ -22,7 +22,8 @@ export type Payload = {
 const initialState = {
   localTeams: [] as Team[],
   teamWithNewMessage: {} as Payload,
-  arrFlashIdBool: [] as Flash[],
+  
+  isDeleteTeam :false
 };
 
 const groupSlice = createSlice({
@@ -32,15 +33,15 @@ const groupSlice = createSlice({
     setTeams(state, action) {
       state.localTeams = [...action.payload];
     },
-    setArrFlashIdBool(state, action) {
-      state.arrFlashIdBool = [...action.payload]
-    },
+    
     setTeamWithNewMessage(state, action) {
       state.teamWithNewMessage = action.payload;
     },
-
+    setIsDeleteTeam(state, action) {
+      state.isDeleteTeam = action.payload;
+    },
    
   },
 });
-export const { setTeams, setTeamWithNewMessage, setArrFlashIdBool } = groupSlice.actions;
+export const { setTeams, setTeamWithNewMessage,setIsDeleteTeam } = groupSlice.actions;
 export default groupSlice.reducer;
