@@ -32,7 +32,7 @@ export default function GroupMessages() {
   if (!team) return <Empty />;
 
   async function handleSendGroupMessage() {
-    dispatch(setIsDeleteTeam(false));
+    //dispatch(setIsDeleteTeam(false));
     if (newGroupMessage.trim() !== "") {
       const newGroupMessageObject = {
         sender_id: loggedInUser!.id,

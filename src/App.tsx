@@ -36,14 +36,17 @@ function App() {
 
   useEffect(() => {
     
-    const findTeamNameById = (id: number) => {
+    const findTeamNameById = (id: number, senderId:number) => {
       const team = localTeams.find((team) => team.id === id);
+      const receivers = team?.members.filter(member=>member.id!==senderId)
+      console.log("receivers = ", receivers);
       if (!team) return "Unknown/Empty team";
       if (team.name === "")
         return team.members.find((member) => member.id !== loggedInUser?.id)
           ?.username;
       return team.name;
     };
+    
 
     const messageSubscription = supabase
       .channel("messages")
@@ -54,8 +57,9 @@ function App() {
           
          
           if (payload.new.sender_id !== loggedInUser?.id) {
+            
             toast.success(
-              `New message from "${findTeamNameById(payload.new.team_id)}"`
+              `New message from "${findTeamNameById(payload.new.team_id,payload.new.sender_id)}"`
             );
           }
           dispatch(setTeamWithNewMessage(payload.new));

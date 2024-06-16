@@ -26,15 +26,15 @@ export default function GroupList() {
         )
       : localTeams.filter((team) => team.name !== "");
 
-  console.log(
-    "Object.values(flashedTeamsIdsLog)",
-    Object.values(flashedTeamsIdsLog)
-  );
+  // console.log(
+  //   "Object.values(flashedTeamsIdsLog)",
+  //   Object.values(flashedTeamsIdsLog)
+  // );
 
-  const updateFlashedTeamsIdsLog = (teamId: number, logId: number) => {
-    console.log("isDelete = ", isDeleteTeam);
-    !isDeleteTeam &&
-      setFlashedTeamsIdsLog((prev) => ({ ...prev, [teamId]: logId }));
+  const updateFlashedTeamsIdsLog = (teamId: number, senderId: number) => {
+    //console.log("isDeleteTeam = ", isDeleteTeam);
+   // !isDeleteTeam &&
+      setFlashedTeamsIdsLog((prev) => ({ ...prev, [teamId]: senderId }));
   };
 
   searchedTeams.map((team) => {
@@ -43,25 +43,26 @@ export default function GroupList() {
     const isTeamId = !Object.keys(flashedTeamsIdsLog).find(
       (id) => +id === team.id
     );
-    console.log(
-      "Object.keys(flashedTeamsIdsLog)",
-      Object.keys(flashedTeamsIdsLog)
-    );
-    console.log(" isTeamId ", isTeamId);
+    // console.log(
+    //   "Object.keys(flashedTeamsIdsLog)",
+    //   Object.keys(flashedTeamsIdsLog)
+    // );
+   // console.log(" isTeamId ", isTeamId);
     teamWithNewMessage.sender_id !== loggedInUser!.id &&
       isTeamId &&
       isNewMessage &&
-      updateFlashedTeamsIdsLog(team.id, loggedInUser!.id);
+      updateFlashedTeamsIdsLog(team.id, teamWithNewMessage.sender_id);
     console.log("flashedTeamsIdsLog", flashedTeamsIdsLog);
     return null;
   });
 
   function deleteTeamFromIdsLog(teamId: number) {
-    console.log("//////////////////deleteTeamFromIdsLog is working");
+    
+    //console.log("//////////////////deleteTeamFromIdsLog is working");
     const newFlashedTeamsIdsLog = { ...flashedTeamsIdsLog };
     delete newFlashedTeamsIdsLog[teamId];
     setFlashedTeamsIdsLog(newFlashedTeamsIdsLog);
-    dispatch(setIsDeleteTeam(true));
+    //dispatch(setIsDeleteTeam(true));
     navigate(`/groups/${teamId}`);
   }
 
@@ -72,9 +73,8 @@ export default function GroupList() {
           <li key={team.id}>
             <div style={{ display: "flex", gap: "5px" }}>
               {Object.keys(flashedTeamsIdsLog).includes("" + team.id) &&
-                !Object.values(flashedTeamsIdsLog).includes(
-                  teamWithNewMessage.sender_id
-                ) && <FlashingDot />}
+         // !Object.values(flashedTeamsIdsLog).includes(teamWithNewMessage.sender_id)  && 
+          <FlashingDot />}
 
               <Avatar name={team.name} />
               <button onClick={() => deleteTeamFromIdsLog(team.id)}>
