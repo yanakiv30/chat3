@@ -64,9 +64,7 @@ console.log("check1 = ",check1)
           
           <li key={team.id}>
             <div style={{ display: "flex", gap: "5px" }}>
-              {Object.keys(flashedTeamsIdsLog).includes("" + team.id) && (
-                <FlashingDot />
-              )}
+              
               
               <Avatar name={team.name===""? team.members.find(member=>+member.id!==loggedInUser?.id)!.username: team.name} />
               
@@ -77,9 +75,10 @@ console.log("check1 = ",check1)
                 <NavLink to={`/settingsGroup/${team.id}`}>
                   <span style={{ fontSize: "8px" }}>
                     <FaCog />
-                  </span>
+                  </span>                  
                 </NavLink>
               )}
+              
             </div>
           </li>
         ))}

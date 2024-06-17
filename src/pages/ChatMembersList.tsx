@@ -23,7 +23,7 @@ function ChatMembersList() {
         )
       : users;
 
-      const arrayOfNames=[] as string[];
+  const arrayOfNames = [] as string[];
 
   async function handleUserClicked(userId: number) {
     const doubleViewGroup = localTeams.find(
@@ -44,9 +44,22 @@ function ChatMembersList() {
         .catch((error) => console.error("Error fetching teams", error));
     }
   }
-  const filt = localTeams.filter(team=>team.members.some(member=>member.id===loggedInUser!.id));
- console.log("filt = ",localTeams.filter(team=>team.members.some(member=>member.id===loggedInUser!.id))) 
+  const filt = localTeams.filter((team) =>
+    team.members.some((member) => member.id === loggedInUser!.id)
+  );
+  console.log(
+    "filt = ",
+    localTeams.filter((team) =>
+      team.members.some((member) => member.id === loggedInUser!.id)
+    )
+  );
   //localTeams.filter(team=>team.members))
+  function isUserPartOfEmptyNameTeamWithLoggedInUser(userId: number) {
+    return localTeams.some((team) =>!team.name&&
+      team.members.some((member) => member.id === userId)
+    );
+  }
+
   return (
     <div className="user-list-container">
       <LogoLogout />
@@ -56,8 +69,12 @@ function ChatMembersList() {
       <ul>
         {loggedInUser &&
           searchedUsers
-            .filter((user) => user.id !== loggedInUser.id)
-            
+            .filter(
+              (user) =>
+                user.id !== loggedInUser.id &&
+                !isUserPartOfEmptyNameTeamWithLoggedInUser(user.id)
+            )
+
             .map((user) => (
               <li key={user.id}>
                 <div style={{ display: "flex", gap: "5px" }}>
@@ -70,8 +87,8 @@ function ChatMembersList() {
             ))}
       </ul>
       <br></br>
-      <p>My friends</p>
-      <GroupList arrayOfNames={arrayOfNames}/>
+      <p>My Contacts</p>
+      <GroupList arrayOfNames={arrayOfNames} />
 
       <img
         style={{ maxWidth: "70%" }}
