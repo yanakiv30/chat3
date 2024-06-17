@@ -5,7 +5,11 @@ import { useAppSelector } from "../../store";
 import { useState } from "react";
 import FlashingDot from "../../utils/FlashingDots";
 
-export default function GroupList() {
+type GroupListProps = {
+  arrayOfNames: string[];
+};
+export default function GroupList({arrayOfNames}:GroupListProps) {
+  console.log("arrayOfNames = ", arrayOfNames);
   const navigate = useNavigate();
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
   const { localTeams, teamWithNewMessage } = useAppSelector(
@@ -52,7 +56,7 @@ export default function GroupList() {
   const check1 =searchedTeams.map(team=>team.members
     .find(member=>+member.id!==loggedInUser?.id)?.username);
 console.log("check1 = ",check1)
-
+  
   return (
     <div>
       <ul>

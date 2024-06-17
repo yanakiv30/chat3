@@ -23,6 +23,8 @@ function ChatMembersList() {
         )
       : users;
 
+      const arrayOfNames=[] as string[];
+
   async function handleUserClicked(userId: number) {
     const doubleViewGroup = localTeams.find(
       (team) =>
@@ -30,7 +32,6 @@ function ChatMembersList() {
     );
     if (doubleViewGroup) navigate(`/messages/${doubleViewGroup.id}`);
     else {
-      
       const doubleViewGroupId = await createTeamWithMembers("", [
         loggedInUser!.id,
         userId,
@@ -40,10 +41,12 @@ function ChatMembersList() {
           dispatch(setTeams(data));
           navigate(`/messages/${doubleViewGroupId}`);
         })
-        .catch((error) => console.error("Error fetching teams", error));      
+        .catch((error) => console.error("Error fetching teams", error));
     }
   }
-
+  const filt = localTeams.filter(team=>team.members.some(member=>member.id===loggedInUser!.id));
+ console.log("filt = ",localTeams.filter(team=>team.members.some(member=>member.id===loggedInUser!.id))) 
+  //localTeams.filter(team=>team.members))
   return (
     <div className="user-list-container">
       <LogoLogout />
@@ -54,6 +57,7 @@ function ChatMembersList() {
         {loggedInUser &&
           searchedUsers
             .filter((user) => user.id !== loggedInUser.id)
+            
             .map((user) => (
               <li key={user.id}>
                 <div style={{ display: "flex", gap: "5px" }}>
@@ -65,11 +69,13 @@ function ChatMembersList() {
               </li>
             ))}
       </ul>
-      <GroupList />
+      <br></br>
+      <p>My friends</p>
+      <GroupList arrayOfNames={arrayOfNames}/>
 
       <img
         style={{ maxWidth: "70%" }}
-        src="https://img.freepik.com/premium-photo/two-cheerful-young-girls-using-smartphone-while-sitting-cafe-outdoors_650366-3065.jpg?w=900"     
+        src="https://img.freepik.com/premium-photo/two-cheerful-young-girls-using-smartphone-while-sitting-cafe-outdoors_650366-3065.jpg?w=900"
         alt="some cabin"
       />
     </div>
