@@ -1,15 +1,13 @@
 import { useDispatch } from "react-redux";
 import { setIsRegister } from "../features/users/userSlice";
-import { useAppSelector } from "../store";
 
 function Login({
-  handleLogin,  
+  handleLogin,
 }: {
   handleLogin: (email: string, password: string) => void;
-  
 }) {
-const dispatch = useDispatch();
-  let { isRegister } = useAppSelector((store) => store.user);
+  const dispatch = useDispatch();
+
   return (
     <div className="login">
       <h2>Welcome to chatSPA</h2>
@@ -41,7 +39,6 @@ const dispatch = useDispatch();
         If you don't have an account , please :
         <button onClick={() => dispatch(setIsRegister(true))}>Register</button>
       </p>
-      
     </div>
   );
 }

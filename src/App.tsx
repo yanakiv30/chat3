@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { useDispatch } from "react-redux";
 import { setUsers } from "./features/users/userSlice";
 import { setTeamWithNewMessage, setTeams } from "./features/groups/groupSlice";
@@ -37,8 +36,6 @@ function App() {
   useEffect(() => {
     const findTeamNameById = (id: number, senderId: number) => {
       const team = localTeams.find((team) => team.id === id);
-      const receivers = team?.members.filter(member=>member.id!==senderId)
-      
       if (!team) return "Unknown/Empty team";
       if (team.name === "")
         return team.members.find((member) => member.id !== loggedInUser?.id)
@@ -61,8 +58,6 @@ function App() {
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
         (payload) => {
-          //  console.log("r=", findReceivers(payload.new.team_id,payload.new.sender_id)?.map(receiver=> localTeams.filter(team=>team.members.map(member=>member.id===receiver.id))));
-
           if (
             findReceivers(payload.new.team_id, payload.new.sender_id)?.map(
               (receiver) => {
@@ -78,7 +73,6 @@ function App() {
             )
           )
             dispatch(setTeamWithNewMessage(payload.new));
-
           loadStateFromBackend();
         }
       )

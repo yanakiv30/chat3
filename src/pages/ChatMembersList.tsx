@@ -3,10 +3,9 @@ import GroupList from "../features/groups/GroupList";
 import { useAppSelector } from "../store";
 import LogoLogout from "../features/users/LogoLogout";
 import IconAndSearch from "../features/users/IconAndSearch";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createTeamWithMembers } from "../services/createTeam";
 import { useDispatch } from "react-redux";
-import { setIsLoading } from "../features/users/userSlice";
 import { getTeams } from "../services/apiGroups";
 import { setTeams } from "../features/groups/groupSlice";
 
@@ -31,7 +30,7 @@ function ChatMembersList() {
     );
     if (doubleViewGroup) navigate(`/messages/${doubleViewGroup.id}`);
     else {
-      //dispatch(setIsLoading(true));
+      
       const doubleViewGroupId = await createTeamWithMembers("", [
         loggedInUser!.id,
         userId,
@@ -41,8 +40,7 @@ function ChatMembersList() {
           dispatch(setTeams(data));
           navigate(`/messages/${doubleViewGroupId}`);
         })
-        .catch((error) => console.error("Error fetching teams", error));
-      //dispatch(setIsLoading(false));
+        .catch((error) => console.error("Error fetching teams", error));      
     }
   }
 
@@ -71,8 +69,7 @@ function ChatMembersList() {
 
       <img
         style={{ maxWidth: "70%" }}
-        src="https://img.freepik.com/premium-photo/two-cheerful-young-girls-using-smartphone-while-sitting-cafe-outdoors_650366-3065.jpg?w=900"
-       // src="https://cpkaumakwusyxhmexnqr.supabase.co/storage/v1/object/public/messages-images/cabin-001.jpg"
+        src="https://img.freepik.com/premium-photo/two-cheerful-young-girls-using-smartphone-while-sitting-cafe-outdoors_650366-3065.jpg?w=900"     
         alt="some cabin"
       />
     </div>

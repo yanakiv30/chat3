@@ -32,7 +32,7 @@ export default function GroupMessages() {
   if (!team) return <Empty />;
 
   async function handleSendGroupMessage() {
-    //dispatch(setIsDeleteTeam(false));
+    
     if (newGroupMessage.trim() !== "") {
       const newGroupMessageObject = {
         sender_id: loggedInUser!.id,
@@ -41,7 +41,7 @@ export default function GroupMessages() {
         message: newGroupMessage,
       };
 
-      //dispatch(setIsLoading(true));
+      
       try {
         const { data, error } = await supabase
           .from("messages")
