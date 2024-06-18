@@ -1,10 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import CheckboxList from "./pages/CheckboxList";
 import SettingsGroup from "./pages/SettingsGroup";
+import SettingsGroup2 from "./pages/SettingsGroup2";
 import GroupMessages from "./pages/GroupMessages";
 import Empty from "./pages/Empty";
-import AccessibleChats from "./features/users/AccessibleChats";
-
 export default function AllRoutes() {
   return (
     <Routes>      
@@ -12,6 +11,7 @@ export default function AllRoutes() {
       <Route path="/groups/:groupId" element={<GroupMessages />} />
       <Route path="/groups/createGroups" element={<CheckboxList />} />
       <Route path="/settingsGroup/:groupId" element={<SettingsGroup />} />
+      <Route path="/settingsGroup2/:groupId" element={<SettingsGroup2 />} />
       <Route path="/messages/:groupId" element={<GroupMessages />} />
     </Routes>
   );

@@ -61,13 +61,17 @@ console.log("check1 = ",check1)
               <button onClick={() => deleteTeamFromIdsLog(team.id)}>                
                 {team.name===""? team.members.find(member=>+member.id!==loggedInUser?.id)?.username: team.name}
               </button>
-              {team.members.at(-1)!.id === loggedInUser!.id && (
+              {team.members.at(-1)!.id === loggedInUser!.id ?              
                 <NavLink to={`/settingsGroup/${team.id}`}>
                   <span style={{ fontSize: "8px" }}>
                     <FaCog />
                   </span>                  
+                </NavLink>:<NavLink to={`/settingsGroup2/${team.id}`}>
+                  <span style={{ fontSize: "8px" }}>
+                    <FaCog />
+                  </span>                  
                 </NavLink>
-              )}              
+              }              
             </div>
           </li>
         ))}

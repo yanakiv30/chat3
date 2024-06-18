@@ -17,43 +17,9 @@ export default function SettingsGroup() {
   let membersArr: any = [];
   teamToSet?.members.map((member) => membersArr.push(member.username));
 
-  async function changeGroupName(teamId: number) {
-    if (updateName === "") return;
-    dispatch(setIsLoading(true));
-    try {
-      const { error } = await supabase
-        .from("teams")
-        .update({ name: `${updateName}` })
-        .eq("id", teamId)
-        .select();
-      if (error) {
-        console.error(error);
-        throw new Error("Team could not be renamed");
-      }
-    } catch (error) {
-      console.error("Error renaming Team:", error);
-    } finally {
-      dispatch(setIsLoading(false));
-    }
-  }
 
-  async function deleteGroup(teamId: number) {
-    dispatch(setIsLoading(true));
 
-    try {
-      const { error } = await supabase.from("teams").delete().eq("id", teamId);
-      if (error) {
-        console.error(error);
-        throw new Error("Team could not be deleted");
-      }
-    } catch (error) {
-      console.error("Error deleting team:", error);
-    } finally {
-      dispatch(setIsLoading(false));
-    }
-    navigate("/");
-  }
-
+  
   async function removeMe(teamId: number, userId: number) {
    // dispatch(setIsLoading(true));
     const { error } = await supabase
@@ -76,29 +42,6 @@ export default function SettingsGroup() {
 
       <br></br>
       <div className="wrapper">
-        <div>
-          <input
-            style={{ width: "60%" }}
-            type="text"
-            value={updateName}
-            onChange={(e) => setUpdateName(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                changeGroupName(idSettings!);
-              }
-            }}
-            placeholder="Write new name .."
-          />
-          <button onClick={() => changeGroupName(idSettings!)}>
-            Update name
-          </button>
-        </div>
-
-        <button onClick={() => deleteGroup(idSettings!)}>
-          Delete the entire group
-        </button>
-
         <button onClick={() => removeMe(idSettings, loggedInUser!.id)}>
           Remove me from the group
         </button>
