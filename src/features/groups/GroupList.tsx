@@ -5,11 +5,9 @@ import { useAppSelector } from "../../store";
 import { useState } from "react";
 import FlashingDot from "../../utils/FlashingDots";
 
-type GroupListProps = {
-  arrayOfNames: string[];
-};
-export default function GroupList({arrayOfNames}:GroupListProps) {
-  console.log("arrayOfNames = ", arrayOfNames);
+
+export default function GroupList() {
+  
   const navigate = useNavigate();
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
   const { localTeams, teamWithNewMessage } = useAppSelector(
