@@ -14,7 +14,7 @@ function AccessibleChats() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchedUsers =
-    searchQuery.length > 0
+    searchQuery.length > 0 
       ? users.filter(
           (user) => user && user.username && user.username.includes(searchQuery)
         )

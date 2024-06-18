@@ -3,11 +3,8 @@ import { FaCog } from "react-icons/fa";
 import Avatar from "../users/Avatar";
 import { useAppSelector } from "../../store";
 import { useState } from "react";
-import FlashingDot from "../../utils/FlashingDots";
 
-
-export default function GroupList() {
-  
+export default function GroupList() {  
   const navigate = useNavigate();
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
   const { localTeams, teamWithNewMessage } = useAppSelector(
@@ -22,8 +19,7 @@ export default function GroupList() {
       ? localTeams.filter(
           (team) => team && team.name && team.name.includes(searchQuery)
         )
-      : localTeams;
-  //.filter((team) => team.name !== "");
+      : localTeams;  
 
   const updateFlashedTeamsIdsLog = (teamId: number, senderId: number) => {
     setFlashedTeamsIdsLog((prev) => ({ ...prev, [teamId]: senderId }));
@@ -58,14 +54,10 @@ console.log("check1 = ",check1)
   return (
     <div>
       <ul>
-        {searchedTeams.map((team) => (
-          
+        {searchedTeams.map((team) => (          
           <li key={team.id}>
-            <div style={{ display: "flex", gap: "5px" }}>
-              
-              
-              <Avatar name={team.name===""? team.members.find(member=>+member.id!==loggedInUser?.id)!.username: team.name} />
-              
+            <div style={{ display: "flex", gap: "5px" }}>              
+              <Avatar name={team.name===""? team.members.find(member=>+member.id!==loggedInUser?.id)!.username: team.name} />              
               <button onClick={() => deleteTeamFromIdsLog(team.id)}>                
                 {team.name===""? team.members.find(member=>+member.id!==loggedInUser?.id)?.username: team.name}
               </button>
@@ -75,8 +67,7 @@ console.log("check1 = ",check1)
                     <FaCog />
                   </span>                  
                 </NavLink>
-              )}
-              
+              )}              
             </div>
           </li>
         ))}

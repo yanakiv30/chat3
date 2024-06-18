@@ -3,11 +3,12 @@ import CheckboxList from "./pages/CheckboxList";
 import SettingsGroup from "./pages/SettingsGroup";
 import GroupMessages from "./pages/GroupMessages";
 import Empty from "./pages/Empty";
+import AccessibleChats from "./features/users/AccessibleChats";
 
 export default function AllRoutes() {
   return (
     <Routes>      
-      <Route path="/" element={<Empty />} />      
+      <Route path="/" element={<Empty />} />          
       <Route path="/groups/:groupId" element={<GroupMessages />} />
       <Route path="/groups/createGroups" element={<CheckboxList />} />
       <Route path="/settingsGroup/:groupId" element={<SettingsGroup />} />

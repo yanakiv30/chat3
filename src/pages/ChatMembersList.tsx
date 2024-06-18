@@ -2,15 +2,18 @@ import GroupList from "../features/groups/GroupList";
 import LogoLogout from "../features/users/LogoLogout";
 import IconAndSearch from "../features/users/IconAndSearch";
 import AccessibleChats from "../features/users/AccessibleChats";
+import { useState } from "react";
 
 function ChatMembersList() {
+  const [isNewChatOpen, setIsNewChatOpen] = useState(false);
   return (
     <div className="user-list-container">
       <LogoLogout />
       <br></br>
       <IconAndSearch />
       <br></br>
-      <AccessibleChats/>
+      <button onClick={()=>setIsNewChatOpen(!isNewChatOpen)} style={{background:"purple", color:"white"}}>New Chat</button>
+      { isNewChatOpen && <AccessibleChats/> }      
       <br></br>
       <p>My Chats</p>
       <GroupList  />
