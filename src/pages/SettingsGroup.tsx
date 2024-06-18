@@ -5,12 +5,15 @@ import supabase from "../services/supabase";
 import { setIsLoading } from "../features/users/userSlice";
 import { useState } from "react";
 import { connectTeamWithUsers } from "../services/createTeam";
+import { setTeams } from "../features/groups/groupSlice";
 export default function SettingsGroup() {
   const params = useParams();
   const [updateName, setUpdateName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { localTeams } = useAppSelector((store) => store.group);
+ const { loggedInUser } = useAppSelector(
+    (store) => store.user);
   // const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
   const idSettings = +params.groupId!;
   const teamToSet = localTeams.find((team) => team.id === idSettings)!;
@@ -54,15 +57,11 @@ export default function SettingsGroup() {
     navigate("/");
   }
   
-  function removeMe(teamId: number) {
-   const teamsForRemoveMe= localTeams.find(team=>team.id===teamId);
-   console.log("teamsForRemoveMe= ",teamsForRemoveMe);
-   const updatedMembers= [...teamsForRemoveMe!.members];
-   updatedMembers.pop()
-   console.log("Popped", updatedMembers);
-    
-
-//connectTeamWithUsers(teamId,[2,7])
+  async function removeMe(userId: number) {
+const { error } = await supabase
+  .from('teams_members')
+  .delete()
+  .eq('user_id', userId);
   }
 
   return (
@@ -100,8 +99,10 @@ export default function SettingsGroup() {
           Delete the entire group
         </button>
 
-        <button onClick={()=>removeMe(idSettings!)}>Remove me from the group</button>
+        <button onClick={()=>removeMe(loggedInUser!.id)}>Remove me from the group</button>
       </div>
     </div>
   );
 }
+
+

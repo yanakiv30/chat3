@@ -1,5 +1,4 @@
 import supabase from "../services/supabase";
-import { useAppSelector } from "../store";
 
 async function createTeam(newTeam: { name: string }) {
   const { data, error } = await supabase.from("teams").insert(newTeam).select();
@@ -11,6 +10,8 @@ async function createTeam(newTeam: { name: string }) {
   }
   return data[0];
 }
+
+
 
 export async function connectTeamWithUsers(teamId: number, membersIds: number[]) {
   const rows = membersIds.map((userId) => {
