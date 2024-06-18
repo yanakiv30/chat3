@@ -33,7 +33,10 @@ const groupSlice = createSlice({
     setTeams(state, action) {
       state.localTeams = [...action.payload];
     },
-    
+    deleteTeamById(state, action) {
+      const id = action.payload;
+      state.localTeams = state.localTeams.filter(team => team.id !== id);
+    },
     setTeamWithNewMessage(state, action) {
       state.teamWithNewMessage = action.payload;
     },
@@ -43,5 +46,5 @@ const groupSlice = createSlice({
    
   },
 });
-export const { setTeams, setTeamWithNewMessage,setIsDeleteTeam } = groupSlice.actions;
+export const { setTeams, setTeamWithNewMessage,setIsDeleteTeam,deleteTeamById } = groupSlice.actions;
 export default groupSlice.reducer;

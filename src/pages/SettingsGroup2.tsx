@@ -4,6 +4,7 @@ import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
 import { setIsLoading } from "../features/users/userSlice";
 import { useState } from "react";
+import { deleteTeamById } from "../features/groups/groupSlice";
 export default function SettingsGroup() {
   const params = useParams();
   const [updateName, setUpdateName] = useState("");
@@ -16,18 +17,15 @@ export default function SettingsGroup() {
   const teamToSet = localTeams.find((team) => team.id === idSettings)!;
   let membersArr: any = [];
   teamToSet?.members.map((member) => membersArr.push(member.username));
-
-
-
   
-  async function removeMe(teamId: number, userId: number) {
-   // dispatch(setIsLoading(true));
+  async function removeMe(teamId: number, userId: number) {   
     const { error } = await supabase
       .from("teams_members")
       .delete()
       .eq("team_id", teamId)
       .eq("user_id", userId);
-    // dispatch(setIsLoading(false));
+     dispatch( deleteTeamById(teamId));
+     navigate("/");
   }
 
   return (

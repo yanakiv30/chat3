@@ -4,6 +4,7 @@ import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
 import { setIsLoading } from "../features/users/userSlice";
 import { useState } from "react";
+import { deleteTeamById } from "../features/groups/groupSlice";
 export default function SettingsGroup() {
   const params = useParams();
   const [updateName, setUpdateName] = useState("");
@@ -52,6 +53,8 @@ export default function SettingsGroup() {
     }
     navigate("/");
   }  
+  
+
 
   return (
     <div className="settings">
@@ -88,7 +91,7 @@ export default function SettingsGroup() {
           Delete the entire group
         </button>
 
-        
+       
       </div>
     </div>
   );
