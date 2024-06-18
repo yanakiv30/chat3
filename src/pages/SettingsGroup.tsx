@@ -39,7 +39,6 @@ export default function SettingsGroup() {
 
   async function deleteGroup(teamId: number) {
     dispatch(setIsLoading(true));
-
     try {
       const { error } = await supabase.from("teams").delete().eq("id", teamId);
       if (error) {
@@ -52,17 +51,7 @@ export default function SettingsGroup() {
       dispatch(setIsLoading(false));
     }
     navigate("/");
-  }
-
-  async function removeMe(teamId: number, userId: number) {
-   // dispatch(setIsLoading(true));
-    const { error } = await supabase
-      .from("teams_members")
-      .delete()
-      .eq("team_id", teamId)
-      .eq("user_id", userId);
-    // dispatch(setIsLoading(false));
-  }
+  }  
 
   return (
     <div className="settings">
@@ -99,9 +88,7 @@ export default function SettingsGroup() {
           Delete the entire group
         </button>
 
-        <button onClick={() => removeMe(idSettings, loggedInUser!.id)}>
-          Remove me from the group
-        </button>
+        
       </div>
     </div>
   );
