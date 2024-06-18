@@ -34,7 +34,6 @@ function CheckboxList() {
     } finally {
       dispatch(setIsLoading(false));
     }
-
   }
 
   function handleCheckboxChange(id: number) {
@@ -49,8 +48,6 @@ function CheckboxList() {
       .map((key) => +key),
     +loggedInUser!.id,
   ];
-
-
 
   return (
     <div

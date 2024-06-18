@@ -1,13 +1,5 @@
 import supabase from "../services/supabase";
 import { useAppSelector } from "../store";
-export async function createTeamWithMembers(
-  teamName: string,
-  membersIds: number[]
-) {
-  const newTeam = await createTeam({ name: teamName });
-  await connectTeamWithUsers(newTeam.id, membersIds);
-  return newTeam.id;
-}
 
 async function createTeam(newTeam: { name: string }) {
   const { data, error } = await supabase.from("teams").insert(newTeam).select();
@@ -20,7 +12,7 @@ async function createTeam(newTeam: { name: string }) {
   return data[0];
 }
 
-async function connectTeamWithUsers(teamId: number, membersIds: number[]) {
+export async function connectTeamWithUsers(teamId: number, membersIds: number[]) {
   const rows = membersIds.map((userId) => {
     return {
       team_id: teamId,
@@ -34,3 +26,13 @@ async function connectTeamWithUsers(teamId: number, membersIds: number[]) {
     throw new Error("Failed to connect users to team");
   }
 }
+
+export async function createTeamWithMembers(
+  teamName: string,
+  membersIds: number[]
+) {
+  const newTeam = await createTeam({ name: teamName });
+  await connectTeamWithUsers(newTeam.id, membersIds);
+  return newTeam.id;
+}
+

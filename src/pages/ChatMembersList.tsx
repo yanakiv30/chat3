@@ -12,7 +12,7 @@ function ChatMembersList() {
       <br></br>
       <IconAndSearch />
       <br></br>
-      <button onClick={()=>setIsNewChatOpen(!isNewChatOpen)} style={{background:"purple", color:"white"}}>New Chat</button>
+      <button onClick={()=>setIsNewChatOpen(!isNewChatOpen)} style={{background:"purple", color:"white"}}>New Chats</button>
       { isNewChatOpen && <AccessibleChats/> }      
       <br></br>
       <p>My Chats</p>

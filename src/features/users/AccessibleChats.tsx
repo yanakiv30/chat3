@@ -32,9 +32,9 @@ function AccessibleChats() {
     );
     if (doubleViewGroup) navigate(`/messages/${doubleViewGroup.id}`);
     else {
-      const doubleViewGroupId = await createTeamWithMembers("", [
-        loggedInUser!.id,
+      const doubleViewGroupId = await createTeamWithMembers("", [        
         userId,
+        loggedInUser!.id
       ]);
       getTeams(+loggedInUser!.id)
         .then((data) => {
@@ -45,8 +45,7 @@ function AccessibleChats() {
     }
   }
 
-  return (
-    
+  return (    
     <ul>
       {loggedInUser &&
         searchedUsers

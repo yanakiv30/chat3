@@ -1,13 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
 import { setIsLoading } from "../features/users/userSlice";
 import { useState } from "react";
+import { connectTeamWithUsers } from "../services/createTeam";
 export default function SettingsGroup() {
   const params = useParams();
-
   const [updateName, setUpdateName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -54,6 +53,17 @@ export default function SettingsGroup() {
     }
     navigate("/");
   }
+  
+  function removeMe(teamId: number) {
+   const teamsForRemoveMe= localTeams.find(team=>team.id===teamId);
+   console.log("teamsForRemoveMe= ",teamsForRemoveMe);
+   const updatedMembers= [...teamsForRemoveMe!.members];
+   updatedMembers.pop()
+   console.log("Popped", updatedMembers);
+    
+
+//connectTeamWithUsers(teamId,[2,7])
+  }
 
   return (
     <div className="settings">
@@ -89,6 +99,8 @@ export default function SettingsGroup() {
         <button onClick={() => deleteGroup(idSettings!)}>
           Delete the entire group
         </button>
+
+        <button onClick={()=>removeMe(idSettings!)}>Remove me from the group</button>
       </div>
     </div>
   );
