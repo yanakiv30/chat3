@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteTeamById } from "./groupSlice";
 import supabase from "../../services/supabase";
+import FlashingDot from "../../utils/FlashingDots";
 
 export default function GroupList() {  
   const navigate = useNavigate();
@@ -63,7 +64,8 @@ console.log("check1 = ",check1)
       <ul>
         {searchedTeams.map((team) => (          
           <li key={team.id}>
-            <div style={{ display: "flex", gap: "5px" }}>              
+            <div style={{ display: "flex", gap: "5px" }}> 
+           
               <Avatar name={team.name===""? team.members
                 .find(member=>+member.id!==loggedInUser?.id)!.username: team.name} />              
               <button onClick={() => deleteTeamFromIdsLog(team.id)}>                
@@ -79,7 +81,11 @@ console.log("check1 = ",check1)
                     <FaCog />
                   </span>                  
                 </NavLink>
-              }              
+              }  
+                 {Object.keys(flashedTeamsIdsLog).includes("" + team.id) && (
+                <FlashingDot />
+              )}      
+                  
             </div>
           </li>
         ))}

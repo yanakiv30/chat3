@@ -15,8 +15,8 @@ const Container = styled.span`
 `;
 
 const Dot = styled.div`
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   background-color: red;
   border-radius: 50%;
   animation: ${flash} 3s infinite;
