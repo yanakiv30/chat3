@@ -4,15 +4,13 @@ import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
 import { setIsLoading } from "../features/users/userSlice";
 import { useState } from "react";
-import { deleteTeamById } from "../features/groups/groupSlice";
 export default function SettingsGroup() {
   const params = useParams();
   const [updateName, setUpdateName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { localTeams } = useAppSelector((store) => store.group);
-  const { loggedInUser } = useAppSelector((store) => store.user);
-  // const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
+  const { loggedInUser } = useAppSelector((store) => store.user);  
   const idSettings = +params.groupId!;
   const teamToSet = localTeams.find((team) => team.id === idSettings)!;
   let membersArr: any = [];
@@ -63,7 +61,6 @@ export default function SettingsGroup() {
         </div>
         <p> members: {membersArr.join(", ")}</p>
       </div>
-
       <br></br>
       <div className="wrapper">
         <div>
@@ -84,12 +81,9 @@ export default function SettingsGroup() {
             Update name
           </button>
         </div>
-
         <button onClick={() => deleteGroup(idSettings!)}>
           Delete the entire group
-        </button>
-
-       
+        </button>       
       </div>
     </div>
   );

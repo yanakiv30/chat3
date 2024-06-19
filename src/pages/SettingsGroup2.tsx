@@ -1,9 +1,8 @@
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
-import { setIsLoading } from "../features/users/userSlice";
-import { useState } from "react";
 import { deleteTeamById } from "../features/groups/groupSlice";
 export default function SettingsGroup() {
   const params = useParams();
@@ -11,13 +10,11 @@ export default function SettingsGroup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { localTeams } = useAppSelector((store) => store.group);
-  const { loggedInUser } = useAppSelector((store) => store.user);
-  // const groupMemebers = groups.find((x) => x.id === groupInListId)?.members;
+  const { loggedInUser } = useAppSelector((store) => store.user); 
   const idSettings = +params.groupId!;
   const teamToSet = localTeams.find((team) => team.id === idSettings)!;
   let membersArr: any = [];
   teamToSet?.members.map((member) => membersArr.push(member.username));
-
   async function removeMe(teamId: number, userId: number) {
     async function deleteGroup(teamId: number) {
       try {
@@ -34,21 +31,18 @@ export default function SettingsGroup() {
       }
       navigate("/");
     }
-    if (localTeams.find((team) => team.id === teamId)!.members.length < 2) {
-      deleteGroup(teamId);
-      dispatch(deleteTeamById(teamId));
-      return;
-    }
-
-    // const { error } = await supabase
-    //   .from("teams_members")
-    //   .delete()
-    //   .eq("team_id", teamId)
-    //   .eq("user_id", userId);
-    // dispatch(deleteTeamById(teamId));
-    // navigate("/");
+    if (localTeams.find((team) => team.id === teamId)!.members.length === 2) {
+      deleteGroup(teamId);      
+    } else{
+       const { error } = await supabase
+      .from("teams_members")
+      .delete()
+      .eq("team_id", teamId)
+      .eq("user_id", userId);
+       dispatch(deleteTeamById(teamId));
+       navigate("/");
+    }    
   }
-
   return (
     <div className="settings">
       <div style={{ backgroundColor: "beige", borderRadius: "7px" }}>
@@ -58,7 +52,6 @@ export default function SettingsGroup() {
         </div>
         <p> members: {membersArr.join(", ")}</p>
       </div>
-
       <br></br>
       <div className="wrapper">
         <button onClick={() => removeMe(idSettings, loggedInUser!.id)}>
