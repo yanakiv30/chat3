@@ -13,35 +13,28 @@ import { setIsLoading } from "../features/users/userSlice";
 import supabase from "../services/supabase";
 import EditUserMessage from "../features/users/EditUserMessage";
 import Empty from "./Empty"; 
-import { setIsDeleteTeam } from "../features/groups/groupSlice";
 
-export default function GroupMessages() {
-  const navigate = useNavigate();
+export default function GroupMessages() {  
   const { loggedInUser, searchMessage, isEdit } = useAppSelector(
     (store) => store.user
   );
   const { localTeams } = useAppSelector((store) => store.group);
   const [newGroupMessage, setNewGroupMessage] = useState("");
   const params = useParams();
-
   const groupInListId = +params.groupId!;
-
   const dispatch = useDispatch();
   const team = localTeams.find((x) => x.id === groupInListId)!;
-
+  const hiddenName=team.members.find(member=>member.id!==loggedInUser!.id)?.username;
   if (!team) return <Empty />;
 
-  async function handleSendGroupMessage() {
-    
+  async function handleSendGroupMessage() {    
     if (newGroupMessage.trim() !== "") {
       const newGroupMessageObject = {
         sender_id: loggedInUser!.id,
         team_id: groupInListId,
         type: "text",
         message: newGroupMessage,
-      };
-
-      
+      };      
       try {
         const { data, error } = await supabase
           .from("messages")
@@ -90,12 +83,13 @@ export default function GroupMessages() {
         <div className="chat-with">
           <div>
             <div style={{ display: "flex", gap: "5px" }}>
-              <Avatar name={team.name || ""} />
-              <h4>{`${team.name} `}</h4>
+              {team.name!==""&&<Avatar name={team.name || ""} />}
+              <h4>{team.name===""?`Chat with ${hiddenName}`:team.name} </h4>
+
             </div>
-            <p style={{ fontSize: "10px", textAlign: "center" }}>
+            {team.name!==""&&<p style={{ fontSize: "10px", textAlign: "center" }}>
               members: {team.members.map((user) => user.username).join(",")}
-            </p>
+            </p>}
           </div>
           <SearchInMessage />
           <img
