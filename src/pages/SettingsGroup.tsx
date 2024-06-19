@@ -38,7 +38,7 @@ export default function SettingsGroup() {
     }
   }
 
-  async function deleteGroup(teamId: number) {
+   async function deleteGroup(teamId: number) {
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase.from("teams").delete().eq("id", teamId);
@@ -53,8 +53,6 @@ export default function SettingsGroup() {
     }
     navigate("/");
   }  
-  
-
 
   return (
     <div className="settings">

@@ -17,15 +17,36 @@ export default function SettingsGroup() {
   const teamToSet = localTeams.find((team) => team.id === idSettings)!;
   let membersArr: any = [];
   teamToSet?.members.map((member) => membersArr.push(member.username));
-  
-  async function removeMe(teamId: number, userId: number) {   
-    const { error } = await supabase
-      .from("teams_members")
-      .delete()
-      .eq("team_id", teamId)
-      .eq("user_id", userId);
-     dispatch( deleteTeamById(teamId));
-     navigate("/");
+
+  async function removeMe(teamId: number, userId: number) {
+    async function deleteGroup(teamId: number) {
+      try {
+        const { error } = await supabase
+          .from("teams")
+          .delete()
+          .eq("id", teamId);
+        if (error) {
+          console.error(error);
+          throw new Error("Team could not be deleted");
+        }
+      } catch (error) {
+        console.error("Error deleting team:", error);
+      }
+      navigate("/");
+    }
+    if (localTeams.find((team) => team.id === teamId)!.members.length < 2) {
+      deleteGroup(teamId);
+      dispatch(deleteTeamById(teamId));
+      return;
+    }
+
+    // const { error } = await supabase
+    //   .from("teams_members")
+    //   .delete()
+    //   .eq("team_id", teamId)
+    //   .eq("user_id", userId);
+    // dispatch(deleteTeamById(teamId));
+    // navigate("/");
   }
 
   return (

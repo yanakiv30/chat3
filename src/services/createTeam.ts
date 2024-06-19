@@ -32,8 +32,9 @@ export async function createTeamWithMembers(
   teamName: string,
   membersIds: number[]
 ) {
+  
   const newTeam = await createTeam({ name: teamName });
   await connectTeamWithUsers(newTeam.id, membersIds);
   return newTeam.id;
-}
+} 
 

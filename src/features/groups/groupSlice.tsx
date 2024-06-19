@@ -25,7 +25,7 @@ const initialState = {
   
   isDeleteTeam :false
 };
-
+ 
 const groupSlice = createSlice({
   name: "group",
   initialState,

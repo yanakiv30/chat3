@@ -66,9 +66,8 @@ export async function getTeams(loggedInUserId: number) {
     const { data, error } = await supabase.from("teams_members").select();
     if (error) {
       console.error(error);
-      throw new Error("Team Messages could not be loaded");
+      throw new Error("Team Members could not be loaded");
     }
-
     return data;
   }
 
