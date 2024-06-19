@@ -18,8 +18,8 @@ export async function connectTeamWithUsers(teamId: number, membersIds: number[])
     return {
       team_id: teamId,
       user_id: userId,
-      //role: userId === membersIds.at(-1) ? "admin" : "member",
-      role: "admin" 
+      role: userId === membersIds.at(-1) ? "admin" : "member",
+      //role: "admin" 
     };
   });
   const { data, error } = await supabase.from("teams_members").insert(rows);

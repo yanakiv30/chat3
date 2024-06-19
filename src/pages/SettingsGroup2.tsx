@@ -5,8 +5,7 @@ import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
 import { deleteTeamById } from "../features/groups/groupSlice";
 export default function SettingsGroup() {
-  const params = useParams();
-  const [updateName, setUpdateName] = useState("");
+  const params = useParams();  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { localTeams } = useAppSelector((store) => store.group);
@@ -15,33 +14,14 @@ export default function SettingsGroup() {
   const teamToSet = localTeams.find((team) => team.id === idSettings)!;
   let membersArr: any = [];
   teamToSet?.members.map((member) => membersArr.push(member.username));
-  async function removeMe(teamId: number, userId: number) {
-    async function deleteGroup(teamId: number) {
-      try {
-        const { error } = await supabase
-          .from("teams")
-          .delete()
-          .eq("id", teamId);
-        if (error) {
-          console.error(error);
-          throw new Error("Team could not be deleted");
-        }
-      } catch (error) {
-        console.error("Error deleting team:", error);
-      }
-      navigate("/");
-    }
-    if (localTeams.find((team) => team.id === teamId)!.members.length === 2) {
-      deleteGroup(teamId);      
-    } else{
+  async function removeMe(teamId: number, userId: number) {    
        const { error } = await supabase
       .from("teams_members")
       .delete()
       .eq("team_id", teamId)
       .eq("user_id", userId);
        dispatch(deleteTeamById(teamId));
-       navigate("/");
-    }    
+       navigate("/");       
   }
   return (
     <div className="settings">
