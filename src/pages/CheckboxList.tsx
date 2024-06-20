@@ -43,10 +43,10 @@ function CheckboxList() {
     }));
   }
   const checkedIds = [
+    +loggedInUser!.id,
     ...Object.keys(checkedItems)
       .filter((key: string) => checkedItems[key] === true)
       .map((key) => +key),
-    +loggedInUser!.id,
   ];
 
   return (

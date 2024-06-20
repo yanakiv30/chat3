@@ -11,15 +11,15 @@ async function createTeam(newTeam: { name: string }) {
   return data[0];
 }
 
-
-
-export async function connectTeamWithUsers(teamId: number, membersIds: number[]) {
+export async function connectTeamWithUsers(
+  teamId: number,
+  membersIds: number[]
+) {
   const rows = membersIds.map((userId) => {
     return {
       team_id: teamId,
       user_id: userId,
-      role: userId === membersIds.at(-1) ? "admin" : "member",
-      //role: "admin" 
+      role: userId === membersIds.at(0) ? "admin" : "member",
     };
   });
   const { data, error } = await supabase.from("teams_members").insert(rows);
@@ -33,9 +33,7 @@ export async function createTeamWithMembers(
   teamName: string,
   membersIds: number[]
 ) {
-  
   const newTeam = await createTeam({ name: teamName });
   await connectTeamWithUsers(newTeam.id, membersIds);
   return newTeam.id;
-} 
-
+}

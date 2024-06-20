@@ -8,7 +8,7 @@ import { deleteTeamById } from "./groupSlice";
 import supabase from "../../services/supabase";
 import FlashingDot from "../../utils/FlashingDots";
 
-export default function GroupList() {  
+export default function GroupList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
@@ -16,7 +16,6 @@ export default function GroupList() {
     (store) => store.group
   );
 
-  
   const [flashedTeamsIdsLog, setFlashedTeamsIdsLog] = useState(
     {} as { [key: number]: number }
   );
@@ -26,14 +25,13 @@ export default function GroupList() {
       ? localTeams.filter(
           (team) => team && team.name && team.name.includes(searchQuery)
         )
-      : localTeams;  
- 
+      : localTeams;
+
   const updateFlashedTeamsIdsLog = (teamId: number, senderId: number) => {
     setFlashedTeamsIdsLog((prev) => ({ ...prev, [teamId]: senderId }));
   };
 
   searchedTeams.map((team) => {
-    
     const isNewMessage = team.id === teamWithNewMessage.team_id;
 
     const isTeamId = !Object.keys(flashedTeamsIdsLog).find(
@@ -54,38 +52,51 @@ export default function GroupList() {
     setFlashedTeamsIdsLog(newFlashedTeamsIdsLog);
     navigate(`/groups/${teamId}`);
   }
- 
-  const check1 =searchedTeams.map(team=>team.members
-    .find(member=>+member.id!==loggedInUser?.id)?.username);
-console.log("check1 = ",check1)
-  
+
+  const check1 = searchedTeams.map(
+    (team) =>
+      team.members.find((member) => +member.id !== loggedInUser?.id)?.username
+  );
+  console.log("check1 = ", check1);
+
   return (
     <div>
       <ul>
-        {searchedTeams.map((team) => (          
+        {searchedTeams.map((team) => (
           <li key={team.id}>
-            <div style={{ display: "flex", gap: "5px" }}> 
-           
-              <Avatar name={team.name===""? team.members
-                .find(member=>+member.id!==loggedInUser?.id)!.username: team.name} />              
-              <button onClick={() => deleteTeamFromIdsLog(team.id)}>                
-                {team.name===""? team.members.find(member=>+member.id!==loggedInUser?.id)?.username: team.name}
+            <div style={{ display: "flex", gap: "5px" }}>
+              <Avatar
+                name={
+                  team.name === ""
+                    ? team.members.find(
+                        (member) => +member.id !== loggedInUser?.id
+                      )!.username
+                    : team.name
+                }
+              />
+              <button onClick={() => deleteTeamFromIdsLog(team.id)}>
+                {team.name === ""
+                  ? team.members.find(
+                      (member) => +member.id !== loggedInUser?.id
+                    )?.username
+                  : team.name}
               </button>
-              {team.members.at(-1)!.id === loggedInUser!.id ?              
+              {team.members.at(0)!.id === loggedInUser!.id ? (
                 <NavLink to={`/settingsGroup/${team.id}`}>
                   <span style={{ fontSize: "8px" }}>
                     <FaCog />
-                  </span>                  
-                </NavLink>:<NavLink to={`/settingsGroup2/${team.id}`}>
+                  </span>
+                </NavLink>
+              ) : (
+                <NavLink to={`/settingsGroup2/${team.id}`}>
                   <span style={{ fontSize: "8px" }}>
                     <FaCog />
-                  </span>                  
+                  </span>
                 </NavLink>
-              }  
-                 {Object.keys(flashedTeamsIdsLog).includes("" + team.id) && (
+              )}
+              {Object.keys(flashedTeamsIdsLog).includes("" + team.id) && (
                 <FlashingDot />
-              )}      
-                  
+              )}
             </div>
           </li>
         ))}
