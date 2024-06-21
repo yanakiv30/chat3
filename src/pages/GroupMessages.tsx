@@ -23,9 +23,10 @@ export default function GroupMessages() {
   const params = useParams();
   const groupInListId = +params.groupId!;
   const dispatch = useDispatch();
-  const team = localTeams.find((x) => x.id === groupInListId)!;
-  const hiddenName=team.members.find(member=>member.id!==loggedInUser!.id)?.username;
+  const team = localTeams.find((x) => x.id === groupInListId);
   if (!team) return <Empty />;
+  const hiddenName=team.members.find(member=>member.id!==loggedInUser!.id)?.username;
+ 
 
   async function handleSendGroupMessage() {    
     if (newGroupMessage.trim() !== "") {
