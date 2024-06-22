@@ -41,6 +41,7 @@ export async function getTeams(loggedInUserId: number) {
           id: row.id!,
           senderId: row.sender_id!,
           content: row.message!,
+          image_path: row.image_path!,  // Include image_path here
           ...getHourDayDate(new Date(row.created_at!)),
         };
         return message;

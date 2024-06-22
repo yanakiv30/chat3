@@ -6,6 +6,7 @@ export type Message = {
   content: string;
   hourMinDate: string;
   dayDate: string;
+  image_path: string;
 };
 export type Team = {
   id: number;
