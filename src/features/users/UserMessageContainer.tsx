@@ -5,6 +5,7 @@ import { setIsEdit, setMesContent, setMessageId } from "./userSlice";
 import { useAppSelector } from "../../store";
 import { Message } from "../groups/groupSlice";
 import getImageUrl from "../../utils/getImageUrl";
+import deleteImage from "../../utils/deleteImage"; // Import the deleteImage function
 
 export default function UserMessagesContainer({
   loggedInUser,
@@ -32,6 +33,18 @@ export default function UserMessagesContainer({
     dispatch(setIsEdit(true));
   }
 
+  // Update the handleDeleteMessages to include image deletion
+  const handleDelete = async (message: Message) => {
+    if (message.image_path) {
+      const success = await deleteImage(message.image_path);
+      if (!success) {
+        console.error("Failed to delete image");
+        return;
+      }
+    }
+    handleDeleteMessages(message.id); // Call the original delete message function
+  };
+
   return (
     <ul className="messages-container">
       {searchedMessages.map((message: Message, index) => (
@@ -50,40 +63,46 @@ export default function UserMessagesContainer({
               : message.dayDate}
           </p>
           <br />
+
+          
+
           <li className="message">
-            <p style={{ color: "blue" }}>
-              {users.filter((user) => user.id === message.senderId)[0].username}
-              :
-            </p>
-            <p>{message.content}</p>
 
-            {message.image_path && (
-               <div style={{width:"100px", height:"100px"}}>
-              
-                <img
-                  src={getImageUrl(message.image_path) || undefined}
-                  alt="Uploaded"
-                  style={{ maxWidth: "100%", marginTop: "10px" }}
+          {message.image_path && (
+            <div style={{ width: "100px", height: "100px" }}>
+              <img
+                src={getImageUrl(message.image_path) || undefined}
+                alt="Uploaded"
+                style={{ maxWidth: "100%", marginTop: "10px" }}
+              />
+            </div>
+          )}
 
-                />
-              </div>
-            )}
-
-            <br />
-            <p className="date">{message.hourMinDate}</p>
-            {rightMessage(message, loggedInUser, userInListId) && (
-              <div style={{ display: "flex", gap: "7px" }}>
-                <button className="date" onClick={() => editOnId(message.id)}>
-                  Edit
-                </button>
-                <button
-                  className="date"
-                  onClick={() => handleDeleteMessages(message.id)}
-                >
-                  Delete
-                </button>
-              </div>
-            )}
+            <div>
+              <p style={{ color: "blue" }}>
+                {
+                  users.filter((user) => user.id === message.senderId)[0]
+                    .username
+                }
+                :
+              </p>
+              <p>{message.content}</p>
+              <br />
+              <p className="date">{message.hourMinDate}</p>
+              {rightMessage(message, loggedInUser, userInListId) && (
+                <div style={{ display: "flex", gap: "7px" }}>
+                  <button className="date" onClick={() => editOnId(message.id)}>
+                    Edit
+                  </button>
+                  <button
+                    className="date"
+                    onClick={() => handleDelete(message)} // Update to pass the whole message
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
           </li>
         </div>
       ))}
