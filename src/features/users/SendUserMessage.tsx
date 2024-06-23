@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useRef } from "react";
 import uploadImage from "../../utils/uploadImage";
 
 interface SendUserMessageProps {
@@ -12,23 +12,27 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
   setNewMessage,
   handleSendMessage,
 }) => {
-  const [file, setFile] = useState<File | null>(null);
+  const [fileInputKey, setFileInputKey] = useState<string | number>(Date.now());
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
+      const selectedFile = e.target.files[0];
 
-  const handleUpload = async () => {
-    if (file) {
-      const filePath = await uploadImage(file);
+      // Автоматично качване на файла и изпращане на съобщението
+      const filePath = await uploadImage(selectedFile);
       if (filePath) {
         console.log("File uploaded successfully:", filePath);
         handleSendMessage(newMessage, filePath);
+        setNewMessage(""); // Изчистване на съобщението след изпращане
+        setFileInputKey(Date.now()); // Обновяване на ключа за input, за да се нулира
       }
-    } else {
-      throw new Error("No file!");
+    }
+  };
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
     }
   };
 
@@ -43,17 +47,27 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
             if (e.key === "Enter") {
               e.preventDefault();
               handleSendMessage(newMessage);
+              setNewMessage(""); // Изчистване на съобщението след изпращане
             }
           }}
           placeholder="Type your message..."
         />
-        <button onClick={() => handleSendMessage(newMessage)}>
-          Send Message
-        </button>
-      </div>
-      <div>
-        <input type="file" onChange={handleFileChange} />
-        <button onClick={handleUpload}>Upload File And Send Message</button>
+        <div className="upload-and-send">
+          <input
+            key={fileInputKey}
+            type="file"
+            onChange={handleFileChange}
+            style={{ display: 'none' }} // Скриване на оригиналното поле за файл
+            ref={fileInputRef}
+          />
+          <button onClick={handleUploadClick} style={{margin:"10px", fontSize:"18px"}}>+</button>
+          <button onClick={() => {
+            handleSendMessage(newMessage);
+            setNewMessage(""); // Изчистване на съобщението след изпращане
+          }} style={{ fontSize:"18px"}}>
+            Send
+          </button>
+        </div>
       </div>
     </div>
   );
