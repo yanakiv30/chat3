@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { setUsers } from "./features/users/userSlice";
-import { setTeamWithNewMessage, setTeams } from "./features/groups/groupSlice";
+import { setIsDeleteTeam, setTeamWithNewMessage, setTeams } from "./features/groups/groupSlice";
 import { useAppSelector } from "./store";
 import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
@@ -72,6 +72,7 @@ function App() {
               }
             )
           )
+          dispatch(setIsDeleteTeam(false));
             dispatch(setTeamWithNewMessage(payload.new));
           loadStateFromBackend();
         }

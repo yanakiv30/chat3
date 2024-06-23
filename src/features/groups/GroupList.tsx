@@ -4,7 +4,7 @@ import Avatar from "../users/Avatar";
 import { useAppSelector } from "../../store";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteTeamById } from "./groupSlice";
+import { deleteTeamById, setIsDeleteTeam } from "./groupSlice";
 import supabase from "../../services/supabase";
 import FlashingDot from "../../utils/FlashingDots";
 
@@ -12,13 +12,14 @@ export default function GroupList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
-  const { localTeams, teamWithNewMessage } = useAppSelector(
+  const { localTeams, teamWithNewMessage ,isDeleteTeam} = useAppSelector(
     (store) => store.group
   );
 
   const [flashedTeamsIdsLog, setFlashedTeamsIdsLog] = useState(
     {} as { [key: number]: number }
   );
+ 
 
   const searchedTeams =
     searchQuery.length > 0
@@ -26,6 +27,8 @@ export default function GroupList() {
           (team) => team && team.name && team.name.includes(searchQuery)
         )
       : localTeams;
+
+  
 
   const updateFlashedTeamsIdsLog = (teamId: number, senderId: number) => {
     setFlashedTeamsIdsLog((prev) => ({ ...prev, [teamId]: senderId }));
@@ -38,17 +41,19 @@ export default function GroupList() {
       (id) => +id === team.id
     );
 
+    console.log("isDeleteTeam: ",isDeleteTeam);
     teamWithNewMessage.sender_id !== loggedInUser!.id &&
       isTeamId &&
-      isNewMessage &&
-      updateFlashedTeamsIdsLog(team.id, teamWithNewMessage.sender_id);
-    console.log("flashedTeamsIdsLog", flashedTeamsIdsLog);
+      isNewMessage &&!isDeleteTeam&&
+      updateFlashedTeamsIdsLog(team.id, teamWithNewMessage.sender_id);  
+
     return null;
   });
 
   function deleteTeamFromIdsLog(teamId: number) {
+    dispatch(setIsDeleteTeam(true));
     const newFlashedTeamsIdsLog = { ...flashedTeamsIdsLog };
-    delete newFlashedTeamsIdsLog[teamId];
+    delete newFlashedTeamsIdsLog[teamId];    
     setFlashedTeamsIdsLog(newFlashedTeamsIdsLog);
     navigate(`/groups/${teamId}`);
   }
@@ -57,7 +62,7 @@ export default function GroupList() {
     (team) =>
       team.members.find((member) => +member.id !== loggedInUser?.id)?.username
   );
-  console.log("check1 = ", check1);
+  
 
   return (
     <div>

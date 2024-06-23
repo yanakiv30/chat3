@@ -136,6 +136,7 @@ import { setIsLoading } from "../features/users/userSlice";
 import getImageUrl from "../utils/getImageUrl";
 import EditUserMessage from "../features/users/EditUserMessage";
 import Empty from "./Empty"; 
+import { setIsDeleteTeam } from "../features/groups/groupSlice";
 
 export default function GroupMessages() {
   const { loggedInUser, searchMessage, isEdit } = useAppSelector(
@@ -153,6 +154,8 @@ export default function GroupMessages() {
   )?.username;
 
   async function handleSendGroupMessage(message: string, imagePath?: string) {
+    
+    
     if (message.trim() !== "" || imagePath) {
       const newGroupMessageObject = {
         sender_id: loggedInUser!.id,

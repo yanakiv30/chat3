@@ -1,5 +1,7 @@
 import React, { useState, ChangeEvent, useRef } from "react";
 import uploadImage from "../../utils/uploadImage";
+import { setIsDeleteTeam } from "../groups/groupSlice";
+import { useDispatch } from "react-redux";
 
 interface SendUserMessageProps {
   newMessage: string;
@@ -14,7 +16,7 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
 }) => {
   const [fileInputKey, setFileInputKey] = useState<string | number>(Date.now());
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
+  const dispatch = useDispatch();
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
@@ -62,6 +64,7 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
           />
           <button onClick={handleUploadClick} style={{margin:"10px", fontSize:"18px"}}>+</button>
           <button onClick={() => {
+            
             handleSendMessage(newMessage);
             setNewMessage(""); // Изчистване на съобщението след изпращане
           }} style={{ fontSize:"18px"}}>
