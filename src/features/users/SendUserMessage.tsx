@@ -1,44 +1,5 @@
-// import { useState } from "react";
-
-// export default function SendUserMessage({
-//   newMessage,
-//   setNewMessage,
-//   handleSendMessage,
-// }: any) {
-
-  
-
-//   function handleUpload() {}
-//   function handleFileChange() {}
-
-//   return (
-//     <div>
-//       <div className="message-send">
-//         <input
-//           type="text"
-//           value={newMessage}
-//           onChange={(e) => setNewMessage(e.target.value)}
-//           onKeyDown={(e) => {
-//             if (e.key === "Enter") {
-//               e.preventDefault();
-//               handleSendMessage();
-//             }
-//           }}
-//           placeholder="Type your message..."
-//         />
-//         <button onClick={handleSendMessage}>Send</button>
-//       </div>
-
-//       <div>
-//       <input type="file" onChange={handleFileChange} />
-//       <button onClick={handleUpload}>Upload File</button>
-//       </div>
-//     </div>
-//   );
-// }
 import React, { useState, ChangeEvent } from "react";
 import uploadImage from "../../utils/uploadImage";
-
 
 interface SendUserMessageProps {
   newMessage: string;
@@ -63,11 +24,11 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
     if (file) {
       const filePath = await uploadImage(file);
       if (filePath) {
-        // You can use this filePath to attach the image to a message or perform other actions
         console.log("File uploaded successfully:", filePath);
         handleSendMessage(newMessage, filePath);
-        setFile(null); // Clear the file input
       }
+    } else {
+      throw new Error("No file!");
     }
   };
 
@@ -86,13 +47,14 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
           }}
           placeholder="Type your message..."
         />
-        <button onClick={() => handleSendMessage(newMessage)}>Send</button>
+        <button onClick={() => handleSendMessage(newMessage)}>
+          Send Message
+        </button>
       </div>
       <div>
         <input type="file" onChange={handleFileChange} />
-        <button onClick={handleUpload}>Upload File</button>
+        <button onClick={handleUpload}>Upload File And Send Message</button>
       </div>
-      
     </div>
   );
 };
