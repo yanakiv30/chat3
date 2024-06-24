@@ -15,6 +15,7 @@
     "@types/node": "^20.12.2",
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.23",
+    "@vitejs/plugin-react": "^4.3.1",
     "axios": "^1.6.7",
     "json-server": "^1.0.0-alpha.23",
     "react": "^18.2.0",
@@ -26,15 +27,15 @@
     "react-toastify": "^10.0.5",
     "styled-components": "^6.1.11",
     "uuid": "^9.0.1",
+    "vite": "^5.3.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "json-server": "json-server --watch db.json --port 3001"
-  },
+  "start": "vite",
+  "build": "vite build",
+  "serve": "vite preview"
+},
+
   "eslintConfig": {
     "extends": [
       "react-app",
