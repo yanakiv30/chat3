@@ -79,7 +79,7 @@ export default function UserMessagesContainer({
 
               <li className="message">
                 {message.image_path && (
-                  <div style={{ width: "150px", height: "150px" }}>
+                  <div style={{ width: "75px", height: "75px" }}>
                     <img
                       src={getImageUrl(message.image_path) || undefined}
                       alt="Uploaded"
