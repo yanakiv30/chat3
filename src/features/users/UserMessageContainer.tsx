@@ -57,7 +57,7 @@ export default function UserMessagesContainer({
   };
 
   return (
-    <div className="messages-container"> 
+    <div className="messages-container">
       <ul className="messages-container">
         {searchedMessages.map((message: Message, index) => {
           return (
@@ -83,13 +83,25 @@ export default function UserMessagesContainer({
                     <img
                       src={getImageUrl(message.image_path) || undefined}
                       alt="Uploaded"
-                      style={{ maxWidth: "100%", marginTop: "10px", cursor: "pointer" }}
+                      style={{
+                        maxWidth: "100%",
+                        marginTop: "10px",
+                        cursor: "pointer",
+                      }}
                       onClick={() => handleImageClick(message.image_path)}
                     />
                   </div>
                 )}
 
-                <div style={{ width: "150px", height: "auto", whiteSpace: "pre-wrap", wordBreak: "break-word", overflowY: "auto" }}>
+                <div
+                  style={{
+                    width: "150px",
+                    height: "auto",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    overflowY: "auto",
+                  }}
+                >
                   <p style={{ color: "blue" }}>
                     {
                       users.filter((user) => user.id === message.senderId)[0]
@@ -131,8 +143,14 @@ export default function UserMessagesContainer({
       {selectedImage && (
         <div className="modal" onClick={handleCloseModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={handleCloseModal}>&times;</span>
-            <img src={selectedImage} alt="Enlarged" className="enlarged-image" />
+            <span className="close" onClick={handleCloseModal}>
+              &times;
+            </span>
+            <img
+              src={selectedImage}
+              alt="Enlarged"
+              className="enlarged-image"
+            />
           </div>
         </div>
       )}

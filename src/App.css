@@ -163,7 +163,7 @@ button:hover {
   flex-direction: column;
 
   gap: 10px;
-  max-height: 90%;
+  height: 97%;
   overflow-y: auto;
 }
 .messages-container .day-date {
@@ -188,7 +188,7 @@ button:hover {
 .user-profile-container .message-send {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 .user-profile-container .message-send input {
   width: 70%;
@@ -248,7 +248,7 @@ button:hover {
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 30%;
+  width: 40%;
 }
 
 .close {

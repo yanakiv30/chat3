@@ -19,13 +19,12 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
 
-      // Автоматично качване на файла и изпращане на съобщението
       const filePath = await uploadImage(selectedFile);
       if (filePath) {
         console.log("File uploaded successfully:", filePath);
         handleSendMessage(newMessage, filePath);
-        setNewMessage(""); // Изчистване на съобщението след изпращане
-        setFileInputKey(Date.now()); // Обновяване на ключа за input, за да се нулира
+        setNewMessage("");
+        setFileInputKey(Date.now());
       }
     }
   };
@@ -47,7 +46,7 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
             if (e.key === "Enter") {
               e.preventDefault();
               handleSendMessage(newMessage);
-              setNewMessage(""); // Изчистване на съобщението след изпращане
+              setNewMessage("");
             }
           }}
           placeholder="Type your message..."
@@ -57,7 +56,7 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
             key={fileInputKey}
             type="file"
             onChange={handleFileChange}
-            style={{ display: "none" }} // Скриване на оригиналното поле за файл
+            style={{ display: "none" }}
             ref={fileInputRef}
           />
 
@@ -71,7 +70,7 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
             <button
               onClick={() => {
                 handleSendMessage(newMessage);
-                setNewMessage(""); // Изчистване на съобщението след изпращане
+                setNewMessage("");
               }}
               style={{ fontSize: "16px" }}
             >
