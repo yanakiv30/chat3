@@ -57,7 +57,7 @@ export default function UserMessagesContainer({
   };
 
   return (
-    <div className="user-profile-container">
+    <div className="messages-container"> 
       <ul className="messages-container">
         {searchedMessages.map((message: Message, index) => {
           return (

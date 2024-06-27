@@ -57,16 +57,27 @@ const SendUserMessage: React.FC<SendUserMessageProps> = ({
             key={fileInputKey}
             type="file"
             onChange={handleFileChange}
-            style={{ display: 'none' }} // Скриване на оригиналното поле за файл
+            style={{ display: "none" }} // Скриване на оригиналното поле за файл
             ref={fileInputRef}
           />
-          <button onClick={handleUploadClick} style={{margin:"10px", fontSize:"18px"}}>+</button>
-          <button onClick={() => {
-            handleSendMessage(newMessage);
-            setNewMessage(""); // Изчистване на съобщението след изпращане
-          }} style={{ fontSize:"18px"}}>
-            Send
-          </button>
+
+          <div style={{ paddingBottom: "10px" }}>
+            <button
+              onClick={handleUploadClick}
+              style={{ margin: "10px", fontSize: "16px" }}
+            >
+              +
+            </button>
+            <button
+              onClick={() => {
+                handleSendMessage(newMessage);
+                setNewMessage(""); // Изчистване на съобщението след изпращане
+              }}
+              style={{ fontSize: "16px" }}
+            >
+              Send
+            </button>
+          </div>
         </div>
       </div>
     </div>
