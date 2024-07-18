@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
-import { deleteTeamById } from "../groups/groupSlice";
+import { deleteTeamById } from "../utils/groupSlice";
 export default function SettingsGroup() {
   const params = useParams();
   const navigate = useNavigate();

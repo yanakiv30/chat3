@@ -1,7 +1,7 @@
-import GroupList from "../groups/GroupList";
-import LogoLogout from "../users/LogoLogout";
-import IconAndSearch from "../users/IconAndSearch";
-import AccessibleChats from "../users/AccessibleChats";
+import GroupList from "../Components/GroupList";
+import LogoLogout from "../Components/LogoLogout";
+import IconAndSearch from "../Components/IconAndSearch";
+import AccessibleChats from "../Components/AccessibleChats";
 import { useState } from "react";
 
 function ChatMembersList() {

@@ -125,16 +125,16 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
-import SearchInMessage from "../users/SearchInMessage";
-import Avatar from "../users/Avatar";
-import SendUserMessage from "../users/SendUserMessage";
+import SearchInMessage from "../Components/SearchInMessage";
+import Avatar from "../Components/Avatar";
+import SendUserMessage from "../Components/SendUserMessage";
 import { searchedGroupMessagesFunc } from "../utils/messageUtils";
-import UserMessagesContainer from "../users/UserMessageContainer";
-import { setIsLoading } from "../users/userSlice";
+import UserMessagesContainer from "../Components/UserMessageContainer";
+import { setIsLoading } from "../Components/userSlice";
 import getImageUrl from "../utils/getImageUrl";
-import EditUserMessage from "../users/EditUserMessage";
+import EditUserMessage from "../Components/EditUserMessage";
 import Empty from "./Empty";
-import { setIsDeleteTeam } from "../groups/groupSlice";
+import { setIsDeleteTeam } from "../utils/groupSlice";
 
 export default function GroupMessages() {
   const { loggedInUser, searchMessage, isEdit } = useAppSelector(

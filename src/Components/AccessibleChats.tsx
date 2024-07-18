@@ -3,7 +3,7 @@ import { useAppSelector } from "../store";
 import { useDispatch } from "react-redux";
 import Avatar from "./Avatar";
 import { getTeams } from "../services/apiGroups";
-import { setTeams } from "../groups/groupSlice";
+import { setTeams } from "../utils/groupSlice";
 import { createTeamWithMembers } from "../services/createTeam";
 
 function AccessibleChats() {

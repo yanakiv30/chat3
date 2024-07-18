@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setLoggedInUser, setIsRegister } from "../users/userSlice";
+import { setLoggedInUser, setIsRegister } from "../Components/userSlice";
 import { useAppSelector } from "../store";
 import Login from "./Login";
 import SignUp from "./SignUp";

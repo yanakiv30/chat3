@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
-import { setIsLoading } from "../users/userSlice";
+import { setIsLoading } from "../Components/userSlice";
 import { useState } from "react";
 export default function SettingsGroup() {
   const params = useParams();

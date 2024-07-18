@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { rightMessage } from "../utils/messageUtils";
 import { setIsEdit, setMesContent, setMessageId } from "./userSlice";
 import { useAppSelector } from "../store";
-import { Message } from "../groups/groupSlice";
+import { Message } from "../utils/groupSlice";
 import getImageUrl from "../utils/getImageUrl";
 import deleteImage from "../utils/deleteImage";
 

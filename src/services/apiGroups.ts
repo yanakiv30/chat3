@@ -1,4 +1,4 @@
-import { Message } from "../groups/groupSlice";
+import { Message } from "../utils/groupSlice";
 import { getHourDayDate } from "../utils/messageUtils";
 import supabase from "./supabase";
 

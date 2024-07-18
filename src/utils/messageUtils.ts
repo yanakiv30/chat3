@@ -1,9 +1,9 @@
-import { v4 as uuid } from "uuid";
-import { Message } from "../groups/groupSlice";
-import { User } from "../users/userSlice";
+
+import { Message } from "./groupSlice";
+import { User } from "../Components/userSlice";
 
 export function leftGroupMessage(
-  groupMessage: Message,
+  
   loggedInUser: User | null,
   groupInListId: number | undefined,
   groups: {
@@ -14,7 +14,7 @@ export function leftGroupMessage(
   }[]
 ) {
   return (
-    // groupMessage.receiverId === groupInListId &&
+   
     groups
       .filter((group) => group.id === groupInListId)[0]
       .members.includes(loggedInUser!.username)
@@ -23,7 +23,7 @@ export function leftGroupMessage(
 
 export function leftMessage(
   message: Message,
-  loggedInUser: User | null,
+ 
   userInListId: number | undefined
 ) {
   return message.senderId === userInListId;
@@ -39,33 +39,13 @@ export function rightMessage(
 
 export function searchedMessageFunc(
   messages: Message[],
-  loggedInUser: User | null,
-  userInListId: string | undefined,
+ 
   searchMessage: string
 ) {
   return messages.filter((userMessage) =>
     userMessage.content.includes(searchMessage)
   );
 }
-
-export function newMessageObjectFunc(
-  loggedInUser: User | null,
-  userInListId: string | undefined,
-  newMessage: string
-) {
-  // const { hourMinDate, dayDate } = getHourDayDate();
-  // const newMessageObject = {
-  //   id: uuid(),
-  //   senderId: loggedInUser!.id,
-  //   receiverId: userInListId,
-  //   senderUsername: loggedInUser!.username,
-  //   content: newMessage,
-  //   hourMinDate,
-  //   dayDate,
-  // };
-  // return newMessageObject;
-}
-
 export function getHourDayDate(date: Date) {
   const hours = date.getHours();
   const minutes = date.getMinutes();

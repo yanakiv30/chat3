@@ -4,18 +4,18 @@ import "./App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import { setUsers } from "./users/userSlice";
+import { setUsers } from "./Components/userSlice";
 import {
   setIsDeleteTeam,
   setTeamWithNewMessage,
   setTeams,
-} from "./groups/groupSlice";
+} from "./utils/groupSlice";
 import { useAppSelector } from "./store";
 import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./AllRoutes";
 import { getTeams, getUsers } from "./services/apiGroups";
-import Spinner from "./utils/Spinner";
+import Spinner from "./Components/Spinner";
 import supabase from "./services/supabase";
 
 function App() {
