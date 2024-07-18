@@ -1,7 +1,7 @@
-import GroupList from "../features/groups/GroupList";
-import LogoLogout from "../features/users/LogoLogout";
-import IconAndSearch from "../features/users/IconAndSearch";
-import AccessibleChats from "../features/users/AccessibleChats";
+import GroupList from "../groups/GroupList";
+import LogoLogout from "../users/LogoLogout";
+import IconAndSearch from "../users/IconAndSearch";
+import AccessibleChats from "../users/AccessibleChats";
 import { useState } from "react";
 
 function ChatMembersList() {
@@ -12,11 +12,16 @@ function ChatMembersList() {
       <br></br>
       <IconAndSearch />
       <br></br>
-      <button onClick={()=>setIsNewChatOpen(!isNewChatOpen)} style={{background:"purple", color:"white"}}>New Chats</button>
-      { isNewChatOpen && <AccessibleChats/> }      
+      <button
+        onClick={() => setIsNewChatOpen(!isNewChatOpen)}
+        style={{ background: "purple", color: "white" }}
+      >
+        New Chats
+      </button>
+      {isNewChatOpen && <AccessibleChats />}
       <br></br>
       <p>My Chats</p>
-      <GroupList  />
+      <GroupList />
 
       <img
         style={{ maxWidth: "70%" }}

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { setIsEdit, setIsLoading } from "./userSlice";
-import { useAppSelector } from "../../store";
-import supabase from "../../services/supabase";
+import { useAppSelector } from "../store";
+import supabase from "../services/supabase";
 import { useState } from "react";
 
 export default function EditUserMessage() {

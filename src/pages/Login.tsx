@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setIsRegister } from "../features/users/userSlice";
+import { setIsRegister } from "../users/userSlice";
 
 function Login({
   handleLogin,

@@ -12,9 +12,9 @@
 // import { setIsLoading } from "../features/users/userSlice";
 // import supabase from "../services/supabase";
 // import EditUserMessage from "../features/users/EditUserMessage";
-// import Empty from "./Empty"; 
+// import Empty from "./Empty";
 
-// export default function GroupMessages() {  
+// export default function GroupMessages() {
 //   const { loggedInUser, searchMessage, isEdit } = useAppSelector(
 //     (store) => store.user
 //   );
@@ -26,16 +26,15 @@
 //   const team = localTeams.find((x) => x.id === groupInListId);
 //   if (!team) return <Empty />;
 //   const hiddenName=team.members.find(member=>member.id!==loggedInUser!.id)?.username;
- 
 
-//   async function handleSendGroupMessage() {    
+//   async function handleSendGroupMessage() {
 //     if (newGroupMessage.trim() !== "") {
 //       const newGroupMessageObject = {
 //         sender_id: loggedInUser!.id,
 //         team_id: groupInListId,
 //         type: "text",
 //         message: newGroupMessage,
-//       };      
+//       };
 //       try {
 //         const { data, error } = await supabase
 //           .from("messages")
@@ -121,22 +120,21 @@
 //   );
 // }
 
-
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
-import SearchInMessage from "../features/users/SearchInMessage";
-import Avatar from "../features/users/Avatar";
-import SendUserMessage from "../features/users/SendUserMessage";
+import SearchInMessage from "../users/SearchInMessage";
+import Avatar from "../users/Avatar";
+import SendUserMessage from "../users/SendUserMessage";
 import { searchedGroupMessagesFunc } from "../utils/messageUtils";
-import UserMessagesContainer from "../features/users/UserMessageContainer";
-import { setIsLoading } from "../features/users/userSlice";
+import UserMessagesContainer from "../users/UserMessageContainer";
+import { setIsLoading } from "../users/userSlice";
 import getImageUrl from "../utils/getImageUrl";
-import EditUserMessage from "../features/users/EditUserMessage";
-import Empty from "./Empty"; 
-import { setIsDeleteTeam } from "../features/groups/groupSlice";
+import EditUserMessage from "../users/EditUserMessage";
+import Empty from "./Empty";
+import { setIsDeleteTeam } from "../groups/groupSlice";
 
 export default function GroupMessages() {
   const { loggedInUser, searchMessage, isEdit } = useAppSelector(
@@ -154,8 +152,6 @@ export default function GroupMessages() {
   )?.username;
 
   async function handleSendGroupMessage(message: string, imagePath?: string) {
-    
-    
     if (message.trim() !== "" || imagePath) {
       const newGroupMessageObject = {
         sender_id: loggedInUser!.id,
@@ -186,7 +182,10 @@ export default function GroupMessages() {
   async function handleDeleteGroupMessages(idForDelete: string) {
     dispatch(setIsLoading(true));
     try {
-      const { error } = await supabase.from("messages").delete().eq("id", idForDelete);
+      const { error } = await supabase
+        .from("messages")
+        .delete()
+        .eq("id", idForDelete);
       if (error) {
         console.error(error);
         throw new Error("Group Messages could not be deleted");

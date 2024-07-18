@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store";
 import supabase from "../services/supabase";
-import { setIsLoading } from "../features/users/userSlice";
+import { setIsLoading } from "../users/userSlice";
 import { useState } from "react";
 export default function SettingsGroup() {
   const params = useParams();
@@ -10,7 +10,7 @@ export default function SettingsGroup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { localTeams } = useAppSelector((store) => store.group);
-  const { loggedInUser } = useAppSelector((store) => store.user);  
+  const { loggedInUser } = useAppSelector((store) => store.user);
   const idSettings = +params.groupId!;
   const teamToSet = localTeams.find((team) => team.id === idSettings)!;
   let membersArr: any = [];
@@ -36,7 +36,7 @@ export default function SettingsGroup() {
     }
   }
 
-   async function deleteGroup(teamId: number) {
+  async function deleteGroup(teamId: number) {
     dispatch(setIsLoading(true));
     try {
       const { error } = await supabase.from("teams").delete().eq("id", teamId);
@@ -50,7 +50,7 @@ export default function SettingsGroup() {
       dispatch(setIsLoading(false));
     }
     navigate("/");
-  }  
+  }
 
   return (
     <div className="settings">
@@ -83,7 +83,7 @@ export default function SettingsGroup() {
         </div>
         <button onClick={() => deleteGroup(idSettings!)}>
           Delete the entire group
-        </button>       
+        </button>
       </div>
     </div>
   );

@@ -18,15 +18,15 @@ export type Team = {
 export type Flash = { [key: string]: boolean };
 export type Payload = {
   team_id: number;
- sender_id:number;
+  sender_id: number;
 };
 const initialState = {
   localTeams: [] as Team[],
   teamWithNewMessage: {} as Payload,
-  
-  isDeleteTeam :false
+
+  isDeleteTeam: false,
 };
- 
+
 const groupSlice = createSlice({
   name: "group",
   initialState,
@@ -36,7 +36,7 @@ const groupSlice = createSlice({
     },
     deleteTeamById(state, action) {
       const id = action.payload;
-      state.localTeams = state.localTeams.filter(team => team.id !== id);
+      state.localTeams = state.localTeams.filter((team) => team.id !== id);
     },
     setTeamWithNewMessage(state, action) {
       state.teamWithNewMessage = action.payload;
@@ -44,8 +44,12 @@ const groupSlice = createSlice({
     setIsDeleteTeam(state, action) {
       state.isDeleteTeam = action.payload;
     },
-   
   },
 });
-export const { setTeams, setTeamWithNewMessage,setIsDeleteTeam,deleteTeamById } = groupSlice.actions;
+export const {
+  setTeams,
+  setTeamWithNewMessage,
+  setIsDeleteTeam,
+  deleteTeamById,
+} = groupSlice.actions;
 export default groupSlice.reducer;

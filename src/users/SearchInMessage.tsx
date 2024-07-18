@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { setSearchMessage } from "./userSlice";
-import { useAppSelector } from "../../store";
+import { useAppSelector } from "../store";
 
 function SearchInMessage() {
   const dispatch = useDispatch();

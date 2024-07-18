@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../store";
+import { useAppSelector } from "../store";
 import { useDispatch } from "react-redux";
 import Avatar from "./Avatar";
-import { getTeams } from "../../services/apiGroups";
+import { getTeams } from "../services/apiGroups";
 import { setTeams } from "../groups/groupSlice";
-import { createTeamWithMembers } from "../../services/createTeam";
+import { createTeamWithMembers } from "../services/createTeam";
 
 function AccessibleChats() {
   const { searchQuery, users, loggedInUser } = useAppSelector(
@@ -14,7 +14,7 @@ function AccessibleChats() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchedUsers =
-    searchQuery.length > 0 
+    searchQuery.length > 0
       ? users.filter(
           (user) => user && user.username && user.username.includes(searchQuery)
         )
@@ -32,9 +32,9 @@ function AccessibleChats() {
     );
     if (doubleViewGroup) navigate(`/messages/${doubleViewGroup.id}`);
     else {
-      const doubleViewGroupId = await createTeamWithMembers("", [     
-        loggedInUser!.id,  
-        userId        
+      const doubleViewGroupId = await createTeamWithMembers("", [
+        loggedInUser!.id,
+        userId,
       ]);
       getTeams(+loggedInUser!.id)
         .then((data) => {
@@ -45,7 +45,7 @@ function AccessibleChats() {
     }
   }
 
-  return (    
+  return (
     <ul>
       {loggedInUser &&
         searchedUsers

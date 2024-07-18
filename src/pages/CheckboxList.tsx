@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store";
 
-import { setIsLoading } from "../features/users/userSlice";
+import { setIsLoading } from "../users/userSlice";
 import { createTeamWithMembers } from "../services/createTeam";
 import supabase from "../services/supabase";
 

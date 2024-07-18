@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { setSearchQuery } from "./userSlice";
-import { useAppSelector } from "../../store";
+import { useAppSelector } from "../store";
 import Avatar from "./Avatar";
 
 function IconAndSearch() {
@@ -10,9 +10,7 @@ function IconAndSearch() {
     <div className="icon-and-search">
       <div style={{ display: "flex" }}>
         {loggedInUser && <Avatar name={loggedInUser.username} />}
-        <p>
-          {loggedInUser && loggedInUser.username}          
-        </p>
+        <p>{loggedInUser && loggedInUser.username}</p>
       </div>
       <input
         style={{ width: "60%", borderRadius: "7px" }}

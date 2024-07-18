@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setLoggedInUser, setIsRegister } from "../features/users/userSlice";
+import { setLoggedInUser, setIsRegister } from "../users/userSlice";
 import { useAppSelector } from "../store";
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -7,12 +7,12 @@ import supabase from "../services/supabase";
 import { signInUser, signUpUser } from "../services/auth";
 
 export default function LoginOrSignUp() {
- // const { users } = useAppSelector((store) => store.user);
+  // const { users } = useAppSelector((store) => store.user);
   const dispatch = useDispatch();
   const { isRegister } = useAppSelector((store) => store.user);
 
   async function handleLogin(email: string, password: string) {
-    try{
+    try {
       const authResponse = await signInUser(email, password);
       if (authResponse.error) {
         throw new Error(authResponse.error);
@@ -21,7 +21,7 @@ export default function LoginOrSignUp() {
         .from("users")
         .select()
         .eq("id", authResponse.user_id);
-  
+
       // const user = users.find(
       //   (u) => u.username === username && u.password === password
       // );
@@ -31,8 +31,7 @@ export default function LoginOrSignUp() {
         console.error(error);
         alert("Invalid credentials");
       }
-  
-    }catch (error: any) {
+    } catch (error: any) {
       const errorMessage = "Error logging in user: " + error.message;
       alert(errorMessage);
       console.error(errorMessage);

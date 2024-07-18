@@ -1,4 +1,4 @@
-import { Message } from "../features/groups/groupSlice";
+import { Message } from "../groups/groupSlice";
 import { getHourDayDate } from "../utils/messageUtils";
 import supabase from "./supabase";
 
@@ -41,7 +41,7 @@ export async function getTeams(loggedInUserId: number) {
           id: row.id!,
           senderId: row.sender_id!,
           content: row.message!,
-          image_path: row.image_path!,  // Include image_path here
+          image_path: row.image_path!, // Include image_path here
           ...getHourDayDate(new Date(row.created_at!)),
         };
         return message;

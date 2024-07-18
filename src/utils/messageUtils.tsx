@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
-import { Message } from "../features/groups/groupSlice";
-import { User } from "../features/users/userSlice";
+import { Message } from "../groups/groupSlice";
+import { User } from "../users/userSlice";
 
 export function leftGroupMessage(
   groupMessage: Message,

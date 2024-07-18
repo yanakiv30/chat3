@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, useRef } from "react";
-import uploadImage from "../../utils/uploadImage";
+import uploadImage from "../utils/uploadImage";
 
 interface SendUserMessageProps {
   newMessage: string;
