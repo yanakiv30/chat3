@@ -4,22 +4,20 @@ import Avatar from "../users/Avatar";
 import { useAppSelector } from "../../store";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteTeamById, setIsDeleteTeam } from "./groupSlice";
-import supabase from "../../services/supabase";
+import { setIsDeleteTeam, Team } from "./groupSlice";
 import FlashingDot from "../../utils/FlashingDots";
 
 export default function GroupList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loggedInUser, searchQuery } = useAppSelector((store) => store.user);
-  const { localTeams, teamWithNewMessage ,isDeleteTeam} = useAppSelector(
+  const { localTeams, teamWithNewMessage, isDeleteTeam } = useAppSelector(
     (store) => store.group
   );
 
   const [flashedTeamsIdsLog, setFlashedTeamsIdsLog] = useState(
     {} as { [key: number]: number }
   );
- 
 
   const searchedTeams =
     searchQuery.length > 0
@@ -27,8 +25,6 @@ export default function GroupList() {
           (team) => team && team.name && team.name.includes(searchQuery)
         )
       : localTeams;
-
-  
 
   const updateFlashedTeamsIdsLog = (teamId: number, senderId: number) => {
     setFlashedTeamsIdsLog((prev) => ({ ...prev, [teamId]: senderId }));
@@ -41,28 +37,25 @@ export default function GroupList() {
       (id) => +id === team.id
     );
 
-    console.log("isDeleteTeam: ",isDeleteTeam);
+    //console.log("isDeleteTeam: ", isDeleteTeam);
     teamWithNewMessage.sender_id !== loggedInUser!.id &&
       isTeamId &&
-      isNewMessage &&!isDeleteTeam&&
-      updateFlashedTeamsIdsLog(team.id, teamWithNewMessage.sender_id);  
+      isNewMessage &&
+      !isDeleteTeam &&
+      updateFlashedTeamsIdsLog(team.id, teamWithNewMessage.sender_id);
 
     return null;
   });
 
-  function deleteTeamFromIdsLog(teamId: number) {
+  function onTeamClicked(team: Team) {
     dispatch(setIsDeleteTeam(true));
     const newFlashedTeamsIdsLog = { ...flashedTeamsIdsLog };
-    delete newFlashedTeamsIdsLog[teamId];    
+    delete newFlashedTeamsIdsLog[team.id];
     setFlashedTeamsIdsLog(newFlashedTeamsIdsLog);
-    navigate(`/groups/${teamId}`);
+    team.name
+      ? navigate(`/groups/${team.id}`)
+      : navigate(`/messages/${team.id}`);
   }
-
-  const check1 = searchedTeams.map(
-    (team) =>
-      team.members.find((member) => +member.id !== loggedInUser?.id)?.username
-  );
-  
 
   return (
     <div>
@@ -79,14 +72,14 @@ export default function GroupList() {
                     : team.name
                 }
               />
-              <button onClick={() => deleteTeamFromIdsLog(team.id)}>
+              <button onClick={() => onTeamClicked(team)}>
                 {team.name === ""
                   ? team.members.find(
                       (member) => +member.id !== loggedInUser?.id
                     )?.username
                   : team.name}
               </button>
-              {team.members.at(0)!.id === loggedInUser!.id ? (
+              {team.members[0]!.id === loggedInUser!.id ? (
                 <NavLink to={`/settingsGroup/${team.id}`}>
                   <span style={{ fontSize: "8px" }}>
                     <FaCog />
