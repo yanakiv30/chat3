@@ -1,13 +1,52 @@
 
 import { faSortAmountAsc } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { signUpUser } from "../services/auth";
+import supabase from "../services/supabase";
+import { setIsRegister } from "../../store/userSlice";
 
-export default function SignUp({
-  handleSignUp,
-}: {
-  handleSignUp: (newUsername: string, newPassword: string,full_name:string,
-    email:string,avatar:string,status:string
-  ) => void;
-}) {
+export default function SignUp() {
+  const dispatch = useDispatch();
+  async function handleSignUp(
+    newUsername: string,
+    newPassword: string,
+    full_name: string,
+    email: string,
+    avatar: string,
+    status: string
+  ) {
+    try {
+      const authResponse = await signUpUser(email, newPassword);
+      if (authResponse.error) {
+        throw new Error(authResponse.error.message);
+      }
+
+      const newUser = {
+        username: newUsername,
+        full_name: full_name,
+        avatar: avatar,
+        status: status,
+      };
+      const { data, error } = await supabase
+        .from("users")
+        .insert([newUser])
+        .select();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      const usersAuthData = await supabase
+        .from("users_auth")
+        .insert([{ user_id: data[0].id, auth_id: authResponse.data.user!.id }])
+        .select();
+    } catch (error: any) {
+      const errorMessage = "Error creating user: " + error.message;
+      alert(errorMessage);
+      console.error(errorMessage);
+    }
+    dispatch(setIsRegister(false));
+  }
   return (
     <div className="login">
       <h2>Please Sign Up</h2>

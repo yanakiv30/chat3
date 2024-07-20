@@ -1,12 +1,33 @@
 import { useDispatch } from "react-redux";
-import { setIsRegister } from "../../store/userSlice";
+import { setIsRegister, setLoggedInUser } from "../../store/userSlice";
+import { signInUser } from "../services/auth";
+import supabase from "../services/supabase";
 
-function Login({
-  handleLogin,
-}: {
-  handleLogin: (email: string, password: string) => void;
-}) {
+function Login() {
   const dispatch = useDispatch();
+  async function handleLogin(email: string, password: string) {  
+    try {
+      const authResponse = await signInUser(email, password);
+      if (authResponse.error) {
+        throw new Error(authResponse.error);
+      }
+      const { data, error } = await supabase
+        .from("users")
+        .select()
+        .eq("id", authResponse.user_id);
+      
+      if (data) {
+        dispatch(setLoggedInUser(data[0])); //user is a object
+      } else {
+        console.error(error);
+        alert("Invalid credentials");
+      }
+    } catch (error: any) {
+      const errorMessage = "Error logging in user: " + error.message;
+      alert(errorMessage);
+      console.error(errorMessage);
+    }
+  }
 
   return (
     <div className="login">
