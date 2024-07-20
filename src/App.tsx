@@ -12,11 +12,12 @@ import {
 } from "../store/groupSlice";
 import { useAppSelector } from "../store/store";
 import ChatMembersList from "./pages/ChatMembersList";
-import LoginOrSignUp from "./pages/LoginOrSignUp";
+//import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./AllRoutes";
 import { getTeams, getUsers } from "./services/apiGroups";
 import Spinner from "./Components/Spinner";
 import supabase from "./services/supabase";
+import Login from "./pages/Login";
 
 function App() {
   const dispatch = useDispatch();
@@ -177,7 +178,7 @@ function App() {
             />
           </div>
         ) : (
-          <LoginOrSignUp />
+          <Login />
         )}
       </div>
     </Router>
