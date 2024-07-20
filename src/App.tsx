@@ -18,12 +18,13 @@ import { getTeams, getUsers } from "./services/apiGroups";
 import Spinner from "./Components/Spinner";
 import supabase from "./services/supabase";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 function App() {
   const dispatch = useDispatch();
   const { loggedInUser } = useAppSelector((store) => store.user);
   const { localTeams } = useAppSelector((store) => store.group);
-  let { isLoading } = useAppSelector((store) => store.user);
+  let { isLoading ,isRegister} = useAppSelector((store) => store.user);
   const loadStateFromBackend = useCallback(() => {
     if (!loggedInUser) return;
 
@@ -161,7 +162,7 @@ function App() {
       <div className="app-container" style={{ position: "relative" }}>
         {isLoading && <Spinner />}
 
-        {loggedInUser ? (
+        {loggedInUser ? 
           <div className="main-container">
             <ChatMembersList />
             <AllRoutes />
@@ -177,9 +178,8 @@ function App() {
               pauseOnHover
             />
           </div>
-        ) : (
-          <Login />
-        )}
+         : <div className="background-login"> { !isRegister?<Login/>:<SignUp/> }</div> 
+        }
       </div>
     </Router>
   );

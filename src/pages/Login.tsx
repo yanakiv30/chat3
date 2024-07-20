@@ -30,7 +30,7 @@ function Login() {
   }
 
   return (
-    <div className="background-login" >
+    
       <div className="login">
         <h2>Welcome to chatSPA</h2>
         <form
@@ -64,7 +64,7 @@ function Login() {
           </button>
         </p>
       </div>
-    </div>
+    
   );
 }
 export default Login;
