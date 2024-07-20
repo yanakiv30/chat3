@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { setSearchQuery } from "./userSlice";
-import { useAppSelector } from "../store";
+import { setSearchQuery } from "../../store/userSlice";
+import { useAppSelector } from "../../store/store";
 import Avatar from "./Avatar";
 
 function IconAndSearch() {

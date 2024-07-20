@@ -4,13 +4,13 @@ import "./App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import { setUsers } from "./Components/userSlice";
+import { setUsers } from "../store/userSlice";
 import {
   setIsDeleteTeam,
   setTeamWithNewMessage,
   setTeams,
-} from "./utils/groupSlice";
-import { useAppSelector } from "./store";
+} from "../store/groupSlice";
+import { useAppSelector } from "../store/store";
 import ChatMembersList from "./pages/ChatMembersList";
 import LoginOrSignUp from "./pages/LoginOrSignUp";
 import AllRoutes from "./AllRoutes";

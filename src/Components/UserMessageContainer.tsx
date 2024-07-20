@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { rightMessage } from "../utils/messageUtils";
-import { setIsEdit, setMesContent, setMessageId } from "./userSlice";
-import { useAppSelector } from "../store";
-import { Message } from "../utils/groupSlice";
+import { setIsEdit, setMesContent, setMessageId } from "../../store/userSlice";
+import { useAppSelector } from "../../store/store";
+import { Message } from "../../store/groupSlice";
 import getImageUrl from "../utils/getImageUrl";
 import deleteImage from "../utils/deleteImage";
 

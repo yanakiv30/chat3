@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { setIsEdit, setIsLoading } from "./userSlice";
-import { useAppSelector } from "../store";
+import { setIsEdit, setIsLoading } from "../../store/userSlice";
+import { useAppSelector } from "../../store/store";
 import supabase from "../services/supabase";
 import { useState } from "react";
 

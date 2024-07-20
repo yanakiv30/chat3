@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { User } from "../Components/userSlice";
+import { User } from "./userSlice";
 export type Message = {
   id: number;
   senderId: number;

@@ -1,9 +1,7 @@
-
-import { Message } from "./groupSlice";
-import { User } from "../Components/userSlice";
+import { Message } from "../../store/groupSlice";
+import { User } from "../../store/userSlice";
 
 export function leftGroupMessage(
-  
   loggedInUser: User | null,
   groupInListId: number | undefined,
   groups: {
@@ -13,17 +11,14 @@ export function leftGroupMessage(
     admin: string;
   }[]
 ) {
-  return (
-   
-    groups
-      .filter((group) => group.id === groupInListId)[0]
-      .members.includes(loggedInUser!.username)
-  );
+  return groups
+    .filter((group) => group.id === groupInListId)[0]
+    .members.includes(loggedInUser!.username);
 }
 
 export function leftMessage(
   message: Message,
- 
+
   userInListId: number | undefined
 ) {
   return message.senderId === userInListId;
@@ -39,7 +34,7 @@ export function rightMessage(
 
 export function searchedMessageFunc(
   messages: Message[],
- 
+
   searchMessage: string
 ) {
   return messages.filter((userMessage) =>

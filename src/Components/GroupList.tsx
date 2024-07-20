@@ -1,10 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaCog } from "react-icons/fa";
 import Avatar from "./Avatar";
-import { useAppSelector } from "../store";
+import { useAppSelector } from "../../store/store";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setIsDeleteTeam, Team } from "../utils/groupSlice";
+import { setIsDeleteTeam, Team } from "../../store/groupSlice";
 import FlashingDot from "./FlashingDots";
 
 export default function GroupList() {
